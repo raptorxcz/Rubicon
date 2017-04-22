@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB03B3DF1EABB380007BF9FC /* VarDeclarationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA433191EABB2DD0018CE48 /* VarDeclarationType.swift */; };
 		BBA24AA21EA9459800ADCAAF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA11EA9459800ADCAAF /* main.swift */; };
 		BBA24AA91EA945C800ADCAAF /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA81EA945C800ADCAAF /* Token.swift */; };
 		BBA24AB71EA946BD00ADCAAF /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AB61EA946BD00ADCAAF /* Parser.swift */; };
 		BBA24ACD1EA94D4600ADCAAF /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA81EA945C800ADCAAF /* Token.swift */; };
 		BBA24AD01EA94DC700ADCAAF /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24ACF1EA94DC700ADCAAF /* ParserTests.swift */; };
 		BBA24AD11EA9573300ADCAAF /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AB61EA946BD00ADCAAF /* Parser.swift */; };
+		BBA4331A1EABB2DD0018CE48 /* VarDeclarationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA433191EABB2DD0018CE48 /* VarDeclarationType.swift */; };
+		BBA4331C1EABB2F90018CE48 /* VarDeclarationTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA4331B1EABB2F90018CE48 /* VarDeclarationTypeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,7 +25,9 @@
 		BBA24AB61EA946BD00ADCAAF /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		BBA24AC01EA9498B00ADCAAF /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBA24AC41EA9498B00ADCAAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BBA24ACF1EA94DC700ADCAAF /* ParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParserTests.swift; path = "../Rubicon Tests/ParserTests.swift"; sourceTree = "<group>"; };
+		BBA24ACF1EA94DC700ADCAAF /* ParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
+		BBA433191EABB2DD0018CE48 /* VarDeclarationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarDeclarationType.swift; sourceTree = "<group>"; };
+		BBA4331B1EABB2F90018CE48 /* VarDeclarationTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarDeclarationTypeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +71,7 @@
 			children = (
 				BBA24AA11EA9459800ADCAAF /* main.swift */,
 				BBA24AA81EA945C800ADCAAF /* Token.swift */,
+				BBA433191EABB2DD0018CE48 /* VarDeclarationType.swift */,
 				BBA24AB61EA946BD00ADCAAF /* Parser.swift */,
 			);
 			path = Rubicon;
@@ -74,6 +80,7 @@
 		BBA24AC11EA9498B00ADCAAF /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				BBA4331B1EABB2F90018CE48 /* VarDeclarationTypeTests.swift */,
 				BBA24ACF1EA94DC700ADCAAF /* ParserTests.swift */,
 				BBA24AC41EA9498B00ADCAAF /* Info.plist */,
 			);
@@ -174,6 +181,7 @@
 				BBA24AA21EA9459800ADCAAF /* main.swift in Sources */,
 				BBA24AA91EA945C800ADCAAF /* Token.swift in Sources */,
 				BBA24AB71EA946BD00ADCAAF /* Parser.swift in Sources */,
+				BBA4331A1EABB2DD0018CE48 /* VarDeclarationType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,9 +189,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB03B3DF1EABB380007BF9FC /* VarDeclarationType.swift in Sources */,
 				BBA24ACD1EA94D4600ADCAAF /* Token.swift in Sources */,
 				BBA24AD01EA94DC700ADCAAF /* ParserTests.swift in Sources */,
 				BBA24AD11EA9573300ADCAAF /* Parser.swift in Sources */,
+				BBA4331C1EABB2F90018CE48 /* VarDeclarationTypeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
