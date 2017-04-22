@@ -15,6 +15,7 @@ public enum Token {
     case rightBracket
     case colon
     case comma
+    case questionMark
     case equal
     case variable
     case constant
@@ -42,6 +43,8 @@ extension Token: Equatable {
         case (.colon, .colon):
             return true
         case (.comma, .comma):
+            return true
+        case (.questionMark, .questionMark):
             return true
         case (.equal, .equal):
             return true
