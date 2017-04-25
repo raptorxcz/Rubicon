@@ -8,11 +8,12 @@
 
 import XCTest
 
-class VarDeclarationTypeTests: XCTestCase {
+class VarDeclarationTypeParserTests: XCTestCase {
 
     func test_givenNoToken_whenParse_thenThrowError() {
         do {
-            _ = try VarDeclarationType(tokens: [])
+            let parser = VarDeclarationTypeParser()
+            _ = try parser.parse(tokens: [])
         } catch {
             return
         }
@@ -22,7 +23,8 @@ class VarDeclarationTypeTests: XCTestCase {
 
     func test_givenVariableToken_whenParse_thenThrowError() {
         do {
-            _ = try VarDeclarationType(tokens: [.variable])
+            let parser = VarDeclarationTypeParser()
+            _ = try parser.parse(tokens: [.variable])
         } catch {
             return
         }
@@ -33,7 +35,8 @@ class VarDeclarationTypeTests: XCTestCase {
     func test_givenMissingColonToken_whenParse_thenThrowError() {
         let tokens: [Token] = [.variable, .identifier(name: "x"), .identifier(name: "Int")]
         do {
-            _ = try VarDeclarationType(tokens: tokens)
+            let parser = VarDeclarationTypeParser()
+            _ = try parser.parse(tokens: tokens)
         } catch {
             return
         }
@@ -44,7 +47,8 @@ class VarDeclarationTypeTests: XCTestCase {
     func test_givenInvalidTokens1_whenParse_thenThrowError() {
         let tokens: [Token] = [.constant, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .rightCurlyBracket]
         do {
-            _ = try VarDeclarationType(tokens: tokens)
+            let parser = VarDeclarationTypeParser()
+            _ = try parser.parse(tokens: tokens)
         } catch {
             return
         }
@@ -55,7 +59,8 @@ class VarDeclarationTypeTests: XCTestCase {
     func test_givenInvalidTokens2_whenParse_thenThrowError() {
         let tokens: [Token] = [.variable, .identifier(name: "Int"), .variable, .identifier(name: "Int"), .leftCurlyBracket, .get, .rightCurlyBracket]
         do {
-            _ = try VarDeclarationType(tokens: tokens)
+            let parser = VarDeclarationTypeParser()
+            _ = try parser.parse(tokens: tokens)
         } catch {
             return
         }
@@ -66,7 +71,8 @@ class VarDeclarationTypeTests: XCTestCase {
     func test_givenInvalidTokens3_whenParse_thenThrowError() {
         let tokens: [Token] = [.variable, .identifier(name: "Int"), .colon, .identifier(name: "Int"), .variable, .get, .rightCurlyBracket]
         do {
-            _ = try VarDeclarationType(tokens: tokens)
+            let parser = VarDeclarationTypeParser()
+            _ = try parser.parse(tokens: tokens)
         } catch {
             return
         }
@@ -77,7 +83,8 @@ class VarDeclarationTypeTests: XCTestCase {
     func test_givenInvalidTokens4_whenParse_thenThrowError() {
         let tokens: [Token] = [.variable, .identifier(name: "Int"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .variable]
         do {
-            _ = try VarDeclarationType(tokens: tokens)
+            let parser = VarDeclarationTypeParser()
+            _ = try parser.parse(tokens: tokens)
         } catch {
             return
         }
@@ -89,7 +96,9 @@ class VarDeclarationTypeTests: XCTestCase {
         let tokens: [Token] = [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .rightCurlyBracket]
 
         do {
-            let type = try VarDeclarationType(tokens: tokens)
+            let parser = VarDeclarationTypeParser()
+            let result = try parser.parse(tokens: tokens)
+            let type = result.varDeclarationType
             XCTAssertEqual(type.isConstant, true)
             XCTAssertEqual(type.identifier, "x")
             XCTAssertEqual(type.type, "Int")
@@ -102,7 +111,9 @@ class VarDeclarationTypeTests: XCTestCase {
         let tokens: [Token] = [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .set, .rightCurlyBracket]
 
         do {
-            let type = try VarDeclarationType(tokens: tokens)
+            let parser = VarDeclarationTypeParser()
+            let result = try parser.parse(tokens: tokens)
+            let type = result.varDeclarationType
             XCTAssertEqual(type.isConstant, false)
             XCTAssertEqual(type.identifier, "x")
             XCTAssertEqual(type.type, "Int")
@@ -116,7 +127,9 @@ class VarDeclarationTypeTests: XCTestCase {
         let tokens: [Token] = [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .set, .get, .rightCurlyBracket]
 
         do {
-            let type = try VarDeclarationType(tokens: tokens)
+            let parser = VarDeclarationTypeParser()
+            let result = try parser.parse(tokens: tokens)
+            let type = result.varDeclarationType
             XCTAssertEqual(type.isConstant, false)
             XCTAssertEqual(type.identifier, "x")
             XCTAssertEqual(type.type, "Int")
@@ -130,7 +143,8 @@ class VarDeclarationTypeTests: XCTestCase {
         let tokens: [Token] = [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .set, .rightCurlyBracket]
 
         do {
-            _ = try VarDeclarationType(tokens: tokens)
+            let parser = VarDeclarationTypeParser()
+            _ = try parser.parse(tokens: tokens)
         } catch {
             return
         }
@@ -141,11 +155,32 @@ class VarDeclarationTypeTests: XCTestCase {
         let tokens: [Token] = [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .questionMark, .leftCurlyBracket, .set, .get, .rightCurlyBracket]
 
         do {
-            let type = try VarDeclarationType(tokens: tokens)
+            let parser = VarDeclarationTypeParser()
+            let result = try parser.parse(tokens: tokens)
+            let type = result.varDeclarationType
             XCTAssertEqual(type.isConstant, false)
             XCTAssertEqual(type.identifier, "x")
             XCTAssertEqual(type.type, "Int")
             XCTAssertEqual(type.isOptional, true)
+            XCTAssertEqual(result.unparsedTokens, [])
+        } catch {
+            XCTFail()
+        }
+    }
+
+
+    func test_givenAlotOfTokensDefinition_whenParse_thenParseVariable() {
+        let tokens: [Token] = [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .questionMark, .leftCurlyBracket, .set, .get, .rightCurlyBracket, .leftCurlyBracket, .set, .get, .rightCurlyBracket]
+
+        do {
+            let parser = VarDeclarationTypeParser()
+            let result = try parser.parse(tokens: tokens)
+            let type = result.varDeclarationType
+            XCTAssertEqual(type.isConstant, false)
+            XCTAssertEqual(type.identifier, "x")
+            XCTAssertEqual(type.type, "Int")
+            XCTAssertEqual(type.isOptional, true)
+            XCTAssertEqual(result.unparsedTokens, [.leftCurlyBracket, .set, .get, .rightCurlyBracket])
         } catch {
             XCTFail()
         }
