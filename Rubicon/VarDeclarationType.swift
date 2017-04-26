@@ -10,7 +10,6 @@ public struct VarDeclarationType {
 
     public var isConstant: Bool
     public var identifier: String
-    public var type: String
-    public var isOptional: Bool
+    public var type: Type
 
 }

@@ -21,6 +21,11 @@
 		BBA24AD11EA9573300ADCAAF /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AB61EA946BD00ADCAAF /* Parser.swift */; };
 		BBA4331A1EABB2DD0018CE48 /* VarDeclarationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA433191EABB2DD0018CE48 /* VarDeclarationType.swift */; };
 		BBA4331C1EABB2F90018CE48 /* VarDeclarationTypeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA4331B1EABB2F90018CE48 /* VarDeclarationTypeParserTests.swift */; };
+		BBD4DE871EB110C700AEBE06 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE861EB110C700AEBE06 /* Type.swift */; };
+		BBD4DE881EB110EE00AEBE06 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE861EB110C700AEBE06 /* Type.swift */; };
+		BBD4DE8A1EB1145D00AEBE06 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE891EB1145D00AEBE06 /* StorageTests.swift */; };
+		BBD4DE8C1EB1149600AEBE06 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE8B1EB1149600AEBE06 /* Storage.swift */; };
+		BBD4DE8D1EB1149D00AEBE06 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE8B1EB1149600AEBE06 /* Storage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +41,9 @@
 		BBA24ACF1EA94DC700ADCAAF /* ParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
 		BBA433191EABB2DD0018CE48 /* VarDeclarationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarDeclarationType.swift; sourceTree = "<group>"; };
 		BBA4331B1EABB2F90018CE48 /* VarDeclarationTypeParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarDeclarationTypeParserTests.swift; sourceTree = "<group>"; };
+		BBD4DE861EB110C700AEBE06 /* Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
+		BBD4DE891EB1145D00AEBE06 /* StorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
+		BBD4DE8B1EB1149600AEBE06 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +90,9 @@
 				BB8A012B1EACBC8200D50CF7 /* TypeParser.swift */,
 				BBA433191EABB2DD0018CE48 /* VarDeclarationType.swift */,
 				BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */,
+				BBD4DE861EB110C700AEBE06 /* Type.swift */,
 				BBA24AA11EA9459800ADCAAF /* main.swift */,
+				BBD4DE8B1EB1149600AEBE06 /* Storage.swift */,
 			);
 			path = Rubicon;
 			sourceTree = "<group>";
@@ -90,6 +100,7 @@
 		BBA24AC11EA9498B00ADCAAF /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				BBD4DE891EB1145D00AEBE06 /* StorageTests.swift */,
 				BBA24AC41EA9498B00ADCAAF /* Info.plist */,
 				BBA24ACF1EA94DC700ADCAAF /* ParserTests.swift */,
 				BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */,
@@ -193,6 +204,8 @@
 				BB8A01271EAC99E400D50CF7 /* VarDeclarationTypeParser.swift in Sources */,
 				BB8A012C1EACBC8200D50CF7 /* TypeParser.swift in Sources */,
 				BBA24AA91EA945C800ADCAAF /* Token.swift in Sources */,
+				BBD4DE871EB110C700AEBE06 /* Type.swift in Sources */,
+				BBD4DE8C1EB1149600AEBE06 /* Storage.swift in Sources */,
 				BBA24AB71EA946BD00ADCAAF /* Parser.swift in Sources */,
 				BBA4331A1EABB2DD0018CE48 /* VarDeclarationType.swift in Sources */,
 			);
@@ -203,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB03B3DF1EABB380007BF9FC /* VarDeclarationType.swift in Sources */,
+				BBD4DE8D1EB1149D00AEBE06 /* Storage.swift in Sources */,
 				BBA24ACD1EA94D4600ADCAAF /* Token.swift in Sources */,
 				BB8A012D1EACBC8900D50CF7 /* TypeParser.swift in Sources */,
 				BB8A012A1EACBC6600D50CF7 /* TypeParserTests.swift in Sources */,
@@ -210,6 +224,8 @@
 				BB8A01281EAC9A8600D50CF7 /* VarDeclarationTypeParser.swift in Sources */,
 				BBA24AD11EA9573300ADCAAF /* Parser.swift in Sources */,
 				BBA4331C1EABB2F90018CE48 /* VarDeclarationTypeParserTests.swift in Sources */,
+				BBD4DE881EB110EE00AEBE06 /* Type.swift in Sources */,
+				BBD4DE8A1EB1145D00AEBE06 /* StorageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
