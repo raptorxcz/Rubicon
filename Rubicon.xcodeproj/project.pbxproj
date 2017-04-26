@@ -26,6 +26,7 @@
 		BBCE32E51EB122A5005732CC /* FunctionDeclarationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32E31EB122A5005732CC /* FunctionDeclarationParser.swift */; };
 		BBCE32E71EB125A6005732CC /* FunctionDeclarationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32E61EB125A6005732CC /* FunctionDeclarationType.swift */; };
 		BBCE32E81EB125A6005732CC /* FunctionDeclarationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32E61EB125A6005732CC /* FunctionDeclarationType.swift */; };
+		BBCE32EA1EB12838005732CC /* XCTextCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32E91EB12838005732CC /* XCTextCase.swift */; };
 		BBD4DE871EB110C700AEBE06 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE861EB110C700AEBE06 /* Type.swift */; };
 		BBD4DE881EB110EE00AEBE06 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE861EB110C700AEBE06 /* Type.swift */; };
 		BBD4DE8A1EB1145D00AEBE06 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE891EB1145D00AEBE06 /* StorageTests.swift */; };
@@ -49,6 +50,7 @@
 		BBCE32E11EB12247005732CC /* FunctionDeclarationParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionDeclarationParserTests.swift; sourceTree = "<group>"; };
 		BBCE32E31EB122A5005732CC /* FunctionDeclarationParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionDeclarationParser.swift; sourceTree = "<group>"; };
 		BBCE32E61EB125A6005732CC /* FunctionDeclarationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionDeclarationType.swift; sourceTree = "<group>"; };
+		BBCE32E91EB12838005732CC /* XCTextCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTextCase.swift; sourceTree = "<group>"; };
 		BBD4DE861EB110C700AEBE06 /* Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
 		BBD4DE891EB1145D00AEBE06 /* StorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 		BBD4DE8B1EB1149600AEBE06 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				BBD4DE891EB1145D00AEBE06 /* StorageTests.swift */,
 				BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */,
 				BBA4331B1EABB2F90018CE48 /* VarDeclarationTypeParserTests.swift */,
+				BBCE32E91EB12838005732CC /* XCTextCase.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				BBD4DE8D1EB1149D00AEBE06 /* Storage.swift in Sources */,
 				BBCE32E81EB125A6005732CC /* FunctionDeclarationType.swift in Sources */,
 				BBA24ACD1EA94D4600ADCAAF /* Token.swift in Sources */,
+				BBCE32EA1EB12838005732CC /* XCTextCase.swift in Sources */,
 				BB8A012D1EACBC8900D50CF7 /* TypeParser.swift in Sources */,
 				BB8A012A1EACBC6600D50CF7 /* TypeParserTests.swift in Sources */,
 				BBA24AD01EA94DC700ADCAAF /* ParserTests.swift in Sources */,

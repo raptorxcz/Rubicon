@@ -11,14 +11,9 @@ import XCTest
 class StorageTests: XCTestCase {
 
     func test_givenNoToken_whenInit_thenThrowException() {
-        do {
-        _ = try Storage(tokens: [])
-        } catch (let error as StorageError) {
-            XCTAssertEqual(error, .noTokens)
-            return
-        } catch {}
-
-        XCTFail()
+        testStorageException(with: .noTokens) {
+            _ = try Storage(tokens: [])
+        }
     }
 
     func test_givenOneToken_whenInit_thenInit() {
@@ -39,15 +34,10 @@ class StorageTests: XCTestCase {
     }
 
     func test_givenOneToken_whenGetNextToken_thenThrowException() {
-        do {
+        testStorageException(with: .noNextToken) {
             let storage = try Storage(tokens: [.colon])
             _ = try storage.next()
-        } catch (let error as StorageError) {
-            XCTAssertEqual(error, .noNextToken)
-            return
-        } catch {}
-
-        XCTFail()
+        }
     }
 
     func test_givenTwoTokens_whenGetNextToken_thenReturnSecondToken() {
@@ -61,15 +51,10 @@ class StorageTests: XCTestCase {
     }
 
     func test_whenGetPreviousToken_thenThrowException() {
-        do {
+        testStorageException(with: .noPreviousToken) {
             let storage = try Storage(tokens: [.colon])
             _ = try storage.previous()
-        } catch (let error as StorageError) {
-            XCTAssertEqual(error, .noPreviousToken)
-            return
-        } catch {}
-
-        XCTFail()
+        }
     }
 
     func test_givenTwoTokens_whenGetNextAndPreviousToken_thenReturnFirstToken() {
@@ -82,6 +67,10 @@ class StorageTests: XCTestCase {
         } catch {
             XCTFail()
         }
+    }
+
+    private func testStorageException(with exception: StorageError, parse: (() throws -> ())) {
+        testException(with: exception, parse: parse)
     }
 
 }

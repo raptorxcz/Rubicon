@@ -15,14 +15,10 @@ class TypeParserTests: XCTestCase {
     func test_givenColonToken_whenParse_thenThrowException() {
         let storage = try! Storage(tokens: [.colon])
 
-        do {
+        testException(with: TypeParserError.invalidName) { 
             _ = try parser.parse(storage: storage)
-        } catch let (error as TypeParserError) {
-            XCTAssertEqual(error, .invalidName)
-            return
-        } catch {}
 
-        XCTFail()
+        }
     }
 
     func test_givenNameToken_whenParse_thenParse() {
