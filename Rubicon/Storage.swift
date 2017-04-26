@@ -10,6 +10,7 @@ enum StorageError: Error {
     case noTokens
     case noNextToken
     case noPreviousToken
+    case indexOutOfBounds
 }
 
 public class Storage {
@@ -49,5 +50,17 @@ public class Storage {
 
         index = newIndex
         return current
+    }
+
+    public func currentIndex() -> Int {
+        return index
+    }
+
+    public func setCurrentIndex(_ index: Int) throws {
+        guard tokens.indices.contains(index) else {
+            throw StorageError.indexOutOfBounds
+        }
+
+        self.index = index
     }
 }

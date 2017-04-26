@@ -32,6 +32,7 @@ public class VarDeclarationTypeParser {
         var state = State.start
         var identifier: String?
         var type: Type?
+        let index = storage.currentIndex()
 
         while !isEnd {
             let token: Token?
@@ -117,6 +118,7 @@ public class VarDeclarationTypeParser {
             }
         }
 
+        try? storage.setCurrentIndex(index)
         throw VarDeclarationTypeError.invalidTokens
     }
 }

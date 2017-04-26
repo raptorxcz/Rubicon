@@ -29,6 +29,7 @@ class VarDeclarationTypeParserTests: XCTestCase {
         do {
             let parser = VarDeclarationTypeParser()
             _ = try parser.parse(storage: storage)
+            XCTAssertEqual(storage.current, .variable)
         } catch {
             return
         }
@@ -66,6 +67,7 @@ class VarDeclarationTypeParserTests: XCTestCase {
             let parser = VarDeclarationTypeParser()
             _ = try parser.parse(storage: storage)
         } catch {
+            XCTAssertEqual(storage.current, .variable)
             return
         }
 

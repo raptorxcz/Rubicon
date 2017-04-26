@@ -30,6 +30,7 @@ class FunctionDeclarationParserTests: XCTestCase {
     func test_givenInvalidFunctionArgument_whenParse_thenThrowInvalidFunctionArgumentException() {
         let storage = try! Storage(tokens: [.function, .identifier(name: "f"), .leftBracket, .colon])
         testParserException(with: storage, .invalidFunctionArgument)
+        XCTAssertEqual(storage.current, .function)
     }
 
     func test_givenFunction_whenParse_thenParse() {

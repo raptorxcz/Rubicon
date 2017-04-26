@@ -15,6 +15,9 @@ enum ProtocolParserError: Error {
 
 public class ProtocolParser {
 
+    private let variableParser = VarDeclarationTypeParser()
+    private let functionParser = FunctionDeclarationParser()
+
     public func parse(storage: Storage) throws -> Protocol {
         guard storage.current == .protocol else {
             throw ProtocolParserError.invalidProtocolToken
@@ -28,11 +31,37 @@ public class ProtocolParser {
             throw ProtocolParserError.expectedLeftBracket
         }
 
-        guard let rightBracketToken = try? storage.next(), rightBracketToken == .rightCurlyBracket else {
+        _ = try? storage.next()
+        let `protocol` = parseProtocol(with: name, storage: storage)
+
+        guard storage.current == .rightCurlyBracket else {
             throw ProtocolParserError.expectedRightBracket
         }
 
         _ = try storage.next()
-        return Protocol(name: name)
+        return `protocol`
+    }
+
+    private func parseProtocol(with name: String, storage: Storage) -> Protocol {
+        var variables = [VarDeclarationType]()
+        var functions = [FunctionDeclarationType]()
+
+        var isSomethingParsed = true
+
+        while isSomethingParsed {
+            isSomethingParsed = false
+
+            if let variable = try? variableParser.parse(storage: storage) {
+                variables.append(variable)
+                isSomethingParsed = true
+            }
+
+            if let function = try? functionParser.parse(storage: storage) {
+                functions.append(function)
+                isSomethingParsed = true
+            }
+        }
+
+        return Protocol(name: name, variables: variables, functions: functions)
     }
 }

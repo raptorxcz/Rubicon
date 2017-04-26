@@ -69,6 +69,34 @@ class StorageTests: XCTestCase {
         }
     }
 
+    func test_whenGetCurrentIndex_thenReturnIndex() {
+        do {
+            let storage = try Storage(tokens: [.colon, .comma])
+            _ = try storage.next()
+            let index = storage.currentIndex()
+            XCTAssertEqual(index, 1)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenInvalidIndex_whenSetIndex_thenThrowException() {
+        testStorageException(with: .indexOutOfBounds) {
+            let storage = try Storage(tokens: [.colon, .comma])
+            try storage.setCurrentIndex(100)
+        }
+    }
+
+    func test_givenValidIndex_whenSetIndex_thenSetIndex() {
+        do {
+            let storage = try Storage(tokens: [.colon, .comma])
+            try storage.setCurrentIndex(1)
+            XCTAssertEqual(storage.current, .comma)
+        } catch {
+            XCTFail()
+        }
+    }
+
     private func testStorageException(with exception: StorageError, parse: (() throws -> Void)) {
         testException(with: exception, parse: parse)
     }

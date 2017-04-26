@@ -8,4 +8,6 @@
 
 public struct Protocol {
     public var name: String
+    public var variables: [VarDeclarationType]
+    public var functions: [FunctionDeclarationType]
 }
