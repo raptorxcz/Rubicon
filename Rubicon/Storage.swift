@@ -17,6 +17,7 @@ public class Storage {
     public var current: Token {
         return tokens[index]
     }
+
     private let tokens: [Token]
     private var index = 0
 
@@ -49,5 +50,4 @@ public class Storage {
         index = newIndex
         return current
     }
-
 }

@@ -11,5 +11,4 @@ public struct VarDeclarationType {
     public var isConstant: Bool
     public var identifier: String
     public var type: Type
-
 }

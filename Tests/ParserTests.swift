@@ -152,9 +152,8 @@ class ParserTests: XCTestCase {
             .colon,
             .identifier(name: "Float"),
             .rightBracket,
-            .rightCurlyBracket
+            .rightCurlyBracket,
         ]
         XCTAssertEqual(result, expected)
     }
-
 }

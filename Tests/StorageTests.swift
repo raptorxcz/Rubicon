@@ -69,8 +69,7 @@ class StorageTests: XCTestCase {
         }
     }
 
-    private func testStorageException(with exception: StorageError, parse: (() throws -> ())) {
+    private func testStorageException(with exception: StorageError, parse: (() throws -> Void)) {
         testException(with: exception, parse: parse)
     }
-
 }

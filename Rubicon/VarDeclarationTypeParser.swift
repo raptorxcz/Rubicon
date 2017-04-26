@@ -50,7 +50,7 @@ public class VarDeclarationTypeParser {
                     state = .error
                 }
             case .variable:
-                if let token = token, case .identifier(let name) = token {
+                if let token = token, case let .identifier(name) = token {
                     identifier = name
                     state = .name
                 } else {
@@ -119,5 +119,4 @@ public class VarDeclarationTypeParser {
 
         throw VarDeclarationTypeError.invalidTokens
     }
-
 }

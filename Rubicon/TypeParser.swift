@@ -13,7 +13,7 @@ enum TypeParserError: Error {
 public class TypeParser {
 
     public func parse(storage: Storage) throws -> Type {
-        guard case .identifier(let name) = storage.current else {
+        guard case let .identifier(name) = storage.current else {
             throw TypeParserError.invalidName
         }
 
@@ -26,5 +26,4 @@ public class TypeParser {
 
         return Type(name: name, isOptional: false)
     }
-
 }

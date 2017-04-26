@@ -20,7 +20,7 @@ public class FunctionDeclarationParser {
             throw FunctionDeclarationParserError.invalidFunctionToken
         }
 
-        guard let nextToken = try? storage.next(), case .identifier(let name) = nextToken else {
+        guard let nextToken = try? storage.next(), case let .identifier(name) = nextToken else {
             throw FunctionDeclarationParserError.invalidNameToken
         }
 
@@ -35,5 +35,4 @@ public class FunctionDeclarationParser {
         _ = try? storage.next()
         return FunctionDeclarationType(name: name)
     }
-
 }

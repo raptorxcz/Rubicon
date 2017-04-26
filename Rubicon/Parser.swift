@@ -19,7 +19,7 @@ public class Parser {
     public func parse(_ text: String) -> [Token] {
         let text = text + " "
         var index = text.startIndex
-        let range = text.startIndex..<text.endIndex
+        let range = text.startIndex ..< text.endIndex
 
         while range.contains(index) {
             switch text[index] {
@@ -115,5 +115,4 @@ public class Parser {
     private func addToResult(_ token: Token) {
         results.append(token)
     }
-
 }

@@ -170,5 +170,4 @@ class VarDeclarationTypeParserTests: XCTestCase {
             XCTFail()
         }
     }
-    
 }

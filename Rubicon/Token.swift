@@ -29,7 +29,7 @@ extension Token: Equatable {
     public static func ==(lhs: Token, rhs: Token) -> Bool {
 
         switch (lhs, rhs) {
-        case (.identifier(let name1), .identifier(let name2)) :
+        case let (.identifier(name1), .identifier(name2)) :
             return name1 == name2
         case (.protocol, .protocol):
             return true
@@ -64,6 +64,5 @@ extension Token: Equatable {
         default:
             return false
         }
-
     }
 }

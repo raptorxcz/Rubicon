@@ -10,7 +10,7 @@ import XCTest
 
 extension XCTestCase {
 
-    func testException<E: Error>(with exception: E, parse: (() throws -> ())) where E: Equatable {
+    func testException<E: Error>(with exception: E, parse: (() throws -> Void)) where E: Equatable {
         do {
             try parse()
         } catch let (error as E) {
@@ -20,6 +20,4 @@ extension XCTestCase {
 
         XCTFail()
     }
-
 }
-

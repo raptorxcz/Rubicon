@@ -48,5 +48,4 @@ class FunctionDeclarationParserTests: XCTestCase {
             _ = try parser.parse(storage: storage)
         })
     }
-
 }

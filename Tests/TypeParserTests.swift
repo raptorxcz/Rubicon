@@ -15,9 +15,8 @@ class TypeParserTests: XCTestCase {
     func test_givenColonToken_whenParse_thenThrowException() {
         let storage = try! Storage(tokens: [.colon])
 
-        testException(with: TypeParserError.invalidName) { 
+        testException(with: TypeParserError.invalidName) {
             _ = try parser.parse(storage: storage)
-
         }
     }
 
@@ -58,5 +57,4 @@ class TypeParserTests: XCTestCase {
             XCTFail()
         }
     }
-
 }

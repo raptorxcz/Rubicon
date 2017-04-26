@@ -27,6 +27,11 @@
 		BBCE32E71EB125A6005732CC /* FunctionDeclarationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32E61EB125A6005732CC /* FunctionDeclarationType.swift */; };
 		BBCE32E81EB125A6005732CC /* FunctionDeclarationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32E61EB125A6005732CC /* FunctionDeclarationType.swift */; };
 		BBCE32EA1EB12838005732CC /* XCTextCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32E91EB12838005732CC /* XCTextCase.swift */; };
+		BBCE32EC1EB12C78005732CC /* ProtocolParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32EB1EB12C78005732CC /* ProtocolParserTests.swift */; };
+		BBCE32EE1EB12CD4005732CC /* ProtocolParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32ED1EB12CD4005732CC /* ProtocolParser.swift */; };
+		BBCE32EF1EB12CD4005732CC /* ProtocolParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32ED1EB12CD4005732CC /* ProtocolParser.swift */; };
+		BBCE32F11EB12F57005732CC /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32F01EB12F57005732CC /* Protocol.swift */; };
+		BBCE32F21EB12F57005732CC /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32F01EB12F57005732CC /* Protocol.swift */; };
 		BBD4DE871EB110C700AEBE06 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE861EB110C700AEBE06 /* Type.swift */; };
 		BBD4DE881EB110EE00AEBE06 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE861EB110C700AEBE06 /* Type.swift */; };
 		BBD4DE8A1EB1145D00AEBE06 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE891EB1145D00AEBE06 /* StorageTests.swift */; };
@@ -51,6 +56,9 @@
 		BBCE32E31EB122A5005732CC /* FunctionDeclarationParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionDeclarationParser.swift; sourceTree = "<group>"; };
 		BBCE32E61EB125A6005732CC /* FunctionDeclarationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionDeclarationType.swift; sourceTree = "<group>"; };
 		BBCE32E91EB12838005732CC /* XCTextCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTextCase.swift; sourceTree = "<group>"; };
+		BBCE32EB1EB12C78005732CC /* ProtocolParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolParserTests.swift; sourceTree = "<group>"; };
+		BBCE32ED1EB12CD4005732CC /* ProtocolParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolParser.swift; sourceTree = "<group>"; };
+		BBCE32F01EB12F57005732CC /* Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		BBD4DE861EB110C700AEBE06 /* Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
 		BBD4DE891EB1145D00AEBE06 /* StorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 		BBD4DE8B1EB1149600AEBE06 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
@@ -98,6 +106,8 @@
 				BBCE32E31EB122A5005732CC /* FunctionDeclarationParser.swift */,
 				BBCE32E61EB125A6005732CC /* FunctionDeclarationType.swift */,
 				BBA24AB61EA946BD00ADCAAF /* Parser.swift */,
+				BBCE32F01EB12F57005732CC /* Protocol.swift */,
+				BBCE32ED1EB12CD4005732CC /* ProtocolParser.swift */,
 				BBD4DE8B1EB1149600AEBE06 /* Storage.swift */,
 				BBA24AA81EA945C800ADCAAF /* Token.swift */,
 				BBD4DE861EB110C700AEBE06 /* Type.swift */,
@@ -115,6 +125,7 @@
 				BBCE32E11EB12247005732CC /* FunctionDeclarationParserTests.swift */,
 				BBA24AC41EA9498B00ADCAAF /* Info.plist */,
 				BBA24ACF1EA94DC700ADCAAF /* ParserTests.swift */,
+				BBCE32EB1EB12C78005732CC /* ProtocolParserTests.swift */,
 				BBD4DE891EB1145D00AEBE06 /* StorageTests.swift */,
 				BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */,
 				BBA4331B1EABB2F90018CE48 /* VarDeclarationTypeParserTests.swift */,
@@ -221,9 +232,11 @@
 				BBCE32E71EB125A6005732CC /* FunctionDeclarationType.swift in Sources */,
 				BBCE32E41EB122A5005732CC /* FunctionDeclarationParser.swift in Sources */,
 				BBD4DE871EB110C700AEBE06 /* Type.swift in Sources */,
+				BBCE32EE1EB12CD4005732CC /* ProtocolParser.swift in Sources */,
 				BBD4DE8C1EB1149600AEBE06 /* Storage.swift in Sources */,
 				BBA24AB71EA946BD00ADCAAF /* Parser.swift in Sources */,
 				BBA4331A1EABB2DD0018CE48 /* VarDeclarationType.swift in Sources */,
+				BBCE32F11EB12F57005732CC /* Protocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,8 +248,11 @@
 				BBD4DE8D1EB1149D00AEBE06 /* Storage.swift in Sources */,
 				BBCE32E81EB125A6005732CC /* FunctionDeclarationType.swift in Sources */,
 				BBA24ACD1EA94D4600ADCAAF /* Token.swift in Sources */,
+				BBCE32EF1EB12CD4005732CC /* ProtocolParser.swift in Sources */,
+				BBCE32F21EB12F57005732CC /* Protocol.swift in Sources */,
 				BBCE32EA1EB12838005732CC /* XCTextCase.swift in Sources */,
 				BB8A012D1EACBC8900D50CF7 /* TypeParser.swift in Sources */,
+				BBCE32EC1EB12C78005732CC /* ProtocolParserTests.swift in Sources */,
 				BB8A012A1EACBC6600D50CF7 /* TypeParserTests.swift in Sources */,
 				BBA24AD01EA94DC700ADCAAF /* ParserTests.swift in Sources */,
 				BB8A01281EAC9A8600D50CF7 /* VarDeclarationTypeParser.swift in Sources */,
