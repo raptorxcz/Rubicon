@@ -22,6 +22,7 @@ public enum Token {
     case get
     case set
     case function
+    case arrow
 }
 
 extension Token: Equatable {
@@ -57,6 +58,8 @@ extension Token: Equatable {
         case (.set, .set):
             return true
         case (.function, .function):
+            return true
+        case (.arrow, .arrow):
             return true
         default:
             return false
