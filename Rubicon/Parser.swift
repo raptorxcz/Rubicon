@@ -56,6 +56,12 @@ public class Parser {
     private func parseName(from index: String.Index, in text: String) -> String.Index {
         var index = index
         buffer = ""
+        var isEndBackwardsQuoteRequired = false
+
+        if text[index] == "`" {
+            index = text.index(after: index)
+            isEndBackwardsQuoteRequired = true
+        }
 
         while text.characters.indices.contains(index) {
             let character = text[index]
@@ -63,7 +69,15 @@ public class Parser {
             if identifierCharacters.characters.contains(character) {
                 buffer += String(character)
             } else {
-                determineNameType(name: buffer)
+
+
+                if text[index] == "`" && isEndBackwardsQuoteRequired {
+                    index = text.index(after: index)
+                    addToResult(.identifier(name: buffer))
+                } else {
+                    determineNameType(name: buffer)
+                }
+
                 return text.index(before: index)
             }
 
