@@ -16,7 +16,7 @@ public class ArgumentParser {
 
     private let typeParser = TypeParser()
 
-    func parse(storage: Storage) throws -> Argument {
+    func parse(storage: Storage) throws -> ArgumentType {
         guard case .identifier(let label) = storage.current else {
             throw ArgumentParserError.invalidName
         }
@@ -33,7 +33,7 @@ public class ArgumentParser {
         }
     }
 
-    private func parseColon(in storage: Storage, label: String?, name: String) throws -> Argument {
+    private func parseColon(in storage: Storage, label: String?, name: String) throws -> ArgumentType {
         guard storage.current == .colon else {
             throw ArgumentParserError.invalidColon
         }
@@ -44,7 +44,7 @@ public class ArgumentParser {
             throw ArgumentParserError.invalidType
         }
 
-        return Argument(label: label, name: name, type: type)
+        return ArgumentType(label: label, name: name, type: type)
     }
 
 }

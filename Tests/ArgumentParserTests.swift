@@ -30,10 +30,10 @@ class ArgumentParserTests: XCTestCase {
     func test_givenArgument_whenParse_thenParse() {
         let storage = try! Storage(tokens: [.identifier(name: "name"), .colon, .identifier(name: "Int"), .colon])
         do {
-            let argument = try parser.parse(storage: storage)
-            XCTAssertEqual(argument.label, nil)
-            XCTAssertEqual(argument.name, "name")
-            XCTAssertEqual(argument.type.name, "Int")
+            let argumenType = try parser.parse(storage: storage)
+            XCTAssertEqual(argumenType.label, nil)
+            XCTAssertEqual(argumenType.name, "name")
+            XCTAssertEqual(argumenType.type.name, "Int")
             XCTAssertEqual(storage.current, .colon)
         } catch {
             XCTFail()
@@ -43,10 +43,10 @@ class ArgumentParserTests: XCTestCase {
     func test_givenArgumentWithLabel_whenParse_thenParse() {
         let storage = try! Storage(tokens: [.identifier(name: "label"), .identifier(name: "name"), .colon, .identifier(name: "Int"), .colon])
         do {
-            let argument = try parser.parse(storage: storage)
-            XCTAssertEqual(argument.label, "label")
-            XCTAssertEqual(argument.name, "name")
-            XCTAssertEqual(argument.type.name, "Int")
+            let argumenType = try parser.parse(storage: storage)
+            XCTAssertEqual(argumenType.label, "label")
+            XCTAssertEqual(argumenType.name, "name")
+            XCTAssertEqual(argumenType.type.name, "Int")
             XCTAssertEqual(storage.current, .colon)
         } catch {
             XCTFail()

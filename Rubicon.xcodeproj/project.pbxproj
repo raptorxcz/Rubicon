@@ -11,8 +11,8 @@
 		BB318B161EB240A300DF67FC /* ArgumentParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB318B151EB240A300DF67FC /* ArgumentParserTests.swift */; };
 		BB318B181EB240D300DF67FC /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB318B171EB240D300DF67FC /* ArgumentParser.swift */; };
 		BB318B191EB240D300DF67FC /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB318B171EB240D300DF67FC /* ArgumentParser.swift */; };
-		BB318B1B1EB2439000DF67FC /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB318B1A1EB2439000DF67FC /* Argument.swift */; };
-		BB318B1C1EB2439000DF67FC /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB318B1A1EB2439000DF67FC /* Argument.swift */; };
+		BB318B1B1EB2439000DF67FC /* ArgumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB318B1A1EB2439000DF67FC /* ArgumentType.swift */; };
+		BB318B1C1EB2439000DF67FC /* ArgumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB318B1A1EB2439000DF67FC /* ArgumentType.swift */; };
 		BB8A01271EAC99E400D50CF7 /* VarDeclarationTypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */; };
 		BB8A01281EAC9A8600D50CF7 /* VarDeclarationTypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */; };
 		BB8A012A1EACBC6600D50CF7 /* TypeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */; };
@@ -47,7 +47,7 @@
 /* Begin PBXFileReference section */
 		BB318B151EB240A300DF67FC /* ArgumentParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentParserTests.swift; sourceTree = "<group>"; };
 		BB318B171EB240D300DF67FC /* ArgumentParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentParser.swift; sourceTree = "<group>"; };
-		BB318B1A1EB2439000DF67FC /* Argument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Argument.swift; sourceTree = "<group>"; };
+		BB318B1A1EB2439000DF67FC /* ArgumentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentType.swift; sourceTree = "<group>"; };
 		BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarDeclarationTypeParser.swift; sourceTree = "<group>"; };
 		BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeParserTests.swift; sourceTree = "<group>"; };
 		BB8A012B1EACBC8200D50CF7 /* TypeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeParser.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 				BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */,
 				BBA24AA11EA9459800ADCAAF /* main.swift */,
 				BB318B171EB240D300DF67FC /* ArgumentParser.swift */,
-				BB318B1A1EB2439000DF67FC /* Argument.swift */,
+				BB318B1A1EB2439000DF67FC /* ArgumentType.swift */,
 			);
 			path = Rubicon;
 			sourceTree = "<group>";
@@ -236,7 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB318B1B1EB2439000DF67FC /* Argument.swift in Sources */,
+				BB318B1B1EB2439000DF67FC /* ArgumentType.swift in Sources */,
 				BBA24AA21EA9459800ADCAAF /* main.swift in Sources */,
 				BB8A01271EAC99E400D50CF7 /* VarDeclarationTypeParser.swift in Sources */,
 				BB8A012C1EACBC8200D50CF7 /* TypeParser.swift in Sources */,
@@ -264,7 +264,7 @@
 				BB318B161EB240A300DF67FC /* ArgumentParserTests.swift in Sources */,
 				BBCE32EF1EB12CD4005732CC /* ProtocolParser.swift in Sources */,
 				BBCE32F21EB12F57005732CC /* Protocol.swift in Sources */,
-				BB318B1C1EB2439000DF67FC /* Argument.swift in Sources */,
+				BB318B1C1EB2439000DF67FC /* ArgumentType.swift in Sources */,
 				BBCE32EA1EB12838005732CC /* XCTextCase.swift in Sources */,
 				BB8A012D1EACBC8900D50CF7 /* TypeParser.swift in Sources */,
 				BBCE32EC1EB12C78005732CC /* ProtocolParserTests.swift in Sources */,

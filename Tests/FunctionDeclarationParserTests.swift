@@ -10,7 +10,8 @@ import XCTest
 
 class FunctionDeclarationParserTests: XCTestCase {
 
-    let parser = FunctionDeclarationParser()
+    private let parser = FunctionDeclarationParser()
+    private let argumentTokens: [Token] = [.identifier(name: "a"), .colon, .identifier(name: "Int")]
 
     func test_givenColon_whenParse_thenThrowException() {
         let storage = try! Storage(tokens: [.colon])
@@ -38,6 +39,65 @@ class FunctionDeclarationParserTests: XCTestCase {
         do {
             let definition = try parser.parse(storage: storage)
             XCTAssertEqual(definition.name, "f")
+            XCTAssertEqual(storage.current, .colon)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenFunctionWithArgument_whenParse_thenParse() {
+        var tokens: [Token] = [.function, .identifier(name: "f"), .leftBracket]
+        tokens += argumentTokens
+        tokens += [.rightBracket, .colon]
+        let storage = try! Storage(tokens: tokens)
+        do {
+            let definition = try parser.parse(storage: storage)
+            XCTAssertEqual(definition.name, "f")
+            XCTAssertEqual(definition.arguments.count, 1)
+            XCTAssertEqual(definition.arguments[0].label, nil)
+            XCTAssertEqual(definition.arguments[0].name, "a")
+            XCTAssertEqual(definition.arguments[0].type.name, "Int")
+            XCTAssertEqual(storage.current, .colon)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenFunctionWithTwoArgument_whenParse_thenParse() {
+        var tokens: [Token] = [.function, .identifier(name: "f"), .leftBracket]
+        tokens += argumentTokens
+        tokens += [.comma]
+        tokens += argumentTokens
+        tokens += [.rightBracket, .colon]
+        let storage = try! Storage(tokens: tokens)
+
+        do {
+            let definition = try parser.parse(storage: storage)
+            XCTAssertEqual(definition.name, "f")
+            XCTAssertEqual(definition.arguments.count, 2)
+            XCTAssertEqual(definition.arguments[1].label, nil)
+            XCTAssertEqual(definition.arguments[1].name, "a")
+            XCTAssertEqual(definition.arguments[1].type.name, "Int")
+            XCTAssertEqual(storage.current, .colon)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenFunctionWithThreeArgument_whenParse_thenParse() {
+        var tokens: [Token] = [.function, .identifier(name: "f"), .leftBracket]
+        tokens += argumentTokens
+        tokens += [.comma]
+        tokens += argumentTokens
+        tokens += [.comma]
+        tokens += argumentTokens
+        tokens += [.rightBracket, .colon]
+        let storage = try! Storage(tokens: tokens)
+
+        do {
+            let definition = try parser.parse(storage: storage)
+            XCTAssertEqual(definition.name, "f")
+            XCTAssertEqual(definition.arguments.count, 3)
             XCTAssertEqual(storage.current, .colon)
         } catch {
             XCTFail()
