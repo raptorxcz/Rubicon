@@ -120,6 +120,11 @@ class ParserTests: XCTestCase {
         XCTAssertEqual(result, [.constant, .arrow, .colon])
     }
 
+    func test_givenKeyWordIdentifier_whenParse_thenIdentifierToken() {
+        let result = parser.parse("let `protocol`:")
+        XCTAssertEqual(result, [.constant, .identifier(name: "protocol"), .colon])
+    }
+
     func test_givenProtocolDefinition_whenParse_thenProtocolTokens() {
         var string = ""
         string += "protocol Satelite {\n"

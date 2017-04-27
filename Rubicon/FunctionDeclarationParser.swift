@@ -15,6 +15,8 @@ public enum FunctionDeclarationParserError: Error {
 
 public class FunctionDeclarationParser {
 
+    private var argumentParser = ArgumentParser()
+
     public func parse(storage: Storage) throws -> FunctionDeclarationType {
         let index = storage.currentIndex()
         guard storage.current == .function else {
@@ -31,12 +33,27 @@ public class FunctionDeclarationParser {
             throw FunctionDeclarationParserError.invalidLeftBracketToken
         }
 
-        guard let rightBracketToken = try? storage.next(), rightBracketToken == .rightBracket else {
+        _ = try? storage.next()
+        var arguments = [ArgumentType]()
+
+        if let argument = try? argumentParser.parse(storage: storage) {
+            arguments.append(argument)
+        }
+
+        while storage.current == .comma {
+            _ = try? storage.next()
+
+            if let argument = try? argumentParser.parse(storage: storage) {
+                arguments.append(argument)
+            }
+        }
+
+        guard storage.current == .rightBracket else {
             try? storage.setCurrentIndex(index)
             throw FunctionDeclarationParserError.invalidFunctionArgument
         }
 
         _ = try? storage.next()
-        return FunctionDeclarationType(name: name)
+        return FunctionDeclarationType(name: name, arguments: arguments)
     }
 }

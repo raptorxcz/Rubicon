@@ -9,4 +9,5 @@
 public struct FunctionDeclarationType {
 
     public var name: String
+    public var arguments: [ArgumentType]
 }
