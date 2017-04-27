@@ -19,7 +19,7 @@ public class Parser {
     public func parse(_ text: String) -> [Token] {
         let text = text + " "
         var index = text.startIndex
-        let range = text.startIndex..<text.endIndex
+        let range = text.startIndex ..< text.endIndex
 
         while range.contains(index) {
             switch text[index] {
@@ -39,6 +39,8 @@ public class Parser {
                 addToResult(.questionMark)
             case ",":
                 addToResult(.comma)
+            case "-":
+                index = parseArrow(from: index, in: text)
             case "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z":
                 index = parseName(from: index, in: text)
             default:
@@ -71,6 +73,22 @@ public class Parser {
         return index
     }
 
+    private func parseArrow(from index: String.Index, in text: String) -> String.Index {
+        let secondIndex = text.index(after: index)
+
+        if text.characters.indices.contains(index) && text.characters.indices.contains(secondIndex) {
+            let character = text[index]
+            let character2 = text[secondIndex]
+
+            if character == "-" && character2 == ">" {
+                addToResult(.arrow)
+                return secondIndex
+            }
+        }
+
+        return secondIndex
+    }
+
     private func determineNameType(name: String) {
         let token: Token
 
@@ -97,5 +115,4 @@ public class Parser {
     private func addToResult(_ token: Token) {
         results.append(token)
     }
-
 }

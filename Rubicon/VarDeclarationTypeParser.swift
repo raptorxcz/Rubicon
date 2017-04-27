@@ -10,11 +10,6 @@ public enum VarDeclarationTypeError: Error {
     case invalidTokens
 }
 
-public struct VarDeclarationTypeParserResult {
-    var varDeclarationType: VarDeclarationType
-    var unparsedTokens: [Token]
-}
-
 public class VarDeclarationTypeParser {
 
     private enum State {
@@ -23,7 +18,6 @@ public class VarDeclarationTypeParser {
         case name
         case colon
         case type
-        case questionMark
         case leftCurlyBracket
         case get
         case set
@@ -32,20 +26,21 @@ public class VarDeclarationTypeParser {
         case error
     }
 
-    public func parse(tokens: [Token]) throws -> VarDeclarationTypeParserResult {
+    public func parse(storage: Storage) throws -> VarDeclarationType {
         var isConstant = true
         var isEnd = false
         var state = State.start
-        var tokens = tokens
         var identifier: String?
-        var type: String?
-        var isOptional = false
+        var type: Type?
+        let index = storage.currentIndex()
 
         while !isEnd {
-            let token = tokens.first
+            let token: Token?
 
-            if token != nil {
-                tokens.removeFirst()
+            if state != .start, state != .type {
+                token = try? storage.next()
+            } else {
+                token = storage.current
             }
 
             switch state {
@@ -56,7 +51,7 @@ public class VarDeclarationTypeParser {
                     state = .error
                 }
             case .variable:
-                if let token = token, case .identifier(let name) = token {
+                if let token = token, case let .identifier(name) = token {
                     identifier = name
                     state = .name
                 } else {
@@ -69,22 +64,14 @@ public class VarDeclarationTypeParser {
                     state = .error
                 }
             case .colon:
-                if let token = token, case .identifier(let varType) = token {
+                let varType = try? TypeParser().parse(storage: storage)
+                if let varType = varType {
                     type = varType
                     state = .type
                 } else {
                     state = .error
                 }
             case .type:
-                if token == .leftCurlyBracket {
-                    state = .leftCurlyBracket
-                } else if token == .questionMark {
-                    state = .questionMark
-                } else {
-                    state = .error
-                }
-            case .questionMark:
-                isOptional = true
                 if token == .leftCurlyBracket {
                     state = .leftCurlyBracket
                 } else {
@@ -124,24 +111,14 @@ public class VarDeclarationTypeParser {
                 }
             case .rightCurlyBracket:
                 if let identifier = identifier, let type = type {
-                    let type = VarDeclarationType(isConstant: isConstant, identifier: identifier, type: type, isOptional: isOptional)
-
-                    let resultTokens: [Token]
-
-                    if let token = token {
-                        resultTokens = [token] + tokens
-                    } else {
-                        resultTokens = []
-                    }
-
-                    return VarDeclarationTypeParserResult(varDeclarationType: type, unparsedTokens: resultTokens)
+                    return VarDeclarationType(isConstant: isConstant, identifier: identifier, type: type)
                 }
             case .error:
                 isEnd = true
             }
         }
 
+        try? storage.setCurrentIndex(index)
         throw VarDeclarationTypeError.invalidTokens
     }
-
 }

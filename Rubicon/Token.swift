@@ -22,13 +22,14 @@ public enum Token {
     case get
     case set
     case function
+    case arrow
 }
 
 extension Token: Equatable {
     public static func ==(lhs: Token, rhs: Token) -> Bool {
 
         switch (lhs, rhs) {
-        case (.identifier(let name1), .identifier(let name2)) :
+        case let (.identifier(name1), .identifier(name2)) :
             return name1 == name2
         case (.protocol, .protocol):
             return true
@@ -58,9 +59,10 @@ extension Token: Equatable {
             return true
         case (.function, .function):
             return true
+        case (.arrow, .arrow):
+            return true
         default:
             return false
         }
-
     }
 }

@@ -7,13 +7,23 @@
 //
 
 enum TypeParserError: Error {
-    case invalidArguments
+    case invalidName
 }
 
 public class TypeParser {
 
-    public func parse(tokens: [Token]) throws {
-        throw TypeParserError.invalidArguments
-    }
+    public func parse(storage: Storage) throws -> Type {
+        guard case let .identifier(name) = storage.current else {
+            throw TypeParserError.invalidName
+        }
 
+        if let token = try? storage.next() {
+            if token == .questionMark {
+                _ = try? storage.next()
+                return Type(name: name, isOptional: true)
+            }
+        }
+
+        return Type(name: name, isOptional: false)
+    }
 }

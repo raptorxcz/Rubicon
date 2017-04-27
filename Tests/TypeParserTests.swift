@@ -10,16 +10,51 @@ import XCTest
 
 class TypeParserTests: XCTestCase {
 
-    func test_givenNoToken_whenParse_thenThrowException() {
-        let parser = TypeParser()
+    let parser = TypeParser()
 
-        do {
-            try parser.parse(tokens: [])
-        } catch {
-            return
+    func test_givenColonToken_whenParse_thenThrowException() {
+        let storage = try! Storage(tokens: [.colon])
+
+        testException(with: TypeParserError.invalidName) {
+            _ = try parser.parse(storage: storage)
         }
-
-        XCTFail()
     }
 
+    func test_givenNameToken_whenParse_thenParse() {
+        let storage = try! Storage(tokens: [.identifier(name: "x")])
+
+        do {
+            let type = try parser.parse(storage: storage)
+            XCTAssertEqual(type.name, "x")
+            XCTAssertEqual(type.isOptional, false)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenNameColonTokens_whenParse_thenParse() {
+        let storage = try! Storage(tokens: [.identifier(name: "x"), .colon])
+
+        do {
+            let type = try parser.parse(storage: storage)
+            XCTAssertEqual(type.name, "x")
+            XCTAssertEqual(type.isOptional, false)
+            XCTAssertEqual(storage.current, .colon)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenNameQuestionMarkTokens_whenParse_thenParse() {
+        let storage = try! Storage(tokens: [.identifier(name: "x"), .questionMark, .colon])
+
+        do {
+            let type = try parser.parse(storage: storage)
+            XCTAssertEqual(type.name, "x")
+            XCTAssertEqual(type.isOptional, true)
+            XCTAssertEqual(storage.current, .colon)
+        } catch {
+            XCTFail()
+        }
+    }
 }
