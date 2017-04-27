@@ -41,7 +41,7 @@ public class Parser {
                 addToResult(.comma)
             case "-":
                 index = parseArrow(from: index, in: text)
-            case "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z":
+            case "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "`":
                 index = parseName(from: index, in: text)
             default:
                 break
@@ -56,6 +56,12 @@ public class Parser {
     private func parseName(from index: String.Index, in text: String) -> String.Index {
         var index = index
         buffer = ""
+        var isEndBackwardsQuoteRequired = false
+
+        if text[index] == "`" {
+            index = text.index(after: index)
+            isEndBackwardsQuoteRequired = true
+        }
 
         while text.characters.indices.contains(index) {
             let character = text[index]
@@ -63,7 +69,15 @@ public class Parser {
             if identifierCharacters.characters.contains(character) {
                 buffer += String(character)
             } else {
-                determineNameType(name: buffer)
+
+
+                if text[index] == "`" && isEndBackwardsQuoteRequired {
+                    index = text.index(after: index)
+                    addToResult(.identifier(name: buffer))
+                } else {
+                    determineNameType(name: buffer)
+                }
+
                 return text.index(before: index)
             }
 
