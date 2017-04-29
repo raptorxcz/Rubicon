@@ -4,4 +4,4 @@ language: swift
 script:
   - xcodebuild -project Rubicon.xcodeproj -scheme Rubicon -destination 'platform=OS X,arch=x86_64' build test
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -t 2fa44d96-f386-4c21-a2c7-d690272b4957
+  - bash <(curl -s https://codecov.io/bash)
