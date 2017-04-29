@@ -1,11 +1,5 @@
-osx_image: xcode8
+osx_image: xcode8.3
 language: swift
 
-before_install:
-  - brew update || brew update
-  - brew outdated xctool || brew upgrade xctool
-
 script:
-  - rake test:ios
-  - rake test:osx
-  - rake test:xctool:ios
+  -  xcodebuild test -project Rubicon.xcodeproj -scheme Rubicon -destination 'platform=OS X,arch=x86_64'
