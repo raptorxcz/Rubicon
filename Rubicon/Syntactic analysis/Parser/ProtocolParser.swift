@@ -18,7 +18,7 @@ public class ProtocolParser {
     private let variableParser = VarDeclarationTypeParser()
     private let functionParser = FunctionDeclarationParser()
 
-    public func parse(storage: Storage) throws -> Protocol {
+    public func parse(storage: Storage) throws -> ProtocolType {
         guard storage.current == .protocol else {
             throw ProtocolParserError.invalidProtocolToken
         }
@@ -42,7 +42,7 @@ public class ProtocolParser {
         return `protocol`
     }
 
-    private func parseProtocol(with name: String, storage: Storage) -> Protocol {
+    private func parseProtocol(with name: String, storage: Storage) -> ProtocolType {
         var variables = [VarDeclarationType]()
         var functions = [FunctionDeclarationType]()
 
@@ -62,6 +62,6 @@ public class ProtocolParser {
             }
         }
 
-        return Protocol(name: name, variables: variables, functions: functions)
+        return ProtocolType(name: name, variables: variables, functions: functions)
     }
 }
