@@ -14,10 +14,6 @@ public protocol HelpController {
     func run()
 }
 
-public protocol MocksGeneratorController {
-    func run(text: String)
-}
-
 public class ArgumentsController {
 
     private let fileReader: FileReader

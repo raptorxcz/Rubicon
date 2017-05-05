@@ -13,6 +13,12 @@
 		BB318B191EB240D300DF67FC /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB318B171EB240D300DF67FC /* ArgumentParser.swift */; };
 		BB318B1B1EB2439000DF67FC /* ArgumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB318B1A1EB2439000DF67FC /* ArgumentType.swift */; };
 		BB318B1C1EB2439000DF67FC /* ArgumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB318B1A1EB2439000DF67FC /* ArgumentType.swift */; };
+		BB4A738C1EBD147800A843FF /* MockGeneratorControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A738B1EBD147800A843FF /* MockGeneratorControllerTests.swift */; };
+		BB4A738E1EBD14A700A843FF /* MockGeneratorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */; };
+		BB4A738F1EBD14A700A843FF /* MockGeneratorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */; };
+		BB4A73911EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */; };
+		BB4A73931EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */; };
+		BB4A73941EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */; };
 		BB67AE0A1EB745F500BD20C4 /* ArgumentsParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67AE091EB745F500BD20C4 /* ArgumentsParserTests.swift */; };
 		BB67AE0C1EB7462900BD20C4 /* ArgumentsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */; };
 		BB67AE0D1EB7462900BD20C4 /* ArgumentsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */; };
@@ -54,9 +60,13 @@
 		BB318B151EB240A300DF67FC /* ArgumentParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentParserTests.swift; sourceTree = "<group>"; };
 		BB318B171EB240D300DF67FC /* ArgumentParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentParser.swift; sourceTree = "<group>"; };
 		BB318B1A1EB2439000DF67FC /* ArgumentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentType.swift; sourceTree = "<group>"; };
-		BB67AE091EB745F500BD20C4 /* ArgumentsParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArgumentsParserTests.swift; path = ArgumentsParserTests.swift; sourceTree = "<group>"; };
+		BB4A738B1EBD147800A843FF /* MockGeneratorControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGeneratorControllerTests.swift; sourceTree = "<group>"; };
+		BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGeneratorController.swift; sourceTree = "<group>"; };
+		BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolSpyGeneratorControllerTests.swift; sourceTree = "<group>"; };
+		BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolSpyGeneratorController.swift; sourceTree = "<group>"; };
+		BB67AE091EB745F500BD20C4 /* ArgumentsParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsParserTests.swift; sourceTree = "<group>"; };
 		BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsParser.swift; sourceTree = "<group>"; };
-		BB67AE0E1EB7499900BD20C4 /* ArgumentsControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArgumentsControllerTests.swift; path = ArgumentsControllerTests.swift; sourceTree = "<group>"; };
+		BB67AE0E1EB7499900BD20C4 /* ArgumentsControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsControllerTests.swift; sourceTree = "<group>"; };
 		BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsController.swift; sourceTree = "<group>"; };
 		BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarDeclarationTypeParser.swift; sourceTree = "<group>"; };
 		BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeParserTests.swift; sourceTree = "<group>"; };
@@ -100,6 +110,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB4A73891EBD143000A843FF /* Generator */ = {
+			isa = PBXGroup;
+			children = (
+				BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */,
+				BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */,
+			);
+			path = Generator;
+			sourceTree = "<group>";
+		};
+		BB4A738A1EBD143800A843FF /* Generator */ = {
+			isa = PBXGroup;
+			children = (
+				BB4A738B1EBD147800A843FF /* MockGeneratorControllerTests.swift */,
+				BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */,
+			);
+			path = Generator;
+			sourceTree = "<group>";
+		};
 		BBA24A951EA9459800ADCAAF = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +149,7 @@
 		BBA24AA01EA9459800ADCAAF /* Rubicon */ = {
 			isa = PBXGroup;
 			children = (
+				BB4A73891EBD143000A843FF /* Generator */,
 				BBBCBE431EB731EA0028ED9E /* Lexical analysis */,
 				BBBCBE441EB732DF0028ED9E /* Syntactic analysis */,
 				BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */,
@@ -134,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				BBBCBE471EB735350028ED9E /* Common */,
+				BB4A738A1EBD143800A843FF /* Generator */,
 				BBBCBE461EB7352A0028ED9E /* Lexical analysis */,
 				BBBCBE451EB7351E0028ED9E /* Syntactic analysis */,
 				BB67AE0E1EB7499900BD20C4 /* ArgumentsControllerTests.swift */,
@@ -308,6 +338,7 @@
 			files = (
 				BB318B1B1EB2439000DF67FC /* ArgumentType.swift in Sources */,
 				BBA24AA21EA9459800ADCAAF /* main.swift in Sources */,
+				BB4A738E1EBD14A700A843FF /* MockGeneratorController.swift in Sources */,
 				BB8A01271EAC99E400D50CF7 /* VarDeclarationTypeParser.swift in Sources */,
 				BB8A012C1EACBC8200D50CF7 /* TypeParser.swift in Sources */,
 				BBA24AA91EA945C800ADCAAF /* Token.swift in Sources */,
@@ -316,6 +347,7 @@
 				BBCE32E41EB122A5005732CC /* FunctionDeclarationParser.swift in Sources */,
 				BBD4DE871EB110C700AEBE06 /* Type.swift in Sources */,
 				BBCE32EE1EB12CD4005732CC /* ProtocolParser.swift in Sources */,
+				BB4A73931EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift in Sources */,
 				BBD4DE8C1EB1149600AEBE06 /* Storage.swift in Sources */,
 				BB318B181EB240D300DF67FC /* ArgumentParser.swift in Sources */,
 				BBA24AB71EA946BD00ADCAAF /* Parser.swift in Sources */,
@@ -336,20 +368,24 @@
 				BB318B161EB240A300DF67FC /* ArgumentParserTests.swift in Sources */,
 				BBCE32EF1EB12CD4005732CC /* ProtocolParser.swift in Sources */,
 				BB67AE0F1EB7499900BD20C4 /* ArgumentsControllerTests.swift in Sources */,
+				BB4A73941EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift in Sources */,
 				BBCE32F21EB12F57005732CC /* ProtocolType.swift in Sources */,
 				BB67AE0A1EB745F500BD20C4 /* ArgumentsParserTests.swift in Sources */,
 				BB318B1C1EB2439000DF67FC /* ArgumentType.swift in Sources */,
 				BB67AE121EB74ACC00BD20C4 /* ArgumentsController.swift in Sources */,
+				BB4A738C1EBD147800A843FF /* MockGeneratorControllerTests.swift in Sources */,
 				BBCE32EA1EB12838005732CC /* XCTextCase.swift in Sources */,
 				BB8A012D1EACBC8900D50CF7 /* TypeParser.swift in Sources */,
 				BBCE32EC1EB12C78005732CC /* ProtocolParserTests.swift in Sources */,
 				BB8A012A1EACBC6600D50CF7 /* TypeParserTests.swift in Sources */,
 				BBA24AD01EA94DC700ADCAAF /* ParserTests.swift in Sources */,
+				BB4A738F1EBD14A700A843FF /* MockGeneratorController.swift in Sources */,
 				BB8A01281EAC9A8600D50CF7 /* VarDeclarationTypeParser.swift in Sources */,
 				BBCE32E51EB122A5005732CC /* FunctionDeclarationParser.swift in Sources */,
 				BBA24AD11EA9573300ADCAAF /* Parser.swift in Sources */,
 				BBA4331C1EABB2F90018CE48 /* VarDeclarationTypeParserTests.swift in Sources */,
 				BBD4DE881EB110EE00AEBE06 /* Type.swift in Sources */,
+				BB4A73911EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift in Sources */,
 				BB67AE0D1EB7462900BD20C4 /* ArgumentsParser.swift in Sources */,
 				BBD4DE8A1EB1145D00AEBE06 /* StorageTests.swift in Sources */,
 				BBCE32E21EB12247005732CC /* FunctionDeclarationParserTests.swift in Sources */,
