@@ -10,12 +10,9 @@ import XCTest
 
 class ArgumentsParserTests: XCTestCase {
 
-    func test_init() {
-        _ = ArgumentsParser()
-    }
+    private let argumentsParser = ArgumentsParser()
 
     func test_givenEmptyParameters_whenParse_thenParseHelp() {
-        let argumentsParser = ArgumentsParser()
         let arguments = argumentsParser.parse(arguments: [])
 
         guard case .help = arguments else {
@@ -25,7 +22,6 @@ class ArgumentsParserTests: XCTestCase {
     }
 
     func test_givenMocksWithoutPath_whenParse_thenParseHelp() {
-        let argumentsParser = ArgumentsParser()
         let arguments = argumentsParser.parse(arguments: ["--mocks"])
 
         guard case .help = arguments else {
@@ -35,7 +31,6 @@ class ArgumentsParserTests: XCTestCase {
     }
 
     func test_givenMocksWithPath_whenParse_thenParseMocks() {
-        let argumentsParser = ArgumentsParser()
         let arguments = argumentsParser.parse(arguments: ["--mocks", "."])
 
         guard case .mocks(let path) = arguments else {
