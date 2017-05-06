@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Foundation
 
 class ParserTests: XCTestCase {
 
@@ -160,5 +161,13 @@ class ParserTests: XCTestCase {
             .rightCurlyBracket,
         ]
         XCTAssertEqual(result, expected)
+    }
+
+    func test_givenBigFile_whenParse_thenMeasureSpeed() {
+        let url = Bundle(for: ParserTests.self).url(forResource: "SampleProject", withExtension: "txt")!
+        let string = try! String(contentsOf: url, encoding: .utf8)
+        measure {
+            _ = self.parser.parse(string)
+        }
     }
 }
