@@ -6,14 +6,6 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-public protocol FileReader {
-    func readFiles(at path: String) -> String
-}
-
-public protocol HelpController {
-    func run()
-}
-
 public class ArgumentsController {
 
     private let fileReader: FileReader
@@ -27,12 +19,12 @@ public class ArgumentsController {
     }
 
     public func run(arguments: [String]) {
-        guard arguments.indices.contains(1) else {
+        guard arguments.indices.contains(2) else {
             helpController.run()
             return
         }
 
-        let result = fileReader.readFiles(at: arguments[1])
+        let result = fileReader.readFiles(at: arguments[2])
         mocksController.run(text: result)
     }
 

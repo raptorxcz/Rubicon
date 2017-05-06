@@ -30,6 +30,14 @@
 		BB8A012A1EACBC6600D50CF7 /* TypeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */; };
 		BB8A012C1EACBC8200D50CF7 /* TypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A012B1EACBC8200D50CF7 /* TypeParser.swift */; };
 		BB8A012D1EACBC8900D50CF7 /* TypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A012B1EACBC8200D50CF7 /* TypeParser.swift */; };
+		BB981FC31EBE262200BB1347 /* StandardGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC21EBE262200BB1347 /* StandardGeneratorOutput.swift */; };
+		BB981FC51EBE267200BB1347 /* FileReaderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC41EBE267200BB1347 /* FileReaderImpl.swift */; };
+		BB981FC81EBE26DB00BB1347 /* CommandLineAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC71EBE26DB00BB1347 /* CommandLineAssembly.swift */; };
+		BB981FCA1EBE27AE00BB1347 /* HelpControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC91EBE27AE00BB1347 /* HelpControllerTests.swift */; };
+		BB981FCC1EBE27F100BB1347 /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FCB1EBE27F100BB1347 /* HelpController.swift */; };
+		BB981FCD1EBE27F100BB1347 /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FCB1EBE27F100BB1347 /* HelpController.swift */; };
+		BB981FCE1EBE284A00BB1347 /* StandardGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC21EBE262200BB1347 /* StandardGeneratorOutput.swift */; };
+		BB981FCF1EBE285400BB1347 /* FileReaderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC41EBE267200BB1347 /* FileReaderImpl.swift */; };
 		BBA24AA21EA9459800ADCAAF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA11EA9459800ADCAAF /* main.swift */; };
 		BBA24AA91EA945C800ADCAAF /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA81EA945C800ADCAAF /* Token.swift */; };
 		BBA24AB71EA946BD00ADCAAF /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AB61EA946BD00ADCAAF /* Parser.swift */; };
@@ -71,6 +79,11 @@
 		BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarDeclarationTypeParser.swift; sourceTree = "<group>"; };
 		BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeParserTests.swift; sourceTree = "<group>"; };
 		BB8A012B1EACBC8200D50CF7 /* TypeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeParser.swift; sourceTree = "<group>"; };
+		BB981FC21EBE262200BB1347 /* StandardGeneratorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardGeneratorOutput.swift; sourceTree = "<group>"; };
+		BB981FC41EBE267200BB1347 /* FileReaderImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReaderImpl.swift; sourceTree = "<group>"; };
+		BB981FC71EBE26DB00BB1347 /* CommandLineAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineAssembly.swift; sourceTree = "<group>"; };
+		BB981FC91EBE27AE00BB1347 /* HelpControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpControllerTests.swift; sourceTree = "<group>"; };
+		BB981FCB1EBE27F100BB1347 /* HelpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpController.swift; sourceTree = "<group>"; };
 		BBA24A9E1EA9459800ADCAAF /* Rubicon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Rubicon; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBA24AA11EA9459800ADCAAF /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		BBA24AA81EA945C800ADCAAF /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
@@ -128,6 +141,25 @@
 			path = Generator;
 			sourceTree = "<group>";
 		};
+		BB981FC11EBE25FF00BB1347 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				BB981FC41EBE267200BB1347 /* FileReaderImpl.swift */,
+				BB981FC21EBE262200BB1347 /* StandardGeneratorOutput.swift */,
+			);
+			name = Platform;
+			path = Platform;
+			sourceTree = "<group>";
+		};
+		BB981FC61EBE26BA00BB1347 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				BB981FC71EBE26DB00BB1347 /* CommandLineAssembly.swift */,
+			);
+			name = Assembly;
+			path = Assembly;
+			sourceTree = "<group>";
+		};
 		BBA24A951EA9459800ADCAAF = {
 			isa = PBXGroup;
 			children = (
@@ -149,11 +181,14 @@
 		BBA24AA01EA9459800ADCAAF /* Rubicon */ = {
 			isa = PBXGroup;
 			children = (
+				BB981FC61EBE26BA00BB1347 /* Assembly */,
 				BB4A73891EBD143000A843FF /* Generator */,
 				BBBCBE431EB731EA0028ED9E /* Lexical analysis */,
+				BB981FC11EBE25FF00BB1347 /* Platform */,
 				BBBCBE441EB732DF0028ED9E /* Syntactic analysis */,
 				BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */,
 				BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */,
+				BB981FCB1EBE27F100BB1347 /* HelpController.swift */,
 				BBA24AA11EA9459800ADCAAF /* main.swift */,
 			);
 			path = Rubicon;
@@ -221,6 +256,7 @@
 			children = (
 				BB318B151EB240A300DF67FC /* ArgumentParserTests.swift */,
 				BBCE32E11EB12247005732CC /* FunctionDeclarationParserTests.swift */,
+				BB981FC91EBE27AE00BB1347 /* HelpControllerTests.swift */,
 				BBCE32EB1EB12C78005732CC /* ProtocolParserTests.swift */,
 				BBD4DE891EB1145D00AEBE06 /* StorageTests.swift */,
 				BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */,
@@ -344,6 +380,9 @@
 				BBA24AA91EA945C800ADCAAF /* Token.swift in Sources */,
 				BBCE32E71EB125A6005732CC /* FunctionDeclarationType.swift in Sources */,
 				BB67AE0C1EB7462900BD20C4 /* ArgumentsParser.swift in Sources */,
+				BB981FCC1EBE27F100BB1347 /* HelpController.swift in Sources */,
+				BB981FC81EBE26DB00BB1347 /* CommandLineAssembly.swift in Sources */,
+				BB981FC51EBE267200BB1347 /* FileReaderImpl.swift in Sources */,
 				BBCE32E41EB122A5005732CC /* FunctionDeclarationParser.swift in Sources */,
 				BBD4DE871EB110C700AEBE06 /* Type.swift in Sources */,
 				BBCE32EE1EB12CD4005732CC /* ProtocolParser.swift in Sources */,
@@ -353,6 +392,7 @@
 				BBA24AB71EA946BD00ADCAAF /* Parser.swift in Sources */,
 				BBA4331A1EABB2DD0018CE48 /* VarDeclarationType.swift in Sources */,
 				BB67AE111EB74ACC00BD20C4 /* ArgumentsController.swift in Sources */,
+				BB981FC31EBE262200BB1347 /* StandardGeneratorOutput.swift in Sources */,
 				BBCE32F11EB12F57005732CC /* ProtocolType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,8 +402,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB03B3DF1EABB380007BF9FC /* VarDeclarationType.swift in Sources */,
+				BB981FCE1EBE284A00BB1347 /* StandardGeneratorOutput.swift in Sources */,
 				BBD4DE8D1EB1149D00AEBE06 /* Storage.swift in Sources */,
 				BBCE32E81EB125A6005732CC /* FunctionDeclarationType.swift in Sources */,
+				BB981FCF1EBE285400BB1347 /* FileReaderImpl.swift in Sources */,
 				BBA24ACD1EA94D4600ADCAAF /* Token.swift in Sources */,
 				BB318B161EB240A300DF67FC /* ArgumentParserTests.swift in Sources */,
 				BBCE32EF1EB12CD4005732CC /* ProtocolParser.swift in Sources */,
@@ -377,6 +419,7 @@
 				BBCE32EA1EB12838005732CC /* XCTextCase.swift in Sources */,
 				BB8A012D1EACBC8900D50CF7 /* TypeParser.swift in Sources */,
 				BBCE32EC1EB12C78005732CC /* ProtocolParserTests.swift in Sources */,
+				BB981FCD1EBE27F100BB1347 /* HelpController.swift in Sources */,
 				BB8A012A1EACBC6600D50CF7 /* TypeParserTests.swift in Sources */,
 				BBA24AD01EA94DC700ADCAAF /* ParserTests.swift in Sources */,
 				BB4A738F1EBD14A700A843FF /* MockGeneratorController.swift in Sources */,
@@ -387,6 +430,7 @@
 				BBD4DE881EB110EE00AEBE06 /* Type.swift in Sources */,
 				BB4A73911EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift in Sources */,
 				BB67AE0D1EB7462900BD20C4 /* ArgumentsParser.swift in Sources */,
+				BB981FCA1EBE27AE00BB1347 /* HelpControllerTests.swift in Sources */,
 				BBD4DE8A1EB1145D00AEBE06 /* StorageTests.swift in Sources */,
 				BBCE32E21EB12247005732CC /* FunctionDeclarationParserTests.swift in Sources */,
 				BB318B191EB240D300DF67FC /* ArgumentParser.swift in Sources */,

@@ -8,4 +8,6 @@
 
 import Foundation
 
-
+let assembly = CommandLineAssembly()
+let arguments = CommandLine.arguments
+assembly.makeArguments(arguments: arguments)

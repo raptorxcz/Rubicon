@@ -23,7 +23,7 @@ class ArgumentsControllerTests: XCTestCase {
         let helpControllerSpy = HelpControllerSpy()
         let mocksControllerSpy = MocksGeneratorControllerSpy()
         let argumentsController = ArgumentsController(fileReader: fileReaderSpy, helpController: helpControllerSpy, mocksController: mocksControllerSpy)
-        argumentsController.run(arguments: ["--mocks", "*"])
+        argumentsController.run(arguments: ["rubicon", "--mocks", "*"])
         XCTAssertEqual(fileReaderSpy.readFilesCount, 1)
         XCTAssertEqual(fileReaderSpy.path, "*")
         XCTAssertEqual(helpControllerSpy.runCount, 0)
@@ -34,7 +34,7 @@ class ArgumentsControllerTests: XCTestCase {
         fileReaderSpy.result = "protocol string"
         let mocksControllerSpy = MocksGeneratorControllerSpy()
         let argumentsController = ArgumentsController(fileReader: fileReaderSpy, helpController: HelpControllerSpy(), mocksController: mocksControllerSpy)
-        argumentsController.run(arguments: ["--mocks", "*"])
+        argumentsController.run(arguments: ["rubicon", "--mocks", "*"])
         XCTAssertEqual(mocksControllerSpy.runCount, 1)
         XCTAssertEqual(mocksControllerSpy.text, "protocol string")
     }

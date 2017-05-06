@@ -10,12 +10,6 @@ public protocol MocksGeneratorController {
     func run(text: String)
 }
 
-public protocol GeneratorOutput {
-
-    func save(text: String)
-
-}
-
 public class MocksGeneratorControllerImpl {
 
     fileprivate let output: GeneratorOutput
@@ -37,13 +31,20 @@ extension MocksGeneratorControllerImpl: MocksGeneratorController {
             return
         }
 
-        do {
-            try storage.moveToNext(.protocol)
-        } catch {
-            output.save(text: "")
-            return
-        }
+        var isTextSearched = true
 
+        while isTextSearched {
+            do {
+                try storage.moveToNext(.protocol)
+                processProtocol(storage: storage)
+            } catch {
+                isTextSearched = false
+                return
+            }
+        }
+    }
+
+    private func processProtocol(storage: Storage) {
         let protocolParser = ProtocolParser()
 
         do {
