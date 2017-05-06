@@ -32,14 +32,14 @@ public class ProtocolParser {
         }
 
         _ = try? storage.next()
-        let `protocol` = parseProtocol(with: name, storage: storage)
+        let protocolType = parseProtocol(with: name, storage: storage)
 
         guard storage.current == .rightCurlyBracket else {
             throw ProtocolParserError.expectedRightBracket
         }
 
-        _ = try storage.next()
-        return `protocol`
+        _ = try? storage.next()
+        return protocolType
     }
 
     private func parseProtocol(with name: String, storage: Storage) -> ProtocolType {

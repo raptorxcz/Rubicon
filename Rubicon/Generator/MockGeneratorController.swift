@@ -29,7 +29,31 @@ public class MocksGeneratorControllerImpl {
 extension MocksGeneratorControllerImpl: MocksGeneratorController {
 
     public func run(text: String) {
-        output.save(text: "")
+        let parser = Parser()
+        let tokens = parser.parse(text)
+
+        guard let storage = try? Storage(tokens: tokens) else {
+            output.save(text: "")
+            return
+        }
+
+        do {
+            try storage.moveToNext(.protocol)
+        } catch {
+            output.save(text: "")
+            return
+        }
+
+        let protocolParser = ProtocolParser()
+
+        do {
+            let protocolType = try protocolParser.parse(storage: storage)
+            let generator = ProtocolSpyGeneratorController()
+            let text = generator.generate(from: protocolType)
+            output.save(text: text)
+        } catch {
+            output.save(text: "")
+        }
     }
 
 }
