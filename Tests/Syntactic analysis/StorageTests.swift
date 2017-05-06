@@ -97,6 +97,24 @@ class StorageTests: XCTestCase {
         }
     }
 
+    func test_givenTokens_whenNextOccurrenceOfTokenNotExists_thenThrowException() {
+        testStorageException(with: .noNextToken) {
+            let storage = try Storage(tokens: [.colon, .colon, .colon])
+            try storage.moveToNext(.protocol)
+        }
+    }
+
+    func test_givenTokens_whenMoveToNextOccurrenceOfToken_thenCurrentTokenIsChanged() {
+        do {
+            let storage = try Storage(tokens: [.colon, .protocol, .comma])
+            XCTAssertEqual(storage.current, .colon)
+            try storage.moveToNext(.protocol)
+            XCTAssertEqual(storage.current, .protocol)
+        } catch {
+            XCTFail()
+        }
+    }
+
     private func testStorageException(with exception: StorageError, parse: (() throws -> Void)) {
         testException(with: exception, parse: parse)
     }

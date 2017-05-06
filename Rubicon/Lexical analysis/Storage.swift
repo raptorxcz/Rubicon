@@ -63,4 +63,15 @@ public class Storage {
 
         self.index = index
     }
+
+    public func moveToNext(_ token: Token) throws {
+        let restOfTokens = tokens[index ..< tokens.count]
+        
+        if let newIndex = restOfTokens.index(of: token) {
+            index = newIndex
+        } else {
+            throw StorageError.noNextToken
+        }
+    }
+
 }

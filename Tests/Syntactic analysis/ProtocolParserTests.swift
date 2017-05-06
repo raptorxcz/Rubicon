@@ -35,6 +35,17 @@ class ProtocolParserTests: XCTestCase {
     }
 
     func test_givenEmptyProtocol_whenParse_thenParse() {
+        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .leftCurlyBracket, .rightCurlyBracket])
+        do {
+            let `protocol` = try parser.parse(storage: storage)
+            XCTAssertEqual(`protocol`.name, "p")
+            XCTAssertEqual(storage.current, .rightCurlyBracket)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenEmptyProtocolInText_whenParse_thenParse() {
         let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .leftCurlyBracket, .rightCurlyBracket, .colon])
         do {
             let `protocol` = try parser.parse(storage: storage)

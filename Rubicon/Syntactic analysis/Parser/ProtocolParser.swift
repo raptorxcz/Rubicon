@@ -18,7 +18,7 @@ public class ProtocolParser {
     private let variableParser = VarDeclarationTypeParser()
     private let functionParser = FunctionDeclarationParser()
 
-    public func parse(storage: Storage) throws -> Protocol {
+    public func parse(storage: Storage) throws -> ProtocolType {
         guard storage.current == .protocol else {
             throw ProtocolParserError.invalidProtocolToken
         }
@@ -32,17 +32,17 @@ public class ProtocolParser {
         }
 
         _ = try? storage.next()
-        let `protocol` = parseProtocol(with: name, storage: storage)
+        let protocolType = parseProtocol(with: name, storage: storage)
 
         guard storage.current == .rightCurlyBracket else {
             throw ProtocolParserError.expectedRightBracket
         }
 
-        _ = try storage.next()
-        return `protocol`
+        _ = try? storage.next()
+        return protocolType
     }
 
-    private func parseProtocol(with name: String, storage: Storage) -> Protocol {
+    private func parseProtocol(with name: String, storage: Storage) -> ProtocolType {
         var variables = [VarDeclarationType]()
         var functions = [FunctionDeclarationType]()
 
@@ -62,6 +62,6 @@ public class ProtocolParser {
             }
         }
 
-        return Protocol(name: name, variables: variables, functions: functions)
+        return ProtocolType(name: name, variables: variables, functions: functions)
     }
 }

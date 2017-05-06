@@ -8,8 +8,6 @@
 
 public class Parser {
 
-    private let identifierCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
-
     private var buffer: String = ""
     private var results = [Token]()
 
@@ -54,6 +52,7 @@ public class Parser {
     }
 
     private func parseName(from index: String.Index, in text: String) -> String.Index {
+        let identifierCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
         var index = index
         buffer = ""
         var isEndBackwardsQuoteRequired = false
