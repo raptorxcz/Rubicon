@@ -129,6 +129,29 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         )
     }
 
+    func test_givenProtocolWithFunctionWithNoLabelAndArgument_whenGenerate_thenGenerateSpy() {
+        let argument = ArgumentType(label: "_", name: "b", type: type)
+        let function = FunctionDeclarationType(name: "start", arguments: [argument])
+        let protocolType = ProtocolType(name: "Car", variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarSpy: Car {",
+            "",
+            "var startCount = 0",
+            "var startB: Color?",
+            "",
+            "func start(_ b: Color) {",
+            "startCount += 1",
+            "startB = b",
+            "}",
+            "",
+            "}",
+            "",
+            ""
+            ]
+        )
+    }
+
     func test_givenProtocolWithFunctionWithTwoArguments_whenGenerate_thenGenerateSpy() {
         let argument = ArgumentType(label: "a", name: "b", type: type)
         let type2 = Type(name: "Color", isOptional: true)

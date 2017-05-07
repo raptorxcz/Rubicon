@@ -91,6 +91,11 @@ class ParserTests: XCTestCase {
         XCTAssertEqual(result, [.protocol, .identifier(name: "test")])
     }
 
+    func test_givenProtocolWithUnderscore_whenParse_thenProtocolAndNameToken() {
+        let result = parser.parse("protocol _")
+        XCTAssertEqual(result, [.protocol, .identifier(name: "_")])
+    }
+
     func test_givenVarWithName_whenParse_thenVariableToken() {
         let result = parser.parse("var test")
         XCTAssertEqual(result, [.variable, .identifier(name: "test")])
