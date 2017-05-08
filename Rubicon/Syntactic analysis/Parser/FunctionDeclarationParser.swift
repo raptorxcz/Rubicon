@@ -17,6 +17,8 @@ public class FunctionDeclarationParser {
 
     private var argumentParser = ArgumentParser()
 
+    public init() {}
+
     public func parse(storage: Storage) throws -> FunctionDeclarationType {
         let index = storage.currentIndex()
         guard storage.current == .function else {

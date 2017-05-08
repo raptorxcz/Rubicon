@@ -6,7 +6,7 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-enum StorageError: Error {
+public enum StorageError: Error {
     case noTokens
     case noNextToken
     case noPreviousToken
@@ -22,7 +22,7 @@ public class Storage {
     private let tokens: [Token]
     private var index = 0
 
-    init(tokens: [Token]) throws {
+    public init(tokens: [Token]) throws {
         guard !tokens.isEmpty else {
             throw StorageError.noTokens
         }

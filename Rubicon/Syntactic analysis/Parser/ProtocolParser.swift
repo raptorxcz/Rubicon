@@ -6,7 +6,7 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-enum ProtocolParserError: Error {
+public enum ProtocolParserError: Error {
     case invalidProtocolToken
     case invalidNameToken
     case expectedLeftBracket
@@ -17,6 +17,8 @@ public class ProtocolParser {
 
     private let variableParser = VarDeclarationTypeParser()
     private let functionParser = FunctionDeclarationParser()
+
+    public init() {}
 
     public func parse(storage: Storage) throws -> ProtocolType {
         guard storage.current == .protocol else {

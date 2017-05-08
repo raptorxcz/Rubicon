@@ -9,4 +9,10 @@
 public struct Type {
     public var name: String
     public var isOptional: Bool
+
+    public init(name: String, isOptional: Bool) {
+        self.name = name
+        self.isOptional = isOptional
+    }
+
 }

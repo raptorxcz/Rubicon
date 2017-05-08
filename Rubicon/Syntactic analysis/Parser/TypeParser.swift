@@ -6,11 +6,13 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-enum TypeParserError: Error {
+public enum TypeParserError: Error {
     case invalidName
 }
 
 public class TypeParser {
+
+    public init() {}
 
     public func parse(storage: Storage) throws -> Type {
         guard case let .identifier(name) = storage.current else {

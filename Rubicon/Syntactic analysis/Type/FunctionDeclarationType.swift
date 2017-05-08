@@ -9,4 +9,9 @@
 public struct FunctionDeclarationType {
     public var name: String
     public var arguments: [ArgumentType]
+
+    public init(name: String, arguments: [ArgumentType]) {
+        self.name = name
+        self.arguments = arguments
+    }
 }

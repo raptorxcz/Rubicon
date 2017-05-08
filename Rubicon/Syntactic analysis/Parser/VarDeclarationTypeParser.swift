@@ -26,6 +26,8 @@ public class VarDeclarationTypeParser {
         case error
     }
 
+    public init() {}
+
     public func parse(storage: Storage) throws -> VarDeclarationType {
         var isConstant = true
         var isEnd = false

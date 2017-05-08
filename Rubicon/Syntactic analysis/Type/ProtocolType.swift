@@ -10,4 +10,10 @@ public struct ProtocolType {
     public var name: String
     public var variables: [VarDeclarationType]
     public var functions: [FunctionDeclarationType]
+
+    public init(name: String, variables: [VarDeclarationType], functions: [FunctionDeclarationType]) {
+        self.name = name
+        self.variables = variables
+        self.functions = functions
+    }
 }

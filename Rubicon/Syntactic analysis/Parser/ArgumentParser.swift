@@ -6,7 +6,7 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-enum ArgumentParserError: Error {
+public enum ArgumentParserError: Error {
     case invalidName
     case invalidColon
     case invalidType
@@ -16,7 +16,9 @@ public class ArgumentParser {
 
     private let typeParser = TypeParser()
 
-    func parse(storage: Storage) throws -> ArgumentType {
+    public init() {}
+
+    public func parse(storage: Storage) throws -> ArgumentType {
         guard case .identifier(let label) = storage.current else {
             throw ArgumentParserError.invalidName
         }

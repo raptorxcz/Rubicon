@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Generator
 import Foundation
 
 class ParserTests: XCTestCase {

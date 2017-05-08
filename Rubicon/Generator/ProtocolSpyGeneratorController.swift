@@ -8,7 +8,9 @@
 
 public class ProtocolSpyGeneratorController {
 
-    func generate(from protocolType: ProtocolType) -> String {
+    public init() {}
+
+    public func generate(from protocolType: ProtocolType) -> String {
         var result = ""
         result += "class \(protocolType.name)Spy: \(protocolType.name) {\n"
         result += generateBody(from: protocolType)
