@@ -49,6 +49,11 @@
 		BB0474981EC062E400FC2B34 /* StandardGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474971EC062E400FC2B34 /* StandardGeneratorOutput.swift */; };
 		BB0474991EC0631700FC2B34 /* Generator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474531EC0611200FC2B34 /* Generator.framework */; };
 		BB04749D1EC0685400FC2B34 /* SampleProject.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB04749C1EC0685400FC2B34 /* SampleProject.txt */; };
+		BB0474A51EC068FA00FC2B34 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474A41EC068FA00FC2B34 /* Cocoa.framework */; };
+		BB0474AA1EC068FA00FC2B34 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */; };
+		BB0474AC1EC068FA00FC2B34 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474AB1EC068FA00FC2B34 /* SourceEditorCommand.swift */; };
+		BB0474B01EC068FA00FC2B34 /* RubiconExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BB0474A21EC068FA00FC2B34 /* RubiconExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BB0474B51EC0690600FC2B34 /* Generator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474531EC0611200FC2B34 /* Generator.framework */; };
 		BB981FC81EBE26DB00BB1347 /* CommandLineAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC71EBE26DB00BB1347 /* CommandLineAssembly.swift */; };
 		BB981FCC1EBE27F100BB1347 /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FCB1EBE27F100BB1347 /* HelpController.swift */; };
 		BBA24AA21EA9459800ADCAAF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA11EA9459800ADCAAF /* main.swift */; };
@@ -83,6 +88,20 @@
 			remoteGlobalIDString = BB0474521EC0611200FC2B34;
 			remoteInfo = Generator;
 		};
+		BB0474AE1EC068FA00FC2B34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BBA24A961EA9459800ADCAAF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB0474A11EC068FA00FC2B34;
+			remoteInfo = RubiconExtension;
+		};
+		BB0474B61EC077A300FC2B34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BBA24A961EA9459800ADCAAF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB0474521EC0611200FC2B34;
+			remoteInfo = Generator;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -95,6 +114,17 @@
 				BB0474691EC0611200FC2B34 /* Generator.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB0474B41EC068FA00FC2B34 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BB0474B01EC068FA00FC2B34 /* RubiconExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -114,6 +144,12 @@
 		BB0474951EC062A400FC2B34 /* FileReaderImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReaderImpl.swift; sourceTree = "<group>"; };
 		BB0474971EC062E400FC2B34 /* StandardGeneratorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardGeneratorOutput.swift; sourceTree = "<group>"; };
 		BB04749C1EC0685400FC2B34 /* SampleProject.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SampleProject.txt; sourceTree = "<group>"; };
+		BB0474A21EC068FA00FC2B34 /* RubiconExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RubiconExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB0474A41EC068FA00FC2B34 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		BB0474A81EC068FA00FC2B34 /* RubiconExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RubiconExtension.entitlements; sourceTree = "<group>"; };
+		BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorExtension.swift; sourceTree = "<group>"; };
+		BB0474AB1EC068FA00FC2B34 /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
+		BB0474AD1EC068FA00FC2B34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB318B151EB240A300DF67FC /* ArgumentParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ArgumentParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB318B171EB240D300DF67FC /* ArgumentParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentParser.swift; sourceTree = "<group>"; };
 		BB318B1A1EB2439000DF67FC /* ArgumentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentType.swift; sourceTree = "<group>"; };
@@ -121,9 +157,9 @@
 		BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGeneratorController.swift; sourceTree = "<group>"; };
 		BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ProtocolSpyGeneratorControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolSpyGeneratorController.swift; sourceTree = "<group>"; };
-		BB67AE091EB745F500BD20C4 /* ArgumentsParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ArgumentsParserTests.swift; path = ArgumentsParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArgumentsParser.swift; path = ArgumentsParser.swift; sourceTree = "<group>"; };
-		BB67AE0E1EB7499900BD20C4 /* ArgumentsControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ArgumentsControllerTests.swift; path = ArgumentsControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		BB67AE091EB745F500BD20C4 /* ArgumentsParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ArgumentsParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsParser.swift; sourceTree = "<group>"; };
+		BB67AE0E1EB7499900BD20C4 /* ArgumentsControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ArgumentsControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsController.swift; sourceTree = "<group>"; };
 		BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarDeclarationTypeParser.swift; sourceTree = "<group>"; };
 		BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TypeParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -173,6 +209,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB04745C1EC0611200FC2B34 /* Generator.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB04749F1EC068FA00FC2B34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB0474B51EC0690600FC2B34 /* Generator.framework in Frameworks */,
+				BB0474A51EC068FA00FC2B34 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,13 +273,39 @@
 			path = GeneratorTests;
 			sourceTree = "<group>";
 		};
+		BB0474A31EC068FA00FC2B34 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BB0474A41EC068FA00FC2B34 /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BB0474A61EC068FA00FC2B34 /* RubiconExtension */ = {
+			isa = PBXGroup;
+			children = (
+				BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */,
+				BB0474AB1EC068FA00FC2B34 /* SourceEditorCommand.swift */,
+				BB0474AD1EC068FA00FC2B34 /* Info.plist */,
+				BB0474A71EC068FA00FC2B34 /* Supporting Files */,
+			);
+			path = RubiconExtension;
+			sourceTree = "<group>";
+		};
+		BB0474A71EC068FA00FC2B34 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BB0474A81EC068FA00FC2B34 /* RubiconExtension.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		BB4A73891EBD143000A843FF /* Generator */ = {
 			isa = PBXGroup;
 			children = (
 				BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */,
 				BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */,
 			);
-			name = Generator;
 			path = Generator;
 			sourceTree = "<group>";
 		};
@@ -244,7 +315,6 @@
 				BB4A738B1EBD147800A843FF /* MockGeneratorControllerTests.swift */,
 				BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */,
 			);
-			name = Generator;
 			path = Generator;
 			sourceTree = "<group>";
 		};
@@ -254,7 +324,6 @@
 				BB981FC41EBE267200BB1347 /* FileReaderImpl.swift */,
 				BB981FC21EBE262200BB1347 /* StandardGeneratorOutput.swift */,
 			);
-			name = Platform;
 			path = Platform;
 			sourceTree = "<group>";
 		};
@@ -271,6 +340,8 @@
 			children = (
 				BB0474541EC0611200FC2B34 /* Generator */,
 				BB0474611EC0611200FC2B34 /* GeneratorTests */,
+				BB0474A61EC068FA00FC2B34 /* RubiconExtension */,
+				BB0474A31EC068FA00FC2B34 /* Frameworks */,
 				BBA24A9F1EA9459800ADCAAF /* Products */,
 				BBA24AA01EA9459800ADCAAF /* Rubicon */,
 				BB0474321EC0609100FC2B34 /* RubiconApp */,
@@ -284,6 +355,7 @@
 				BB0474311EC0609100FC2B34 /* RubiconApp.app */,
 				BB0474531EC0611200FC2B34 /* Generator.framework */,
 				BB04745B1EC0611200FC2B34 /* GeneratorTests.xctest */,
+				BB0474A21EC068FA00FC2B34 /* RubiconExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -332,7 +404,6 @@
 				BBD4DE8B1EB1149600AEBE06 /* Storage.swift */,
 				BBA24AA81EA945C800ADCAAF /* Token.swift */,
 			);
-			name = "Lexical analysis";
 			path = "Lexical analysis";
 			sourceTree = "<group>";
 		};
@@ -342,7 +413,6 @@
 				BBBCBE421EB731CC0028ED9E /* Parser */,
 				BBBCBE411EB731990028ED9E /* Type */,
 			);
-			name = "Syntactic analysis";
 			path = "Syntactic analysis";
 			sourceTree = "<group>";
 		};
@@ -357,7 +427,6 @@
 				BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */,
 				BBA4331B1EABB2F90018CE48 /* VarDeclarationTypeParserTests.swift */,
 			);
-			name = "Syntactic analysis";
 			path = "Syntactic analysis";
 			sourceTree = "<group>";
 		};
@@ -366,7 +435,6 @@
 			children = (
 				BBA24ACF1EA94DC700ADCAAF /* ParserTests.swift */,
 			);
-			name = "Lexical analysis";
 			path = "Lexical analysis";
 			sourceTree = "<group>";
 		};
@@ -375,7 +443,6 @@
 			children = (
 				BBCE32E91EB12838005732CC /* XCTextCase.swift */,
 			);
-			name = Common;
 			path = Common;
 			sourceTree = "<group>";
 		};
@@ -401,11 +468,13 @@
 				BB04742E1EC0609100FC2B34 /* Frameworks */,
 				BB04742F1EC0609100FC2B34 /* Resources */,
 				BB04746D1EC0611200FC2B34 /* Embed Frameworks */,
+				BB0474B41EC068FA00FC2B34 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				BB0474671EC0611200FC2B34 /* PBXTargetDependency */,
+				BB0474AF1EC068FA00FC2B34 /* PBXTargetDependency */,
 			);
 			name = RubiconApp;
 			productName = RubiconApp;
@@ -449,6 +518,24 @@
 			productReference = BB04745B1EC0611200FC2B34 /* GeneratorTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		BB0474A11EC068FA00FC2B34 /* RubiconExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB0474B31EC068FA00FC2B34 /* Build configuration list for PBXNativeTarget "RubiconExtension" */;
+			buildPhases = (
+				BB04749E1EC068FA00FC2B34 /* Sources */,
+				BB04749F1EC068FA00FC2B34 /* Frameworks */,
+				BB0474A01EC068FA00FC2B34 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BB0474B71EC077A300FC2B34 /* PBXTargetDependency */,
+			);
+			name = RubiconExtension;
+			productName = RubiconExtension;
+			productReference = BB0474A21EC068FA00FC2B34 /* RubiconExtension.appex */;
+			productType = "com.apple.product-type.xcode-extension";
+		};
 		BBA24A9D1EA9459800ADCAAF /* Rubicon */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BBA24AA51EA9459800ADCAAF /* Build configuration list for PBXNativeTarget "Rubicon" */;
@@ -491,6 +578,11 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = BB0474301EC0609100FC2B34;
 					};
+					BB0474A11EC068FA00FC2B34 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = M36Y4P27ZU;
+						ProvisioningStyle = Automatic;
+					};
 					BBA24A9D1EA9459800ADCAAF = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = M36Y4P27ZU;
@@ -515,6 +607,7 @@
 				BB0474301EC0609100FC2B34 /* RubiconApp */,
 				BB0474521EC0611200FC2B34 /* Generator */,
 				BB04745A1EC0611200FC2B34 /* GeneratorTests */,
+				BB0474A11EC068FA00FC2B34 /* RubiconExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -541,6 +634,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB04749D1EC0685400FC2B34 /* SampleProject.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB0474A01EC068FA00FC2B34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,6 +699,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BB04749E1EC068FA00FC2B34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB0474AA1EC068FA00FC2B34 /* SourceEditorExtension.swift in Sources */,
+				BB0474AC1EC068FA00FC2B34 /* SourceEditorCommand.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BBA24A9A1EA9459800ADCAAF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -634,6 +743,16 @@
 			isa = PBXTargetDependency;
 			target = BB0474521EC0611200FC2B34 /* Generator */;
 			targetProxy = BB04749A1EC0632C00FC2B34 /* PBXContainerItemProxy */;
+		};
+		BB0474AF1EC068FA00FC2B34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BB0474A11EC068FA00FC2B34 /* RubiconExtension */;
+			targetProxy = BB0474AE1EC068FA00FC2B34 /* PBXContainerItemProxy */;
+		};
+		BB0474B71EC077A300FC2B34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BB0474521EC0611200FC2B34 /* Generator */;
+			targetProxy = BB0474B61EC077A300FC2B34 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -689,6 +808,7 @@
 		BB04746B1EC0611200FC2B34 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -714,6 +834,7 @@
 		BB04746C1EC0611200FC2B34 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -769,6 +890,42 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RubiconApp.app/Contents/MacOS/RubiconApp";
+			};
+			name = Release;
+		};
+		BB0474B11EC068FA00FC2B34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = RubiconExtension/RubiconExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = M36Y4P27ZU;
+				INFOPLIST_FILE = RubiconExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.RubiconApp.RubiconExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		BB0474B21EC068FA00FC2B34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = RubiconExtension/RubiconExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = M36Y4P27ZU;
+				INFOPLIST_FILE = RubiconExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.RubiconApp.RubiconExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -898,6 +1055,7 @@
 				BB0474491EC0609100FC2B34 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BB04746A1EC0611200FC2B34 /* Build configuration list for PBXNativeTarget "Generator" */ = {
 			isa = XCConfigurationList;
@@ -906,12 +1064,22 @@
 				BB04746C1EC0611200FC2B34 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BB04746E1EC0611200FC2B34 /* Build configuration list for PBXNativeTarget "GeneratorTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BB04746F1EC0611200FC2B34 /* Debug */,
 				BB0474701EC0611200FC2B34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BB0474B31EC068FA00FC2B34 /* Build configuration list for PBXNativeTarget "RubiconExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB0474B11EC068FA00FC2B34 /* Debug */,
+				BB0474B21EC068FA00FC2B34 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
