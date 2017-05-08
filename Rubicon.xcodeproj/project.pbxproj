@@ -121,9 +121,9 @@
 		BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGeneratorController.swift; sourceTree = "<group>"; };
 		BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ProtocolSpyGeneratorControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolSpyGeneratorController.swift; sourceTree = "<group>"; };
-		BB67AE091EB745F500BD20C4 /* ArgumentsParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ArgumentsParserTests.swift; path = ../Tests/ArgumentsParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArgumentsParser.swift; path = ../Rubicon/ArgumentsParser.swift; sourceTree = "<group>"; };
-		BB67AE0E1EB7499900BD20C4 /* ArgumentsControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ArgumentsControllerTests.swift; path = ../Tests/ArgumentsControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		BB67AE091EB745F500BD20C4 /* ArgumentsParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ArgumentsParserTests.swift; path = ArgumentsParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArgumentsParser.swift; path = ArgumentsParser.swift; sourceTree = "<group>"; };
+		BB67AE0E1EB7499900BD20C4 /* ArgumentsControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ArgumentsControllerTests.swift; path = ArgumentsControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsController.swift; sourceTree = "<group>"; };
 		BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarDeclarationTypeParser.swift; sourceTree = "<group>"; };
 		BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TypeParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -191,10 +191,10 @@
 			isa = PBXGroup;
 			children = (
 				BB0474331EC0609100FC2B34 /* AppDelegate.swift */,
-				BB0474351EC0609100FC2B34 /* ViewController.swift */,
 				BB0474371EC0609100FC2B34 /* Assets.xcassets */,
-				BB0474391EC0609100FC2B34 /* Main.storyboard */,
 				BB04743C1EC0609100FC2B34 /* Info.plist */,
+				BB0474391EC0609100FC2B34 /* Main.storyboard */,
+				BB0474351EC0609100FC2B34 /* ViewController.swift */,
 			);
 			path = RubiconApp;
 			sourceTree = "<group>";
@@ -216,7 +216,6 @@
 		BB0474611EC0611200FC2B34 /* GeneratorTests */ = {
 			isa = PBXGroup;
 			children = (
-				BB04749C1EC0685400FC2B34 /* SampleProject.txt */,
 				BBBCBE471EB735350028ED9E /* Common */,
 				BB4A738A1EBD143800A843FF /* Generator */,
 				BBBCBE461EB7352A0028ED9E /* Lexical analysis */,
@@ -224,6 +223,7 @@
 				BB67AE0E1EB7499900BD20C4 /* ArgumentsControllerTests.swift */,
 				BB67AE091EB745F500BD20C4 /* ArgumentsParserTests.swift */,
 				BB0474641EC0611200FC2B34 /* Info.plist */,
+				BB04749C1EC0685400FC2B34 /* SampleProject.txt */,
 			);
 			path = GeneratorTests;
 			sourceTree = "<group>";
@@ -235,7 +235,7 @@
 				BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */,
 			);
 			name = Generator;
-			path = ../Rubicon/Generator;
+			path = Generator;
 			sourceTree = "<group>";
 		};
 		BB4A738A1EBD143800A843FF /* Generator */ = {
@@ -245,7 +245,7 @@
 				BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */,
 			);
 			name = Generator;
-			path = ../Tests/Generator;
+			path = Generator;
 			sourceTree = "<group>";
 		};
 		BB981FC11EBE25FF00BB1347 /* Platform */ = {
@@ -255,7 +255,7 @@
 				BB981FC21EBE262200BB1347 /* StandardGeneratorOutput.swift */,
 			);
 			name = Platform;
-			path = ../Rubicon/Platform;
+			path = Platform;
 			sourceTree = "<group>";
 		};
 		BB981FC61EBE26BA00BB1347 /* Assembly */ = {
@@ -269,11 +269,11 @@
 		BBA24A951EA9459800ADCAAF = {
 			isa = PBXGroup;
 			children = (
-				BB0474321EC0609100FC2B34 /* RubiconApp */,
 				BB0474541EC0611200FC2B34 /* Generator */,
 				BB0474611EC0611200FC2B34 /* GeneratorTests */,
 				BBA24A9F1EA9459800ADCAAF /* Products */,
 				BBA24AA01EA9459800ADCAAF /* Rubicon */,
+				BB0474321EC0609100FC2B34 /* RubiconApp */,
 			);
 			sourceTree = "<group>";
 		};
@@ -292,11 +292,11 @@
 			isa = PBXGroup;
 			children = (
 				BB981FC61EBE26BA00BB1347 /* Assembly */,
-				BB981FCB1EBE27F100BB1347 /* HelpController.swift */,
 				BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */,
-				BBA24AA11EA9459800ADCAAF /* main.swift */,
 				BB0474951EC062A400FC2B34 /* FileReaderImpl.swift */,
+				BB981FCB1EBE27F100BB1347 /* HelpController.swift */,
 				BB0474971EC062E400FC2B34 /* StandardGeneratorOutput.swift */,
+				BBA24AA11EA9459800ADCAAF /* main.swift */,
 			);
 			path = Rubicon;
 			sourceTree = "<group>";
@@ -333,7 +333,7 @@
 				BBA24AA81EA945C800ADCAAF /* Token.swift */,
 			);
 			name = "Lexical analysis";
-			path = "../Rubicon/Lexical analysis";
+			path = "Lexical analysis";
 			sourceTree = "<group>";
 		};
 		BBBCBE441EB732DF0028ED9E /* Syntactic analysis */ = {
@@ -343,7 +343,7 @@
 				BBBCBE411EB731990028ED9E /* Type */,
 			);
 			name = "Syntactic analysis";
-			path = "../Rubicon/Syntactic analysis";
+			path = "Syntactic analysis";
 			sourceTree = "<group>";
 		};
 		BBBCBE451EB7351E0028ED9E /* Syntactic analysis */ = {
@@ -358,7 +358,7 @@
 				BBA4331B1EABB2F90018CE48 /* VarDeclarationTypeParserTests.swift */,
 			);
 			name = "Syntactic analysis";
-			path = "../Tests/Syntactic analysis";
+			path = "Syntactic analysis";
 			sourceTree = "<group>";
 		};
 		BBBCBE461EB7352A0028ED9E /* Lexical analysis */ = {
@@ -367,7 +367,7 @@
 				BBA24ACF1EA94DC700ADCAAF /* ParserTests.swift */,
 			);
 			name = "Lexical analysis";
-			path = "../Tests/Lexical analysis";
+			path = "Lexical analysis";
 			sourceTree = "<group>";
 		};
 		BBBCBE471EB735350028ED9E /* Common */ = {
@@ -376,7 +376,7 @@
 				BBCE32E91EB12838005732CC /* XCTextCase.swift */,
 			);
 			name = Common;
-			path = ../Tests/Common;
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -644,6 +644,7 @@
 				BB04743A1EC0609100FC2B34 /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
