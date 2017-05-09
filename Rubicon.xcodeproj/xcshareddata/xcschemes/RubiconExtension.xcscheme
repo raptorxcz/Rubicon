@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0830"
-   version = "1.3">
+   wasCreatedForAppExtension = "YES"
+   version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,9 +15,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BB0474521EC0611200FC2B34"
-               BuildableName = "Generator.framework"
-               BlueprintName = "Generator"
+               BlueprintIdentifier = "BB0474A11EC068FA00FC2B34"
+               BuildableName = "RubiconExtension.appex"
+               BlueprintName = "RubiconExtension"
+               ReferencedContainer = "container:Rubicon.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BB0474301EC0609100FC2B34"
+               BuildableName = "RubiconApp.app"
+               BlueprintName = "RubiconApp"
                ReferencedContainer = "container:Rubicon.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,26 +41,15 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BB04745A1EC0611200FC2B34"
-               BuildableName = "GeneratorTests.xctest"
-               BlueprintName = "GeneratorTests"
-               ReferencedContainer = "container:Rubicon.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BB0474521EC0611200FC2B34"
-            BuildableName = "Generator.framework"
-            BlueprintName = "Generator"
+            BlueprintIdentifier = "BB0474A11EC068FA00FC2B34"
+            BuildableName = "RubiconExtension.appex"
+            BlueprintName = "RubiconExtension"
             ReferencedContainer = "container:Rubicon.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -54,23 +58,25 @@
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
-      <MacroExpansion>
+      allowLocationSimulation = "YES"
+      launchAutomaticallySubstyle = "2">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BB0474521EC0611200FC2B34"
-            BuildableName = "Generator.framework"
-            BlueprintName = "Generator"
+            BlueprintIdentifier = "BB0474301EC0609100FC2B34"
+            BuildableName = "RubiconApp.app"
+            BlueprintName = "RubiconApp"
             ReferencedContainer = "container:Rubicon.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -79,16 +85,18 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      debugDocumentVersioning = "YES"
+      launchAutomaticallySubstyle = "2">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BB0474521EC0611200FC2B34"
-            BuildableName = "Generator.framework"
-            BlueprintName = "Generator"
+            BlueprintIdentifier = "BB0474301EC0609100FC2B34"
+            BuildableName = "RubiconApp.app"
+            BlueprintName = "RubiconApp"
             ReferencedContainer = "container:Rubicon.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
