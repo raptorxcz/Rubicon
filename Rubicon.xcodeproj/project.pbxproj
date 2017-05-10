@@ -917,7 +917,7 @@
 		BB0474B11EC068FA00FC2B34 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = RubiconExtension/RubiconExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "RubiconExtension/Supporting Files/RubiconExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = M36Y4P27ZU;
@@ -935,7 +935,7 @@
 		BB0474B21EC068FA00FC2B34 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = RubiconExtension/RubiconExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "RubiconExtension/Supporting Files/RubiconExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = M36Y4P27ZU;
