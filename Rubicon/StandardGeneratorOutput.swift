@@ -6,7 +6,7 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-import Generator
+import Foundation
 
 public class StandardGeneratorOutput {}
 

@@ -20,8 +20,8 @@
 		BB0474731EC0618600FC2B34 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AB61EA946BD00ADCAAF /* Parser.swift */; };
 		BB0474741EC0618600FC2B34 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE8B1EB1149600AEBE06 /* Storage.swift */; };
 		BB0474751EC0618600FC2B34 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA81EA945C800ADCAAF /* Token.swift */; };
-		BB0474761EC0618600FC2B34 /* FileReaderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC41EBE267200BB1347 /* FileReaderImpl.swift */; };
-		BB0474771EC0618600FC2B34 /* StandardGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC21EBE262200BB1347 /* StandardGeneratorOutput.swift */; };
+		BB0474761EC0618600FC2B34 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC41EBE267200BB1347 /* FileReader.swift */; };
+		BB0474771EC0618600FC2B34 /* GeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC21EBE262200BB1347 /* GeneratorOutput.swift */; };
 		BB0474781EC0618600FC2B34 /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB318B171EB240D300DF67FC /* ArgumentParser.swift */; };
 		BB0474791EC0618600FC2B34 /* FunctionDeclarationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32E31EB122A5005732CC /* FunctionDeclarationParser.swift */; };
 		BB04747A1EC0618600FC2B34 /* ProtocolParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32ED1EB12CD4005732CC /* ProtocolParser.swift */; };
@@ -47,15 +47,32 @@
 		BB0474921EC0627900FC2B34 /* ArgumentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */; };
 		BB0474961EC062A400FC2B34 /* FileReaderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474951EC062A400FC2B34 /* FileReaderImpl.swift */; };
 		BB0474981EC062E400FC2B34 /* StandardGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474971EC062E400FC2B34 /* StandardGeneratorOutput.swift */; };
-		BB0474991EC0631700FC2B34 /* Generator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474531EC0611200FC2B34 /* Generator.framework */; };
 		BB04749D1EC0685400FC2B34 /* SampleProject.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB04749C1EC0685400FC2B34 /* SampleProject.txt */; };
 		BB0474A51EC068FA00FC2B34 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474A41EC068FA00FC2B34 /* Cocoa.framework */; };
 		BB0474AA1EC068FA00FC2B34 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */; };
 		BB0474AC1EC068FA00FC2B34 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474AB1EC068FA00FC2B34 /* SourceEditorCommand.swift */; };
 		BB0474B01EC068FA00FC2B34 /* RubiconExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BB0474A21EC068FA00FC2B34 /* RubiconExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BB0474B51EC0690600FC2B34 /* Generator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474531EC0611200FC2B34 /* Generator.framework */; };
+		BB6E401F1EC26A2A003CD916 /* MockGeneratorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */; };
+		BB6E40201EC26A2A003CD916 /* ProtocolSpyGeneratorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */; };
+		BB6E40211EC26A2A003CD916 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AB61EA946BD00ADCAAF /* Parser.swift */; };
+		BB6E40221EC26A2A003CD916 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE8B1EB1149600AEBE06 /* Storage.swift */; };
+		BB6E40231EC26A2A003CD916 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA81EA945C800ADCAAF /* Token.swift */; };
+		BB6E40241EC26A2A003CD916 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC41EBE267200BB1347 /* FileReader.swift */; };
+		BB6E40251EC26A2A003CD916 /* GeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC21EBE262200BB1347 /* GeneratorOutput.swift */; };
+		BB6E40261EC26A2A003CD916 /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB318B171EB240D300DF67FC /* ArgumentParser.swift */; };
+		BB6E40271EC26A2A003CD916 /* FunctionDeclarationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32E31EB122A5005732CC /* FunctionDeclarationParser.swift */; };
+		BB6E40281EC26A2A003CD916 /* ProtocolParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32ED1EB12CD4005732CC /* ProtocolParser.swift */; };
+		BB6E40291EC26A2A003CD916 /* TypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A012B1EACBC8200D50CF7 /* TypeParser.swift */; };
+		BB6E402A1EC26A2A003CD916 /* VarDeclarationTypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */; };
+		BB6E402B1EC26A2A003CD916 /* ArgumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB318B1A1EB2439000DF67FC /* ArgumentType.swift */; };
+		BB6E402C1EC26A2A003CD916 /* FunctionDeclarationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32E61EB125A6005732CC /* FunctionDeclarationType.swift */; };
+		BB6E402D1EC26A2A003CD916 /* ProtocolType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32F01EB12F57005732CC /* ProtocolType.swift */; };
+		BB6E402E1EC26A2A003CD916 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE861EB110C700AEBE06 /* Type.swift */; };
+		BB6E402F1EC26A2A003CD916 /* VarDeclarationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA433191EABB2DD0018CE48 /* VarDeclarationType.swift */; };
+		BB6E40301EC26A2A003CD916 /* ArgumentsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */; };
+		BB6E40371EC26B2F003CD916 /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FCB1EBE27F100BB1347 /* HelpController.swift */; };
 		BB981FC81EBE26DB00BB1347 /* CommandLineAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC71EBE26DB00BB1347 /* CommandLineAssembly.swift */; };
-		BB981FCC1EBE27F100BB1347 /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FCB1EBE27F100BB1347 /* HelpController.swift */; };
 		BBA24AA21EA9459800ADCAAF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA11EA9459800ADCAAF /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,13 +92,6 @@
 			remoteInfo = RubiconApp;
 		};
 		BB0474661EC0611200FC2B34 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BBA24A961EA9459800ADCAAF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BB0474521EC0611200FC2B34;
-			remoteInfo = Generator;
-		};
-		BB04749A1EC0632C00FC2B34 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BBA24A961EA9459800ADCAAF /* Project object */;
 			proxyType = 1;
@@ -164,8 +174,8 @@
 		BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarDeclarationTypeParser.swift; sourceTree = "<group>"; };
 		BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TypeParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB8A012B1EACBC8200D50CF7 /* TypeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeParser.swift; sourceTree = "<group>"; };
-		BB981FC21EBE262200BB1347 /* StandardGeneratorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardGeneratorOutput.swift; sourceTree = "<group>"; };
-		BB981FC41EBE267200BB1347 /* FileReaderImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReaderImpl.swift; sourceTree = "<group>"; };
+		BB981FC21EBE262200BB1347 /* GeneratorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorOutput.swift; sourceTree = "<group>"; };
+		BB981FC41EBE267200BB1347 /* FileReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
 		BB981FC71EBE26DB00BB1347 /* CommandLineAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineAssembly.swift; sourceTree = "<group>"; };
 		BB981FC91EBE27AE00BB1347 /* HelpControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HelpControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB981FCB1EBE27F100BB1347 /* HelpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpController.swift; sourceTree = "<group>"; };
@@ -225,7 +235,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB0474991EC0631700FC2B34 /* Generator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,10 +293,10 @@
 		BB0474A61EC068FA00FC2B34 /* RubiconExtension */ = {
 			isa = PBXGroup;
 			children = (
-				BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */,
-				BB0474AB1EC068FA00FC2B34 /* SourceEditorCommand.swift */,
-				BB0474AD1EC068FA00FC2B34 /* Info.plist */,
 				BB0474A71EC068FA00FC2B34 /* Supporting Files */,
+				BB0474AD1EC068FA00FC2B34 /* Info.plist */,
+				BB0474AB1EC068FA00FC2B34 /* SourceEditorCommand.swift */,
+				BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */,
 			);
 			path = RubiconExtension;
 			sourceTree = "<group>";
@@ -297,7 +306,7 @@
 			children = (
 				BB0474A81EC068FA00FC2B34 /* RubiconExtension.entitlements */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		BB4A73891EBD143000A843FF /* Generator */ = {
@@ -321,8 +330,8 @@
 		BB981FC11EBE25FF00BB1347 /* Platform */ = {
 			isa = PBXGroup;
 			children = (
-				BB981FC41EBE267200BB1347 /* FileReaderImpl.swift */,
-				BB981FC21EBE262200BB1347 /* StandardGeneratorOutput.swift */,
+				BB981FC41EBE267200BB1347 /* FileReader.swift */,
+				BB981FC21EBE262200BB1347 /* GeneratorOutput.swift */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
@@ -338,13 +347,13 @@
 		BBA24A951EA9459800ADCAAF = {
 			isa = PBXGroup;
 			children = (
+				BB0474A31EC068FA00FC2B34 /* Frameworks */,
 				BB0474541EC0611200FC2B34 /* Generator */,
 				BB0474611EC0611200FC2B34 /* GeneratorTests */,
-				BB0474A61EC068FA00FC2B34 /* RubiconExtension */,
-				BB0474A31EC068FA00FC2B34 /* Frameworks */,
 				BBA24A9F1EA9459800ADCAAF /* Products */,
 				BBA24AA01EA9459800ADCAAF /* Rubicon */,
 				BB0474321EC0609100FC2B34 /* RubiconApp */,
+				BB0474A61EC068FA00FC2B34 /* RubiconExtension */,
 			);
 			sourceTree = "<group>";
 		};
@@ -546,7 +555,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				BB04749B1EC0632C00FC2B34 /* PBXTargetDependency */,
 			);
 			name = Rubicon;
 			productName = Rubicon;
@@ -660,7 +668,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB0474771EC0618600FC2B34 /* StandardGeneratorOutput.swift in Sources */,
+				BB0474771EC0618600FC2B34 /* GeneratorOutput.swift in Sources */,
 				BB0474721EC0618600FC2B34 /* ProtocolSpyGeneratorController.swift in Sources */,
 				BB04747E1EC0618600FC2B34 /* FunctionDeclarationType.swift in Sources */,
 				BB0474811EC0618600FC2B34 /* VarDeclarationType.swift in Sources */,
@@ -674,7 +682,7 @@
 				BB04747F1EC0618600FC2B34 /* ProtocolType.swift in Sources */,
 				BB0474791EC0618600FC2B34 /* FunctionDeclarationParser.swift in Sources */,
 				BB0474711EC0618600FC2B34 /* MockGeneratorController.swift in Sources */,
-				BB0474761EC0618600FC2B34 /* FileReaderImpl.swift in Sources */,
+				BB0474761EC0618600FC2B34 /* FileReader.swift in Sources */,
 				BB0474731EC0618600FC2B34 /* Parser.swift in Sources */,
 				BB0474781EC0618600FC2B34 /* ArgumentParser.swift in Sources */,
 				BB0474831EC0618600FC2B34 /* ArgumentsParser.swift in Sources */,
@@ -712,12 +720,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB6E402F1EC26A2A003CD916 /* VarDeclarationType.swift in Sources */,
+				BB6E402D1EC26A2A003CD916 /* ProtocolType.swift in Sources */,
+				BB6E40201EC26A2A003CD916 /* ProtocolSpyGeneratorController.swift in Sources */,
+				BB6E40301EC26A2A003CD916 /* ArgumentsParser.swift in Sources */,
+				BB6E40371EC26B2F003CD916 /* HelpController.swift in Sources */,
 				BBA24AA21EA9459800ADCAAF /* main.swift in Sources */,
-				BB981FCC1EBE27F100BB1347 /* HelpController.swift in Sources */,
+				BB6E401F1EC26A2A003CD916 /* MockGeneratorController.swift in Sources */,
+				BB6E402B1EC26A2A003CD916 /* ArgumentType.swift in Sources */,
+				BB6E402E1EC26A2A003CD916 /* Type.swift in Sources */,
+				BB6E40271EC26A2A003CD916 /* FunctionDeclarationParser.swift in Sources */,
+				BB6E40251EC26A2A003CD916 /* GeneratorOutput.swift in Sources */,
+				BB6E40241EC26A2A003CD916 /* FileReader.swift in Sources */,
 				BB0474921EC0627900FC2B34 /* ArgumentsController.swift in Sources */,
+				BB6E40211EC26A2A003CD916 /* Parser.swift in Sources */,
+				BB6E402A1EC26A2A003CD916 /* VarDeclarationTypeParser.swift in Sources */,
 				BB0474961EC062A400FC2B34 /* FileReaderImpl.swift in Sources */,
+				BB6E40291EC26A2A003CD916 /* TypeParser.swift in Sources */,
+				BB6E40261EC26A2A003CD916 /* ArgumentParser.swift in Sources */,
+				BB6E402C1EC26A2A003CD916 /* FunctionDeclarationType.swift in Sources */,
+				BB6E40231EC26A2A003CD916 /* Token.swift in Sources */,
 				BB981FC81EBE26DB00BB1347 /* CommandLineAssembly.swift in Sources */,
 				BB0474981EC062E400FC2B34 /* StandardGeneratorOutput.swift in Sources */,
+				BB6E40281EC26A2A003CD916 /* ProtocolParser.swift in Sources */,
+				BB6E40221EC26A2A003CD916 /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -738,11 +764,6 @@
 			isa = PBXTargetDependency;
 			target = BB0474521EC0611200FC2B34 /* Generator */;
 			targetProxy = BB0474661EC0611200FC2B34 /* PBXContainerItemProxy */;
-		};
-		BB04749B1EC0632C00FC2B34 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BB0474521EC0611200FC2B34 /* Generator */;
-			targetProxy = BB04749A1EC0632C00FC2B34 /* PBXContainerItemProxy */;
 		};
 		BB0474AF1EC068FA00FC2B34 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1022,7 +1043,6 @@
 		BBA24AA61EA9459800ADCAAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEVELOPMENT_TEAM = M36Y4P27ZU;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
@@ -1035,7 +1055,6 @@
 		BBA24AA71EA9459800ADCAAF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEVELOPMENT_TEAM = M36Y4P27ZU;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
@@ -1082,6 +1101,7 @@
 				BB0474B21EC068FA00FC2B34 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BBA24A991EA9459800ADCAAF /* Build configuration list for PBXProject "Rubicon" */ = {
 			isa = XCConfigurationList;

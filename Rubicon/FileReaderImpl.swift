@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Generator
 
 public class FileReaderImpl: FileReader {
 

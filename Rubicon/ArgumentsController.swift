@@ -6,8 +6,6 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-import Generator
-
 public class ArgumentsController {
 
     private let fileReader: FileReader
