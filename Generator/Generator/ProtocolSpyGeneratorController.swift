@@ -61,6 +61,10 @@ public class ProtocolSpyGeneratorController {
         var result = ""
         result += "\tvar \(functionName)Count = 0\n"
 
+        if let returnType = function.returnType {
+            result += "\tvar \(functionName)Return: \(returnType.name)\(returnType.isOptional ? "?" : "!")\n"
+        }
+
         for argument in function.arguments {
             result += "\tvar \(functionName)\(argument.name.capitalized): \(argument.type.name)?\n"
         }
@@ -87,11 +91,21 @@ public class ProtocolSpyGeneratorController {
         let functionName = "\(function.name)\(argumentsTitles)"
         let argumentsString = function.arguments.map(generateArgument).joined(separator: ", ")
 
-        result += "\tfunc \(function.name)(\(argumentsString)) {\n"
+        var returnString = ""
+
+        if let returnType = function.returnType {
+            returnString = "-> \(returnType.name)\(returnType.isOptional ? "?": "") "
+        }
+
+        result += "\tfunc \(function.name)(\(argumentsString)) \(returnString){\n"
         result += "\t\t\(functionName)Count += 1\n"
 
         for argument in function.arguments {
             result += "\t\t\(functionName)\(argument.name.capitalized) = \(argument.name)\n"
+        }
+
+        if function.returnType != nil {
+            result += "\t\treturn \(functionName)Return\n"
         }
 
         result += "\t}\n"

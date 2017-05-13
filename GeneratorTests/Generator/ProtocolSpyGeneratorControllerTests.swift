@@ -107,6 +107,50 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         )
     }
 
+    func test_givenProtocolWithFunctionWithReturn_whenGenerate_thenGenerateSpy() {
+        let function = FunctionDeclarationType(name: "start", returnType: Type(name: "Int", isOptional: false))
+        let protocolType = ProtocolType(name: "Car", variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarSpy: Car {",
+            "",
+            "\tvar startCount = 0",
+            "\tvar startReturn: Int!",
+            "",
+            "\tfunc start() -> Int {",
+            "\t\tstartCount += 1",
+            "\t\treturn startReturn",
+            "\t}",
+            "",
+            "}",
+            "",
+            ""
+            ]
+        )
+    }
+
+    func test_givenProtocolWithFunctionWithOptionalReturn_whenGenerate_thenGenerateSpy() {
+        let function = FunctionDeclarationType(name: "start", returnType: Type(name: "Int", isOptional: true))
+        let protocolType = ProtocolType(name: "Car", variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarSpy: Car {",
+            "",
+            "\tvar startCount = 0",
+            "\tvar startReturn: Int?",
+            "",
+            "\tfunc start() -> Int? {",
+            "\t\tstartCount += 1",
+            "\t\treturn startReturn",
+            "\t}",
+            "",
+            "}",
+            "",
+            ""
+            ]
+        )
+    }
+
     func test_givenProtocolWithFunctionWithArgument_whenGenerate_thenGenerateSpy() {
         let argument = ArgumentType(label: "a", name: "b", type: type)
         let function = FunctionDeclarationType(name: "start", arguments: [argument])
