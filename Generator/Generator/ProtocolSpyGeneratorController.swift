@@ -33,11 +33,15 @@ public class ProtocolSpyGeneratorController {
             content.append(generateFunctionDefinitions(function))
         }
 
+        let result: String
+
         if !content.isEmpty {
-            return "\n\(content.joined(separator: "\n"))\n"
+            result = "\n\(content.joined(separator: "\n"))\n"
         } else {
-            return ""
+            result = ""
         }
+
+        return result
     }
 
     private func generateVariables(_ variables: [VarDeclarationType]) -> String {
@@ -51,11 +55,14 @@ public class ProtocolSpyGeneratorController {
     }
 
     private func generateFunctionVariables(_ function: FunctionDeclarationType) -> String {
+        let argumentsTitles = function.arguments.flatMap({ $0.label?.capitalized }).joined()
+        let functionName = "\(function.name)\(argumentsTitles)"
+
         var result = ""
-        result += "var \(function.name)Count = 0\n"
+        result += "var \(functionName)Count = 0\n"
 
         for argument in function.arguments {
-            result += "var \(function.name)\(argument.name.capitalized): \(argument.type.name)?\n"
+            result += "var \(functionName)\(argument.name.capitalized): \(argument.type.name)?\n"
         }
 
         return result
@@ -76,12 +83,15 @@ public class ProtocolSpyGeneratorController {
 
     private func generateFunctionDefinitions(_ function: FunctionDeclarationType) -> String {
         var result = ""
+        let argumentsTitles = function.arguments.flatMap({ $0.label?.capitalized }).joined()
+        let functionName = "\(function.name)\(argumentsTitles)"
         let argumentsString = function.arguments.map(generateArgument).joined(separator: ", ")
+
         result += "func \(function.name)(\(argumentsString)) {\n"
-        result += "\(function.name)Count += 1\n"
+        result += "\(functionName)Count += 1\n"
 
         for argument in function.arguments {
-            result += "\(function.name)\(argument.name.capitalized) = \(argument.name)\n"
+            result += "\(functionName)\(argument.name.capitalized) = \(argument.name)\n"
         }
 
         result += "}\n"

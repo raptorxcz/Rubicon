@@ -38,6 +38,11 @@
                BlueprintName = "GeneratorTests"
                ReferencedContainer = "container:Rubicon.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "ParserTests/test_givenBigFile_whenParse_thenMeasureSpeed()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
