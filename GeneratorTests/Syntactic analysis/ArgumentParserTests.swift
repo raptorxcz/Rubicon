@@ -18,6 +18,12 @@ class ArgumentParserTests: XCTestCase {
         testParserException(with: storage, .invalidName)
     }
 
+    func test_givenNoSecondToken_whenParse_thenThrowException() {
+        let storage = try! Storage(tokens: [.identifier(name: "name")])
+
+        testParserException(with: storage, .invalidColon)
+    }
+
     func test_givenInvalidColonToken_whenParse_thenThrowException() {
         let storage = try! Storage(tokens: [.identifier(name: "name"), .leftBracket])
         testParserException(with: storage, .invalidColon)

@@ -39,7 +39,6 @@ extension MocksGeneratorControllerImpl: MocksGeneratorController {
                 processProtocol(storage: storage)
             } catch {
                 isTextSearched = false
-                return
             }
         }
     }

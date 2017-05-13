@@ -27,12 +27,16 @@ public class ArgumentParser {
             throw ArgumentParserError.invalidColon
         }
 
+        let argumentType: ArgumentType
+
         if case .identifier(let name) = secondToken {
             _ = try? storage.next()
-            return try parseColon(in: storage, label: label, name: name)
+            argumentType = try parseColon(in: storage, label: label, name: name)
         } else {
-            return try parseColon(in: storage, label: nil, name: label)
+            argumentType = try parseColon(in: storage, label: nil, name: label)
         }
+
+        return argumentType
     }
 
     private func parseColon(in storage: Storage, label: String?, name: String) throws -> ArgumentType {

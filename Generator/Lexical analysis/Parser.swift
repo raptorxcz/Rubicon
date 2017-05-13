@@ -78,7 +78,8 @@ public class Parser {
                     determineNameType(name: buffer)
                 }
 
-                return text.index(before: index)
+                index = text.index(before: index)
+                break
             }
 
             index = text.index(after: index)
@@ -96,7 +97,6 @@ public class Parser {
 
             if character == "-" && character2 == ">" {
                 addToResult(.arrow)
-                return secondIndex
             }
         }
 
