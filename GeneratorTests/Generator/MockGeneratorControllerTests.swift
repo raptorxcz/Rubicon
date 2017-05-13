@@ -11,18 +11,34 @@ import Generator
 
 class MockGeneratorControllerTests: XCTestCase {
 
+    func test_givenNoStrings_whenRun_thenGenerateEmptyString() {
+        let generatorOutput = GeneratorOutputSpy()
+        let generator = MocksGeneratorControllerImpl(output: generatorOutput)
+        generator.run(texts: [])
+        XCTAssertEqual(generatorOutput.text, "")
+        XCTAssertEqual(generatorOutput.saveCount, 0)
+    }
+
     func test_givenEmptyString_whenRun_thenGenerateEmptyString() {
         let generatorOutput = GeneratorOutputSpy()
         let generator = MocksGeneratorControllerImpl(output: generatorOutput)
-        generator.run(text: "")
+        generator.run(texts: [""])
         XCTAssertEqual(generatorOutput.text, "")
-        XCTAssertEqual(generatorOutput.saveCount, 1)
+        XCTAssertEqual(generatorOutput.saveCount, 0)
+    }
+
+    func test_givenStringsWithNoProtocolKeyword_whenRun_thenGenerateEmptyString() {
+        let generatorOutput = GeneratorOutputSpy()
+        let generator = MocksGeneratorControllerImpl(output: generatorOutput)
+        generator.run(texts: ["a", "Ad", "vc"])
+        XCTAssertEqual(generatorOutput.text, "")
+        XCTAssertEqual(generatorOutput.saveCount, 0)
     }
 
     func test_givenNoProtocol_whenRun_thenGenerateEmptyString() {
         let generatorOutput = GeneratorOutputSpy()
         let generator = MocksGeneratorControllerImpl(output: generatorOutput)
-        generator.run(text: "class X {")
+        generator.run(texts: ["class X {"])
         XCTAssertEqual(generatorOutput.text, "")
         XCTAssertEqual(generatorOutput.saveCount, 0)
     }
@@ -30,7 +46,7 @@ class MockGeneratorControllerTests: XCTestCase {
     func test_givenIncompleteProtocol_whenRun_thenGenerateEmptyString() {
         let generatorOutput = GeneratorOutputSpy()
         let generator = MocksGeneratorControllerImpl(output: generatorOutput)
-        generator.run(text: "protocol X {")
+        generator.run(texts: ["protocol X {"])
         XCTAssertEqual(generatorOutput.text, "")
         XCTAssertEqual(generatorOutput.saveCount, 1)
     }
@@ -38,7 +54,7 @@ class MockGeneratorControllerTests: XCTestCase {
     func test_givenEmptyProtocol_whenRun_thenGenerateEmptySpy() {
         let generatorOutput = GeneratorOutputSpy()
         let generator = MocksGeneratorControllerImpl(output: generatorOutput)
-        generator.run(text: "protocol X {}")
+        generator.run(texts: ["protocol X {}"])
         XCTAssertEqual(generatorOutput.text, "class XSpy: X {\n}\n\n")
         XCTAssertEqual(generatorOutput.saveCount, 1)
     }
@@ -46,7 +62,7 @@ class MockGeneratorControllerTests: XCTestCase {
     func test_givenEmptyProtocolInContext_whenRun_thenGenerateEmptySpy() {
         let generatorOutput = GeneratorOutputSpy()
         let generator = MocksGeneratorControllerImpl(output: generatorOutput)
-        generator.run(text: "class {} protocol X {}")
+        generator.run(texts: ["class {} protocol X {}"])
         XCTAssertEqual(generatorOutput.text, "class XSpy: X {\n}\n\n")
         XCTAssertEqual(generatorOutput.saveCount, 1)
     }
@@ -54,7 +70,7 @@ class MockGeneratorControllerTests: XCTestCase {
     func test_givenTwoEmptyProtocolsInContext_whenRun_thenGenerateEmptySpy() {
         let generatorOutput = GeneratorOutputSpy()
         let generator = MocksGeneratorControllerImpl(output: generatorOutput)
-        generator.run(text: "class {} protocol X {} var X protocol Y {}")
+        generator.run(texts: ["", "class {} protocol X {} var X protocol Y {}"])
         XCTAssertEqual(generatorOutput.text, "class XSpy: X {\n}\n\nclass YSpy: Y {\n}\n\n")
         XCTAssertEqual(generatorOutput.saveCount, 2)
     }

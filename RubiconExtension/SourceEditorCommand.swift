@@ -43,7 +43,7 @@ class GenerateSpy: NSObject, XCSourceEditorCommand {
         let text = lines.reduce("", { $0 + "\n" + $1 })
 
         let mocksController = MocksGeneratorControllerImpl(output: self)
-        mocksController.run(text: text)
+        mocksController.run(texts: [text])
         completionHandler(nil)
     }
 

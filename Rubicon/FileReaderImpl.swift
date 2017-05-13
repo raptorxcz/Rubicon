@@ -10,10 +10,10 @@ import Foundation
 
 public class FileReaderImpl: FileReader {
 
-    public func readFiles(at path: String) -> String {
+    public func readFiles(at path: String) -> [String] {
         let fileNames = findFileNames(at: path)
         let contentOfFiles = fileNames.flatMap({ return try? String(contentsOfFile: $0, encoding: .utf8) })
-        return contentOfFiles.reduce("", { $0 + "\n\n" + $1})
+        return contentOfFiles
     }
 
     private func findFileNames(at path: String) -> [String] {
