@@ -48,7 +48,7 @@ public class ProtocolSpyGeneratorController {
         var result = ""
 
         for variable in variables {
-            result += "var \(variable.identifier): \(variable.type.name)!\n"
+            result += "\tvar \(variable.identifier): \(variable.type.name)!\n"
         }
 
         return result
@@ -59,10 +59,10 @@ public class ProtocolSpyGeneratorController {
         let functionName = "\(function.name)\(argumentsTitles)"
 
         var result = ""
-        result += "var \(functionName)Count = 0\n"
+        result += "\tvar \(functionName)Count = 0\n"
 
         for argument in function.arguments {
-            result += "var \(functionName)\(argument.name.capitalized): \(argument.type.name)?\n"
+            result += "\tvar \(functionName)\(argument.name.capitalized): \(argument.type.name)?\n"
         }
 
         return result
@@ -87,14 +87,14 @@ public class ProtocolSpyGeneratorController {
         let functionName = "\(function.name)\(argumentsTitles)"
         let argumentsString = function.arguments.map(generateArgument).joined(separator: ", ")
 
-        result += "func \(function.name)(\(argumentsString)) {\n"
-        result += "\(functionName)Count += 1\n"
+        result += "\tfunc \(function.name)(\(argumentsString)) {\n"
+        result += "\t\t\(functionName)Count += 1\n"
 
         for argument in function.arguments {
-            result += "\(functionName)\(argument.name.capitalized) = \(argument.name)\n"
+            result += "\t\t\(functionName)\(argument.name.capitalized) = \(argument.name)\n"
         }
 
-        result += "}\n"
+        result += "\t}\n"
         return result
     }
 

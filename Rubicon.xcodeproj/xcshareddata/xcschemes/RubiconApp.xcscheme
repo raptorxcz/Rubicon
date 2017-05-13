@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BB0474301EC0609100FC2B34"
-               BuildableName = "RubiconApp.app"
+               BuildableName = "Rubicon.app"
                BlueprintName = "RubiconApp"
                ReferencedContainer = "container:Rubicon.xcodeproj">
             </BuildableReference>
@@ -38,12 +38,22 @@
                ReferencedContainer = "container:Rubicon.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BB0168C71EC7889F001024A9"
+               BuildableName = "RubiconExtensionTests.xctest"
+               BlueprintName = "RubiconExtensionTests"
+               ReferencedContainer = "container:Rubicon.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BB0474301EC0609100FC2B34"
-            BuildableName = "RubiconApp.app"
+            BuildableName = "Rubicon.app"
             BlueprintName = "RubiconApp"
             ReferencedContainer = "container:Rubicon.xcodeproj">
          </BuildableReference>
@@ -66,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BB0474301EC0609100FC2B34"
-            BuildableName = "RubiconApp.app"
+            BuildableName = "Rubicon.app"
             BlueprintName = "RubiconApp"
             ReferencedContainer = "container:Rubicon.xcodeproj">
          </BuildableReference>
@@ -85,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BB0474301EC0609100FC2B34"
-            BuildableName = "RubiconApp.app"
+            BuildableName = "Rubicon.app"
             BlueprintName = "RubiconApp"
             ReferencedContainer = "container:Rubicon.xcodeproj">
          </BuildableReference>

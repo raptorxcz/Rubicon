@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB0168D31EC78945001024A9 /* IndentationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0168D21EC78945001024A9 /* IndentationFormatter.swift */; };
 		BB0474341EC0609100FC2B34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474331EC0609100FC2B34 /* AppDelegate.swift */; };
 		BB0474361EC0609100FC2B34 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474351EC0609100FC2B34 /* ViewController.swift */; };
 		BB0474381EC0609100FC2B34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB0474371EC0609100FC2B34 /* Assets.xcassets */; };
@@ -74,6 +75,7 @@
 		BB6E40371EC26B2F003CD916 /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FCB1EBE27F100BB1347 /* HelpController.swift */; };
 		BB981FC81EBE26DB00BB1347 /* CommandLineAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC71EBE26DB00BB1347 /* CommandLineAssembly.swift */; };
 		BBA24AA21EA9459800ADCAAF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA11EA9459800ADCAAF /* main.swift */; };
+		BBF3D3881EC78F2B00FAB739 /* XcodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF3D3871EC78F2B00FAB739 /* XcodeKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,7 +142,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		BB0474311EC0609100FC2B34 /* RubiconApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RubiconApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB0168D21EC78945001024A9 /* IndentationFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndentationFormatter.swift; sourceTree = "<group>"; };
+		BB0168D41EC789FF001024A9 /* RubiconApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RubiconApp.entitlements; sourceTree = "<group>"; };
+		BB0474311EC0609100FC2B34 /* Rubicon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rubicon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB0474331EC0609100FC2B34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB0474351EC0609100FC2B34 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BB0474371EC0609100FC2B34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 		BBD4DE861EB110C700AEBE06 /* Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
 		BBD4DE891EB1145D00AEBE06 /* StorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StorageTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BBD4DE8B1EB1149600AEBE06 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		BBF3D3871EC78F2B00FAB739 /* XcodeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XcodeKit.framework; path = Library/Frameworks/XcodeKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +231,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBF3D3881EC78F2B00FAB739 /* XcodeKit.framework in Frameworks */,
 				BB0474B51EC0690600FC2B34 /* Generator.framework in Frameworks */,
 				BB0474A51EC068FA00FC2B34 /* Cocoa.framework in Frameworks */,
 			);
@@ -244,6 +250,7 @@
 		BB0474321EC0609100FC2B34 /* RubiconApp */ = {
 			isa = PBXGroup;
 			children = (
+				BB0168D41EC789FF001024A9 /* RubiconApp.entitlements */,
 				BB0474331EC0609100FC2B34 /* AppDelegate.swift */,
 				BB0474371EC0609100FC2B34 /* Assets.xcassets */,
 				BB04743C1EC0609100FC2B34 /* Info.plist */,
@@ -285,6 +292,7 @@
 		BB0474A31EC068FA00FC2B34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BBF3D3871EC78F2B00FAB739 /* XcodeKit.framework */,
 				BB0474A41EC068FA00FC2B34 /* Cocoa.framework */,
 			);
 			name = Frameworks;
@@ -297,6 +305,7 @@
 				BB0474AD1EC068FA00FC2B34 /* Info.plist */,
 				BB0474AB1EC068FA00FC2B34 /* SourceEditorCommand.swift */,
 				BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */,
+				BB0168D21EC78945001024A9 /* IndentationFormatter.swift */,
 			);
 			path = RubiconExtension;
 			sourceTree = "<group>";
@@ -361,7 +370,7 @@
 			isa = PBXGroup;
 			children = (
 				BBA24A9E1EA9459800ADCAAF /* Rubicon */,
-				BB0474311EC0609100FC2B34 /* RubiconApp.app */,
+				BB0474311EC0609100FC2B34 /* Rubicon.app */,
 				BB0474531EC0611200FC2B34 /* Generator.framework */,
 				BB04745B1EC0611200FC2B34 /* GeneratorTests.xctest */,
 				BB0474A21EC068FA00FC2B34 /* RubiconExtension.appex */,
@@ -487,7 +496,7 @@
 			);
 			name = RubiconApp;
 			productName = RubiconApp;
-			productReference = BB0474311EC0609100FC2B34 /* RubiconApp.app */;
+			productReference = BB0474311EC0609100FC2B34 /* Rubicon.app */;
 			productType = "com.apple.product-type.application";
 		};
 		BB0474521EC0611200FC2B34 /* Generator */ = {
@@ -575,6 +584,11 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = M36Y4P27ZU;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					BB0474521EC0611200FC2B34 = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -710,6 +724,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB0474AA1EC068FA00FC2B34 /* SourceEditorExtension.swift in Sources */,
+				BB0168D31EC78945001024A9 /* IndentationFormatter.swift in Sources */,
 				BB0474AC1EC068FA00FC2B34 /* SourceEditorCommand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -793,13 +808,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RubiconApp/RubiconApp.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = M36Y4P27ZU;
 				INFOPLIST_FILE = RubiconApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.RubiconApp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Rubicon;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 3.0;
@@ -811,13 +827,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RubiconApp/RubiconApp.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = M36Y4P27ZU;
 				INFOPLIST_FILE = RubiconApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.RubiconApp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Rubicon;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
