@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0830"
-   version = "1.3">
+   wasCreatedForAppExtension = "YES"
+   version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,9 +15,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BBA24A9D1EA9459800ADCAAF"
-               BuildableName = "Rubicon"
-               BlueprintName = "Rubicon"
+               BlueprintIdentifier = "BB0474A11EC068FA00FC2B34"
+               BuildableName = "RubiconExtension.appex"
+               BlueprintName = "RubiconExtension"
+               ReferencedContainer = "container:Rubicon.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BB0474301EC0609100FC2B34"
+               BuildableName = "Rubicon.app"
+               BlueprintName = "RubiconApp"
                ReferencedContainer = "container:Rubicon.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,31 +41,25 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BB04745A1EC0611200FC2B34"
-               BuildableName = "GeneratorTests.xctest"
-               BlueprintName = "GeneratorTests"
+               BlueprintIdentifier = "BB0168C71EC7889F001024A9"
+               BuildableName = "RubiconExtensionTests.xctest"
+               BlueprintName = "RubiconExtensionTests"
                ReferencedContainer = "container:Rubicon.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "ParserTests/test_givenBigFile_whenParse_thenMeasureSpeed()">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BBA24A9D1EA9459800ADCAAF"
-            BuildableName = "Rubicon"
-            BlueprintName = "Rubicon"
+            BlueprintIdentifier = "BB0474301EC0609100FC2B34"
+            BuildableName = "Rubicon.app"
+            BlueprintName = "RubiconApp"
             ReferencedContainer = "container:Rubicon.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -59,35 +68,29 @@
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
-      useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/krystofmatej/Developer/Rubicon"
+      useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      allowLocationSimulation = "YES"
+      launchAutomaticallySubstyle = "2">
+      <RemoteRunnable
+         runnableDebuggingMode = "0"
+         BundleIdentifier = "com.apple.dt.Xcode"
+         RemotePath = "/Applications/Xcode.app">
+      </RemoteRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BBA24A9D1EA9459800ADCAAF"
-            BuildableName = "Rubicon"
-            BlueprintName = "Rubicon"
+            BlueprintIdentifier = "BB0474301EC0609100FC2B34"
+            BuildableName = "Rubicon.app"
+            BlueprintName = "RubiconApp"
             ReferencedContainer = "container:Rubicon.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "--mock"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "."
-            isEnabled = "YES">
-         </CommandLineArgument>
-      </CommandLineArguments>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -96,14 +99,15 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES">
+      debugDocumentVersioning = "YES"
+      launchAutomaticallySubstyle = "2">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BBA24A9D1EA9459800ADCAAF"
-            BuildableName = "Rubicon"
-            BlueprintName = "Rubicon"
+            BlueprintIdentifier = "BB0474301EC0609100FC2B34"
+            BuildableName = "Rubicon.app"
+            BlueprintName = "RubiconApp"
             ReferencedContainer = "container:Rubicon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
