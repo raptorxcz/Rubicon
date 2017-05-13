@@ -13,7 +13,7 @@ public class StandardGeneratorOutput {}
 extension StandardGeneratorOutput: GeneratorOutput {
 
     public func save(text: String) {
-        print(text)
+        print(text, terminator: "")
     }
 
 }
