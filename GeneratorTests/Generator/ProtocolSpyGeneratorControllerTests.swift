@@ -88,7 +88,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
     }
 
     func test_givenProtocolWithSimpleFunction_whenGenerate_thenGenerateSpy() {
-        let function = FunctionDeclarationType(name: "start", arguments: [])
+        let function = FunctionDeclarationType(name: "start")
         let protocolType = ProtocolType(name: "Car", variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
