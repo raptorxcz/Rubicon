@@ -583,7 +583,6 @@
 					BB04745A1EC0611200FC2B34 = {
 						CreatedOnToolsVersion = 8.3.2;
 						ProvisioningStyle = Manual;
-						TestTargetID = BB0474301EC0609100FC2B34;
 					};
 					BB0474A11EC068FA00FC2B34 = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -888,7 +887,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RubiconApp.app/Contents/MacOS/RubiconApp";
 			};
 			name = Debug;
 		};
@@ -903,7 +901,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RubiconApp.app/Contents/MacOS/RubiconApp";
 			};
 			name = Release;
 		};
