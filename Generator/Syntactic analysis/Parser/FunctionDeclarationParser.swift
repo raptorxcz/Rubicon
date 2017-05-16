@@ -11,11 +11,13 @@ public enum FunctionDeclarationParserError: Error {
     case invalidNameToken
     case invalidLeftBracketToken
     case invalidFunctionArgument
+    case invalidReturnType
 }
 
 public class FunctionDeclarationParser {
 
     private var argumentParser = ArgumentParser()
+    private var typeParser = TypeParser()
 
     public init() {}
 
@@ -56,6 +58,18 @@ public class FunctionDeclarationParser {
         }
 
         _ = try? storage.next()
-        return FunctionDeclarationType(name: name, arguments: arguments)
+        var returnType: Type?
+
+        if storage.current == .arrow {
+            _ = try? storage.next()
+
+            guard let type = try? typeParser.parse(storage: storage) else {
+                throw FunctionDeclarationParserError.invalidReturnType
+            }
+
+            returnType = type
+        }
+
+        return FunctionDeclarationType(name: name, arguments: arguments, returnType: returnType)
     }
 }

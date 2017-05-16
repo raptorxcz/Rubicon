@@ -99,7 +99,31 @@ class FunctionDeclarationParserTests: XCTestCase {
             let definition = try parser.parse(storage: storage)
             XCTAssertEqual(definition.name, "f")
             XCTAssertEqual(definition.arguments.count, 3)
+            XCTAssert(definition.returnType == nil)
             XCTAssertEqual(storage.current, .colon)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenFunctionWithEmptyReturn_whenParse_thenThrowException() {
+        let tokens: [Token] = [.function, .identifier(name: "f"), .leftBracket, .rightBracket, .arrow]
+        let storage = try! Storage(tokens: tokens)
+
+        testParserException(with: storage, .invalidReturnType)
+        XCTAssertEqual(storage.current, .arrow)
+    }
+
+    func test_givenFunctionWithReturn_whenParse_thenReturnFunctionDeclaration() {
+        let tokens: [Token] = [.function, .identifier(name: "f"), .leftBracket, .rightBracket, .arrow, .identifier(name: "Int")]
+        let storage = try! Storage(tokens: tokens)
+
+        do {
+            let definition = try parser.parse(storage: storage)
+            XCTAssertEqual(definition.name, "f")
+            XCTAssertEqual(definition.arguments.count, 0)
+            XCTAssertEqual(storage.current, .identifier(name: "Int"))
+            XCTAssertEqual(definition.returnType?.name, "Int")
         } catch {
             XCTFail()
         }

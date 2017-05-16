@@ -48,7 +48,19 @@ public class ProtocolSpyGeneratorController {
         var result = ""
 
         for variable in variables {
-            result += "\tvar \(variable.identifier): \(variable.type.name)!\n"
+            result += "\tvar _\(variable.identifier): \(variable.type.name)\(variable.type.isOptional ? "?" : "!")\n"
+            result += "\tvar \(variable.identifier): \(variable.type.name)\(variable.type.isOptional ? "?" : "") {\n"
+            result += "\t\tget {\n"
+            result += "\t\t\treturn _\(variable.identifier)\n"
+            result += "\t\t}\n"
+
+            if !variable.isConstant {
+                result += "\t\tset {\n"
+                result += "\t\t\t_\(variable.identifier) = newValue\n"
+                result += "\t\t}\n"
+            }
+
+            result += "\t}\n"
         }
 
         return result
@@ -60,6 +72,10 @@ public class ProtocolSpyGeneratorController {
 
         var result = ""
         result += "\tvar \(functionName)Count = 0\n"
+
+        if let returnType = function.returnType {
+            result += "\tvar \(functionName)Return: \(returnType.name)\(returnType.isOptional ? "?" : "!")\n"
+        }
 
         for argument in function.arguments {
             result += "\tvar \(functionName)\(argument.name.capitalized): \(argument.type.name)?\n"
@@ -87,11 +103,21 @@ public class ProtocolSpyGeneratorController {
         let functionName = "\(function.name)\(argumentsTitles)"
         let argumentsString = function.arguments.map(generateArgument).joined(separator: ", ")
 
-        result += "\tfunc \(function.name)(\(argumentsString)) {\n"
+        var returnString = ""
+
+        if let returnType = function.returnType {
+            returnString = "-> \(returnType.name)\(returnType.isOptional ? "?": "") "
+        }
+
+        result += "\tfunc \(function.name)(\(argumentsString)) \(returnString){\n"
         result += "\t\t\(functionName)Count += 1\n"
 
         for argument in function.arguments {
             result += "\t\t\(functionName)\(argument.name.capitalized) = \(argument.name)\n"
+        }
+
+        if function.returnType != nil {
+            result += "\t\treturn \(functionName)Return\n"
         }
 
         result += "\t}\n"

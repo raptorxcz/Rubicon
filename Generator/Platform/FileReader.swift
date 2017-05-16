@@ -7,5 +7,5 @@
 //
 
 public protocol FileReader {
-    func readFiles(at path: String) -> String
+    func readFiles(at path: String) -> [String]
 }

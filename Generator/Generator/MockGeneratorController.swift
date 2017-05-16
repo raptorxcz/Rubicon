@@ -7,7 +7,7 @@
 //
 
 public protocol MocksGeneratorController {
-    func run(text: String)
+    func run(texts: [String])
 }
 
 public class MocksGeneratorControllerImpl {
@@ -22,23 +22,28 @@ public class MocksGeneratorControllerImpl {
 
 extension MocksGeneratorControllerImpl: MocksGeneratorController {
 
-    public func run(text: String) {
-        let parser = Parser()
-        let tokens = parser.parse(text)
+    public func run(texts: [String]) {
+        for text in texts {
+            guard text.contains("protocol") else {
+                continue
+            }
 
-        guard let storage = try? Storage(tokens: tokens) else {
-            output.save(text: "")
-            return
-        }
+            let parser = Parser()
+            let tokens = parser.parse(text)
 
-        var isTextSearched = true
+            guard let storage = try? Storage(tokens: tokens) else {
+                continue
+            }
 
-        while isTextSearched {
-            do {
-                try storage.moveToNext(.protocol)
-                processProtocol(storage: storage)
-            } catch {
-                isTextSearched = false
+            var isTextSearched = true
+
+            while isTextSearched {
+                do {
+                    try storage.moveToNext(.protocol)
+                    processProtocol(storage: storage)
+                } catch {
+                    isTextSearched = false
+                }
             }
         }
     }

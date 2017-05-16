@@ -26,7 +26,12 @@ class ProtocolParserTests: XCTestCase {
     }
 
     func test_givenInvalidLeftBracketToken_whenParse_thenThrowException() {
-        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .colon])
+        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .comma])
+        testParserException(with: storage, .expectedLeftBracket)
+    }
+
+    func test_givenNoLeftBracketToken_whenParse_thenThrowException() {
+        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p")])
         testParserException(with: storage, .expectedLeftBracket)
     }
 
@@ -52,6 +57,52 @@ class ProtocolParserTests: XCTestCase {
             let `protocol` = try parser.parse(storage: storage)
             XCTAssertEqual(`protocol`.name, "p")
             XCTAssertEqual(storage.current, .colon)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenProtocolWithParentSeparator_whenParse_thenMakeNewProtocol() {
+        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .leftCurlyBracket, .rightCurlyBracket, .colon])
+        testParserException(with: storage, .expectedParentProtocol)
+    }
+
+    func test_givenProtocolWithMultipleParentSeparator_whenParse_thenMakeNewProtocol() {
+        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .identifier(name: "c"), .comma, .identifier(name: "c"), .comma, .leftCurlyBracket, .rightCurlyBracket, .colon])
+        testParserException(with: storage, .expectedParentProtocol)
+    }
+
+    func test_givenClassProtocol_whenParse_thenParse() {
+        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .identifier(name: "class"), .leftCurlyBracket, .rightCurlyBracket])
+        do {
+            let protocolType = try parser.parse(storage: storage)
+            XCTAssertEqual(protocolType.name, "p")
+            XCTAssertEqual(protocolType.parents, ["class"])
+            XCTAssertEqual(storage.current, .rightCurlyBracket)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenProtocolWithParents_whenParse_thenParse() {
+        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .identifier(name: "class"), .comma, .identifier(name: "a"), .leftCurlyBracket, .rightCurlyBracket])
+        do {
+            let protocolType = try parser.parse(storage: storage)
+            XCTAssertEqual(protocolType.name, "p")
+            XCTAssertEqual(protocolType.parents, ["class", "a"])
+            XCTAssertEqual(storage.current, .rightCurlyBracket)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenParentProtocols_whenParse_thenParse() {
+        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .identifier(name: "class"), .leftCurlyBracket, .rightCurlyBracket])
+        do {
+            let protocolType = try parser.parse(storage: storage)
+            XCTAssertEqual(protocolType.name, "p")
+            XCTAssertEqual(protocolType.parents, ["class"])
+            XCTAssertEqual(storage.current, .rightCurlyBracket)
         } catch {
             XCTFail()
         }
