@@ -15,7 +15,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
     private let type = Type(name: "Color", isOptional: false)
 
     func test_givenprotocolType_whenGenerate_thenGenerateEmptySpy() {
-        let protocolType = ProtocolType(name: "Test", variables: [], functions: [])
+        let protocolType = ProtocolType(name: "Test", parents: [], variables: [], functions: [])
 
         equal(protocolType: protocolType, rows: [
             "class TestSpy: Test {",
@@ -27,7 +27,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
     }
 
     func test_givenprotocolTypeWithLongName_whenGenerate_thenGenerateEmptySpy() {
-        let protocolType = ProtocolType(name: "TestTestTestTestTest", variables: [], functions: [])
+        let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
 
         equal(protocolType: protocolType, rows: [
             "class TestTestTestTestTestSpy: TestTestTestTestTest {",
@@ -40,7 +40,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
 
     func test_givenProtocolWithVariable_whenGenerate_thenGenerateSpy() {
         let variable = VarDeclarationType(isConstant: false, identifier: "color", type: type)
-        let protocolType = ProtocolType(name: "Car", variables: [variable], functions: [])
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
 
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
@@ -57,7 +57,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
     func test_givenProtocolWithConstant_whenGenerate_thenGenerateSpy() {
         let type = Type(name: "Color", isOptional: true)
         let variable = VarDeclarationType(isConstant: true, identifier: "color", type: type)
-        let protocolType = ProtocolType(name: "Car", variables: [variable], functions: [])
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
@@ -72,7 +72,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
 
     func test_givenProtocolWithTwoVariables_whenGenerate_thenGenerateSpy() {
         let variable = VarDeclarationType(isConstant: false, identifier: "color", type: type)
-        let protocolType = ProtocolType(name: "Car", variables: [variable, variable], functions: [])
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable, variable], functions: [])
 
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
@@ -89,7 +89,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
 
     func test_givenProtocolWithSimpleFunction_whenGenerate_thenGenerateSpy() {
         let function = FunctionDeclarationType(name: "start")
-        let protocolType = ProtocolType(name: "Car", variables: [], functions: [function])
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
@@ -109,7 +109,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
 
     func test_givenProtocolWithFunctionWithReturn_whenGenerate_thenGenerateSpy() {
         let function = FunctionDeclarationType(name: "start", returnType: Type(name: "Int", isOptional: false))
-        let protocolType = ProtocolType(name: "Car", variables: [], functions: [function])
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
@@ -131,7 +131,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
 
     func test_givenProtocolWithFunctionWithOptionalReturn_whenGenerate_thenGenerateSpy() {
         let function = FunctionDeclarationType(name: "start", returnType: Type(name: "Int", isOptional: true))
-        let protocolType = ProtocolType(name: "Car", variables: [], functions: [function])
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
@@ -154,7 +154,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
     func test_givenProtocolWithFunctionWithArgument_whenGenerate_thenGenerateSpy() {
         let argument = ArgumentType(label: "a", name: "b", type: type)
         let function = FunctionDeclarationType(name: "start", arguments: [argument])
-        let protocolType = ProtocolType(name: "Car", variables: [], functions: [function])
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
@@ -177,7 +177,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
     func test_givenProtocolWithFunctionWithNoLabelAndArgument_whenGenerate_thenGenerateSpy() {
         let argument = ArgumentType(label: "_", name: "b", type: type)
         let function = FunctionDeclarationType(name: "start", arguments: [argument])
-        let protocolType = ProtocolType(name: "Car", variables: [], functions: [function])
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
@@ -202,7 +202,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         let type2 = Type(name: "Color", isOptional: true)
         let argument2 = ArgumentType(label: nil, name: "d", type: type2)
         let function = FunctionDeclarationType(name: "start", arguments: [argument, argument2])
-        let protocolType = ProtocolType(name: "Car", variables: [], functions: [function])
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
@@ -228,7 +228,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         let argument = ArgumentType(label: "a", name: "b", type: type)
         let function = FunctionDeclarationType(name: "start", arguments: [argument])
         let function2 = FunctionDeclarationType(name: "stop", arguments: [argument])
-        let protocolType = ProtocolType(name: "Car", variables: [], functions: [function, function2])
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
@@ -260,7 +260,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         let variable = VarDeclarationType(isConstant: false, identifier: "color", type: type)
         let argument = ArgumentType(label: "a", name: "b", type: type)
         let function = FunctionDeclarationType(name: "start", arguments: [argument])
-        let protocolType = ProtocolType(name: "Car", variables: [variable], functions: [function])
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [function])
 
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
