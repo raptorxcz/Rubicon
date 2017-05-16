@@ -71,7 +71,7 @@ class CarSpy: Car {
 }
 ```
 
-##CLI
+## CLI
 
 Rubicon cli can generate mocks for every protocol in folder. Script runs through every swift file and find every protocol definition. Result is printed at standard out.
 
@@ -80,11 +80,11 @@ example:
 ./rubicon --mocks .
 ```
 
-###options:
+### options:
 
 `--mocks path` generates spys for protocols in files.
 
-##Xcode extension
+## Xcode extension
 
 Xcode extension can generate Spy for every `protocol` in current file.
 
