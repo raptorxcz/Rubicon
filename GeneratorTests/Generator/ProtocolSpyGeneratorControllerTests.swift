@@ -282,7 +282,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         )
     }
 
-
     private func equal(protocolType: ProtocolType, rows: [String]) {
         let generatedRows = generator.generate(from: protocolType).components(separatedBy: "\n")
 
