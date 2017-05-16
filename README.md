@@ -30,8 +30,21 @@ output:
 ```swift
 class CarSpy: Car {
 
-	var name: String!
-	var color: Int!
+	var _name: String?
+	var name: String? {
+		get {
+			return _name
+		}
+	}
+	var _color: Int!
+	var color: Int {
+		get {
+			return _color
+		}
+		set {
+			_color = newValue
+		}
+	}
 
 	var goCount = 0
 

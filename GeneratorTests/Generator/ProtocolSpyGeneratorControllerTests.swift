@@ -45,7 +45,15 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
-            "\tvar color: Color!",
+            "\tvar _color: Color!",
+            "\tvar color: Color {",
+            "\t\tget {",
+            "\t\t\treturn _color",
+            "\t\t}",
+            "\t\tset {",
+            "\t\t\t_color = newValue",
+            "\t\t}",
+            "\t}",
             "",
             "}",
             "",
@@ -55,13 +63,39 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
     }
 
     func test_givenProtocolWithConstant_whenGenerate_thenGenerateSpy() {
+        let type = Type(name: "Color", isOptional: false)
+        let variable = VarDeclarationType(isConstant: true, identifier: "color", type: type)
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
+        equal(protocolType: protocolType, rows: [
+            "class CarSpy: Car {",
+            "",
+            "\tvar _color: Color!",
+            "\tvar color: Color {",
+            "\t\tget {",
+            "\t\t\treturn _color",
+            "\t\t}",
+            "\t}",
+            "",
+            "}",
+            "",
+            ""
+            ]
+        )
+    }
+
+    func test_givenProtocolWithOptional_whenGenerate_thenGenerateSpy() {
         let type = Type(name: "Color", isOptional: true)
         let variable = VarDeclarationType(isConstant: true, identifier: "color", type: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
-            "\tvar color: Color!",
+            "\tvar _color: Color?",
+            "\tvar color: Color? {",
+            "\t\tget {",
+            "\t\t\treturn _color",
+            "\t\t}",
+            "\t}",
             "",
             "}",
             "",
@@ -77,8 +111,24 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
-            "\tvar color: Color!",
-            "\tvar color: Color!",
+            "\tvar _color: Color!",
+            "\tvar color: Color {",
+            "\t\tget {",
+            "\t\t\treturn _color",
+            "\t\t}",
+            "\t\tset {",
+            "\t\t\t_color = newValue",
+            "\t\t}",
+            "\t}",
+            "\tvar _color: Color!",
+            "\tvar color: Color {",
+            "\t\tget {",
+            "\t\t\treturn _color",
+            "\t\t}",
+            "\t\tset {",
+            "\t\t\t_color = newValue",
+            "\t\t}",
+            "\t}",
             "",
             "}",
             "",
@@ -265,7 +315,15 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
-            "\tvar color: Color!",
+            "\tvar _color: Color!",
+            "\tvar color: Color {",
+            "\t\tget {",
+            "\t\t\treturn _color",
+            "\t\t}",
+            "\t\tset {",
+            "\t\t\t_color = newValue",
+            "\t\t}",
+            "\t}",
             "",
             "\tvar startACount = 0",
             "\tvar startAB: Color?",

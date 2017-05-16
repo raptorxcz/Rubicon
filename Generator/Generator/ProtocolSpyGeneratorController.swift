@@ -48,7 +48,19 @@ public class ProtocolSpyGeneratorController {
         var result = ""
 
         for variable in variables {
-            result += "\tvar \(variable.identifier): \(variable.type.name)!\n"
+            result += "\tvar _\(variable.identifier): \(variable.type.name)\(variable.type.isOptional ? "?" : "!")\n"
+            result += "\tvar \(variable.identifier): \(variable.type.name)\(variable.type.isOptional ? "?" : "") {\n"
+            result += "\t\tget {\n"
+            result += "\t\t\treturn _\(variable.identifier)\n"
+            result += "\t\t}\n"
+
+            if !variable.isConstant {
+                result += "\t\tset {\n"
+                result += "\t\t\t_\(variable.identifier) = newValue\n"
+                result += "\t\t}\n"
+            }
+
+            result += "\t}\n"
         }
 
         return result
