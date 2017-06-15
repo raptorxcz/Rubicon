@@ -13,8 +13,8 @@ class VarDeclarationTypeParserTests: XCTestCase {
 
     let parser = VarDeclarationTypeParser()
 
-    func test_givenVariableToken_whenParse_thenThrowError() {
-        let storage = try! Storage(tokens: [.variable])
+    func test_givenVariableToken_whenParse_thenThrowError() throws {
+        let storage = try Storage(tokens: [.variable])
         do {
             let parser = VarDeclarationTypeParser()
             _ = try parser.parse(storage: storage)
@@ -25,8 +25,8 @@ class VarDeclarationTypeParserTests: XCTestCase {
         XCTFail()
     }
 
-    func test_givenMissingColonToken_whenParse_thenThrowError() {
-        let storage = try! Storage(tokens: [.variable, .identifier(name: "x"), .identifier(name: "Int")])
+    func test_givenMissingColonToken_whenParse_thenThrowError() throws {
+        let storage = try Storage(tokens: [.variable, .identifier(name: "x"), .identifier(name: "Int")])
         do {
             let parser = VarDeclarationTypeParser()
             _ = try parser.parse(storage: storage)
@@ -38,8 +38,8 @@ class VarDeclarationTypeParserTests: XCTestCase {
         XCTFail()
     }
 
-    func test_givenInvalidTokens1_whenParse_thenThrowError() {
-        let storage = try! Storage(tokens: [.constant, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .rightCurlyBracket])
+    func test_givenInvalidTokens1_whenParse_thenThrowError() throws {
+        let storage = try Storage(tokens: [.constant, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .rightCurlyBracket])
         do {
 
             _ = try parser.parse(storage: storage)
@@ -50,33 +50,20 @@ class VarDeclarationTypeParserTests: XCTestCase {
         XCTFail()
     }
 
-    func test_givenInvalidTokens2_whenParse_thenThrowError() {
-        let storage = try! Storage(tokens: [.variable, .identifier(name: "Int"), .variable, .identifier(name: "Int"), .leftCurlyBracket, .get, .rightCurlyBracket])
-        do {
-            let parser = VarDeclarationTypeParser()
-            _ = try parser.parse(storage: storage)
-        } catch {
-            return
-        }
-
-        XCTFail()
-    }
-
-    func test_givenInvalidTokens3_whenParse_thenThrowError() {
-        let storage = try! Storage(tokens: [.variable, .identifier(name: "Int"), .colon, .identifier(name: "Int"), .variable, .get, .rightCurlyBracket])
+    func test_givenInvalidTokens2_whenParse_thenThrowError() throws {
+        let storage = try Storage(tokens: [.variable, .identifier(name: "Int"), .variable, .identifier(name: "Int"), .leftCurlyBracket, .get, .rightCurlyBracket])
         do {
             let parser = VarDeclarationTypeParser()
             _ = try parser.parse(storage: storage)
         } catch {
-            XCTAssertEqual(storage.current, .variable)
             return
         }
 
         XCTFail()
     }
 
-    func test_givenInvalidType_whenParse_thenThrowError() {
-        let storage = try! Storage(tokens: [.variable, .identifier(name: "Int"), .colon, .colon, .variable, .get, .rightCurlyBracket])
+    func test_givenInvalidTokens3_whenParse_thenThrowError() throws {
+        let storage = try Storage(tokens: [.variable, .identifier(name: "Int"), .colon, .identifier(name: "Int"), .variable, .get, .rightCurlyBracket])
         do {
             let parser = VarDeclarationTypeParser()
             _ = try parser.parse(storage: storage)
@@ -88,20 +75,8 @@ class VarDeclarationTypeParserTests: XCTestCase {
         XCTFail()
     }
 
-    func test_givenInvalidTokens4_whenParse_thenThrowError() {
-        let storage = try! Storage(tokens: [.variable, .identifier(name: "Int"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .variable])
-        do {
-            let parser = VarDeclarationTypeParser()
-            _ = try parser.parse(storage: storage)
-        } catch {
-            return
-        }
-
-        XCTFail()
-    }
-
-    func test_givenInvalidEndingBracket_whenParse_thenThrowError() {
-        let storage = try! Storage(tokens: [.variable, .identifier(name: "Int"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .set, .colon])
+    func test_givenInvalidType_whenParse_thenThrowError() throws {
+        let storage = try Storage(tokens: [.variable, .identifier(name: "Int"), .colon, .colon, .variable, .get, .rightCurlyBracket])
         do {
             let parser = VarDeclarationTypeParser()
             _ = try parser.parse(storage: storage)
@@ -113,8 +88,33 @@ class VarDeclarationTypeParserTests: XCTestCase {
         XCTFail()
     }
 
-    func test_givenConstantDefinition_whenParse_thenParseVariable() {
-        let storage = try! Storage(tokens: [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .rightCurlyBracket])
+    func test_givenInvalidTokens4_whenParse_thenThrowError() throws {
+        let storage = try Storage(tokens: [.variable, .identifier(name: "Int"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .variable])
+        do {
+            let parser = VarDeclarationTypeParser()
+            _ = try parser.parse(storage: storage)
+        } catch {
+            return
+        }
+
+        XCTFail()
+    }
+
+    func test_givenInvalidEndingBracket_whenParse_thenThrowError() throws {
+        let storage = try Storage(tokens: [.variable, .identifier(name: "Int"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .set, .colon])
+        do {
+            let parser = VarDeclarationTypeParser()
+            _ = try parser.parse(storage: storage)
+        } catch {
+            XCTAssertEqual(storage.current, .variable)
+            return
+        }
+
+        XCTFail()
+    }
+
+    func test_givenConstantDefinition_whenParse_thenParseVariable() throws {
+        let storage = try Storage(tokens: [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .rightCurlyBracket])
 
         do {
             let parser = VarDeclarationTypeParser()
@@ -127,8 +127,8 @@ class VarDeclarationTypeParserTests: XCTestCase {
         }
     }
 
-    func test_givenVariableDefinition_whenParse_thenParseVariable() {
-        let storage = try! Storage(tokens: [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .set, .rightCurlyBracket])
+    func test_givenVariableDefinition_whenParse_thenParseVariable() throws {
+        let storage = try Storage(tokens: [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .set, .rightCurlyBracket])
 
         do {
             let parser = VarDeclarationTypeParser()
@@ -142,8 +142,8 @@ class VarDeclarationTypeParserTests: XCTestCase {
         }
     }
 
-    func test_givenVariableDefinition2_whenParse_thenParseVariable() {
-        let storage = try! Storage(tokens: [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .set, .get, .rightCurlyBracket])
+    func test_givenVariableDefinition2_whenParse_thenParseVariable() throws {
+        let storage = try Storage(tokens: [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .set, .get, .rightCurlyBracket])
 
         do {
             let parser = VarDeclarationTypeParser()
@@ -157,8 +157,8 @@ class VarDeclarationTypeParserTests: XCTestCase {
         }
     }
 
-    func test_givenVariableDefinitionWithoutGet_whenParse_thenParseVariable() {
-        let storage = try! Storage(tokens: [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .set, .rightCurlyBracket])
+    func test_givenVariableDefinitionWithoutGet_whenParse_thenParseVariable() throws {
+        let storage = try Storage(tokens: [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .set, .rightCurlyBracket])
 
         do {
             let parser = VarDeclarationTypeParser()
@@ -169,8 +169,8 @@ class VarDeclarationTypeParserTests: XCTestCase {
         XCTFail()
     }
 
-    func test_givenOptionVariableDefinition_whenParse_thenParseVariable() {
-        let storage = try! Storage(tokens: [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .questionMark, .leftCurlyBracket, .set, .get, .rightCurlyBracket])
+    func test_givenOptionVariableDefinition_whenParse_thenParseVariable() throws {
+        let storage = try Storage(tokens: [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .questionMark, .leftCurlyBracket, .set, .get, .rightCurlyBracket])
 
         do {
             let parser = VarDeclarationTypeParser()
@@ -184,8 +184,8 @@ class VarDeclarationTypeParserTests: XCTestCase {
         }
     }
 
-    func test_givenAlotOfTokensDefinition_whenParse_thenParseVariable() {
-        let storage = try! Storage(tokens: [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .questionMark, .leftCurlyBracket, .set, .get, .rightCurlyBracket, .leftCurlyBracket, .set, .get, .rightCurlyBracket])
+    func test_givenAlotOfTokensDefinition_whenParse_thenParseVariable() throws {
+        let storage = try Storage(tokens: [.variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .questionMark, .leftCurlyBracket, .set, .get, .rightCurlyBracket, .leftCurlyBracket, .set, .get, .rightCurlyBracket])
 
         do {
             let parser = VarDeclarationTypeParser()

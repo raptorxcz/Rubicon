@@ -55,7 +55,7 @@ class MockGeneratorControllerTests: XCTestCase {
         let generatorOutput = GeneratorOutputSpy()
         let generator = MocksGeneratorControllerImpl(output: generatorOutput)
         generator.run(texts: ["protocol X {}"])
-        XCTAssertEqual(generatorOutput.text, "class XSpy: X {\n}\n\n")
+        XCTAssertEqual(generatorOutput.text, "class XSpy: X {\n}\n")
         XCTAssertEqual(generatorOutput.saveCount, 1)
     }
 
@@ -63,7 +63,7 @@ class MockGeneratorControllerTests: XCTestCase {
         let generatorOutput = GeneratorOutputSpy()
         let generator = MocksGeneratorControllerImpl(output: generatorOutput)
         generator.run(texts: ["class {} protocol X {}"])
-        XCTAssertEqual(generatorOutput.text, "class XSpy: X {\n}\n\n")
+        XCTAssertEqual(generatorOutput.text, "class XSpy: X {\n}\n")
         XCTAssertEqual(generatorOutput.saveCount, 1)
     }
 
@@ -71,7 +71,7 @@ class MockGeneratorControllerTests: XCTestCase {
         let generatorOutput = GeneratorOutputSpy()
         let generator = MocksGeneratorControllerImpl(output: generatorOutput)
         generator.run(texts: ["", "class {} protocol X {} var X protocol Y {}"])
-        XCTAssertEqual(generatorOutput.text, "class XSpy: X {\n}\n\nclass YSpy: Y {\n}\n\n")
+        XCTAssertEqual(generatorOutput.text, "class XSpy: X {\n}\nclass YSpy: Y {\n}\n")
         XCTAssertEqual(generatorOutput.saveCount, 2)
     }
 
