@@ -15,33 +15,33 @@ class ProtocolParserTests: XCTestCase {
     private let varTokens: [Token] = [.variable, .identifier(name: "a"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .rightCurlyBracket]
     private let funcTokens: [Token] = [.function, .identifier(name: "a"), .leftBracket, .rightBracket]
 
-    func test_givenInvalidToken_whenParse_thenThrowException() {
-        let storage = try! Storage(tokens: [.colon])
+    func test_givenInvalidToken_whenParse_thenThrowException() throws {
+        let storage = try Storage(tokens: [.colon])
         testParserException(with: storage, .invalidProtocolToken)
     }
 
-    func test_givenInvalidNameToken_whenParse_thenThrowException() {
-        let storage = try! Storage(tokens: [.protocol, .colon])
+    func test_givenInvalidNameToken_whenParse_thenThrowException() throws {
+        let storage = try Storage(tokens: [.protocol, .colon])
         testParserException(with: storage, .invalidNameToken)
     }
 
-    func test_givenInvalidLeftBracketToken_whenParse_thenThrowException() {
-        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .comma])
+    func test_givenInvalidLeftBracketToken_whenParse_thenThrowException() throws {
+        let storage = try Storage(tokens: [.protocol, .identifier(name: "p"), .comma])
         testParserException(with: storage, .expectedLeftBracket)
     }
 
-    func test_givenNoLeftBracketToken_whenParse_thenThrowException() {
-        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p")])
+    func test_givenNoLeftBracketToken_whenParse_thenThrowException() throws {
+        let storage = try Storage(tokens: [.protocol, .identifier(name: "p")])
         testParserException(with: storage, .expectedLeftBracket)
     }
 
-    func test_givenInvalidRightBracketToken_whenParse_thenThrowException() {
-        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .leftCurlyBracket, .colon])
+    func test_givenInvalidRightBracketToken_whenParse_thenThrowException() throws {
+        let storage = try Storage(tokens: [.protocol, .identifier(name: "p"), .leftCurlyBracket, .colon])
         testParserException(with: storage, .expectedRightBracket)
     }
 
-    func test_givenEmptyProtocol_whenParse_thenParse() {
-        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .leftCurlyBracket, .rightCurlyBracket])
+    func test_givenEmptyProtocol_whenParse_thenParse() throws {
+        let storage = try Storage(tokens: [.protocol, .identifier(name: "p"), .leftCurlyBracket, .rightCurlyBracket])
         do {
             let `protocol` = try parser.parse(storage: storage)
             XCTAssertEqual(`protocol`.name, "p")
@@ -51,8 +51,8 @@ class ProtocolParserTests: XCTestCase {
         }
     }
 
-    func test_givenEmptyProtocolInText_whenParse_thenParse() {
-        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .leftCurlyBracket, .rightCurlyBracket, .colon])
+    func test_givenEmptyProtocolInText_whenParse_thenParse() throws {
+        let storage = try Storage(tokens: [.protocol, .identifier(name: "p"), .leftCurlyBracket, .rightCurlyBracket, .colon])
         do {
             let `protocol` = try parser.parse(storage: storage)
             XCTAssertEqual(`protocol`.name, "p")
@@ -62,18 +62,18 @@ class ProtocolParserTests: XCTestCase {
         }
     }
 
-    func test_givenProtocolWithParentSeparator_whenParse_thenMakeNewProtocol() {
-        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .leftCurlyBracket, .rightCurlyBracket, .colon])
+    func test_givenProtocolWithParentSeparator_whenParse_thenMakeNewProtocol() throws {
+        let storage = try Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .leftCurlyBracket, .rightCurlyBracket, .colon])
         testParserException(with: storage, .expectedParentProtocol)
     }
 
-    func test_givenProtocolWithMultipleParentSeparator_whenParse_thenMakeNewProtocol() {
-        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .identifier(name: "c"), .comma, .identifier(name: "c"), .comma, .leftCurlyBracket, .rightCurlyBracket, .colon])
+    func test_givenProtocolWithMultipleParentSeparator_whenParse_thenMakeNewProtocol() throws {
+        let storage = try Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .identifier(name: "c"), .comma, .identifier(name: "c"), .comma, .leftCurlyBracket, .rightCurlyBracket, .colon])
         testParserException(with: storage, .expectedParentProtocol)
     }
 
-    func test_givenClassProtocol_whenParse_thenParse() {
-        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .identifier(name: "class"), .leftCurlyBracket, .rightCurlyBracket])
+    func test_givenClassProtocol_whenParse_thenParse() throws {
+        let storage = try Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .identifier(name: "class"), .leftCurlyBracket, .rightCurlyBracket])
         do {
             let protocolType = try parser.parse(storage: storage)
             XCTAssertEqual(protocolType.name, "p")
@@ -84,8 +84,8 @@ class ProtocolParserTests: XCTestCase {
         }
     }
 
-    func test_givenProtocolWithParents_whenParse_thenParse() {
-        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .identifier(name: "class"), .comma, .identifier(name: "a"), .leftCurlyBracket, .rightCurlyBracket])
+    func test_givenProtocolWithParents_whenParse_thenParse() throws {
+        let storage = try Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .identifier(name: "class"), .comma, .identifier(name: "a"), .leftCurlyBracket, .rightCurlyBracket])
         do {
             let protocolType = try parser.parse(storage: storage)
             XCTAssertEqual(protocolType.name, "p")
@@ -96,8 +96,8 @@ class ProtocolParserTests: XCTestCase {
         }
     }
 
-    func test_givenParentProtocols_whenParse_thenParse() {
-        let storage = try! Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .identifier(name: "class"), .leftCurlyBracket, .rightCurlyBracket])
+    func test_givenParentProtocols_whenParse_thenParse() throws {
+        let storage = try Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .identifier(name: "class"), .leftCurlyBracket, .rightCurlyBracket])
         do {
             let protocolType = try parser.parse(storage: storage)
             XCTAssertEqual(protocolType.name, "p")
@@ -108,12 +108,12 @@ class ProtocolParserTests: XCTestCase {
         }
     }
 
-    func test_givenProtocolWithVariable_whenParse_thenParse() {
+    func test_givenProtocolWithVariable_whenParse_thenParse() throws {
         var tokens: [Token] = [.protocol, .identifier(name: "p"), .leftCurlyBracket]
 
         tokens += varTokens
         tokens += [.rightCurlyBracket, .colon]
-        let storage = try! Storage(tokens: tokens)
+        let storage = try Storage(tokens: tokens)
         do {
             let `protocol` = try parser.parse(storage: storage)
             XCTAssertEqual(`protocol`.name, "p")
@@ -126,14 +126,14 @@ class ProtocolParserTests: XCTestCase {
         }
     }
 
-    func test_givenProtocolWithTwoVariables_whenParse_thenParse() {
+    func test_givenProtocolWithTwoVariables_whenParse_thenParse() throws {
         var tokens: [Token] = [.protocol, .identifier(name: "p"), .leftCurlyBracket]
 
         tokens += varTokens
         tokens += varTokens
         tokens += [.rightCurlyBracket, .colon]
 
-        let storage = try! Storage(tokens: tokens)
+        let storage = try Storage(tokens: tokens)
         do {
             let `protocol` = try parser.parse(storage: storage)
             XCTAssertEqual(`protocol`.name, "p")
@@ -146,13 +146,13 @@ class ProtocolParserTests: XCTestCase {
         }
     }
 
-    func test_givenProtocolWithFunction_whenParse_thenParse() {
+    func test_givenProtocolWithFunction_whenParse_thenParse() throws {
         var tokens: [Token] = [.protocol, .identifier(name: "p"), .leftCurlyBracket]
 
         tokens += funcTokens
         tokens += [.rightCurlyBracket, .colon]
 
-        let storage = try! Storage(tokens: tokens)
+        let storage = try Storage(tokens: tokens)
         do {
             let `protocol` = try parser.parse(storage: storage)
             XCTAssertEqual(`protocol`.name, "p")
@@ -164,14 +164,14 @@ class ProtocolParserTests: XCTestCase {
         }
     }
 
-    func test_givenProtocolWithTwoFunctions_whenParse_thenParse() {
+    func test_givenProtocolWithTwoFunctions_whenParse_thenParse() throws {
         var tokens: [Token] = [.protocol, .identifier(name: "p"), .leftCurlyBracket]
 
         tokens += funcTokens
         tokens += funcTokens
         tokens += [.rightCurlyBracket, .colon]
 
-        let storage = try! Storage(tokens: tokens)
+        let storage = try Storage(tokens: tokens)
         do {
             let `protocol` = try parser.parse(storage: storage)
             XCTAssertEqual(`protocol`.name, "p")
@@ -183,7 +183,7 @@ class ProtocolParserTests: XCTestCase {
         }
     }
 
-    func test_givenProtocolWithFunctionsAndVariables_whenParse_thenParse() {
+    func test_givenProtocolWithFunctionsAndVariables_whenParse_thenParse() throws {
         var tokens: [Token] = [.protocol, .identifier(name: "p"), .leftCurlyBracket]
 
         tokens += funcTokens
@@ -194,7 +194,7 @@ class ProtocolParserTests: XCTestCase {
         tokens += funcTokens
         tokens += [.rightCurlyBracket, .colon]
 
-        let storage = try! Storage(tokens: tokens)
+        let storage = try Storage(tokens: tokens)
         do {
             let `protocol` = try parser.parse(storage: storage)
             XCTAssertEqual(`protocol`.name, "p")

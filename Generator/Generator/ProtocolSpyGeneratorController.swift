@@ -10,11 +10,16 @@ public class ProtocolSpyGeneratorController {
 
     public init() {}
 
-    public func generate(from protocolType: ProtocolType) -> String {
+    public func generate(from protocolType: ProtocolType, visibility: String? = nil) -> String {
         var result = ""
+
+        if let visibility = visibility {
+            result += "\(visibility) "
+        }
+
         result += "class \(protocolType.name)Spy: \(protocolType.name) {\n"
         result += generateBody(from: protocolType)
-        result += "}\n\n"
+        result += "}\n"
         return result
     }
 

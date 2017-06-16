@@ -13,29 +13,29 @@ class ArgumentParserTests: XCTestCase {
 
     let parser = ArgumentParser()
 
-    func test_givenInvalidToken_whenParse_thenThrowException() {
-        let storage = try! Storage(tokens: [.colon])
+    func test_givenInvalidToken_whenParse_thenThrowException() throws {
+        let storage = try Storage(tokens: [.colon])
         testParserException(with: storage, .invalidName)
     }
 
-    func test_givenNoSecondToken_whenParse_thenThrowException() {
-        let storage = try! Storage(tokens: [.identifier(name: "name")])
+    func test_givenNoSecondToken_whenParse_thenThrowException() throws {
+        let storage = try Storage(tokens: [.identifier(name: "name")])
 
         testParserException(with: storage, .invalidColon)
     }
 
-    func test_givenInvalidColonToken_whenParse_thenThrowException() {
-        let storage = try! Storage(tokens: [.identifier(name: "name"), .leftBracket])
+    func test_givenInvalidColonToken_whenParse_thenThrowException() throws {
+        let storage = try Storage(tokens: [.identifier(name: "name"), .leftBracket])
         testParserException(with: storage, .invalidColon)
     }
 
-    func test_givenInvalidTypeToken_whenParse_thenThrowException() {
-        let storage = try! Storage(tokens: [.identifier(name: "name"), .colon, .leftBracket])
+    func test_givenInvalidTypeToken_whenParse_thenThrowException() throws {
+        let storage = try Storage(tokens: [.identifier(name: "name"), .colon, .leftBracket])
         testParserException(with: storage, .invalidType)
     }
 
-    func test_givenArgument_whenParse_thenParse() {
-        let storage = try! Storage(tokens: [.identifier(name: "name"), .colon, .identifier(name: "Int"), .colon])
+    func test_givenArgument_whenParse_thenParse() throws {
+        let storage = try Storage(tokens: [.identifier(name: "name"), .colon, .identifier(name: "Int"), .colon])
         do {
             let argumenType = try parser.parse(storage: storage)
             XCTAssertEqual(argumenType.label, nil)
@@ -47,8 +47,8 @@ class ArgumentParserTests: XCTestCase {
         }
     }
 
-    func test_givenArgumentWithLabel_whenParse_thenParse() {
-        let storage = try! Storage(tokens: [.identifier(name: "label"), .identifier(name: "name"), .colon, .identifier(name: "Int"), .colon])
+    func test_givenArgumentWithLabel_whenParse_thenParse() throws {
+        let storage = try Storage(tokens: [.identifier(name: "label"), .identifier(name: "name"), .colon, .identifier(name: "Int"), .colon])
         do {
             let argumenType = try parser.parse(storage: storage)
             XCTAssertEqual(argumenType.label, "label")

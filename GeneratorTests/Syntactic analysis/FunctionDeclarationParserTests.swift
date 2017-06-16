@@ -14,29 +14,29 @@ class FunctionDeclarationParserTests: XCTestCase {
     private let parser = FunctionDeclarationParser()
     private let argumentTokens: [Token] = [.identifier(name: "a"), .colon, .identifier(name: "Int")]
 
-    func test_givenColon_whenParse_thenThrowException() {
-        let storage = try! Storage(tokens: [.colon])
+    func test_givenColon_whenParse_thenThrowException() throws {
+        let storage = try Storage(tokens: [.colon])
         testParserException(with: storage, .invalidFunctionToken)
     }
 
-    func test_givenInvalidNameToken_whenParse_thenThrowInvalidNameException() {
-        let storage = try! Storage(tokens: [.function, .colon])
+    func test_givenInvalidNameToken_whenParse_thenThrowInvalidNameException() throws {
+        let storage = try Storage(tokens: [.function, .colon])
         testParserException(with: storage, .invalidNameToken)
     }
 
-    func test_givenInvalidLeftBracketNameToken_whenParse_thenThrowInvalidNameException() {
-        let storage = try! Storage(tokens: [.function, .identifier(name: "f"), .colon])
+    func test_givenInvalidLeftBracketNameToken_whenParse_thenThrowInvalidNameException() throws {
+        let storage = try Storage(tokens: [.function, .identifier(name: "f"), .colon])
         testParserException(with: storage, .invalidLeftBracketToken)
     }
 
-    func test_givenInvalidFunctionArgument_whenParse_thenThrowInvalidFunctionArgumentException() {
-        let storage = try! Storage(tokens: [.function, .identifier(name: "f"), .leftBracket, .colon])
+    func test_givenInvalidFunctionArgument_whenParse_thenThrowInvalidFunctionArgumentException() throws {
+        let storage = try Storage(tokens: [.function, .identifier(name: "f"), .leftBracket, .colon])
         testParserException(with: storage, .invalidFunctionArgument)
         XCTAssertEqual(storage.current, .function)
     }
 
-    func test_givenFunction_whenParse_thenParse() {
-        let storage = try! Storage(tokens: [.function, .identifier(name: "f"), .leftBracket, .rightBracket, .colon])
+    func test_givenFunction_whenParse_thenParse() throws {
+        let storage = try Storage(tokens: [.function, .identifier(name: "f"), .leftBracket, .rightBracket, .colon])
         do {
             let definition = try parser.parse(storage: storage)
             XCTAssertEqual(definition.name, "f")
@@ -46,11 +46,11 @@ class FunctionDeclarationParserTests: XCTestCase {
         }
     }
 
-    func test_givenFunctionWithArgument_whenParse_thenParse() {
+    func test_givenFunctionWithArgument_whenParse_thenParse() throws {
         var tokens: [Token] = [.function, .identifier(name: "f"), .leftBracket]
         tokens += argumentTokens
         tokens += [.rightBracket, .colon]
-        let storage = try! Storage(tokens: tokens)
+        let storage = try Storage(tokens: tokens)
         do {
             let definition = try parser.parse(storage: storage)
             XCTAssertEqual(definition.name, "f")
@@ -64,13 +64,13 @@ class FunctionDeclarationParserTests: XCTestCase {
         }
     }
 
-    func test_givenFunctionWithTwoArgument_whenParse_thenParse() {
+    func test_givenFunctionWithTwoArgument_whenParse_thenParse() throws {
         var tokens: [Token] = [.function, .identifier(name: "f"), .leftBracket]
         tokens += argumentTokens
         tokens += [.comma]
         tokens += argumentTokens
         tokens += [.rightBracket, .colon]
-        let storage = try! Storage(tokens: tokens)
+        let storage = try Storage(tokens: tokens)
 
         do {
             let definition = try parser.parse(storage: storage)
@@ -85,7 +85,7 @@ class FunctionDeclarationParserTests: XCTestCase {
         }
     }
 
-    func test_givenFunctionWithThreeArgument_whenParse_thenParse() {
+    func test_givenFunctionWithThreeArgument_whenParse_thenParse() throws {
         var tokens: [Token] = [.function, .identifier(name: "f"), .leftBracket]
         tokens += argumentTokens
         tokens += [.comma]
@@ -93,7 +93,7 @@ class FunctionDeclarationParserTests: XCTestCase {
         tokens += [.comma]
         tokens += argumentTokens
         tokens += [.rightBracket, .colon]
-        let storage = try! Storage(tokens: tokens)
+        let storage = try Storage(tokens: tokens)
 
         do {
             let definition = try parser.parse(storage: storage)
@@ -106,17 +106,17 @@ class FunctionDeclarationParserTests: XCTestCase {
         }
     }
 
-    func test_givenFunctionWithEmptyReturn_whenParse_thenThrowException() {
+    func test_givenFunctionWithEmptyReturn_whenParse_thenThrowException() throws {
         let tokens: [Token] = [.function, .identifier(name: "f"), .leftBracket, .rightBracket, .arrow]
-        let storage = try! Storage(tokens: tokens)
+        let storage = try Storage(tokens: tokens)
 
         testParserException(with: storage, .invalidReturnType)
         XCTAssertEqual(storage.current, .arrow)
     }
 
-    func test_givenFunctionWithReturn_whenParse_thenReturnFunctionDeclaration() {
+    func test_givenFunctionWithReturn_whenParse_thenReturnFunctionDeclaration() throws {
         let tokens: [Token] = [.function, .identifier(name: "f"), .leftBracket, .rightBracket, .arrow, .identifier(name: "Int")]
-        let storage = try! Storage(tokens: tokens)
+        let storage = try Storage(tokens: tokens)
 
         do {
             let definition = try parser.parse(storage: storage)
