@@ -132,6 +132,16 @@ class ParserTests: XCTestCase {
         XCTAssertEqual(result, [.constant, .identifier(name: "protocol"), .colon])
     }
 
+    func test_givenLeftSquareBracket_whenParse_thenLeftSquareBracketIsParser() {
+        let result = parser.parse("[")
+        XCTAssertEqual(result, [.leftSquareBracket])
+    }
+
+    func test_givenRightSquareBracket_whenParse_thenRightSquareBracketIsParser() {
+        let result = parser.parse("]")
+        XCTAssertEqual(result, [.rightSquareBracket])
+    }
+
     func test_givenProtocolDefinition_whenParse_thenProtocolTokens() {
         var string = ""
         string += "protocol Satelite {\n"
