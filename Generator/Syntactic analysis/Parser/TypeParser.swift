@@ -20,26 +20,44 @@ public class TypeParser {
     }
 
     public func parse() throws -> Type {
-        return try parseArray()
+        return try parseStructure()
     }
 
     public func parseSimpleType() throws -> Type {
         let name = try parseName()
-        let isOptional = parseIfIsOptional()
+        let isOptional = isOptionalParsed()
         return Type(name: name, isOptional: isOptional)
     }
 
-    private func parseArray() throws -> Type {
+    private func parseStructure() throws -> Type {
         guard case .leftSquareBracket = storage.current else {
             return try parseSimpleType()
         }
 
         _ = try storage.next()
-        let type = try parseSimpleType()
 
+        let contentType = try parseSimpleType()
+        let resultType: Type
+
+        if isColonParsed() {
+            resultType = try parseDictionary(keyType: contentType)
+        } else {
+            resultType = try parseArray(type: contentType)
+        }
+
+        return resultType
+    }
+
+    private func parseDictionary(keyType: Type) throws -> Type {
+        let valueType = try parseSimpleType()
         try parseRightSquareBracket()
-        _ = try storage.next()
-        let isOptional = parseIfIsOptional()
+        let isOptional = isOptionalParsed()
+        return  Type(name: "[\(keyType.makeString()): \(valueType.makeString())]", isOptional: isOptional)
+    }
+
+    private func parseArray(type: Type) throws -> Type {
+        try parseRightSquareBracket()
+        let isOptional = isOptionalParsed()
         return Type(name: "[\(type.makeString())]", isOptional: isOptional)
     }
 
@@ -52,18 +70,31 @@ public class TypeParser {
         return name
     }
 
-    private func parseIfIsOptional() -> Bool {
-        if storage.current == .questionMark {
+    private func isOptionalParsed() -> Bool {
+        let isOptional = storage.current == .questionMark
+
+        if isOptional {
             _ = try? storage.next()
-            return true
-        } else {
-            return false
         }
+
+        return isOptional
+    }
+
+    private func isColonParsed() -> Bool {
+        let isColon = storage.current == .colon
+
+        if isColon {
+            _ = try? storage.next()
+        }
+
+        return isColon
     }
 
     private func parseRightSquareBracket() throws {
         guard case .rightSquareBracket = storage.current else {
             throw TypeParserError.missingEndingBracket
         }
+
+        _ = try storage.next()
     }
 }
