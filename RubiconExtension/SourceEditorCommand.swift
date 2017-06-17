@@ -40,7 +40,7 @@ class GenerateSpy: NSObject, XCSourceEditorCommand {
         let lines = invocation.buffer.lines as! [String]
         let text = lines.reduce("", { $0 + "\n" + $1 })
 
-        let mocksController = MocksGeneratorControllerImpl(output: self)
+        let mocksController = MocksGeneratorControllerImpl(output: self, visibility: "private")
         mocksController.run(texts: [text])
         completionHandler(nil)
     }
