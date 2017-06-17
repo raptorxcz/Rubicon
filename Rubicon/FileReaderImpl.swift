@@ -12,7 +12,7 @@ public class FileReaderImpl: FileReader {
 
     public func readFiles(at path: String) -> [String] {
         let fileNames = findFileNames(at: path)
-        let contentOfFiles = fileNames.flatMap({ return try? String(contentsOfFile: $0, encoding: .utf8) })
+        let contentOfFiles = fileNames.flatMap({ try? String(contentsOfFile: $0, encoding: .utf8) })
         return contentOfFiles
     }
 
@@ -26,8 +26,8 @@ public class FileReaderImpl: FileReader {
         for fileName in items {
             let itemPath = path + "/" + fileName
 
-            var isDir : ObjCBool = false
-            if fileManager.fileExists(atPath: itemPath, isDirectory:&isDir) {
+            var isDir: ObjCBool = false
+            if fileManager.fileExists(atPath: itemPath, isDirectory: &isDir) {
                 if isDir.boolValue {
                     fileNames += findFileNames(at: itemPath)
                 } else {

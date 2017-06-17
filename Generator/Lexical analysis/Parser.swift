@@ -32,6 +32,10 @@ public class Parser {
                 addToResult(.leftBracket)
             case ")":
                 addToResult(.rightBracket)
+            case "[":
+                addToResult(.leftSquareBracket)
+            case "]":
+                addToResult(.rightSquareBracket)
             case "=":
                 addToResult(.equal)
             case "?":

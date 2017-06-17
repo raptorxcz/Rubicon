@@ -13,6 +13,8 @@ public enum Token {
     case rightCurlyBracket
     case leftBracket
     case rightBracket
+    case leftSquareBracket
+    case rightSquareBracket
     case colon
     case comma
     case questionMark
@@ -60,6 +62,10 @@ extension Token: Equatable {
         case (.function, .function):
             return true
         case (.arrow, .arrow):
+            return true
+        case (.leftSquareBracket, .leftSquareBracket):
+            return true
+        case (.rightSquareBracket, .rightSquareBracket):
             return true
         default:
             return false

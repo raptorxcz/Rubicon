@@ -66,7 +66,8 @@ public class VarDeclarationTypeParser {
                     state = .error
                 }
             case .colon:
-                let varType = try? TypeParser().parse(storage: storage)
+                let typeParser = TypeParser(storage: storage)
+                let varType = try? typeParser.parse()
                 if let varType = varType {
                     type = varType
                     state = .type

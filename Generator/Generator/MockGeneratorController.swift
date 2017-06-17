@@ -13,9 +13,11 @@ public protocol MocksGeneratorController {
 public class MocksGeneratorControllerImpl {
 
     fileprivate let output: GeneratorOutput
+    fileprivate let visibility: String?
 
-    public init(output: GeneratorOutput) {
+    public init(output: GeneratorOutput, visibility: String? = nil) {
         self.output = output
+        self.visibility = visibility
     }
 
 }
@@ -54,7 +56,7 @@ extension MocksGeneratorControllerImpl: MocksGeneratorController {
         do {
             let protocolType = try protocolParser.parse(storage: storage)
             let generator = ProtocolSpyGeneratorController()
-            let text = generator.generate(from: protocolType)
+            let text = generator.generate(from: protocolType, visibility: visibility)
             output.save(text: text)
         } catch {
             output.save(text: "")

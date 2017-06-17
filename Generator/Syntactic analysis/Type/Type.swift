@@ -15,4 +15,8 @@ public struct Type {
         self.isOptional = isOptional
     }
 
+    public func makeString() -> String {
+        return name + (isOptional ? "?" : "")
+    }
+
 }

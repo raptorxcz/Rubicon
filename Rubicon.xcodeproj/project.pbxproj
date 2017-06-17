@@ -33,7 +33,6 @@
 		BB04747F1EC0618600FC2B34 /* ProtocolType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32F01EB12F57005732CC /* ProtocolType.swift */; };
 		BB0474801EC0618600FC2B34 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE861EB110C700AEBE06 /* Type.swift */; };
 		BB0474811EC0618600FC2B34 /* VarDeclarationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA433191EABB2DD0018CE48 /* VarDeclarationType.swift */; };
-		BB0474831EC0618600FC2B34 /* ArgumentsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */; };
 		BB0474841EC061C000FC2B34 /* XCTextCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32E91EB12838005732CC /* XCTextCase.swift */; };
 		BB0474851EC061C000FC2B34 /* MockGeneratorControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A738B1EBD147800A843FF /* MockGeneratorControllerTests.swift */; };
 		BB0474861EC061C000FC2B34 /* ProtocolSpyGeneratorControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */; };
@@ -172,7 +171,7 @@
 		BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ProtocolSpyGeneratorControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolSpyGeneratorController.swift; sourceTree = "<group>"; };
 		BB67AE091EB745F500BD20C4 /* ArgumentsParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ArgumentsParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsParser.swift; sourceTree = "<group>"; };
+		BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArgumentsParser.swift; path = ../Generator/ArgumentsParser.swift; sourceTree = "<group>"; };
 		BB67AE0E1EB7499900BD20C4 /* ArgumentsControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ArgumentsControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsController.swift; sourceTree = "<group>"; };
 		BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarDeclarationTypeParser.swift; sourceTree = "<group>"; };
@@ -267,7 +266,6 @@
 				BBBCBE431EB731EA0028ED9E /* Lexical analysis */,
 				BB981FC11EBE25FF00BB1347 /* Platform */,
 				BBBCBE441EB732DF0028ED9E /* Syntactic analysis */,
-				BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */,
 				BB0474551EC0611200FC2B34 /* Generator.h */,
 				BB0474561EC0611200FC2B34 /* Info.plist */,
 			);
@@ -385,6 +383,7 @@
 				BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */,
 				BB0474951EC062A400FC2B34 /* FileReaderImpl.swift */,
 				BB981FCB1EBE27F100BB1347 /* HelpController.swift */,
+				BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */,
 				BB0474971EC062E400FC2B34 /* StandardGeneratorOutput.swift */,
 				BBA24AA11EA9459800ADCAAF /* main.swift */,
 			);
@@ -697,7 +696,6 @@
 				BB0474761EC0618600FC2B34 /* FileReader.swift in Sources */,
 				BB0474731EC0618600FC2B34 /* Parser.swift in Sources */,
 				BB0474781EC0618600FC2B34 /* ArgumentParser.swift in Sources */,
-				BB0474831EC0618600FC2B34 /* ArgumentsParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -806,7 +804,6 @@
 		BB0474481EC0609100FC2B34 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RubiconApp/RubiconApp.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -817,15 +814,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.RubiconApp";
 				PRODUCT_NAME = Rubicon;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		BB0474491EC0609100FC2B34 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RubiconApp/RubiconApp.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -836,8 +830,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.RubiconApp";
 				PRODUCT_NAME = Rubicon;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -861,8 +853,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -888,8 +878,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -898,28 +886,22 @@
 		BB04746F1EC0611200FC2B34 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = GeneratorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.GeneratorTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		BB0474701EC0611200FC2B34 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = GeneratorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.GeneratorTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -936,8 +918,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.RubiconApp.RubiconExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -954,8 +934,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.RubiconApp.RubiconExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1005,6 +983,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1046,6 +1025,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1057,7 +1038,6 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1069,7 +1049,6 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

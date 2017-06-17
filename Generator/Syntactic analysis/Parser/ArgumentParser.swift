@@ -14,8 +14,6 @@ public enum ArgumentParserError: Error {
 
 public class ArgumentParser {
 
-    private let typeParser = TypeParser()
-
     public init() {}
 
     public func parse(storage: Storage) throws -> ArgumentType {
@@ -46,7 +44,8 @@ public class ArgumentParser {
 
         _ = try? storage.next()
 
-        guard let type = try? typeParser.parse(storage: storage) else {
+        let typeParser = TypeParser(storage: storage)
+        guard let type = try? typeParser.parse() else {
             throw ArgumentParserError.invalidType
         }
 

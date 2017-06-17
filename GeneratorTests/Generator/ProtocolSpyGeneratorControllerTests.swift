@@ -20,7 +20,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class TestSpy: Test {",
             "}",
-            "",
             ""
             ]
         )
@@ -32,7 +31,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class TestTestTestTestTestSpy: TestTestTestTestTest {",
             "}",
-            "",
             ""
             ]
         )
@@ -56,7 +54,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            "",
             ""
             ]
         )
@@ -77,7 +74,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            "",
             ""
             ]
         )
@@ -98,7 +94,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            "",
             ""
             ]
         )
@@ -131,7 +126,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            "",
             ""
             ]
         )
@@ -151,7 +145,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            "",
             ""
             ]
         )
@@ -173,7 +166,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            "",
             ""
             ]
         )
@@ -195,7 +187,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            "",
             ""
             ]
         )
@@ -218,7 +209,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            "",
             ""
             ]
         )
@@ -241,7 +231,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            "",
             ""
             ]
         )
@@ -268,7 +257,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            "",
             ""
             ]
         )
@@ -300,7 +288,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            "",
             ""
             ]
         )
@@ -334,14 +321,24 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            "",
             ""
             ]
         )
     }
 
-    private func equal(protocolType: ProtocolType, rows: [String]) {
-        let generatedRows = generator.generate(from: protocolType).components(separatedBy: "\n")
+    func test_givenEmptyProtocolAndPrivate_whenGenerate_thenGenerateSpy() {
+        let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
+
+        equal(protocolType: protocolType, visibility: "private", rows: [
+            "private class TestTestTestTestTestSpy: TestTestTestTestTest {",
+            "}",
+            ""
+            ]
+        )
+    }
+
+    private func equal(protocolType: ProtocolType, visibility: String? = nil, rows: [String]) {
+        let generatedRows = generator.generate(from: protocolType, visibility: visibility).components(separatedBy: "\n")
 
         XCTAssertEqual(generatedRows.count, rows.count)
 
