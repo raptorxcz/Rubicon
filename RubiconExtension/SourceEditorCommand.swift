@@ -34,8 +34,6 @@ class GenerateSpy: NSObject, XCSourceEditorCommand {
         return indent
     }()
 
-
-
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void) {
         self.invocation = invocation
 
