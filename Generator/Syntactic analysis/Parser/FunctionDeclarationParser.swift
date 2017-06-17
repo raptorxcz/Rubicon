@@ -17,7 +17,6 @@ public enum FunctionDeclarationParserError: Error {
 public class FunctionDeclarationParser {
 
     private var argumentParser = ArgumentParser()
-    private var typeParser = TypeParser()
 
     public init() {}
 
@@ -63,7 +62,8 @@ public class FunctionDeclarationParser {
         if storage.current == .arrow {
             _ = try? storage.next()
 
-            guard let type = try? typeParser.parse(storage: storage) else {
+            let typeParser = TypeParser(storage: storage)
+            guard let type = try? typeParser.parse() else {
                 throw FunctionDeclarationParserError.invalidReturnType
             }
 
