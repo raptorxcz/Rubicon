@@ -35,6 +35,12 @@ class ProtocolParserTests: XCTestCase {
         testParserException(with: storage, .expectedLeftBracket)
     }
 
+    func test_givenNoLeftBracketTokenToChildProtocol_whenParse_thenThrowException() throws {
+        let storage = try Storage(tokens: [.protocol, .identifier(name: "p"), .colon, .identifier(name: "a")])
+        testParserException(with: storage, .expectedLeftBracket)
+    }
+
+
     func test_givenInvalidRightBracketToken_whenParse_thenThrowException() throws {
         let storage = try Storage(tokens: [.protocol, .identifier(name: "p"), .leftCurlyBracket, .colon])
         testParserException(with: storage, .expectedRightBracket)

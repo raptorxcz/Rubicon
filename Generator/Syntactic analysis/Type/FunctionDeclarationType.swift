@@ -7,13 +7,15 @@
 //
 
 public struct FunctionDeclarationType {
-    public var name: String
-    public var arguments: [ArgumentType]
-    public var returnType: Type?
+    public let name: String
+    public let arguments: [ArgumentType]
+    public let isThrowing: Bool
+    public let returnType: Type?
 
-    public init(name: String, arguments: [ArgumentType] = [], returnType: Type? = nil) {
+    public init(name: String, arguments: [ArgumentType] = [], isThrowing: Bool = false, returnType: Type? = nil) {
         self.name = name
         self.arguments = arguments
+        self.isThrowing = isThrowing
         self.returnType = returnType
     }
 }

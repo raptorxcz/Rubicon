@@ -25,6 +25,7 @@ public enum Token {
     case set
     case function
     case arrow
+    case `throws`
 }
 
 extension Token: Equatable {
@@ -66,6 +67,8 @@ extension Token: Equatable {
         case (.leftSquareBracket, .leftSquareBracket):
             return true
         case (.rightSquareBracket, .rightSquareBracket):
+            return true
+        case (.throws, .throws):
             return true
         default:
             return false
