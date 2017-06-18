@@ -26,41 +26,53 @@ extension MocksGeneratorControllerImpl: MocksGeneratorController {
 
     public func run(texts: [String]) {
         for text in texts {
-            guard text.contains("protocol") else {
-                continue
-            }
+            process(text: text)
+        }
+    }
 
-            let parser = Parser()
-            let tokens = parser.parse(text)
+    private func process(text: String) {
+        if text.contains("protocol"), let storage = try? parseStorage(from: text) {
+            processAllProtocols(in: storage)
+        }
+    }
 
-            guard let storage = try? Storage(tokens: tokens) else {
-                continue
-            }
+    private func parseStorage(from text: String) throws -> Storage {
+        let parser = Parser()
+        let tokens = parser.parse(text)
+        return try Storage(tokens: tokens)
+    }
 
-            var isTextSearched = true
+    private func processAllProtocols(in storage: Storage) {
+        var isTextSearched = true
 
-            while isTextSearched {
-                do {
-                    try storage.moveToNext(.protocol)
-                    processProtocol(storage: storage)
-                } catch {
-                    isTextSearched = false
-                }
+        while isTextSearched {
+            do {
+                try processNextProtocol(storage: storage)
+            } catch {
+                isTextSearched = false
             }
         }
     }
 
-    private func processProtocol(storage: Storage) {
-        let protocolParser = ProtocolParser()
+    private func processNextProtocol(storage: Storage) throws {
+        try storage.moveToNext(.protocol)
+        processProtocol(storage: storage)
+    }
 
+    private func processProtocol(storage: Storage) {
         do {
-            let protocolType = try protocolParser.parse(storage: storage)
-            let generator = ProtocolSpyGeneratorController()
-            let text = generator.generate(from: protocolType, visibility: visibility)
-            output.save(text: text)
+            try parseProtocol(storage: storage)
         } catch {
             output.save(text: "")
         }
+    }
+
+    func parseProtocol(storage: Storage) throws {
+        let protocolParser = ProtocolParser()
+        let protocolType = try protocolParser.parse(storage: storage)
+        let generator = ProtocolSpyGeneratorController()
+        let text = generator.generate(from: protocolType, visibility: visibility)
+        output.save(text: text)
     }
 
 }

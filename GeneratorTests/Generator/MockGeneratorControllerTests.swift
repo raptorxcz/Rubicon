@@ -40,6 +40,13 @@ class MockGeneratorControllerTests: XCTestCase {
         XCTAssertEqual(generatorOutput.saveCount, 0)
     }
 
+    func test_givenStringsWithNoToken_whenRun_thenGenerateEmptyString() {
+        sut.run(texts: ["aprotocolxx", "Ad", "vc"])
+
+        XCTAssertEqual(generatorOutput.text, "")
+        XCTAssertEqual(generatorOutput.saveCount, 0)
+    }
+
     func test_givenNoProtocol_whenRun_thenGenerateEmptyString() {
         sut.run(texts: ["class X {"])
 

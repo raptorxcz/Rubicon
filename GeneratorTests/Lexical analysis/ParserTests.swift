@@ -27,6 +27,11 @@ class ParserTests: XCTestCase {
         XCTAssertEqual(result, [.identifier(name: "a")])
     }
 
+    func test_givenHiddenKeyword_whenParse_thenIdentifierIsParsed() {
+        let result = parser.parse("aaprotocolaas")
+        XCTAssertEqual(result, [.identifier(name: "aaprotocolaas")])
+    }
+
     func test_givenProtocol_whenParse_thenProtocolToken() {
         let result = parser.parse("protocol")
         XCTAssertEqual(result, [.protocol])
