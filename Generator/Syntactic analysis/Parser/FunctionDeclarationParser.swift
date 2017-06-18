@@ -16,15 +16,16 @@ public enum FunctionDeclarationParserError: Error {
 
 public class FunctionDeclarationParser {
 
-    private var argumentParser = ArgumentParser()
+    private let argumentParser = ArgumentParser()
+    private let storage: Storage
 
-    public init() {}
+    public init(storage: Storage) {
+        self.storage = storage
+    }
 
-    public func parse(storage: Storage) throws -> FunctionDeclarationType {
+    public func parse() throws -> FunctionDeclarationType {
         let index = storage.currentIndex()
-        guard storage.current == .function else {
-            throw FunctionDeclarationParserError.invalidFunctionToken
-        }
+        try parseFuncKeyword()
 
         guard let nextToken = try? storage.next(), case let .identifier(name) = nextToken else {
             try? storage.setCurrentIndex(index)
@@ -36,31 +37,26 @@ public class FunctionDeclarationParser {
             throw FunctionDeclarationParserError.invalidLeftBracketToken
         }
 
-        _ = try? storage.next()
-        var arguments = [ArgumentType]()
-
-        if let argument = try? argumentParser.parse(storage: storage) {
-            arguments.append(argument)
-        }
-
-        while storage.current == .comma {
-            _ = try? storage.next()
-
-            if let argument = try? argumentParser.parse(storage: storage) {
-                arguments.append(argument)
-            }
-        }
+        moveToNextIfPossible()
+        let arguments = parseArguments()
 
         guard storage.current == .rightBracket else {
             try? storage.setCurrentIndex(index)
             throw FunctionDeclarationParserError.invalidFunctionArgument
         }
 
-        _ = try? storage.next()
+        moveToNextIfPossible()
+
+        let isThrowingFunction = isThrowing()
+
+        if isThrowingFunction {
+            moveToNextIfPossible()
+        }
+
         var returnType: Type?
 
         if storage.current == .arrow {
-            _ = try? storage.next()
+            moveToNextIfPossible()
 
             let typeParser = TypeParser(storage: storage)
             guard let type = try? typeParser.parse() else {
@@ -70,6 +66,39 @@ public class FunctionDeclarationParser {
             returnType = type
         }
 
-        return FunctionDeclarationType(name: name, arguments: arguments, returnType: returnType)
+        return FunctionDeclarationType(name: name, arguments: arguments, isThrowing: isThrowingFunction, returnType: returnType)
     }
+
+    private func isThrowing() -> Bool {
+        return storage.current == .throws
+    }
+
+    private func moveToNextIfPossible() {
+        _ = try? storage.next()
+    }
+
+    private func parseFuncKeyword() throws {
+        guard storage.current == .function else {
+            throw FunctionDeclarationParserError.invalidFunctionToken
+        }
+    }
+
+    private func parseArguments() -> [ArgumentType] {
+        var arguments = [ArgumentType]()
+
+        if let argument = try? argumentParser.parse(storage: storage) {
+            arguments.append(argument)
+        }
+
+        while storage.current == .comma {
+            moveToNextIfPossible()
+
+            if let argument = try? argumentParser.parse(storage: storage) {
+                arguments.append(argument)
+            }
+        }
+
+        return arguments
+    }
+
 }

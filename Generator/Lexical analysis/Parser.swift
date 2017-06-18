@@ -123,6 +123,8 @@ public class Parser {
             token = .set
         case "func":
             token = .function
+        case "throws":
+            token = .throws
         default:
             token = .identifier(name: name)
         }

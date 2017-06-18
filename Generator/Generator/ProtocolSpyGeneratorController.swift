@@ -110,8 +110,12 @@ public class ProtocolSpyGeneratorController {
 
         var returnString = ""
 
+        if function.isThrowing {
+            returnString += "throws "
+        }
+
         if let returnType = function.returnType {
-            returnString = "-> \(returnType.name)\(returnType.isOptional ? "?": "") "
+            returnString += "-> \(returnType.name)\(returnType.isOptional ? "?": "") "
         }
 
         result += "\tfunc \(function.name)(\(argumentsString)) \(returnString){\n"

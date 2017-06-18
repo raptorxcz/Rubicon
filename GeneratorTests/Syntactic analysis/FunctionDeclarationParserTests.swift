@@ -11,7 +11,6 @@ import Generator
 
 class FunctionDeclarationParserTests: XCTestCase {
 
-    private let parser = FunctionDeclarationParser()
     private let argumentTokens: [Token] = [.identifier(name: "a"), .colon, .identifier(name: "Int")]
 
     func test_givenColon_whenParse_thenThrowException() throws {
@@ -38,8 +37,9 @@ class FunctionDeclarationParserTests: XCTestCase {
     func test_givenFunction_whenParse_thenParse() throws {
         let storage = try Storage(tokens: [.function, .identifier(name: "f"), .leftBracket, .rightBracket, .colon])
         do {
-            let definition = try parser.parse(storage: storage)
+            let definition = try FunctionDeclarationParser(storage: storage).parse()
             XCTAssertEqual(definition.name, "f")
+            XCTAssertEqual(definition.isThrowing, false)
             XCTAssertEqual(storage.current, .colon)
         } catch {
             XCTFail()
@@ -52,7 +52,7 @@ class FunctionDeclarationParserTests: XCTestCase {
         tokens += [.rightBracket, .colon]
         let storage = try Storage(tokens: tokens)
         do {
-            let definition = try parser.parse(storage: storage)
+            let definition = try FunctionDeclarationParser(storage: storage).parse()
             XCTAssertEqual(definition.name, "f")
             XCTAssertEqual(definition.arguments.count, 1)
             XCTAssertEqual(definition.arguments[0].label, nil)
@@ -73,7 +73,7 @@ class FunctionDeclarationParserTests: XCTestCase {
         let storage = try Storage(tokens: tokens)
 
         do {
-            let definition = try parser.parse(storage: storage)
+            let definition = try FunctionDeclarationParser(storage: storage).parse()
             XCTAssertEqual(definition.name, "f")
             XCTAssertEqual(definition.arguments.count, 2)
             XCTAssertEqual(definition.arguments[1].label, nil)
@@ -96,7 +96,7 @@ class FunctionDeclarationParserTests: XCTestCase {
         let storage = try Storage(tokens: tokens)
 
         do {
-            let definition = try parser.parse(storage: storage)
+            let definition = try FunctionDeclarationParser(storage: storage).parse()
             XCTAssertEqual(definition.name, "f")
             XCTAssertEqual(definition.arguments.count, 3)
             XCTAssert(definition.returnType == nil)
@@ -119,7 +119,7 @@ class FunctionDeclarationParserTests: XCTestCase {
         let storage = try Storage(tokens: tokens)
 
         do {
-            let definition = try parser.parse(storage: storage)
+            let definition = try FunctionDeclarationParser(storage: storage).parse()
             XCTAssertEqual(definition.name, "f")
             XCTAssertEqual(definition.arguments.count, 0)
             XCTAssertEqual(storage.current, .identifier(name: "Int"))
@@ -129,9 +129,37 @@ class FunctionDeclarationParserTests: XCTestCase {
         }
     }
 
+    func test_givenThrowingFunction_whenParse_thenFunctionParsed() throws {
+        let storage = try Storage(tokens: [.function, .identifier(name: "f"), .leftBracket, .rightBracket, .throws, .colon])
+        do {
+            let definition = try FunctionDeclarationParser(storage: storage).parse()
+            XCTAssertEqual(definition.name, "f")
+            XCTAssertEqual(definition.isThrowing, true)
+            XCTAssertEqual(storage.current, .colon)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenThrowingFunctionWithReturn_whenParse_thenFunctionIsParsed() throws {
+        let tokens: [Token] = [.function, .identifier(name: "f"), .leftBracket, .rightBracket, .throws, .arrow, .identifier(name: "Int")]
+        let storage = try Storage(tokens: tokens)
+
+        do {
+            let definition = try FunctionDeclarationParser(storage: storage).parse()
+            XCTAssertEqual(definition.name, "f")
+            XCTAssertEqual(definition.arguments.count, 0)
+            XCTAssertEqual(definition.isThrowing, true)
+            XCTAssertEqual(definition.returnType?.name, "Int")
+            XCTAssertEqual(storage.current, .identifier(name: "Int"))
+        } catch {
+            XCTFail()
+        }
+    }
+
     private func testParserException(with storage: Storage, _ exception: FunctionDeclarationParserError) {
         testException(with: exception, parse: {
-            _ = try parser.parse(storage: storage)
+            _ = try FunctionDeclarationParser(storage: storage).parse()
         })
     }
 }

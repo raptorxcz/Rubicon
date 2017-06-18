@@ -53,6 +53,7 @@
 		BB0474AC1EC068FA00FC2B34 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474AB1EC068FA00FC2B34 /* SourceEditorCommand.swift */; };
 		BB0474B01EC068FA00FC2B34 /* RubiconExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BB0474A21EC068FA00FC2B34 /* RubiconExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BB0474B51EC0690600FC2B34 /* Generator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474531EC0611200FC2B34 /* Generator.framework */; };
+		BB5A01E61EF69E8200960734 /* ArgumentsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */; };
 		BB6E401F1EC26A2A003CD916 /* MockGeneratorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */; };
 		BB6E40201EC26A2A003CD916 /* ProtocolSpyGeneratorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */; };
 		BB6E40211EC26A2A003CD916 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AB61EA946BD00ADCAAF /* Parser.swift */; };
@@ -70,7 +71,6 @@
 		BB6E402D1EC26A2A003CD916 /* ProtocolType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32F01EB12F57005732CC /* ProtocolType.swift */; };
 		BB6E402E1EC26A2A003CD916 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE861EB110C700AEBE06 /* Type.swift */; };
 		BB6E402F1EC26A2A003CD916 /* VarDeclarationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA433191EABB2DD0018CE48 /* VarDeclarationType.swift */; };
-		BB6E40301EC26A2A003CD916 /* ArgumentsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */; };
 		BB6E40371EC26B2F003CD916 /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FCB1EBE27F100BB1347 /* HelpController.swift */; };
 		BB981FC81EBE26DB00BB1347 /* CommandLineAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC71EBE26DB00BB1347 /* CommandLineAssembly.swift */; };
 		BBA24AA21EA9459800ADCAAF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA11EA9459800ADCAAF /* main.swift */; };
@@ -171,7 +171,7 @@
 		BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ProtocolSpyGeneratorControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolSpyGeneratorController.swift; sourceTree = "<group>"; };
 		BB67AE091EB745F500BD20C4 /* ArgumentsParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ArgumentsParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArgumentsParser.swift; path = ../Generator/ArgumentsParser.swift; sourceTree = "<group>"; };
+		BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsParser.swift; sourceTree = "<group>"; };
 		BB67AE0E1EB7499900BD20C4 /* ArgumentsControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ArgumentsControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsController.swift; sourceTree = "<group>"; };
 		BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarDeclarationTypeParser.swift; sourceTree = "<group>"; };
@@ -267,6 +267,7 @@
 				BB981FC11EBE25FF00BB1347 /* Platform */,
 				BBBCBE441EB732DF0028ED9E /* Syntactic analysis */,
 				BB0474551EC0611200FC2B34 /* Generator.h */,
+				BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */,
 				BB0474561EC0611200FC2B34 /* Info.plist */,
 			);
 			path = Generator;
@@ -383,7 +384,6 @@
 				BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */,
 				BB0474951EC062A400FC2B34 /* FileReaderImpl.swift */,
 				BB981FCB1EBE27F100BB1347 /* HelpController.swift */,
-				BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */,
 				BB0474971EC062E400FC2B34 /* StandardGeneratorOutput.swift */,
 				BBA24AA11EA9459800ADCAAF /* main.swift */,
 			);
@@ -688,6 +688,7 @@
 				BB0474741EC0618600FC2B34 /* Storage.swift in Sources */,
 				BB04747B1EC0618600FC2B34 /* TypeParser.swift in Sources */,
 				BB0474801EC0618600FC2B34 /* Type.swift in Sources */,
+				BB5A01E61EF69E8200960734 /* ArgumentsParser.swift in Sources */,
 				BB04747A1EC0618600FC2B34 /* ProtocolParser.swift in Sources */,
 				BB04747D1EC0618600FC2B34 /* ArgumentType.swift in Sources */,
 				BB04747F1EC0618600FC2B34 /* ProtocolType.swift in Sources */,
@@ -734,7 +735,6 @@
 				BB6E402F1EC26A2A003CD916 /* VarDeclarationType.swift in Sources */,
 				BB6E402D1EC26A2A003CD916 /* ProtocolType.swift in Sources */,
 				BB6E40201EC26A2A003CD916 /* ProtocolSpyGeneratorController.swift in Sources */,
-				BB6E40301EC26A2A003CD916 /* ArgumentsParser.swift in Sources */,
 				BB6E40371EC26B2F003CD916 /* HelpController.swift in Sources */,
 				BBA24AA21EA9459800ADCAAF /* main.swift in Sources */,
 				BB6E401F1EC26A2A003CD916 /* MockGeneratorController.swift in Sources */,

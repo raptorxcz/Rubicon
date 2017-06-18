@@ -17,7 +17,6 @@ public enum ProtocolParserError: Error {
 public class ProtocolParser {
 
     private let variableParser = VarDeclarationTypeParser()
-    private let functionParser = FunctionDeclarationParser()
 
     public init() {}
 
@@ -72,10 +71,7 @@ public class ProtocolParser {
 
             if separatorToken == .comma {
                 continueRepeating = true
-            } else if separatorToken != .leftCurlyBracket {
-                throw ProtocolParserError.expectedParentProtocol
             }
-
         } while (continueRepeating)
 
         return parents
@@ -94,7 +90,7 @@ public class ProtocolParser {
                 isSomethingParsed = true
             }
 
-            if let function = try? functionParser.parse(storage: storage) {
+            if let function = try? FunctionDeclarationParser(storage: storage).parse() {
                 functions.append(function)
                 isSomethingParsed = true
             }
