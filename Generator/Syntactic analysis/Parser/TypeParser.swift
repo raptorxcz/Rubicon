@@ -9,6 +9,8 @@
 public enum TypeParserError: Error {
     case invalidName
     case missingEndingBracket
+    case missingIdentifier
+    case missingEndingGreaterThan
 }
 
 public class TypeParser {
@@ -24,9 +26,48 @@ public class TypeParser {
     }
 
     public func parseSimpleType() throws -> Type {
-        let name = try parseName()
+        var name = try parseName()
         let isOptional = isOptionalParsed()
+
+        let subtypes = try parseGenericTypes()
+
+        if !subtypes.isEmpty {
+            name += "<\(subtypes.map({ $0.name }).joined(separator: ", "))>"
+        }
+
         return Type(name: name, isOptional: isOptional)
+    }
+
+    private func parseGenericTypes() throws -> [Type] {
+        guard storage.current == .lessThan else {
+            return []
+        }
+
+        let types = try parseListedTypes()
+
+        guard storage.current == .greaterThan else {
+            throw TypeParserError.missingEndingGreaterThan
+        }
+
+        _ = try storage.next()
+
+        return types
+    }
+
+    private func parseListedTypes() throws -> [Type] {
+        var types = [Type]()
+
+        repeat {
+            _ = try storage.next()
+
+            guard let type = try? parseSimpleType() else {
+                throw TypeParserError.missingIdentifier
+            }
+            types.append(type)
+
+        } while (storage.current == .comma)
+
+        return types
     }
 
     private func parseStructure() throws -> Type {
@@ -36,7 +77,7 @@ public class TypeParser {
 
         _ = try storage.next()
 
-        let contentType = try parseSimpleType()
+        let contentType = try parse()
         let resultType: Type
 
         if isColonParsed() {
@@ -52,7 +93,7 @@ public class TypeParser {
         let valueType = try parseSimpleType()
         try parseRightSquareBracket()
         let isOptional = isOptionalParsed()
-        return  Type(name: "[\(keyType.makeString()): \(valueType.makeString())]", isOptional: isOptional)
+        return Type(name: "[\(keyType.makeString()): \(valueType.makeString())]", isOptional: isOptional)
     }
 
     private func parseArray(type: Type) throws -> Type {

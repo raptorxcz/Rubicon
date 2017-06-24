@@ -15,6 +15,8 @@ public enum Token {
     case rightBracket
     case leftSquareBracket
     case rightSquareBracket
+    case lessThan
+    case greaterThan
     case colon
     case comma
     case questionMark
@@ -69,6 +71,10 @@ extension Token: Equatable {
         case (.rightSquareBracket, .rightSquareBracket):
             return true
         case (.throws, .throws):
+            return true
+        case (.lessThan, .lessThan):
+            return true
+        case (.greaterThan, .greaterThan):
             return true
         default:
             return false

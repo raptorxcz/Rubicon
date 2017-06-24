@@ -156,4 +156,99 @@ class TypeParserTests: XCTestCase {
             XCTFail()
         }
     }
+
+    func test_givenMultiArrayType_whenParse_thenArrayIsParsed() throws {
+        let storage = try Storage(tokens: [.leftSquareBracket, .leftSquareBracket, .identifier(name: "x"), .rightSquareBracket, .rightSquareBracket, .colon])
+        let parser = makeParser(storage: storage)
+
+        do {
+            let type = try parser.parse()
+            XCTAssertEqual(type.name, "[[x]]")
+            XCTAssertEqual(type.isOptional, false)
+            XCTAssertEqual(storage.current, .colon)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenGenericTypeWithoutSubtype_whenParse_thenExceptionIsThrown() throws {
+        let storage = try Storage(tokens: [.identifier(name: "A"), .lessThan, .arrow])
+        let parser = makeParser(storage: storage)
+
+        testException(with: TypeParserError.missingIdentifier) {
+            _ = try parser.parse()
+        }
+    }
+
+    func test_givenGenericTypeWithoutEndingBracket_whenParse_thenExceptionIsThrown() throws {
+        let storage = try Storage(tokens: [.identifier(name: "A"), .lessThan, .identifier(name: "B"), .arrow])
+        let parser = makeParser(storage: storage)
+
+        testException(with: TypeParserError.missingEndingGreaterThan) {
+            _ = try parser.parse()
+        }
+    }
+
+    func test_givenGenericType_whenParse_thenTypeIsParsed() throws {
+        let storage = try Storage(tokens: [.identifier(name: "A"), .lessThan, .identifier(name: "B"), .greaterThan, .arrow])
+        let parser = makeParser(storage: storage)
+
+        do {
+            let type = try parser.parse()
+            XCTAssertEqual(type.name, "A<B>")
+            XCTAssertEqual(type.isOptional, false)
+            XCTAssertEqual(storage.current, .arrow)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenComplexGenericType_whenParse_thenTypeIsParsed() throws {
+        let storage = try Storage(tokens: [.identifier(name: "A"), .lessThan, .identifier(name: "B"), .lessThan, .identifier(name: "C"), .greaterThan, .greaterThan, .arrow])
+        let parser = makeParser(storage: storage)
+
+        do {
+            let type = try parser.parse()
+            XCTAssertEqual(type.name, "A<B<C>>")
+            XCTAssertEqual(type.isOptional, false)
+            XCTAssertEqual(storage.current, .arrow)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenIncompleGenericType_whenParse_thenExceptionIsThrown() throws {
+        let storage = try Storage(tokens: [.identifier(name: "A"), .lessThan, .identifier(name: "C"), .comma, .arrow])
+        let parser = makeParser(storage: storage)
+
+        testException(with: TypeParserError.missingIdentifier) {
+            _ = try parser.parse()
+        }
+    }
+
+    func test_givenGenericTypeWithMultipleSubtypesWithoutEndingBracket_whenParse_thenExceptionIsThrown() throws {
+        let storage = try Storage(tokens: [.identifier(name: "A"), .lessThan, .identifier(name: "C"), .comma, .identifier(name: "D"), .arrow])
+        let parser = makeParser(storage: storage)
+
+        testException(with: TypeParserError.missingEndingGreaterThan) {
+            _ = try parser.parse()
+        }
+    }
+
+
+    func test_givenGenericTypeWithMultipleSubtypes_whenParse_thenTypeIsParsed() throws {
+        let storage = try Storage(tokens: [.identifier(name: "A"), .lessThan, .identifier(name: "C"), .comma, .identifier(name: "D"), .greaterThan, .arrow])
+        let parser = makeParser(storage: storage)
+
+        do {
+            let type = try parser.parse()
+            XCTAssertEqual(type.name, "A<C, D>")
+            XCTAssertEqual(type.isOptional, false)
+            XCTAssertEqual(storage.current, .arrow)
+        } catch {
+            XCTFail()
+        }
+    }
+
+
 }

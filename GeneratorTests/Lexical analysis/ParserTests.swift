@@ -152,6 +152,16 @@ class ParserTests: XCTestCase {
         XCTAssertEqual(result, [.rightSquareBracket, .throws])
     }
 
+    func test_givenLessThen_whenParse_thenGreaterThenIsParser() {
+        let result = parser.parse("< throws")
+        XCTAssertEqual(result, [.lessThan, .throws])
+    }
+
+    func test_givenGreaterThen_whenParse_thenGreaterThenIsParser() {
+        let result = parser.parse("> throws")
+        XCTAssertEqual(result, [.greaterThan, .throws])
+    }
+
     func test_givenProtocolDefinition_whenParse_thenProtocolTokens() {
         var string = ""
         string += "protocol Satelite {\n"
