@@ -42,6 +42,10 @@ public class Parser {
                 addToResult(.questionMark)
             case ",":
                 addToResult(.comma)
+            case "<":
+                addToResult(.lessThan)
+            case ">":
+                addToResult(.greaterThan)
             case "-":
                 index = parseArrow(from: index, in: text)
             case "_":
