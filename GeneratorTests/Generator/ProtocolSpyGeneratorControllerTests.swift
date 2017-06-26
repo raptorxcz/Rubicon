@@ -347,6 +347,28 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         )
     }
 
+    func test_givenProtocolWithLongNames_whenGenerate_thenSpyIsGenerated() {
+        let argument = ArgumentType(label: nil, name: "productId", type: type)
+        let function = FunctionDeclarationType(name: "startGenerating", arguments: [argument])
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarSpy: Car {",
+            "",
+            "\tvar startGeneratingCount = 0",
+            "\tvar startGeneratingProductId: Color?",
+            "",
+            "\tfunc startGenerating(productId: Color) {",
+            "\t\tstartGeneratingCount += 1",
+            "\t\tstartGeneratingProductId = productId",
+            "\t}",
+            "",
+            "}",
+            ""
+            ]
+        )
+    }
+
     func test_givenEmptyProtocolAndPrivate_whenGenerate_thenGenerateSpy() {
         let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
 
