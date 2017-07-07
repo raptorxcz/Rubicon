@@ -53,6 +53,8 @@
 		BB0474AC1EC068FA00FC2B34 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474AB1EC068FA00FC2B34 /* SourceEditorCommand.swift */; };
 		BB0474B01EC068FA00FC2B34 /* RubiconExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BB0474A21EC068FA00FC2B34 /* RubiconExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BB0474B51EC0690600FC2B34 /* Generator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474531EC0611200FC2B34 /* Generator.framework */; };
+		BB4776EF1F018C79000BA4CB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4776EE1F018C79000BA4CB /* String.swift */; };
+		BB4776F01F018CF6000BA4CB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4776EE1F018C79000BA4CB /* String.swift */; };
 		BB5A01E61EF69E8200960734 /* ArgumentsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */; };
 		BB6E401F1EC26A2A003CD916 /* MockGeneratorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */; };
 		BB6E40201EC26A2A003CD916 /* ProtocolSpyGeneratorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */; };
@@ -166,6 +168,7 @@
 		BB318B151EB240A300DF67FC /* ArgumentParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ArgumentParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB318B171EB240D300DF67FC /* ArgumentParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentParser.swift; sourceTree = "<group>"; };
 		BB318B1A1EB2439000DF67FC /* ArgumentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentType.swift; sourceTree = "<group>"; };
+		BB4776EE1F018C79000BA4CB /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		BB4A738B1EBD147800A843FF /* MockGeneratorControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MockGeneratorControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGeneratorController.swift; sourceTree = "<group>"; };
 		BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ProtocolSpyGeneratorControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -269,6 +272,7 @@
 				BB0474551EC0611200FC2B34 /* Generator.h */,
 				BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */,
 				BB0474561EC0611200FC2B34 /* Info.plist */,
+				BB4776EE1F018C79000BA4CB /* String.swift */,
 			);
 			path = Generator;
 			sourceTree = "<group>";
@@ -697,6 +701,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB4776EF1F018C79000BA4CB /* String.swift in Sources */,
 				BB0474771EC0618600FC2B34 /* GeneratorOutput.swift in Sources */,
 				BB0474721EC0618600FC2B34 /* ProtocolSpyGeneratorController.swift in Sources */,
 				BB04747E1EC0618600FC2B34 /* FunctionDeclarationType.swift in Sources */,
@@ -756,6 +761,7 @@
 				BB6E40371EC26B2F003CD916 /* HelpController.swift in Sources */,
 				BBA24AA21EA9459800ADCAAF /* main.swift in Sources */,
 				BB6E401F1EC26A2A003CD916 /* MockGeneratorController.swift in Sources */,
+				BB4776F01F018CF6000BA4CB /* String.swift in Sources */,
 				BB6E402B1EC26A2A003CD916 /* ArgumentType.swift in Sources */,
 				BB6E402E1EC26A2A003CD916 /* Type.swift in Sources */,
 				BB6E40271EC26A2A003CD916 /* FunctionDeclarationParser.swift in Sources */,

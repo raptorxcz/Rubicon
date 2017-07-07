@@ -72,8 +72,7 @@ public class ProtocolSpyGeneratorController {
     }
 
     private func generateFunctionVariables(_ function: FunctionDeclarationType) -> String {
-        let argumentsTitles = function.arguments.flatMap({ $0.label?.capitalized }).joined()
-        let functionName = "\(function.name)\(argumentsTitles)"
+        let functionName = makeName(from: function)
 
         var result = ""
         result += "\tvar \(functionName)Count = 0\n"
@@ -83,10 +82,15 @@ public class ProtocolSpyGeneratorController {
         }
 
         for argument in function.arguments {
-            result += "\tvar \(functionName)\(argument.name.capitalized): \(argument.type.name)?\n"
+            result += "\tvar \(functionName)\(argument.name.capitalizingFirstLetter()): \(argument.type.name)?\n"
         }
 
         return result
+    }
+
+    private func makeName(from function: FunctionDeclarationType) -> String {
+        let argumentsTitles = function.arguments.map({ $0.label?.capitalizingFirstLetter() ?? $0.name.capitalizingFirstLetter() }).joined()
+        return "\(function.name)\(argumentsTitles)"
     }
 
     private func generateArgument(_ argument: ArgumentType) -> String {
@@ -104,8 +108,7 @@ public class ProtocolSpyGeneratorController {
 
     private func generateFunctionDefinitions(_ function: FunctionDeclarationType) -> String {
         var result = ""
-        let argumentsTitles = function.arguments.flatMap({ $0.label?.capitalized }).joined()
-        let functionName = "\(function.name)\(argumentsTitles)"
+        let functionName = makeName(from: function)
         let argumentsString = function.arguments.map(generateArgument).joined(separator: ", ")
 
         var returnString = ""
@@ -122,7 +125,7 @@ public class ProtocolSpyGeneratorController {
         result += "\t\t\(functionName)Count += 1\n"
 
         for argument in function.arguments {
-            result += "\t\t\(functionName)\(argument.name.capitalized) = \(argument.name)\n"
+            result += "\t\t\(functionName)\(argument.name.capitalizingFirstLetter()) = \(argument.name)\n"
         }
 
         if function.returnType != nil {

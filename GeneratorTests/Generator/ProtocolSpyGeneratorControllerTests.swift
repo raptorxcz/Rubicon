@@ -267,14 +267,14 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
-            "\tvar startACount = 0",
-            "\tvar startAB: Color?",
-            "\tvar startAD: Color?",
+            "\tvar startADCount = 0",
+            "\tvar startADB: Color?",
+            "\tvar startADD: Color?",
             "",
             "\tfunc start(a b: Color, d: Color?) {",
-            "\t\tstartACount += 1",
-            "\t\tstartAB = b",
-            "\t\tstartAD = d",
+            "\t\tstartADCount += 1",
+            "\t\tstartADB = b",
+            "\t\tstartADD = d",
             "\t}",
             "",
             "}",
@@ -339,6 +339,28 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\tfunc start(a b: Color) {",
             "\t\tstartACount += 1",
             "\t\tstartAB = b",
+            "\t}",
+            "",
+            "}",
+            ""
+            ]
+        )
+    }
+
+    func test_givenProtocolWithLongNames_whenGenerate_thenSpyIsGenerated() {
+        let argument = ArgumentType(label: nil, name: "productId", type: type)
+        let function = FunctionDeclarationType(name: "startGenerating", arguments: [argument])
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarSpy: Car {",
+            "",
+            "\tvar startGeneratingProductIdCount = 0",
+            "\tvar startGeneratingProductIdProductId: Color?",
+            "",
+            "\tfunc startGenerating(productId: Color) {",
+            "\t\tstartGeneratingProductIdCount += 1",
+            "\t\tstartGeneratingProductIdProductId = productId",
             "\t}",
             "",
             "}",
