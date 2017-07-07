@@ -72,8 +72,7 @@ public class ProtocolSpyGeneratorController {
     }
 
     private func generateFunctionVariables(_ function: FunctionDeclarationType) -> String {
-        let argumentsTitles = function.arguments.flatMap({ $0.label?.capitalizingFirstLetter() }).joined()
-        let functionName = "\(function.name)\(argumentsTitles)"
+        let functionName = makeName(from: function)
 
         var result = ""
         result += "\tvar \(functionName)Count = 0\n"
@@ -87,6 +86,11 @@ public class ProtocolSpyGeneratorController {
         }
 
         return result
+    }
+
+    private func makeName(from function: FunctionDeclarationType) -> String {
+        let argumentsTitles = function.arguments.map({ $0.label?.capitalizingFirstLetter() ?? $0.name.capitalizingFirstLetter() }).joined()
+        return "\(function.name)\(argumentsTitles)"
     }
 
     private func generateArgument(_ argument: ArgumentType) -> String {
@@ -104,8 +108,7 @@ public class ProtocolSpyGeneratorController {
 
     private func generateFunctionDefinitions(_ function: FunctionDeclarationType) -> String {
         var result = ""
-        let argumentsTitles = function.arguments.flatMap({ $0.label?.capitalizingFirstLetter() }).joined()
-        let functionName = "\(function.name)\(argumentsTitles)"
+        let functionName = makeName(from: function)
         let argumentsString = function.arguments.map(generateArgument).joined(separator: ", ")
 
         var returnString = ""
