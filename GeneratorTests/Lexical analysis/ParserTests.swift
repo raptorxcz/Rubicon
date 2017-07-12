@@ -162,6 +162,11 @@ class ParserTests: XCTestCase {
         XCTAssertEqual(result, [.greaterThan, .throws])
     }
 
+    func test_givenIdenfierWithDotNotation_whenParse_thenIdentifierIsParsed() {
+        let result = parser.parse("Insurance.Basics throws")
+        XCTAssertEqual(result, [.identifier(name: "Insurance.Basics"), .throws])
+    }
+
     func test_givenProtocolDefinition_whenParse_thenProtocolTokens() {
         var string = ""
         string += "protocol Satelite {\n"

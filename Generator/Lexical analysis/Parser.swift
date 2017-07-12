@@ -10,7 +10,7 @@ public class Parser {
 
     private var buffer: String = ""
     private var results = [Token]()
-    private let identifierCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_".characters
+    private let identifierCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.".characters
 
     public init() {
     }
