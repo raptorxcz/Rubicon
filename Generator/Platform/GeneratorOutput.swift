@@ -6,8 +6,6 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-import Foundation
-
 public protocol GeneratorOutput {
 
     func save(text: String)

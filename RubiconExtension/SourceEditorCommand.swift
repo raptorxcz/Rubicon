@@ -37,7 +37,18 @@ class GenerateSpy: NSObject, XCSourceEditorCommand {
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void) {
         self.invocation = invocation
 
-        let lines = invocation.buffer.lines as! [String]
+        guard var lines = invocation.buffer.lines as? [String] else {
+            fatalError("not lines: \(invocation.buffer.lines)")
+        }
+
+        if invocation.buffer.selections.count == 1, let range = invocation.buffer.selections.firstObject as? XCSourceTextRange {
+            if isEmptyRange(range) {
+                let start = range.start.line - 1
+                let end = range.end.line - 1
+                lines = Array(lines[start ... end])
+            }
+        }
+
         let text = lines.reduce("", { $0 + "\n" + $1 })
 
         let mocksController = MocksGeneratorControllerImpl(output: self, visibility: "private")
@@ -45,6 +56,10 @@ class GenerateSpy: NSObject, XCSourceEditorCommand {
         completionHandler(nil)
     }
 
+    func isEmptyRange(_ range: XCSourceTextRange) -> Bool {
+        return range.start.line != range.end.line || (range.start.line == range.end.line && range.start.column != range.end.column)
+    }
+    
 }
 
 extension GenerateSpy: GeneratorOutput {
