@@ -114,12 +114,12 @@ class ParserTests: XCTestCase {
 
     func test_givenGetWithName_whenParse_thenGetToken() {
         let result = parser.parse("let get")
-        XCTAssertEqual(result, [.constant, .get])
+        XCTAssertEqual(result, [.constant, .identifier(name: "get")])
     }
 
     func test_givenSetWithName_whenParse_thenSetToken() {
         let result = parser.parse("let set")
-        XCTAssertEqual(result, [.constant, .set])
+        XCTAssertEqual(result, [.constant, .identifier(name: "set")])
     }
 
     func test_givenFuncWithName_whenParse_thenFuncToken() {
@@ -184,8 +184,8 @@ class ParserTests: XCTestCase {
             .colon,
             .identifier(name: "Int"),
             .leftCurlyBracket,
-            .get,
-            .set,
+            .identifier(name: "get"),
+            .identifier(name: "set"),
             .rightCurlyBracket,
             .function,
             .identifier(name: "move"),
