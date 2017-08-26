@@ -50,8 +50,10 @@ class CarSpy: Car {
 
 	var goCount = 0
 
-	var loadWithCount = 0
-	var loadWithStaff: Int?
+	struct LoadWith {
+		let staff: Int
+	}
+	var loadWith = [LoadWith]()
 
 	var isFullCount = 0
 	var isFullReturn: Bool!
@@ -61,8 +63,8 @@ class CarSpy: Car {
 	}
 
 	func load(with staff: Int) {
-		loadWithCount += 1
-		loadWithStaff = staff
+		let item = LoadWith(staff: staff)
+		loadWith.append(item)
 	}
 
 	func isFull() -> Bool {
@@ -71,6 +73,18 @@ class CarSpy: Car {
 	}
 
 }
+```
+
+usage in tests:
+```swift
+let carSpy = CarSpy()
+
+...
+
+let a1 = carSpy.goCount == 1
+let a2 = carSpy.loadWith.count == 1
+let a3 = carSpy.loadWith[0].staff == 2
+
 ```
 
 ## CLI
