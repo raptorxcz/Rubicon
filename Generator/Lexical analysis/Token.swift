@@ -23,8 +23,6 @@ public enum Token {
     case equal
     case variable
     case constant
-    case get
-    case set
     case function
     case arrow
     case `throws`
@@ -57,10 +55,6 @@ extension Token: Equatable {
         case (.variable, .variable):
             return true
         case (.constant, .constant):
-            return true
-        case (.get, .get):
-            return true
-        case (.set, .set):
             return true
         case (.function, .function):
             return true

@@ -121,10 +121,6 @@ public class Parser {
             token = .variable
         case "let":
             token = .constant
-        case "get":
-            token = .get
-        case "set":
-            token = .set
         case "func":
             token = .function
         case "throws":

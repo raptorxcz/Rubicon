@@ -81,15 +81,15 @@ public class VarDeclarationTypeParser {
                     state = .error
                 }
             case .leftCurlyBracket:
-                if token == .get {
+                if let token = token, case let .identifier(name) = token, name == "get" {
                     state = .get
-                } else if token == .set {
+                } else if let token = token, case let .identifier(name) = token, name == "set" {
                     state = .setFirst
                 } else {
                     state = .error
                 }
             case .get:
-                if token == .set {
+                if let token = token, case let .identifier(name) = token, name == "set" {
                     state = .set
                 } else if token == .rightCurlyBracket {
                     state = .rightCurlyBracket
@@ -107,7 +107,7 @@ public class VarDeclarationTypeParser {
             case .setFirst:
                 isConstant = false
 
-                if token == .get {
+                if let token = token, case let .identifier(name) = token, name == "get" {
                     state = .get
                 } else {
                     state = .error

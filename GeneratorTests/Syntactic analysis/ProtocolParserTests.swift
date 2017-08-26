@@ -12,7 +12,7 @@ import Generator
 class ProtocolParserTests: XCTestCase {
 
     let parser = ProtocolParser()
-    private let varTokens: [Token] = [.variable, .identifier(name: "a"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .get, .rightCurlyBracket]
+    private let varTokens: [Token] = [.variable, .identifier(name: "a"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .identifier(name: "get"), .rightCurlyBracket]
     private let funcTokens: [Token] = [.function, .identifier(name: "a"), .leftBracket, .rightBracket]
 
     func test_givenInvalidToken_whenParse_thenThrowException() throws {
@@ -164,6 +164,42 @@ class ProtocolParserTests: XCTestCase {
             XCTAssertEqual(`protocol`.name, "p")
             XCTAssertEqual(`protocol`.functions.count, 1)
             XCTAssertEqual(`protocol`.functions[0].name, "a")
+            XCTAssertEqual(storage.current, .colon)
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    func test_givenProtocolWithSetterFunction_whenParse_thenParse() throws {
+        var tokens: [Token] = [.protocol, .identifier(name: "p"), .leftCurlyBracket]
+        
+        tokens += [.function, .identifier(name: "set"), .leftBracket, .rightBracket]
+        tokens += [.rightCurlyBracket, .colon]
+        
+        let storage = try Storage(tokens: tokens)
+        do {
+            let `protocol` = try parser.parse(storage: storage)
+            XCTAssertEqual(`protocol`.name, "p")
+            XCTAssertEqual(`protocol`.functions.count, 1)
+            XCTAssertEqual(`protocol`.functions[0].name, "set")
+            XCTAssertEqual(storage.current, .colon)
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    func test_givenProtocolWithGetterFunction_whenParse_thenParse() throws {
+        var tokens: [Token] = [.protocol, .identifier(name: "p"), .leftCurlyBracket]
+        
+        tokens += [.function, .identifier(name: "get"), .leftBracket, .rightBracket]
+        tokens += [.rightCurlyBracket, .colon]
+        
+        let storage = try Storage(tokens: tokens)
+        do {
+            let `protocol` = try parser.parse(storage: storage)
+            XCTAssertEqual(`protocol`.name, "p")
+            XCTAssertEqual(`protocol`.functions.count, 1)
+            XCTAssertEqual(`protocol`.functions[0].name, "get")
             XCTAssertEqual(storage.current, .colon)
         } catch {
             XCTFail()
