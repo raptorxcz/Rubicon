@@ -35,7 +35,7 @@ public class ProtocolSpyGeneratorController {
         }
 
         for function in protocolType.functions {
-            content.append(generateFunctionDefinitions(function))
+            content.append(generateSpy(of: function))
         }
 
         let result: String
@@ -75,19 +75,50 @@ public class ProtocolSpyGeneratorController {
         let functionName = makeName(from: function)
 
         var result = ""
-        result += "\tvar \(functionName)Count = 0\n"
+        
+        if function.arguments.isEmpty {
+            result += "\tvar \(functionName)Count = 0\n"
+        } else {
+            result += generateStruct(for: function)
+        }
 
         if let returnType = function.returnType {
             result += "\tvar \(functionName)Return: \(returnType.name)\(returnType.isOptional ? "?" : "!")\n"
         }
 
-        for argument in function.arguments {
-            result += "\tvar \(functionName)\(argument.name.capitalizingFirstLetter()): \(argument.type.name)?\n"
-        }
-
         return result
     }
+    
+    private func generateStruct(for function: FunctionDeclarationType) -> String {
+        let functionName = getName(from: function)
+        let structName = makeStructName(from: function)
+        
+        var result = ""
+        result += "\tstruct \(structName) {\n"
+        result += function.arguments.map(makeRow(for:)).joined()
+        result += "\t}\n"
+        result += "\tvar \(functionName) = [\(structName)]()\n"
+        
+        return result
+    }
+    
+    private func makeRow(for argument: ArgumentType) -> String {
+        return "\t\tlet \(argument.name): \(argument.type.makeString())\n"
+    }
 
+    private func getName(from function: FunctionDeclarationType) -> String {
+        let argumentsTitles = function.arguments.map(getArgumentName(from:)).joined()
+        return "\(function.name)\(argumentsTitles)"
+    }
+    
+    private func getArgumentName(from type: ArgumentType) -> String {
+        if let label = type.label, label != "_" {
+            return label.capitalizingFirstLetter()
+        } else {
+            return type.name.capitalizingFirstLetter()
+        }
+    }
+    
     private func makeName(from function: FunctionDeclarationType) -> String {
         let argumentsTitles = function.arguments.map({ $0.label?.capitalizingFirstLetter() ?? $0.name.capitalizingFirstLetter() }).joined()
         return "\(function.name)\(argumentsTitles)"
@@ -106,34 +137,65 @@ public class ProtocolSpyGeneratorController {
         return "\(labelString)\(argument.name): \(argument.type.name)\(optionalLabel)"
     }
 
-    private func generateFunctionDefinitions(_ function: FunctionDeclarationType) -> String {
+    private func generateSpy(of function: FunctionDeclarationType) -> String {
+        if function.arguments.isEmpty {
+            return generateSpyWithoutArguments(of: function)
+        } else {
+            return generateSpyWithArguments(of: function)
+        }
+    }
+    
+    private func generateSpyWithoutArguments(of function: FunctionDeclarationType) -> String {
+        let functionName = getName(from: function)
+        var functionBody = [String]()
+        
+        functionBody.append("\(functionName)Count += 1")
+        
+        if function.returnType != nil {
+            functionBody.append("return \(functionName)Return")
+        }
+        
+        return makeFunctionDefinition(of: function, body: functionBody)
+    }
+    
+    private func generateSpyWithArguments(of function: FunctionDeclarationType) -> String {
+        let functionName = getName(from: function)
+        let structName = makeStructName(from: function)
+        
+        var functionBody = [String]()
+        let argumentList = function.arguments.map({ "\($0.name): \($0.name)" }).joined(separator: ", ")
+        
+        functionBody.append("let item = \(structName)(\(argumentList))")
+        functionBody.append("\(functionName).append(item)")
+        
+        if function.returnType != nil {
+            functionBody.append("return \(functionName)Return")
+        }
+        
+        return makeFunctionDefinition(of: function, body: functionBody)
+    }
+    
+    private func makeFunctionDefinition(of function: FunctionDeclarationType, body: [String]) -> String {
         var result = ""
-        let functionName = makeName(from: function)
         let argumentsString = function.arguments.map(generateArgument).joined(separator: ", ")
-
         var returnString = ""
-
+        
         if function.isThrowing {
             returnString += "throws "
         }
-
+        
         if let returnType = function.returnType {
             returnString += "-> \(returnType.name)\(returnType.isOptional ? "?": "") "
         }
-
+        
         result += "\tfunc \(function.name)(\(argumentsString)) \(returnString){\n"
-        result += "\t\t\(functionName)Count += 1\n"
-
-        for argument in function.arguments {
-            result += "\t\t\(functionName)\(argument.name.capitalizingFirstLetter()) = \(argument.name)\n"
-        }
-
-        if function.returnType != nil {
-            result += "\t\treturn \(functionName)Return\n"
-        }
-
+        result += body.map({"\t\t\($0)\n"}).joined()
         result += "\t}\n"
         return result
+    }
+    
+    private func makeStructName(from function: FunctionDeclarationType) -> String {
+        return getName(from: function).capitalizingFirstLetter()
     }
 
 }
