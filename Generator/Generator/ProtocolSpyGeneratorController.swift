@@ -29,10 +29,13 @@ public class ProtocolSpyGeneratorController {
         if !protocolType.variables.isEmpty {
             content.append(generateVariables(protocolType.variables))
         }
-
+        
         for function in protocolType.functions {
             content.append(generateFunctionVariables(function))
         }
+
+        let initRows = generateInit(for: protocolType)
+        content += initRows
 
         for function in protocolType.functions {
             content.append(generateSpy(of: function))
@@ -47,6 +50,40 @@ public class ProtocolSpyGeneratorController {
         }
 
         return result
+    }
+    
+    private func generateInit(for type: ProtocolType) -> [String] {
+        let arguments = type.functions.flatMap(makeReturnArgument(of:)).joined(separator: ", ")
+        
+        guard !arguments.isEmpty else {
+            return []
+        }
+        
+        let bodyRows = type.functions.flatMap(makeReturnAssigment(of:))
+        var result = [String]()
+        result.append("\tinit(\(arguments)) {")
+        result += bodyRows
+        result.append("\t}")
+        result.append("")
+        return result
+    }
+    
+    private func makeReturnArgument(of function: FunctionDeclarationType) -> String? {
+        guard let returnType = function.returnType, !returnType.isOptional else {
+            return nil
+        }
+        let functionName = getName(from: function)
+        
+        return "\(functionName)Return: \(returnType.makeString())"
+    }
+    
+    private func makeReturnAssigment(of function: FunctionDeclarationType) -> String? {
+        guard let returnType = function.returnType, !returnType.isOptional else {
+            return nil
+        }
+        let functionName = getName(from: function)
+        
+        return "\t\tself.\(functionName)Return = \(functionName)Return"
     }
 
     private func generateVariables(_ variables: [VarDeclarationType]) -> String {
@@ -83,7 +120,7 @@ public class ProtocolSpyGeneratorController {
         }
 
         if let returnType = function.returnType {
-            result += "\tvar \(functionName)Return: \(returnType.name)\(returnType.isOptional ? "?" : "!")\n"
+            result += "\tvar \(functionName)Return: \(returnType.name)\(returnType.isOptional ? "?" : "")\n"
         }
 
         return result

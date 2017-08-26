@@ -158,7 +158,11 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "class CarSpy: Car {",
             "",
             "\tvar startCount = 0",
-            "\tvar startReturn: Int!",
+            "\tvar startReturn: Int",
+            "",
+            "\tinit(startReturn: Int) {",
+            "\t\tself.startReturn = startReturn",
+            "\t}",
             "",
             "\tfunc start() -> Int {",
             "\t\tstartCount += 1",
@@ -179,7 +183,11 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "class CarSpy: Car {",
             "",
             "\tvar startCount = 0",
-            "\tvar startReturn: Int!",
+            "\tvar startReturn: Int",
+            "",
+            "\tinit(startReturn: Int) {",
+            "\t\tself.startReturn = startReturn",
+            "\t}",
             "",
             "\tfunc start() throws -> Int {",
             "\t\tstartCount += 1",
@@ -192,19 +200,33 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         )
     }
 
-    func test_givenProtocolWithFunctionWithOptionalReturn_whenGenerate_thenGenerateSpy() {
-        let function = FunctionDeclarationType(name: "start", returnType: Type(name: "Int", isOptional: true))
-        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
+    func test_givenProtocolWithMultipleReturnFunctions_whenGenerate_thenGenerateSpy() {
+        let function = FunctionDeclarationType(name: "start", returnType: Type(name: "Int", isOptional: false))
+        let function2 = FunctionDeclarationType(name: "stop", returnType: Type(name: "Int", isOptional: false))
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
             "\tvar startCount = 0",
-            "\tvar startReturn: Int?",
+            "\tvar startReturn: Int",
             "",
-            "\tfunc start() -> Int? {",
+            "\tvar stopCount = 0",
+            "\tvar stopReturn: Int",
+            "",
+            "\tinit(startReturn: Int, stopReturn: Int) {",
+            "\t\tself.startReturn = startReturn",
+            "\t\tself.stopReturn = stopReturn",
+            "\t}",
+            "",
+            "\tfunc start() -> Int {",
             "\t\tstartCount += 1",
             "\t\treturn startReturn",
+            "\t}",
+            "",
+            "\tfunc stop() -> Int {",
+            "\t\tstopCount += 1",
+            "\t\treturn stopReturn",
             "\t}",
             "",
             "}",

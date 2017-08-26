@@ -56,7 +56,11 @@ class CarSpy: Car {
 	var loadWith = [LoadWith]()
 
 	var isFullCount = 0
-	var isFullReturn: Bool!
+	var isFullReturn: Bool
+
+	init(isFullReturn: Bool) {
+		self.isFullReturn = isFullReturn
+	}
 
 	func go() {
 		goCount += 1
