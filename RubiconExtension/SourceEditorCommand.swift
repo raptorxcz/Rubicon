@@ -43,8 +43,8 @@ class GenerateSpy: NSObject, XCSourceEditorCommand {
 
         if invocation.buffer.selections.count == 1, let range = invocation.buffer.selections.firstObject as? XCSourceTextRange {
             if isEmptyRange(range) {
-                let start = range.start.line - 1
-                let end = range.end.line - 1
+                let start = range.start.line
+                let end = range.end.column == 0 ? max(range.end.line - 1, 0) : range.end.line
                 lines = Array(lines[start ... end])
             }
         }
