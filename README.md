@@ -20,7 +20,7 @@ protocol Car {
     var color: Int { get set }
 
     func go()
-    func load(with staff: Int)
+    func load(with stuff: Int, label: String)
     func isFull() -> Bool
 
 }
@@ -48,14 +48,13 @@ class CarSpy: Car {
 		}
 	}
 
-	var goCount = 0
-
 	struct LoadWithLabel {
 		let stuff: Int
 		let label: String
 	}
-	var loadWithLabel = [LoadWithLabel]()
 
+	var goCount = 0
+	var loadWithLabel = [LoadWithLabel]()
 	var isFullCount = 0
 	var isFullReturn: Bool
 
