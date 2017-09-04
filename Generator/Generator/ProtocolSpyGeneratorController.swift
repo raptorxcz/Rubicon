@@ -30,8 +30,8 @@ public class ProtocolSpyGeneratorController {
             content.append(generateVariables(protocolType.variables))
         }
         
-        for function in protocolType.functions {
-            content.append(generateFunctionVariables(function))
+        if !protocolType.functions.isEmpty {
+            content.append(generateSpyVariables(for: protocolType.functions))
         }
 
         let initRows = generateInit(for: protocolType)
@@ -108,34 +108,53 @@ public class ProtocolSpyGeneratorController {
         return result
     }
 
+    private func generateSpyVariables(for functions: [FunctionDeclarationType]) -> String {
+        var result = ""
+        
+        for function in functions {
+            if !function.arguments.isEmpty {
+                result += generateStruct(for: function) + "\n"
+            }
+        }
+        
+        for function in functions {
+            result += generateFunctionVariables(function) + "\n"
+        }
+
+        return result
+    }
+    
     private func generateFunctionVariables(_ function: FunctionDeclarationType) -> String {
         let functionName = makeName(from: function)
 
         var result = ""
         
         if function.arguments.isEmpty {
-            result += "\tvar \(functionName)Count = 0\n"
+            result += "\tvar \(functionName)Count = 0"
         } else {
-            result += generateStruct(for: function)
+            result += generateCallStackVariable(for: function)
         }
 
         if let returnType = function.returnType {
-            result += "\tvar \(functionName)Return: \(returnType.name)\(returnType.isOptional ? "?" : "")\n"
+            result += "\n\tvar \(functionName)Return: \(returnType.name)\(returnType.isOptional ? "?" : "")"
         }
 
         return result
     }
     
-    private func generateStruct(for function: FunctionDeclarationType) -> String {
+    private func generateCallStackVariable(for function: FunctionDeclarationType) -> String {
         let functionName = getName(from: function)
+        let structName = makeStructName(from: function)
+        return "\tvar \(functionName) = [\(structName)]()"
+    }
+    
+    private func generateStruct(for function: FunctionDeclarationType) -> String {
         let structName = makeStructName(from: function)
         
         var result = ""
         result += "\tstruct \(structName) {\n"
         result += function.arguments.map(makeRow(for:)).joined()
         result += "\t}\n"
-        result += "\tvar \(functionName) = [\(structName)]()\n"
-        
         return result
     }
     
