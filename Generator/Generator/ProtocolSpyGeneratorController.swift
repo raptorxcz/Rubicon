@@ -8,9 +8,12 @@
 
 public class ProtocolSpyGeneratorController {
 
+    private var protocolType: ProtocolType?
+    
     public init() {}
 
     public func generate(from protocolType: ProtocolType, visibility: String? = nil) -> String {
+        self.protocolType = protocolType
         var result = ""
 
         if let visibility = visibility {
@@ -164,7 +167,10 @@ public class ProtocolSpyGeneratorController {
 
     private func getName(from function: FunctionDeclarationType) -> String {
         let argumentsTitles = function.arguments.map(getArgumentName(from:)).joined()
-        return "\(function.name)\(argumentsTitles)"
+        let arguments = isFunctionNameUnique(function) ? argumentsTitles : ""
+        
+        
+        return "\(function.name)\(arguments)"
     }
     
     private func getArgumentName(from type: ArgumentType) -> String {
@@ -173,6 +179,22 @@ public class ProtocolSpyGeneratorController {
         } else {
             return type.name.capitalizingFirstLetter()
         }
+    }
+    
+    private func isFunctionNameUnique(_ function: FunctionDeclarationType) -> Bool {
+        guard let protocolType = protocolType else {
+            return false
+        }
+        
+        var matchCount = 0
+        
+        for fc in protocolType.functions {
+            if fc.name == function.name {
+                matchCount += 1
+            }
+        }
+        
+        return matchCount > 1
     }
     
     private func makeName(from function: FunctionDeclarationType) -> String {
