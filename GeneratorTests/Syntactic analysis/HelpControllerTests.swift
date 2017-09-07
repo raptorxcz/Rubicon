@@ -29,5 +29,4 @@ private class ErrorGeneratorOutputSpy: ErrorGeneratorOutput {
         showErrorCount += 1
         showErrorText = text
     }
-
 }

@@ -39,7 +39,6 @@ class ArgumentsControllerTests: XCTestCase {
         XCTAssertEqual(mocksControllerSpy.runCount, 1)
         XCTAssertEqual(mocksControllerSpy.text, "protocol string")
     }
-
 }
 
 private class FileReaderSpy: FileReader {
@@ -53,7 +52,6 @@ private class FileReaderSpy: FileReader {
         self.path = path
         return result
     }
-
 }
 
 private class HelpControllerSpy: HelpController {
@@ -63,7 +61,6 @@ private class HelpControllerSpy: HelpController {
     func run() {
         runCount += 1
     }
-
 }
 
 private class MocksGeneratorControllerSpy: MocksGeneratorController {
@@ -75,5 +72,4 @@ private class MocksGeneratorControllerSpy: MocksGeneratorController {
         runCount += 1
         self.text = text
     }
-
 }

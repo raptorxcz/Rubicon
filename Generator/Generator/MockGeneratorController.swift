@@ -19,7 +19,6 @@ public class MocksGeneratorControllerImpl {
         self.output = output
         self.visibility = visibility
     }
-
 }
 
 extension MocksGeneratorControllerImpl: MocksGeneratorController {
@@ -74,5 +73,4 @@ extension MocksGeneratorControllerImpl: MocksGeneratorController {
         let text = generator.generate(from: protocolType, visibility: visibility)
         output.save(text: text)
     }
-
 }

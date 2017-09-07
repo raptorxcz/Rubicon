@@ -58,7 +58,7 @@ public class ProtocolParser {
 
         repeat {
             continueRepeating = false
-            
+
             guard let parentToken = try? storage.next(), case let .identifier(parentName) = parentToken else {
                 throw ProtocolParserError.expectedParentProtocol
             }
@@ -72,7 +72,7 @@ public class ProtocolParser {
             if separatorToken == .comma {
                 continueRepeating = true
             }
-        } while (continueRepeating)
+        } while continueRepeating
 
         return parents
     }

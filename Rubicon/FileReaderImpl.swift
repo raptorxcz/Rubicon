@@ -37,8 +37,7 @@ public class FileReaderImpl: FileReader {
                 }
             }
         }
-        
+
         return fileNames
     }
-    
 }

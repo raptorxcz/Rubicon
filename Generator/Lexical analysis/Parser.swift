@@ -72,7 +72,7 @@ public class Parser {
             isEndBackwardsQuoteRequired = true
         }
 
-        let range = index..<text.endIndex
+        let range = index ..< text.endIndex
         while range.contains(index) {
             let character = text[index]
 

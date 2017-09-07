@@ -17,5 +17,4 @@ class CommandLineAssembly {
         let argumentsController = ArgumentsController(fileReader: fileReader, helpController: helpController, mocksController: mocksController)
         argumentsController.run(arguments: arguments)
     }
-
 }

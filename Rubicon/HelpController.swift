@@ -17,7 +17,6 @@ public class HelpControllerImpl {
     public init(output: ErrorGeneratorOutput) {
         self.output = output
     }
-
 }
 
 extension HelpControllerImpl: HelpController {
@@ -28,5 +27,4 @@ extension HelpControllerImpl: HelpController {
         helpString += "--mocks path\n"
         output.showError(text: helpString)
     }
-
 }

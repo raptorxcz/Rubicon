@@ -27,5 +27,4 @@ public class ArgumentsController {
         let result = fileReader.readFiles(at: arguments[2])
         mocksController.run(texts: result)
     }
-
 }

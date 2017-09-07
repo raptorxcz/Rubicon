@@ -9,11 +9,9 @@
 public protocol GeneratorOutput {
 
     func save(text: String)
-    
 }
 
 public protocol ErrorGeneratorOutput {
 
     func showError(text: String)
-
 }

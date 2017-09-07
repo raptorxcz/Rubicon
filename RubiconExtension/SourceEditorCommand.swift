@@ -59,7 +59,6 @@ class GenerateSpy: NSObject, XCSourceEditorCommand {
     func isEmptyRange(_ range: XCSourceTextRange) -> Bool {
         return range.start.line != range.end.line || (range.start.line == range.end.line && range.start.column != range.end.column)
     }
-    
 }
 
 extension GenerateSpy: GeneratorOutput {
@@ -72,5 +71,4 @@ extension GenerateSpy: GeneratorOutput {
         let lines = indentFormatter.format(indent: indent, string: text).components(separatedBy: "\n")
         invocation.buffer.lines.addObjects(from: lines)
     }
-
 }

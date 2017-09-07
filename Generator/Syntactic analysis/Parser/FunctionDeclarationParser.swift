@@ -100,5 +100,4 @@ public class FunctionDeclarationParser {
 
         return arguments
     }
-
 }

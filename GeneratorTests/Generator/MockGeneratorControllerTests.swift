@@ -90,7 +90,6 @@ class MockGeneratorControllerTests: XCTestCase {
         XCTAssertEqual(generatorOutput.text, "private class XSpy: X {\n}\n")
         XCTAssertEqual(generatorOutput.saveCount, 1)
     }
-
 }
 
 private class GeneratorOutputSpy: GeneratorOutput {
@@ -102,5 +101,4 @@ private class GeneratorOutputSpy: GeneratorOutput {
         self.text += text
         saveCount += 1
     }
-
 }

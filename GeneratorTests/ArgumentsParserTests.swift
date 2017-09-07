@@ -34,12 +34,11 @@ class ArgumentsParserTests: XCTestCase {
     func test_givenMocksWithPath_whenParse_thenParseMocks() {
         let arguments = argumentsParser.parse(arguments: ["--mocks", "."])
 
-        guard case .mocks(let path) = arguments else {
+        guard case let .mocks(path) = arguments else {
             XCTFail()
             return
         }
 
         XCTAssertEqual(path, ".")
     }
-
 }

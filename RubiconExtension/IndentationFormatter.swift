@@ -13,5 +13,4 @@ public class IndentationFormatter {
     public func format(indent: String, string: String) -> String {
         return string.replacingOccurrences(of: "\t", with: indent)
     }
-
 }

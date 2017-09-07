@@ -18,5 +18,4 @@ public struct Type {
     public func makeString() -> String {
         return name + (isOptional ? "?" : "")
     }
-
 }

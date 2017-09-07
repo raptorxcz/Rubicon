@@ -20,8 +20,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class TestSpy: Test {",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -31,8 +31,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class TestTestTestTestTestSpy: TestTestTestTestTest {",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -54,8 +54,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -74,8 +74,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -94,8 +94,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -126,8 +126,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -145,8 +145,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -170,8 +170,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -195,8 +195,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -229,8 +229,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -247,15 +247,15 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "\tvar start = [Start]()",
-            "",    
+            "",
             "\tfunc start(a b: Color) {",
             "\t\tlet item = Start(b: b)",
             "\t\tstart.append(item)",
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -279,8 +279,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -307,8 +307,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -343,8 +343,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -379,8 +379,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -404,18 +404,18 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
-    
+
     func test_givenProtocolWithSameFunctionNames_whenGenerate_thenGenerateSpy() {
         let argument = ArgumentType(label: "a", name: "b", type: type)
         let argument2 = ArgumentType(label: "c", name: "d", type: type)
         let function = FunctionDeclarationType(name: "start", arguments: [argument])
         let function2 = FunctionDeclarationType(name: "start", arguments: [argument2])
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
-        
+
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
@@ -441,8 +441,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -452,8 +452,8 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         equal(protocolType: protocolType, visibility: "private", rows: [
             "private class TestTestTestTestTestSpy: TestTestTestTestTest {",
             "}",
-            ""
-            ]
+            "",
+        ]
         )
     }
 
@@ -466,5 +466,4 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             XCTAssertEqual($0, $1)
         })
     }
-
 }

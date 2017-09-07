@@ -40,7 +40,6 @@ class ProtocolParserTests: XCTestCase {
         testParserException(with: storage, .expectedLeftBracket)
     }
 
-
     func test_givenInvalidRightBracketToken_whenParse_thenThrowException() throws {
         let storage = try Storage(tokens: [.protocol, .identifier(name: "p"), .leftCurlyBracket, .colon])
         testParserException(with: storage, .expectedRightBracket)
@@ -169,13 +168,13 @@ class ProtocolParserTests: XCTestCase {
             XCTFail()
         }
     }
-    
+
     func test_givenProtocolWithSetterFunction_whenParse_thenParse() throws {
         var tokens: [Token] = [.protocol, .identifier(name: "p"), .leftCurlyBracket]
-        
+
         tokens += [.function, .identifier(name: "set"), .leftBracket, .rightBracket]
         tokens += [.rightCurlyBracket, .colon]
-        
+
         let storage = try Storage(tokens: tokens)
         do {
             let `protocol` = try parser.parse(storage: storage)
@@ -187,13 +186,13 @@ class ProtocolParserTests: XCTestCase {
             XCTFail()
         }
     }
-    
+
     func test_givenProtocolWithGetterFunction_whenParse_thenParse() throws {
         var tokens: [Token] = [.protocol, .identifier(name: "p"), .leftCurlyBracket]
-        
+
         tokens += [.function, .identifier(name: "get"), .leftBracket, .rightBracket]
         tokens += [.rightCurlyBracket, .colon]
-        
+
         let storage = try Storage(tokens: tokens)
         do {
             let `protocol` = try parser.parse(storage: storage)

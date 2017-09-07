@@ -15,7 +15,6 @@ extension StandardGeneratorOutput: GeneratorOutput {
     public func save(text: String) {
         print(text, terminator: "")
     }
-
 }
 
 extension StandardGeneratorOutput: ErrorGeneratorOutput {
@@ -25,7 +24,6 @@ extension StandardGeneratorOutput: ErrorGeneratorOutput {
         print(text, to: &errorStream)
         exit(1)
     }
-
 }
 
 private struct StderrOutputStream: TextOutputStream {
@@ -33,4 +31,3 @@ private struct StderrOutputStream: TextOutputStream {
         fputs(string, stderr)
     }
 }
-

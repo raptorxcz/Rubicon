@@ -65,5 +65,4 @@ class ArgumentParserTests: XCTestCase {
             _ = try parser.parse(storage: storage)
         })
     }
-
 }

@@ -235,7 +235,6 @@ class TypeParserTests: XCTestCase {
         }
     }
 
-
     func test_givenGenericTypeWithMultipleSubtypes_whenParse_thenTypeIsParsed() throws {
         let storage = try Storage(tokens: [.identifier(name: "A"), .lessThan, .identifier(name: "C"), .comma, .identifier(name: "D"), .greaterThan, .arrow])
         let parser = makeParser(storage: storage)
@@ -249,6 +248,4 @@ class TypeParserTests: XCTestCase {
             XCTFail()
         }
     }
-
-
 }
