@@ -48,13 +48,13 @@ class CarSpy: Car {
 		}
 	}
 
-	struct LoadWithLabel {
+	struct Load {
 		let stuff: Int
 		let label: String
 	}
 
 	var goCount = 0
-	var loadWithLabel = [LoadWithLabel]()
+	var load = [Load]()
 	var isFullCount = 0
 	var isFullReturn: Bool
 
@@ -67,8 +67,8 @@ class CarSpy: Car {
 	}
 
 	func load(with stuff: Int, label: String) {
-		let item = LoadWithLabel(stuff: stuff, label: label)
-		loadWithLabel.append(item)
+		let item = Load(stuff: stuff, label: label)
+		load.append(item)
 	}
 
 	func isFull() -> Bool {
@@ -86,9 +86,9 @@ let carSpy = CarSpy()
 ...
 
 let a1 = carSpy.goCount == 1
-let a2 = carSpy.loadWith.count == 1
-let a3 = carSpy.loadWith[0].stuff == 2
-let a4 = carSpy.loadWith[0].label == "name"
+let a2 = carSpy.load.count == 1
+let a3 = carSpy.load[0].stuff == 2
+let a4 = carSpy.load[0].label == "name"
 
 ```
 
