@@ -128,7 +128,7 @@ public class ProtocolSpyGeneratorController {
     }
 
     private func generateFunctionVariables(_ function: FunctionDeclarationType) -> String {
-        let functionName = makeName(from: function)
+        let functionName = getName(from: function)
 
         var result = ""
 
@@ -194,11 +194,6 @@ public class ProtocolSpyGeneratorController {
         }
 
         return matchCount > 1
-    }
-
-    private func makeName(from function: FunctionDeclarationType) -> String {
-        let argumentsTitles = function.arguments.map({ $0.label?.capitalizingFirstLetter() ?? $0.name.capitalizingFirstLetter() }).joined()
-        return "\(function.name)\(argumentsTitles)"
     }
 
     private func generateArgument(_ argument: ArgumentType) -> String {

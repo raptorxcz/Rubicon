@@ -442,8 +442,35 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "",
             "}",
             "",
-        ]
-        )
+        ])
+    }
+
+    func test_givenProtocolWithNoArgumentLabelAndReturnValue_whenGenerate_thenGenerateSpy() {
+        let argumentType = Type(name: "Int", isOptional: true)
+        let argument = ArgumentType(label: "_", name: "value", type: argumentType)
+        let returnType = Type(name: "String", isOptional: true)
+        let function = FunctionDeclarationType(name: "formattedString", arguments: [argument], returnType: returnType)
+        let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class FormatterSpy: Formatter {",
+            "",
+            "\tstruct FormattedString {",
+            "\t\tlet value: Int?",
+            "\t}",
+            "",
+            "\tvar formattedString = [FormattedString]()",
+            "\tvar formattedStringReturn: String?",
+            "",
+            "\tfunc formattedString(_ value: Int?) -> String? {",
+            "\t\tlet item = FormattedString(value: value)",
+            "\t\tformattedString.append(item)",
+            "\t\treturn formattedStringReturn",
+            "\t}",
+            "",
+            "}",
+            "",
+        ])
     }
 
     func test_givenEmptyProtocolAndPrivate_whenGenerate_thenGenerateSpy() {
