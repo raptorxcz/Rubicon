@@ -35,7 +35,7 @@ class CarSpy: Car {
 	enum CarSpyError: Error {
 		case spyError
 	}
-	typealias ThrowBlock = () -> throws Void
+	typealias ThrowBlock = () throws -> Void
 
 	var _name: String?
 	var name: String? {
