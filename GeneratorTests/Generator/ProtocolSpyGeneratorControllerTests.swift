@@ -182,7 +182,13 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
+            "\tenum CarSpyError: Error {",
+            "\t\tcase spyError",
+            "\t}",
+            "\ttypealias ThrowBlock = () -> throws Void",
+            "",
             "\tvar startCount = 0",
+            "\tvar startThrowBlock: ThrowBlock?",
             "\tvar startReturn: Int",
             "",
             "\tinit(startReturn: Int) {",
@@ -191,12 +197,51 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "",
             "\tfunc start() throws -> Int {",
             "\t\tstartCount += 1",
+            "\t\ttry startThrowBlock?()",
             "\t\treturn startReturn",
             "\t}",
             "",
             "}",
             "",
         ]
+        )
+    }
+    
+    func test_givenProtocolWithThrowingFunctionWithArguments_whenGenerate_thenGenerateSpy() {
+        let argument = ArgumentType(label: "with", name: "label", type: type)
+        let function = FunctionDeclarationType(name: "start", arguments: [argument], isThrowing: true, returnType: Type(name: "Int", isOptional: false))
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
+        
+        equal(protocolType: protocolType, rows: [
+            "class CarSpy: Car {",
+            "",
+            "\tenum CarSpyError: Error {",
+            "\t\tcase spyError",
+            "\t}",
+            "\ttypealias ThrowBlock = () -> throws Void",
+            "",
+            "\tstruct Start {",
+            "\t\tlet label: Color",
+            "\t}",
+            "",
+            "\tvar start = [Start]()",
+            "\tvar startThrowBlock: ThrowBlock?",
+            "\tvar startReturn: Int",
+            "",
+            "\tinit(startReturn: Int) {",
+            "\t\tself.startReturn = startReturn",
+            "\t}",
+            "",
+            "\tfunc start(with label: Color) throws -> Int {",
+            "\t\tlet item = Start(label: label)",
+            "\t\tstart.append(item)",
+            "\t\ttry startThrowBlock?()",
+            "\t\treturn startReturn",
+            "\t}",
+            "",
+            "}",
+            "",
+            ]
         )
     }
 

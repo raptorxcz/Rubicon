@@ -20,7 +20,7 @@ protocol Car {
     var color: Int { get set }
 
     func go()
-    func load(with stuff: Int, label: String)
+    func load(with stuff: Int, label: String) throws -> Int
     func isFull() -> Bool
 
 }
@@ -31,6 +31,11 @@ output:
 
 ```swift
 class CarSpy: Car {
+
+	enum CarSpyError: Error {
+		case spyError
+	}
+	typealias ThrowBlock = () -> throws Void
 
 	var _name: String?
 	var name: String? {
@@ -55,10 +60,13 @@ class CarSpy: Car {
 
 	var goCount = 0
 	var load = [Load]()
+	var loadThrowBlock: ThrowBlock?
+	var loadReturn: Int
 	var isFullCount = 0
 	var isFullReturn: Bool
 
-	init(isFullReturn: Bool) {
+	init(loadReturn: Int, isFullReturn: Bool) {
+		self.loadReturn = loadReturn
 		self.isFullReturn = isFullReturn
 	}
 
@@ -66,9 +74,11 @@ class CarSpy: Car {
 		goCount += 1
 	}
 
-	func load(with stuff: Int, label: String) {
+	func load(with stuff: Int, label: String) throws -> Int {
 		let item = Load(stuff: stuff, label: label)
 		load.append(item)
+		try loadThrowBlock?()
+		return loadReturn
 	}
 
 	func isFull() -> Bool {

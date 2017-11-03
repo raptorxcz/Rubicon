@@ -29,6 +29,10 @@ public class ProtocolSpyGeneratorController {
     private func generateBody(from protocolType: ProtocolType) -> String {
         var content = [String]()
 
+        if let throwSampleError = makeThrowSampleError(for: protocolType) {
+            content.append(throwSampleError)
+        }
+        
         if !protocolType.variables.isEmpty {
             content.append(generateVariables(protocolType.variables))
         }
@@ -53,6 +57,22 @@ public class ProtocolSpyGeneratorController {
         }
 
         return result
+    }
+    
+    private func makeThrowSampleError(for type: ProtocolType) -> String? {
+        let isAnyFuncThrowing = type.functions.contains(where: { $0.isThrowing })
+        
+        if isAnyFuncThrowing {
+            return """
+            \tenum \(type.name)SpyError: Error {
+            \t\tcase spyError
+            \t}
+            \ttypealias ThrowBlock = () -> throws Void
+            
+            """
+        } else {
+            return nil
+        }
     }
 
     private func generateInit(for type: ProtocolType) -> [String] {
@@ -136,6 +156,10 @@ public class ProtocolSpyGeneratorController {
             result += "\tvar \(functionName)Count = 0"
         } else {
             result += generateCallStackVariable(for: function)
+        }
+        
+        if function.isThrowing {
+            result += "\n\tvar \(functionName)ThrowBlock: ThrowBlock?"
         }
 
         if let returnType = function.returnType {
@@ -223,6 +247,10 @@ public class ProtocolSpyGeneratorController {
 
         functionBody.append("\(functionName)Count += 1")
 
+        if function.isThrowing {
+            functionBody.append("try \(functionName)ThrowBlock?()")
+        }
+        
         if function.returnType != nil {
             functionBody.append("return \(functionName)Return")
         }
@@ -240,6 +268,10 @@ public class ProtocolSpyGeneratorController {
         functionBody.append("let item = \(structName)(\(argumentList))")
         functionBody.append("\(functionName).append(item)")
 
+        if function.isThrowing {
+            functionBody.append("try \(functionName)ThrowBlock?()")
+        }
+        
         if function.returnType != nil {
             functionBody.append("return \(functionName)Return")
         }
