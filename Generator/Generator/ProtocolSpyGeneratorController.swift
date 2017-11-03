@@ -67,7 +67,7 @@ public class ProtocolSpyGeneratorController {
             \tenum \(type.name)SpyError: Error {
             \t\tcase spyError
             \t}
-            \ttypealias ThrowBlock = () -> throws Void
+            \ttypealias ThrowBlock = () throws -> Void
             
             """
         } else {
