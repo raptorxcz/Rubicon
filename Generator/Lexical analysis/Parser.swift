@@ -10,7 +10,7 @@ public class Parser {
 
     private var buffer: String = ""
     private var results = [Token]()
-    private let identifierCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.".characters
+    private let identifierCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_."
 
     public init() {
     }
@@ -99,7 +99,7 @@ public class Parser {
     private func parseArrow(from index: String.Index, in text: String) -> String.Index {
         let secondIndex = text.index(after: index)
 
-        if text.characters.indices.contains(index) && text.characters.indices.contains(secondIndex) {
+        if text.indices.contains(index) && text.indices.contains(secondIndex) {
             let character = text[index]
             let character2 = text[secondIndex]
 
