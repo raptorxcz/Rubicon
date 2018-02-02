@@ -52,7 +52,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\t\t_color = newValue",
             "\t\t}",
             "\t}",
-            "",
             "}",
             "",
         ]
@@ -72,7 +71,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\t\treturn _color",
             "\t\t}",
             "\t}",
-            "",
             "}",
             "",
         ]
@@ -92,7 +90,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\t\treturn _color",
             "\t\t}",
             "\t}",
-            "",
             "}",
             "",
         ]
@@ -124,7 +121,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\t\t_color = newValue",
             "\t\t}",
             "\t}",
-            "",
             "}",
             "",
         ]
@@ -143,7 +139,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\tfunc start() {",
             "\t\tstartCount += 1",
             "\t}",
-            "",
             "}",
             "",
         ]
@@ -168,7 +163,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\tstartCount += 1",
             "\t\treturn startReturn",
             "\t}",
-            "",
             "}",
             "",
         ]
@@ -200,7 +194,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\ttry startThrowBlock?()",
             "\t\treturn startReturn",
             "\t}",
-            "",
             "}",
             "",
         ]
@@ -238,7 +231,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\ttry startThrowBlock?()",
             "\t\treturn startReturn",
             "\t}",
-            "",
             "}",
             "",
             ]
@@ -272,7 +264,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\tstopCount += 1",
             "\t\treturn stopReturn",
             "\t}",
-            "",
             "}",
             "",
         ]
@@ -297,7 +288,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\tlet item = Start(b: b)",
             "\t\tstart.append(item)",
             "\t}",
-            "",
             "}",
             "",
         ]
@@ -322,7 +312,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\tlet item = Start(b: b)",
             "\t\tstart.append(item)",
             "\t}",
-            "",
             "}",
             "",
         ]
@@ -350,7 +339,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\tlet item = Start(b: b, d: d)",
             "\t\tstart.append(item)",
             "\t}",
-            "",
             "}",
             "",
         ]
@@ -386,7 +374,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\tlet item = Stop(b: b)",
             "\t\tstop.append(item)",
             "\t}",
-            "",
             "}",
             "",
         ]
@@ -422,7 +409,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\tlet item = Start(b: b)",
             "\t\tstart.append(item)",
             "\t}",
-            "",
             "}",
             "",
         ]
@@ -447,7 +433,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\tlet item = StartGenerating(productId: productId)",
             "\t\tstartGenerating.append(item)",
             "\t}",
-            "",
             "}",
             "",
         ]
@@ -484,7 +469,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\tlet item = StartC(d: d)",
             "\t\tstartC.append(item)",
             "\t}",
-            "",
             "}",
             "",
         ])
@@ -512,7 +496,6 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t\tformattedString.append(item)",
             "\t\treturn formattedStringReturn",
             "\t}",
-            "",
             "}",
             "",
         ])

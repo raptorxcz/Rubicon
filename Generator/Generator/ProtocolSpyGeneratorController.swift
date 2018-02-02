@@ -51,7 +51,7 @@ public class ProtocolSpyGeneratorController {
         let result: String
 
         if !content.isEmpty {
-            result = "\n\(content.joined(separator: "\n"))\n"
+            result = "\n\(content.joined(separator: "\n"))"
         } else {
             result = ""
         }
