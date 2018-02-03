@@ -6,15 +6,15 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-import XCTest
 import Generator
+import XCTest
 
 extension XCTestCase {
 
     func testException<E: Error>(with exception: E, parse: (() throws -> Void)) where E: Equatable {
         do {
             try parse()
-        } catch let (error as E) {
+        } catch let error as E {
             XCTAssertEqual(error, exception)
             return
         } catch {}

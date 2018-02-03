@@ -6,8 +6,8 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-import XCTest
 import Generator
+import XCTest
 
 class ProtocolSpyGeneratorControllerTests: XCTestCase {
 
@@ -21,8 +21,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "class TestSpy: Test {",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenprotocolTypeWithLongName_whenGenerate_thenGenerateEmptySpy() {
@@ -32,8 +31,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "class TestTestTestTestTestSpy: TestTestTestTestTest {",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenProtocolWithVariable_whenGenerate_thenGenerateSpy() {
@@ -43,19 +41,14 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
-            "\tvar _color: Color!",
-            "\tvar color: Color {",
-            "\t\tget {",
-            "\t\t\treturn _color",
-            "\t\t}",
-            "\t\tset {",
-            "\t\t\t_color = newValue",
-            "\t\t}",
+            "\tvar color: Color",
+            "",
+            "\tinit(color: Color) {",
+            "\t\tself.color = color",
             "\t}",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenProtocolWithConstant_whenGenerate_thenGenerateSpy() {
@@ -65,16 +58,14 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
-            "\tvar _color: Color!",
-            "\tvar color: Color {",
-            "\t\tget {",
-            "\t\t\treturn _color",
-            "\t\t}",
+            "\tvar color: Color",
+            "",
+            "\tinit(color: Color) {",
+            "\t\tself.color = color",
             "\t}",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenProtocolWithOptional_whenGenerate_thenGenerateSpy() {
@@ -84,47 +75,30 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
-            "\tvar _color: Color?",
-            "\tvar color: Color? {",
-            "\t\tget {",
-            "\t\t\treturn _color",
-            "\t\t}",
-            "\t}",
+            "\tvar color: Color?",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenProtocolWithTwoVariables_whenGenerate_thenGenerateSpy() {
-        let variable = VarDeclarationType(isConstant: false, identifier: "color", type: type)
-        let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable, variable], functions: [])
+        let variable1 = VarDeclarationType(isConstant: false, identifier: "color1", type: type)
+        let variable2 = VarDeclarationType(isConstant: false, identifier: "color2", type: type)
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable1, variable2], functions: [])
 
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
-            "\tvar _color: Color!",
-            "\tvar color: Color {",
-            "\t\tget {",
-            "\t\t\treturn _color",
-            "\t\t}",
-            "\t\tset {",
-            "\t\t\t_color = newValue",
-            "\t\t}",
-            "\t}",
-            "\tvar _color: Color!",
-            "\tvar color: Color {",
-            "\t\tget {",
-            "\t\t\treturn _color",
-            "\t\t}",
-            "\t\tset {",
-            "\t\t\t_color = newValue",
-            "\t\t}",
+            "\tvar color1: Color",
+            "\tvar color2: Color",
+            "",
+            "\tinit(color1: Color, color2: Color) {",
+            "\t\tself.color1 = color1",
+            "\t\tself.color2 = color2",
             "\t}",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenProtocolWithSimpleFunction_whenGenerate_thenGenerateSpy() {
@@ -141,8 +115,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenProtocolWithFunctionWithReturn_whenGenerate_thenGenerateSpy() {
@@ -165,8 +138,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenProtocolWithThrowingFunction_whenGenerate_thenGenerateSpy() {
@@ -196,15 +168,14 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "}",
             "",
-        ]
-        )
+        ])
     }
-    
+
     func test_givenProtocolWithThrowingFunctionWithArguments_whenGenerate_thenGenerateSpy() {
         let argument = ArgumentType(label: "with", name: "label", type: type)
         let function = FunctionDeclarationType(name: "start", arguments: [argument], isThrowing: true, returnType: Type(name: "Int", isOptional: false))
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
-        
+
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
@@ -233,8 +204,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "}",
             "",
-            ]
-        )
+        ])
     }
 
     func test_givenProtocolWithMultipleReturnFunctions_whenGenerate_thenGenerateSpy() {
@@ -266,8 +236,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenProtocolWithFunctionWithArgument_whenGenerate_thenGenerateSpy() {
@@ -290,8 +259,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenProtocolWithFunctionWithNoLabelAndArgument_whenGenerate_thenGenerateSpy() {
@@ -314,8 +282,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenProtocolWithFunctionWithTwoArguments_whenGenerate_thenGenerateSpy() {
@@ -341,8 +308,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenProtocolWithTwoFunctionWithArgument_whenGenerate_thenGenerateSpy() {
@@ -376,8 +342,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenProtocolWithFunctionAndVarible_whenGenerate_thenGenerateSpy() {
@@ -389,15 +354,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
-            "\tvar _color: Color!",
-            "\tvar color: Color {",
-            "\t\tget {",
-            "\t\t\treturn _color",
-            "\t\t}",
-            "\t\tset {",
-            "\t\t\t_color = newValue",
-            "\t\t}",
-            "\t}",
+            "\tvar color: Color",
             "",
             "\tstruct Start {",
             "\t\tlet b: Color",
@@ -405,14 +362,17 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "",
             "\tvar start = [Start]()",
             "",
+            "\tinit(color: Color) {",
+            "\t\tself.color = color",
+            "\t}",
+            "",
             "\tfunc start(a b: Color) {",
             "\t\tlet item = Start(b: b)",
             "\t\tstart.append(item)",
             "\t}",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenProtocolWithLongNames_whenGenerate_thenSpyIsGenerated() {
@@ -435,8 +395,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\t}",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     func test_givenProtocolWithSameFunctionNames_whenGenerate_thenGenerateSpy() {
@@ -508,8 +467,7 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "private class TestTestTestTestTestSpy: TestTestTestTestTest {",
             "}",
             "",
-        ]
-        )
+        ])
     }
 
     private func equal(protocolType: ProtocolType, visibility: String? = nil, rows: [String]) {

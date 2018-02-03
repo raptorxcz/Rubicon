@@ -29,10 +29,10 @@ public enum Token {
 }
 
 extension Token: Equatable {
-    public static func ==(lhs: Token, rhs: Token) -> Bool {
+    public static func == (lhs: Token, rhs: Token) -> Bool {
 
         switch (lhs, rhs) {
-        case let (.identifier(name1), .identifier(name2)) :
+        case let (.identifier(name1), .identifier(name2)):
             return name1 == name2
         case (.protocol, .protocol):
             return true

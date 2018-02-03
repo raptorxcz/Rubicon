@@ -14,61 +14,79 @@ public class ProtocolSpyGeneratorController {
 
     public func generate(from protocolType: ProtocolType, visibility: String? = nil) -> String {
         self.protocolType = protocolType
-        var result = ""
-
-        if let visibility = visibility {
-            result += "\(visibility) "
-        }
-
-        result += "class \(protocolType.name)Spy: \(protocolType.name) {\n"
+        var result = [String]()
+        result.append("\(makeVisibilityString(visibility))class \(protocolType.name)Spy: \(protocolType.name) {")
         result += generateBody(from: protocolType)
-        result += "}\n"
-        return result
+        result.append("}")
+
+        var string = result.joined(separator: "\n")
+        if !string.isEmpty {
+            string.append("\n")
+        }
+        return string
     }
 
-    private func generateBody(from protocolType: ProtocolType) -> String {
+    private func makeVisibilityString(_ visibility: String?) -> String {
+        if let visibility = visibility {
+            return "\(visibility) "
+        } else {
+            return ""
+        }
+    }
+
+    private func generateBody(from protocolType: ProtocolType) -> [String] {
         var content = [String]()
 
         if let throwSampleError = makeThrowSampleError(for: protocolType) {
+            content.append("")
             content.append(throwSampleError)
         }
-        
+
         if !protocolType.variables.isEmpty {
-            content.append(generateVariables(protocolType.variables))
+            content.append("")
+            content += generateVariables(protocolType.variables)
         }
 
         if !protocolType.functions.isEmpty {
-            content.append(generateSpyVariables(for: protocolType.functions))
+            content.append("")
+            content += generateSpyVariables(for: protocolType.functions)
         }
 
         let initRows = generateInit(for: protocolType)
-        content += initRows
+
+        if !initRows.isEmpty {
+            content.append("")
+            content += initRows
+        }
+
+        let body = generateFunctionsBody(for: protocolType)
+        if !body.isEmpty {
+            content.append("")
+            content += body
+        }
+
+        return content
+    }
+
+    private func generateFunctionsBody(for protocolType: ProtocolType) -> [String] {
+        var rows = [[String]]()
 
         for function in protocolType.functions {
-            content.append(generateSpy(of: function))
+            rows.append(generateSpy(of: function))
         }
 
-        let result: String
-
-        if !content.isEmpty {
-            result = "\n\(content.joined(separator: "\n"))"
-        } else {
-            result = ""
-        }
-
-        return result
+        return rows.joined(separator: [""]).flatMap({ $0 })
     }
-    
+
     private func makeThrowSampleError(for type: ProtocolType) -> String? {
         let isAnyFuncThrowing = type.functions.contains(where: { $0.isThrowing })
-        
+
         if isAnyFuncThrowing {
             return """
             \tenum \(type.name)SpyError: Error {
             \t\tcase spyError
             \t}
             \ttypealias ThrowBlock = () throws -> Void
-            
             """
         } else {
             return nil
@@ -76,19 +94,37 @@ public class ProtocolSpyGeneratorController {
     }
 
     private func generateInit(for type: ProtocolType) -> [String] {
-        let arguments = type.functions.flatMap(makeReturnArgument(of:)).joined(separator: ", ")
+        var variables = type.variables.flatMap(makeArgument(from:))
+        variables += type.functions.flatMap(makeReturnArgument(of:))
+        let arguments = variables.joined(separator: ", ")
 
         guard !arguments.isEmpty else {
             return []
         }
 
-        let bodyRows = type.functions.flatMap(makeReturnAssigment(of:))
+        var bodyRows = type.variables.flatMap(makeAssigment(of:))
+        bodyRows += type.functions.flatMap(makeReturnAssigment(of:))
         var result = [String]()
         result.append("\tinit(\(arguments)) {")
         result += bodyRows
         result.append("\t}")
-        result.append("")
         return result
+    }
+
+    private func makeArgument(from variable: VarDeclarationType) -> String? {
+        if variable.type.isOptional {
+            return nil
+        } else {
+            return "\(variable.identifier): \(variable.type.makeString())"
+        }
+    }
+
+    private func makeAssigment(of variable: VarDeclarationType) -> String? {
+        if variable.type.isOptional {
+            return nil
+        } else {
+            return "\t\tself.\(variable.identifier) = \(variable.identifier)"
+        }
     }
 
     private func makeReturnArgument(of function: FunctionDeclarationType) -> String? {
@@ -109,39 +145,27 @@ public class ProtocolSpyGeneratorController {
         return "\t\tself.\(functionName)Return = \(functionName)Return"
     }
 
-    private func generateVariables(_ variables: [VarDeclarationType]) -> String {
-        var result = ""
+    private func generateVariables(_ variables: [VarDeclarationType]) -> [String] {
+        var result = [String]()
 
         for variable in variables {
-            result += "\tvar _\(variable.identifier): \(variable.type.name)\(variable.type.isOptional ? "?" : "!")\n"
-            result += "\tvar \(variable.identifier): \(variable.type.name)\(variable.type.isOptional ? "?" : "") {\n"
-            result += "\t\tget {\n"
-            result += "\t\t\treturn _\(variable.identifier)\n"
-            result += "\t\t}\n"
-
-            if !variable.isConstant {
-                result += "\t\tset {\n"
-                result += "\t\t\t_\(variable.identifier) = newValue\n"
-                result += "\t\t}\n"
-            }
-
-            result += "\t}\n"
+            result.append("\tvar \(variable.identifier): \(variable.type.name)\(variable.type.isOptional ? "?" : "")")
         }
 
         return result
     }
 
-    private func generateSpyVariables(for functions: [FunctionDeclarationType]) -> String {
-        var result = ""
+    private func generateSpyVariables(for functions: [FunctionDeclarationType]) -> [String] {
+        var result = [String]()
 
         for function in functions {
             if !function.arguments.isEmpty {
-                result += generateStruct(for: function) + "\n"
+                result.append(generateStruct(for: function))
             }
         }
 
         for function in functions {
-            result += generateFunctionVariables(function) + "\n"
+            result.append(generateFunctionVariables(function))
         }
 
         return result
@@ -157,7 +181,7 @@ public class ProtocolSpyGeneratorController {
         } else {
             result += generateCallStackVariable(for: function)
         }
-        
+
         if function.isThrowing {
             result += "\n\tvar \(functionName)ThrowBlock: ThrowBlock?"
         }
@@ -233,7 +257,7 @@ public class ProtocolSpyGeneratorController {
         return "\(labelString)\(argument.name): \(argument.type.name)\(optionalLabel)"
     }
 
-    private func generateSpy(of function: FunctionDeclarationType) -> String {
+    private func generateSpy(of function: FunctionDeclarationType) -> [String] {
         if function.arguments.isEmpty {
             return generateSpyWithoutArguments(of: function)
         } else {
@@ -241,7 +265,7 @@ public class ProtocolSpyGeneratorController {
         }
     }
 
-    private func generateSpyWithoutArguments(of function: FunctionDeclarationType) -> String {
+    private func generateSpyWithoutArguments(of function: FunctionDeclarationType) -> [String] {
         let functionName = getName(from: function)
         var functionBody = [String]()
 
@@ -250,7 +274,7 @@ public class ProtocolSpyGeneratorController {
         if function.isThrowing {
             functionBody.append("try \(functionName)ThrowBlock?()")
         }
-        
+
         if function.returnType != nil {
             functionBody.append("return \(functionName)Return")
         }
@@ -258,7 +282,7 @@ public class ProtocolSpyGeneratorController {
         return makeFunctionDefinition(of: function, body: functionBody)
     }
 
-    private func generateSpyWithArguments(of function: FunctionDeclarationType) -> String {
+    private func generateSpyWithArguments(of function: FunctionDeclarationType) -> [String] {
         let functionName = getName(from: function)
         let structName = makeStructName(from: function)
 
@@ -271,7 +295,7 @@ public class ProtocolSpyGeneratorController {
         if function.isThrowing {
             functionBody.append("try \(functionName)ThrowBlock?()")
         }
-        
+
         if function.returnType != nil {
             functionBody.append("return \(functionName)Return")
         }
@@ -279,8 +303,8 @@ public class ProtocolSpyGeneratorController {
         return makeFunctionDefinition(of: function, body: functionBody)
     }
 
-    private func makeFunctionDefinition(of function: FunctionDeclarationType, body: [String]) -> String {
-        var result = ""
+    private func makeFunctionDefinition(of function: FunctionDeclarationType, body: [String]) -> [String] {
+        var result = [String]()
         let argumentsString = function.arguments.map(generateArgument).joined(separator: ", ")
         var returnString = ""
 
@@ -292,9 +316,9 @@ public class ProtocolSpyGeneratorController {
             returnString += "-> \(returnType.name)\(returnType.isOptional ? "?" : "") "
         }
 
-        result += "\tfunc \(function.name)(\(argumentsString)) \(returnString){\n"
-        result += body.map({ "\t\t\($0)\n" }).joined()
-        result += "\t}\n"
+        result.append("\tfunc \(function.name)(\(argumentsString)) \(returnString){")
+        result += body.map({ "\t\t\($0)" })
+        result.append("\t}")
         return result
     }
 

@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import XcodeKit
 import Generator
+import XcodeKit
 
 class GenerateSpy: NSObject, XCSourceEditorCommand {
 

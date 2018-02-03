@@ -6,9 +6,9 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-import XCTest
-import Generator
 import Foundation
+import Generator
+import XCTest
 
 class ParserTests: XCTestCase {
 
