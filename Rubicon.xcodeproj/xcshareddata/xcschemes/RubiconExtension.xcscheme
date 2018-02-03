@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BB0474A11EC068FA00FC2B34"
-               BuildableName = "RubiconExtension.appex"
+               BuildableName = "Rubicon.appex"
                BlueprintName = "RubiconExtension"
                ReferencedContainer = "container:Rubicon.xcodeproj">
             </BuildableReference>

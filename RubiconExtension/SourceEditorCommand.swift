@@ -13,36 +13,25 @@ import XcodeKit
 class GenerateSpy: NSObject, XCSourceEditorCommand {
 
     fileprivate var invocation: XCSourceEditorCommandInvocation?
-    fileprivate let indentFormatter = IndentationFormatter()
-    fileprivate lazy var indent: String = {
-        guard let buffer = self.invocation?.buffer else {
-            return ""
-        }
-
-        var indent: String = ""
-
-        if buffer.usesTabsForIndentation {
-            for _ in 0 ..< buffer.tabWidth {
-                indent += "\t"
-            }
-        } else {
-            for _ in 0 ..< buffer.indentationWidth {
-                indent += " "
-            }
-        }
-
-        return indent
-    }()
+    private var output: GeneratorOutput?
 
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void) {
-        if invocation.commandIdentifier.hasSuffix("GeneratePrivateSpy") {
-            perform(with: invocation, visibility: "private", completionHandler: completionHandler)
-        } else {
-            perform(with: invocation, visibility: nil, completionHandler: completionHandler)
+        switch invocation.commandIdentifier {
+        case "GeneratePrivateSpy":
+            let output = InvocationGeneratorOutput(invocation: invocation)
+            perform(with: invocation, visibility: "private", generatorOutput: output, completionHandler: completionHandler)
+        case "GeneratePrivateSpy":
+            let output = InvocationGeneratorOutput(invocation: invocation)
+            perform(with: invocation, visibility: nil, generatorOutput: output, completionHandler: completionHandler)
+        case "GenerateSpyToPasteboard":
+            let output = PasteboardGeneratorOutput(invocation: invocation)
+            perform(with: invocation, visibility: nil, generatorOutput: output, completionHandler: completionHandler)
+        default:
+            break
         }
     }
 
-    private func perform(with invocation: XCSourceEditorCommandInvocation, visibility: String?, completionHandler: @escaping (Error?) -> Void) {
+    private func perform(with invocation: XCSourceEditorCommandInvocation, visibility: String?, generatorOutput: GeneratorOutput, completionHandler: @escaping (Error?) -> Void) {
         self.invocation = invocation
 
         guard var lines = invocation.buffer.lines as? [String] else {
@@ -59,24 +48,13 @@ class GenerateSpy: NSObject, XCSourceEditorCommand {
 
         let text = lines.reduce("", { $0 + "\n" + $1 })
 
-        let mocksController = MocksGeneratorControllerImpl(output: self, visibility: visibility)
+        output = generatorOutput
+        let mocksController = MocksGeneratorControllerImpl(output: generatorOutput, visibility: visibility)
         mocksController.run(texts: [text])
         completionHandler(nil)
     }
 
     private func isEmptyRange(_ range: XCSourceTextRange) -> Bool {
         return range.start.line != range.end.line || (range.start.line == range.end.line && range.start.column != range.end.column)
-    }
-}
-
-extension GenerateSpy: GeneratorOutput {
-
-    func save(text: String) {
-        guard let invocation = invocation else {
-            return
-        }
-
-        let lines = indentFormatter.format(indent: indent, string: text).components(separatedBy: "\n")
-        invocation.buffer.lines.addObjects(from: lines)
     }
 }

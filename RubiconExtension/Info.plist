@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>RubiconExtension</string>
+	<string>Rubicon</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -32,7 +32,7 @@
 					<key>XCSourceEditorCommandClassName</key>
 					<string>$(PRODUCT_MODULE_NAME).GenerateSpy</string>
 					<key>XCSourceEditorCommandIdentifier</key>
-					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GenerateSpy</string>
+					<string>GenerateSpy</string>
 					<key>XCSourceEditorCommandName</key>
 					<string>Generate spy</string>
 				</dict>
@@ -40,9 +40,17 @@
 					<key>XCSourceEditorCommandClassName</key>
 					<string>$(PRODUCT_MODULE_NAME).GenerateSpy</string>
 					<key>XCSourceEditorCommandIdentifier</key>
-					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GeneratePrivateSpy</string>
+					<string>GeneratePrivateSpy</string>
 					<key>XCSourceEditorCommandName</key>
 					<string>Generate private spy</string>
+				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).GenerateSpy</string>
+					<key>XCSourceEditorCommandIdentifier</key>
+					<string>GenerateSpyToPasteboard</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>Generate spy to pasteboard</string>
 				</dict>
 			</array>
 			<key>XCSourceEditorExtensionPrincipalClass</key>

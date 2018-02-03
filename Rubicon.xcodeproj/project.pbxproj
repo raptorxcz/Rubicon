@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		666BDD771F51A36700CE4238 /* SampleProject.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB04749C1EC0685400FC2B34 /* SampleProject.txt */; };
+		669D6860202660CB00600E59 /* InvocationGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669D685F202660CB00600E59 /* InvocationGeneratorOutput.swift */; };
+		669D68622026624800600E59 /* PasteboardGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669D68612026624800600E59 /* PasteboardGeneratorOutput.swift */; };
 		BB0168D31EC78945001024A9 /* IndentationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0168D21EC78945001024A9 /* IndentationFormatter.swift */; };
 		BB0474341EC0609100FC2B34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474331EC0609100FC2B34 /* AppDelegate.swift */; };
 		BB0474361EC0609100FC2B34 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474351EC0609100FC2B34 /* ViewController.swift */; };
@@ -51,7 +53,7 @@
 		BB0474A51EC068FA00FC2B34 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474A41EC068FA00FC2B34 /* Cocoa.framework */; };
 		BB0474AA1EC068FA00FC2B34 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */; };
 		BB0474AC1EC068FA00FC2B34 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474AB1EC068FA00FC2B34 /* SourceEditorCommand.swift */; };
-		BB0474B01EC068FA00FC2B34 /* RubiconExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BB0474A21EC068FA00FC2B34 /* RubiconExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BB0474B01EC068FA00FC2B34 /* Rubicon.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BB0474A21EC068FA00FC2B34 /* Rubicon.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BB0474B51EC0690600FC2B34 /* Generator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474531EC0611200FC2B34 /* Generator.framework */; };
 		BB4776EF1F018C79000BA4CB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4776EE1F018C79000BA4CB /* String.swift */; };
 		BB4776F01F018CF6000BA4CB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4776EE1F018C79000BA4CB /* String.swift */; };
@@ -128,7 +130,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				BB0474B01EC068FA00FC2B34 /* RubiconExtension.appex in Embed App Extensions */,
+				BB0474B01EC068FA00FC2B34 /* Rubicon.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,6 +138,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		669D685F202660CB00600E59 /* InvocationGeneratorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationGeneratorOutput.swift; sourceTree = "<group>"; };
+		669D68612026624800600E59 /* PasteboardGeneratorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardGeneratorOutput.swift; sourceTree = "<group>"; };
 		BB0168D21EC78945001024A9 /* IndentationFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndentationFormatter.swift; sourceTree = "<group>"; };
 		BB0168D41EC789FF001024A9 /* RubiconApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RubiconApp.entitlements; sourceTree = "<group>"; };
 		BB0474311EC0609100FC2B34 /* Rubicon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rubicon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,7 +156,7 @@
 		BB0474951EC062A400FC2B34 /* FileReaderImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReaderImpl.swift; sourceTree = "<group>"; };
 		BB0474971EC062E400FC2B34 /* StandardGeneratorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardGeneratorOutput.swift; sourceTree = "<group>"; };
 		BB04749C1EC0685400FC2B34 /* SampleProject.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SampleProject.txt; sourceTree = "<group>"; };
-		BB0474A21EC068FA00FC2B34 /* RubiconExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RubiconExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB0474A21EC068FA00FC2B34 /* Rubicon.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Rubicon.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB0474A41EC068FA00FC2B34 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BB0474A81EC068FA00FC2B34 /* RubiconExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RubiconExtension.entitlements; sourceTree = "<group>"; };
 		BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorExtension.swift; sourceTree = "<group>"; };
@@ -300,6 +304,8 @@
 				BB0474A71EC068FA00FC2B34 /* Supporting Files */,
 				BB0474AD1EC068FA00FC2B34 /* Info.plist */,
 				BB0474AB1EC068FA00FC2B34 /* SourceEditorCommand.swift */,
+				669D68612026624800600E59 /* PasteboardGeneratorOutput.swift */,
+				669D685F202660CB00600E59 /* InvocationGeneratorOutput.swift */,
 				BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */,
 				BB0168D21EC78945001024A9 /* IndentationFormatter.swift */,
 			);
@@ -369,7 +375,7 @@
 				BB0474311EC0609100FC2B34 /* Rubicon.app */,
 				BB0474531EC0611200FC2B34 /* Generator.framework */,
 				BB04745B1EC0611200FC2B34 /* GeneratorTests.xctest */,
-				BB0474A21EC068FA00FC2B34 /* RubiconExtension.appex */,
+				BB0474A21EC068FA00FC2B34 /* Rubicon.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -547,7 +553,7 @@
 			);
 			name = RubiconExtension;
 			productName = RubiconExtension;
-			productReference = BB0474A21EC068FA00FC2B34 /* RubiconExtension.appex */;
+			productReference = BB0474A21EC068FA00FC2B34 /* Rubicon.appex */;
 			productType = "com.apple.product-type.xcode-extension";
 		};
 		BBA24A9D1EA9459800ADCAAF /* Rubicon */ = {
@@ -741,8 +747,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				669D6860202660CB00600E59 /* InvocationGeneratorOutput.swift in Sources */,
 				BB0474AA1EC068FA00FC2B34 /* SourceEditorExtension.swift in Sources */,
 				BB0168D31EC78945001024A9 /* IndentationFormatter.swift in Sources */,
+				669D68622026624800600E59 /* PasteboardGeneratorOutput.swift in Sources */,
 				BB0474AC1EC068FA00FC2B34 /* SourceEditorCommand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -929,7 +937,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.rubicon-app.rubicon-enxtension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Rubicon;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -945,7 +953,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.rubicon-app.rubicon-enxtension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Rubicon;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
