@@ -35,6 +35,14 @@ class GenerateSpy: NSObject, XCSourceEditorCommand {
     }()
 
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void) {
+        if invocation.commandIdentifier.hasSuffix("GeneratePrivateSpy") {
+            perform(with: invocation, visibility: "private", completionHandler: completionHandler)
+        } else {
+            perform(with: invocation, visibility: nil, completionHandler: completionHandler)
+        }
+    }
+
+    private func perform(with invocation: XCSourceEditorCommandInvocation, visibility: String?, completionHandler: @escaping (Error?) -> Void) {
         self.invocation = invocation
 
         guard var lines = invocation.buffer.lines as? [String] else {
@@ -51,12 +59,12 @@ class GenerateSpy: NSObject, XCSourceEditorCommand {
 
         let text = lines.reduce("", { $0 + "\n" + $1 })
 
-        let mocksController = MocksGeneratorControllerImpl(output: self, visibility: "private")
+        let mocksController = MocksGeneratorControllerImpl(output: self, visibility: visibility)
         mocksController.run(texts: [text])
         completionHandler(nil)
     }
 
-    func isEmptyRange(_ range: XCSourceTextRange) -> Bool {
+    private func isEmptyRange(_ range: XCSourceTextRange) -> Bool {
         return range.start.line != range.end.line || (range.start.line == range.end.line && range.start.column != range.end.column)
     }
 }

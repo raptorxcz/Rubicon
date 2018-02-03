@@ -36,6 +36,14 @@
 					<key>XCSourceEditorCommandName</key>
 					<string>Generate spy</string>
 				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).GenerateSpy</string>
+					<key>XCSourceEditorCommandIdentifier</key>
+					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GeneratePrivateSpy</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>Generate private spy</string>
+				</dict>
 			</array>
 			<key>XCSourceEditorExtensionPrincipalClass</key>
 			<string>$(PRODUCT_MODULE_NAME).SourceEditorExtension</string>

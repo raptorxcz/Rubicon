@@ -32,60 +32,47 @@ output:
 ```swift
 class CarSpy: Car {
 
-	enum CarSpyError: Error {
-		case spyError
-	}
-	typealias ThrowBlock = () throws -> Void
+    enum CarSpyError: Error {
+        case spyError
+    }
+    typealias ThrowBlock = () throws -> Void
 
-	var _name: String?
-	var name: String? {
-		get {
-			return _name
-		}
-	}
-	var _color: Int!
-	var color: Int {
-		get {
-			return _color
-		}
-		set {
-			_color = newValue
-		}
-	}
+    var name: String?
+    var color: Int
 
-	struct Load {
-		let stuff: Int
-		let label: String
-	}
+    struct Load {
+        let stuff: Int
+        let label: String
+    }
 
-	var goCount = 0
-	var load = [Load]()
-	var loadThrowBlock: ThrowBlock?
-	var loadReturn: Int
-	var isFullCount = 0
-	var isFullReturn: Bool
+    var goCount = 0
+    var load = [Load]()
+    var loadThrowBlock: ThrowBlock?
+    var loadReturn: Int
+    var isFullCount = 0
+    var isFullReturn: Bool
 
-	init(loadReturn: Int, isFullReturn: Bool) {
-		self.loadReturn = loadReturn
-		self.isFullReturn = isFullReturn
-	}
+    init(color: Int, loadReturn: Int, isFullReturn: Bool) {
+        self.color = color
+        self.loadReturn = loadReturn
+        self.isFullReturn = isFullReturn
+    }
 
-	func go() {
-		goCount += 1
-	}
+    func go() {
+        goCount += 1
+    }
 
-	func load(with stuff: Int, label: String) throws -> Int {
-		let item = Load(stuff: stuff, label: label)
-		load.append(item)
-		try loadThrowBlock?()
-		return loadReturn
-	}
+    func load(with stuff: Int, label: String) throws -> Int {
+        let item = Load(stuff: stuff, label: label)
+        load.append(item)
+        try loadThrowBlock?()
+        return loadReturn
+    }
 
-	func isFull() -> Bool {
-		isFullCount += 1
-		return isFullReturn
-	}
-
+    func isFull() -> Bool {
+        isFullCount += 1
+        return isFullReturn
+    }
 }
 ```
 
