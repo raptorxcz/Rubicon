@@ -104,5 +104,5 @@ example:
 
 ## Xcode extension
 
-Xcode extension can generate Spy for every `protocol` in current file.
+Xcode extension can generate Spy for every or selected `protocol`  in current file. Spy can be written to source file or pasteboard.
 
