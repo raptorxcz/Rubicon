@@ -20,7 +20,7 @@ class GenerateSpy: NSObject, XCSourceEditorCommand {
         case "GeneratePrivateSpy":
             let output = InvocationGeneratorOutput(invocation: invocation)
             perform(with: invocation, visibility: "private", generatorOutput: output, completionHandler: completionHandler)
-        case "GeneratePrivateSpy":
+        case "GenerateSpy":
             let output = InvocationGeneratorOutput(invocation: invocation)
             perform(with: invocation, visibility: nil, generatorOutput: output, completionHandler: completionHandler)
         case "GenerateSpyToPasteboard":
