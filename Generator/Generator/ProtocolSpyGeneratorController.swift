@@ -75,7 +75,7 @@ public class ProtocolSpyGeneratorController {
             rows.append(generateSpy(of: function))
         }
 
-        return rows.joined(separator: [""]).flatMap({ $0 })
+        return rows.joined(separator: [""]).compactMap({ $0 })
     }
 
     private func makeThrowSampleError(for type: ProtocolType) -> String? {
@@ -94,16 +94,16 @@ public class ProtocolSpyGeneratorController {
     }
 
     private func generateInit(for type: ProtocolType) -> [String] {
-        var variables = type.variables.flatMap(makeArgument(from:))
-        variables += type.functions.flatMap(makeReturnArgument(of:))
+        var variables = type.variables.compactMap(makeArgument(from:))
+        variables += type.functions.compactMap(makeReturnArgument(of:))
         let arguments = variables.joined(separator: ", ")
 
         guard !arguments.isEmpty else {
             return []
         }
 
-        var bodyRows = type.variables.flatMap(makeAssigment(of:))
-        bodyRows += type.functions.flatMap(makeReturnAssigment(of:))
+        var bodyRows = type.variables.compactMap(makeAssigment(of:))
+        bodyRows += type.functions.compactMap(makeReturnAssigment(of:))
         var result = [String]()
         result.append("\tinit(\(arguments)) {")
         result += bodyRows

@@ -12,7 +12,7 @@ public class FileReaderImpl: FileReader {
 
     public func readFiles(at path: String) -> [String] {
         let fileNames = findFileNames(at: path)
-        let contentOfFiles = fileNames.flatMap({ try? String(contentsOfFile: $0, encoding: .utf8) })
+        let contentOfFiles = fileNames.compactMap({ try? String(contentsOfFile: $0, encoding: .utf8) })
         return contentOfFiles
     }
 
