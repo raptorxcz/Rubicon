@@ -51,6 +51,24 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         ])
     }
 
+    func test_givenProtocolWithEscapingClosureVariable_whenGenerate_thenGenerateSpy() {
+        let type = Type(name: "(() -> Void)", isOptional: false, isClosure: true)
+        let variable = VarDeclarationType(isConstant: false, identifier: "closeBlock", type: type)
+        let protocolType = ProtocolType(name: "Door", parents: [], variables: [variable], functions: [])
+
+        equal(protocolType: protocolType, rows: [
+            "class DoorSpy: Door {",
+            "",
+            "\tvar closeBlock: (() -> Void)",
+            "",
+            "\tinit(closeBlock: @escaping (() -> Void)) {",
+            "\t\tself.closeBlock = closeBlock",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
     func test_givenProtocolWithConstant_whenGenerate_thenGenerateSpy() {
         let type = Type(name: "Color", isOptional: false)
         let variable = VarDeclarationType(isConstant: true, identifier: "color", type: type)
@@ -233,6 +251,115 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
             "\tfunc stop() -> Int {",
             "\t\tstopCount += 1",
             "\t\treturn stopReturn",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
+    func test_givenProtocolWithFunctionWithEscapingType_whenGenerate_thenGenerateSpy() {
+        let argumentType = Type(name: "ActionBlock", isOptional: false, isClosure: true, prefix: .escaping)
+        let argument = ArgumentType(label: "with", name: "action", type: argumentType)
+        let function = FunctionDeclarationType(name: "start", arguments: [argument], returnType: nil)
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarSpy: Car {",
+            "",
+            "\tstruct Start {",
+            "\t\tlet action: ActionBlock",
+            "\t}",
+            "",
+            "\tvar start = [Start]()",
+            "",
+            "\tfunc start(with action: @escaping ActionBlock) {",
+            "\t\tlet item = Start(action: action)",
+            "\t\tstart.append(item)",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
+    func test_givenProtocolWithFunctionWithClosureParameterAndReturnClosure_whenGenerate_thenGenerateSpy() {
+        let argumentType = Type(name: "(String) -> Int", isOptional: false, isClosure: true, prefix: .escaping)
+        let argument = ArgumentType(label: "with", name: "mapping", type: argumentType)
+        let returnType = Type(name: "(Data) -> Void", isOptional: false, isClosure: true)
+        let function = FunctionDeclarationType(name: "start", arguments: [argument], returnType: returnType)
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarSpy: Car {",
+            "",
+            "\tstruct Start {",
+            "\t\tlet mapping: (String) -> Int",
+            "\t}",
+            "",
+            "\tvar start = [Start]()",
+            "\tvar startReturn: (Data) -> Void",
+            "",
+            "\tinit(startReturn: @escaping (Data) -> Void) {",
+            "\t\tself.startReturn = startReturn",
+            "\t}",
+            "",
+            "\tfunc start(with mapping: @escaping (String) -> Int) -> (Data) -> Void {",
+            "\t\tlet item = Start(mapping: mapping)",
+            "\t\tstart.append(item)",
+            "\t\treturn startReturn",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
+    func test_givenProtocolWithFunctionWithThrowingAutoclosureArgument_whenGenerate_thenGenerateSpy() {
+        let type = Type(name: "(Window) throws -> Air", isOptional: false, isClosure: true)
+        let function = FunctionDeclarationType(name: "rollDown", arguments: [], returnType: type)
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarSpy: Car {",
+            "",
+            "\tvar rollDownCount = 0",
+            "\tvar rollDownReturn: (Window) throws -> Air",
+            "",
+            "\tinit(rollDownReturn: @escaping (Window) throws -> Air) {",
+            "\t\tself.rollDownReturn = rollDownReturn",
+            "\t}",
+            "",
+            "\tfunc rollDown() -> (Window) throws -> Air {",
+            "\t\trollDownCount += 1",
+            "\t\treturn rollDownReturn",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
+    func test_givenProtocolWithFunctionWithClosureAndIntParameterAndOptionalReturnClosure_whenGenerate_thenGenerateSpy() {
+        let closureArgumentType = Type(name: "(String) -> Int", isOptional: false, isClosure: true, prefix: .escaping)
+        let closureArgument = ArgumentType(label: "with", name: "mapping", type: closureArgumentType)
+        let intType = Type(name: "Int", isOptional: false, isClosure: false)
+        let intArgument = ArgumentType(label: nil, name: "count", type: intType)
+        let returnType = Type(name: "((Data) -> Void)", isOptional: true, isClosure: true)
+        let function = FunctionDeclarationType(name: "start", arguments: [closureArgument, intArgument], returnType: returnType)
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarSpy: Car {",
+            "",
+            "\tstruct Start {",
+            "\t\tlet mapping: (String) -> Int",
+            "\t\tlet count: Int",
+            "\t}",
+            "",
+            "\tvar start = [Start]()",
+            "\tvar startReturn: ((Data) -> Void)?",
+            "",
+            "\tfunc start(with mapping: @escaping (String) -> Int, count: Int) -> ((Data) -> Void)? {",
+            "\t\tlet item = Start(mapping: mapping, count: count)",
+            "\t\tstart.append(item)",
+            "\t\treturn startReturn",
             "\t}",
             "}",
             "",

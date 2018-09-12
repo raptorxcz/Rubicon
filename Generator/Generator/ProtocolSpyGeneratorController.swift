@@ -115,7 +115,8 @@ public class ProtocolSpyGeneratorController {
         if variable.type.isOptional {
             return nil
         } else {
-            return "\(variable.identifier): \(variable.type.makeString())"
+            let typeString = TypeStringFactory.makeInitString(variable.type)
+            return "\(variable.identifier): \(typeString)"
         }
     }
 
@@ -132,8 +133,8 @@ public class ProtocolSpyGeneratorController {
             return nil
         }
         let functionName = getName(from: function)
-
-        return "\(functionName)Return: \(returnType.makeString())"
+        let typeString = TypeStringFactory.makeInitString(returnType)
+        return "\(functionName)Return: \(typeString)"
     }
 
     private func makeReturnAssigment(of function: FunctionDeclarationType) -> String? {
@@ -149,7 +150,8 @@ public class ProtocolSpyGeneratorController {
         var result = [String]()
 
         for variable in variables {
-            result.append("\tvar \(variable.identifier): \(variable.type.name)\(variable.type.isOptional ? "?" : "")")
+            let typeString = TypeStringFactory.makeSimpleString(variable.type)
+            result.append("\tvar \(variable.identifier): \(typeString)")
         }
 
         return result
@@ -187,7 +189,8 @@ public class ProtocolSpyGeneratorController {
         }
 
         if let returnType = function.returnType {
-            result += "\n\tvar \(functionName)Return: \(returnType.name)\(returnType.isOptional ? "?" : "")"
+            let returnTypeString = TypeStringFactory.makeSimpleString(returnType)
+            result += "\n\tvar \(functionName)Return: \(returnTypeString)"
         }
 
         return result
@@ -210,7 +213,8 @@ public class ProtocolSpyGeneratorController {
     }
 
     private func makeRow(for argument: ArgumentType) -> String {
-        return "\t\tlet \(argument.name): \(argument.type.makeString())\n"
+        let typeString = TypeStringFactory.makeSimpleString(argument.type)
+        return "\t\tlet \(argument.name): \(typeString)\n"
     }
 
     private func getName(from function: FunctionDeclarationType) -> String {
@@ -252,9 +256,8 @@ public class ProtocolSpyGeneratorController {
         } else {
             labelString = ""
         }
-
-        let optionalLabel = argument.type.isOptional ? "?" : ""
-        return "\(labelString)\(argument.name): \(argument.type.name)\(optionalLabel)"
+        let typeString = TypeStringFactory.makeFunctionArgumentString(argument.type)
+        return "\(labelString)\(argument.name): \(typeString)"
     }
 
     private func generateSpy(of function: FunctionDeclarationType) -> [String] {
@@ -313,7 +316,8 @@ public class ProtocolSpyGeneratorController {
         }
 
         if let returnType = function.returnType {
-            returnString += "-> \(returnType.name)\(returnType.isOptional ? "?" : "") "
+            let returnTypeString = TypeStringFactory.makeSimpleString(returnType)
+            returnString += "-> \(returnTypeString) "
         }
 
         result.append("\tfunc \(function.name)(\(argumentsString)) \(returnString){")
