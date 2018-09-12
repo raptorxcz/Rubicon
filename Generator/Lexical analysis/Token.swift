@@ -26,6 +26,8 @@ public enum Token {
     case function
     case arrow
     case `throws`
+    case escaping
+    case autoclosure
 }
 
 extension Token: Equatable {
@@ -69,6 +71,10 @@ extension Token: Equatable {
         case (.lessThan, .lessThan):
             return true
         case (.greaterThan, .greaterThan):
+            return true
+        case (.escaping, .escaping):
+            return true
+        case (.autoclosure, .autoclosure):
             return true
         default:
             return false

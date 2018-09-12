@@ -1,5 +1,5 @@
 //
-//  TypeParserTests.swift
+//  SimpleTypeParserTests.swift
 //  Rubicon
 //
 //  Created by Kryštof Matěj on 23/04/2017.
@@ -9,7 +9,7 @@
 import Generator
 import XCTest
 
-class TypeParserTests: XCTestCase {
+class SimpleTypeParserTests: XCTestCase {
 
     func makeParser(storage: Storage) -> TypeParser {
         return TypeParser(storage: storage)
@@ -19,7 +19,7 @@ class TypeParserTests: XCTestCase {
         let storage = try Storage(tokens: [.colon])
         let parser = makeParser(storage: storage)
 
-        testException(with: TypeParserError.invalidName) {
+        testException(with: SimpleTypeParserError.invalidName) {
             _ = try parser.parse()
         }
     }
@@ -32,6 +32,8 @@ class TypeParserTests: XCTestCase {
             let type = try parser.parse()
             XCTAssertEqual(type.name, "x")
             XCTAssertEqual(type.isOptional, false)
+            XCTAssertEqual(type.isClosure, false)
+            XCTAssertNil(type.prefix)
         } catch {
             XCTFail()
         }
@@ -45,6 +47,8 @@ class TypeParserTests: XCTestCase {
             let type = try parser.parse()
             XCTAssertEqual(type.name, "x")
             XCTAssertEqual(type.isOptional, false)
+            XCTAssertEqual(type.isClosure, false)
+            XCTAssertNil(type.prefix)
             XCTAssertEqual(storage.current, .colon)
         } catch {
             XCTFail()
@@ -59,6 +63,8 @@ class TypeParserTests: XCTestCase {
             let type = try parser.parse()
             XCTAssertEqual(type.name, "x")
             XCTAssertEqual(type.isOptional, true)
+            XCTAssertEqual(type.isClosure, false)
+            XCTAssertNil(type.prefix)
             XCTAssertEqual(storage.current, .colon)
         } catch {
             XCTFail()
@@ -69,7 +75,7 @@ class TypeParserTests: XCTestCase {
         let storage = try Storage(tokens: [.leftSquareBracket, .arrow, .identifier(name: "A"), .colon])
         let parser = makeParser(storage: storage)
 
-        testException(with: TypeParserError.invalidName) {
+        testException(with: SimpleTypeParserError.invalidName) {
             _ = try parser.parse()
         }
     }
@@ -78,7 +84,7 @@ class TypeParserTests: XCTestCase {
         let storage = try Storage(tokens: [.leftSquareBracket, .identifier(name: "A"), .arrow])
         let parser = makeParser(storage: storage)
 
-        testException(with: TypeParserError.missingEndingBracket) {
+        testException(with: SimpleTypeParserError.missingEndingBracket) {
             _ = try parser.parse()
         }
     }
@@ -91,6 +97,8 @@ class TypeParserTests: XCTestCase {
             let type = try parser.parse()
             XCTAssertEqual(type.name, "[x]")
             XCTAssertEqual(type.isOptional, false)
+            XCTAssertEqual(type.isClosure, false)
+            XCTAssertNil(type.prefix)
             XCTAssertEqual(storage.current, .colon)
         } catch {
             XCTFail()
@@ -105,6 +113,8 @@ class TypeParserTests: XCTestCase {
             let type = try parser.parse()
             XCTAssertEqual(type.name, "[x?]")
             XCTAssertEqual(type.isOptional, true)
+            XCTAssertEqual(type.isClosure, false)
+            XCTAssertNil(type.prefix)
             XCTAssertEqual(storage.current, .colon)
         } catch {
             XCTFail()
@@ -115,7 +125,7 @@ class TypeParserTests: XCTestCase {
         let storage = try Storage(tokens: [.leftSquareBracket, .identifier(name: "s"), .colon, .arrow, .identifier(name: "A"), .colon])
         let parser = makeParser(storage: storage)
 
-        testException(with: TypeParserError.invalidName) {
+        testException(with: SimpleTypeParserError.invalidName) {
             _ = try parser.parse()
         }
     }
@@ -124,7 +134,7 @@ class TypeParserTests: XCTestCase {
         let storage = try Storage(tokens: [.leftSquareBracket, .identifier(name: "s"), .colon, .identifier(name: "A"), .colon])
         let parser = makeParser(storage: storage)
 
-        testException(with: TypeParserError.missingEndingBracket) {
+        testException(with: SimpleTypeParserError.missingEndingBracket) {
             _ = try parser.parse()
         }
     }
@@ -137,6 +147,8 @@ class TypeParserTests: XCTestCase {
             let type = try parser.parse()
             XCTAssertEqual(type.name, "[s: A]")
             XCTAssertEqual(type.isOptional, false)
+            XCTAssertEqual(type.isClosure, false)
+            XCTAssertNil(type.prefix)
             XCTAssertEqual(storage.current, .arrow)
         } catch {
             XCTFail()
@@ -151,6 +163,8 @@ class TypeParserTests: XCTestCase {
             let type = try parser.parse()
             XCTAssertEqual(type.name, "[s: A?]")
             XCTAssertEqual(type.isOptional, true)
+            XCTAssertEqual(type.isClosure, false)
+            XCTAssertNil(type.prefix)
             XCTAssertEqual(storage.current, .arrow)
         } catch {
             XCTFail()
@@ -165,6 +179,8 @@ class TypeParserTests: XCTestCase {
             let type = try parser.parse()
             XCTAssertEqual(type.name, "[[x]]")
             XCTAssertEqual(type.isOptional, false)
+            XCTAssertEqual(type.isClosure, false)
+            XCTAssertNil(type.prefix)
             XCTAssertEqual(storage.current, .colon)
         } catch {
             XCTFail()
@@ -175,7 +191,7 @@ class TypeParserTests: XCTestCase {
         let storage = try Storage(tokens: [.identifier(name: "A"), .lessThan, .arrow])
         let parser = makeParser(storage: storage)
 
-        testException(with: TypeParserError.missingIdentifier) {
+        testException(with: SimpleTypeParserError.missingIdentifier) {
             _ = try parser.parse()
         }
     }
@@ -184,7 +200,7 @@ class TypeParserTests: XCTestCase {
         let storage = try Storage(tokens: [.identifier(name: "A"), .lessThan, .identifier(name: "B"), .arrow])
         let parser = makeParser(storage: storage)
 
-        testException(with: TypeParserError.missingEndingGreaterThan) {
+        testException(with: SimpleTypeParserError.missingEndingGreaterThan) {
             _ = try parser.parse()
         }
     }
@@ -197,6 +213,8 @@ class TypeParserTests: XCTestCase {
             let type = try parser.parse()
             XCTAssertEqual(type.name, "A<B>")
             XCTAssertEqual(type.isOptional, false)
+            XCTAssertEqual(type.isClosure, false)
+            XCTAssertNil(type.prefix)
             XCTAssertEqual(storage.current, .arrow)
         } catch {
             XCTFail()
@@ -211,6 +229,8 @@ class TypeParserTests: XCTestCase {
             let type = try parser.parse()
             XCTAssertEqual(type.name, "A<B<C>>")
             XCTAssertEqual(type.isOptional, false)
+            XCTAssertEqual(type.isClosure, false)
+            XCTAssertNil(type.prefix)
             XCTAssertEqual(storage.current, .arrow)
         } catch {
             XCTFail()
@@ -221,7 +241,7 @@ class TypeParserTests: XCTestCase {
         let storage = try Storage(tokens: [.identifier(name: "A"), .lessThan, .identifier(name: "C"), .comma, .arrow])
         let parser = makeParser(storage: storage)
 
-        testException(with: TypeParserError.missingIdentifier) {
+        testException(with: SimpleTypeParserError.missingIdentifier) {
             _ = try parser.parse()
         }
     }
@@ -230,7 +250,7 @@ class TypeParserTests: XCTestCase {
         let storage = try Storage(tokens: [.identifier(name: "A"), .lessThan, .identifier(name: "C"), .comma, .identifier(name: "D"), .arrow])
         let parser = makeParser(storage: storage)
 
-        testException(with: TypeParserError.missingEndingGreaterThan) {
+        testException(with: SimpleTypeParserError.missingEndingGreaterThan) {
             _ = try parser.parse()
         }
     }
@@ -243,6 +263,8 @@ class TypeParserTests: XCTestCase {
             let type = try parser.parse()
             XCTAssertEqual(type.name, "A<C, D>")
             XCTAssertEqual(type.isOptional, false)
+            XCTAssertEqual(type.isClosure, false)
+            XCTAssertNil(type.prefix)
             XCTAssertEqual(storage.current, .arrow)
         } catch {
             XCTFail()
