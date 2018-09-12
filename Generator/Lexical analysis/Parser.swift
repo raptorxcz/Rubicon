@@ -52,6 +52,8 @@ public class Parser {
                 addToResult(.identifier(name: "_"))
             case "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "`":
                 index = parseName(from: index, in: text)
+            case "@":
+                index = parseAt(from: index, in: text)
             default:
                 break
             }
@@ -109,6 +111,34 @@ public class Parser {
         }
 
         return secondIndex
+    }
+
+    private func parseAt(from index: String.Index, in text: String) -> String.Index {
+        let secondIndex = text.index(after: index)
+        guard text.indices.contains(secondIndex) else {
+            return index
+        }
+        let substring = String(text[secondIndex...])
+
+        if parseContains(phrase: "escaping", in: substring) {
+            addToResult(.escaping)
+            return text.index(secondIndex, offsetBy: 8)
+        } else if parseContains(phrase: "autoclosure", in: substring) {
+            addToResult(.autoclosure)
+            return text.index(secondIndex, offsetBy: 11)
+        }
+        return index
+    }
+
+    private func parseContains(phrase: String, in text: String) -> Bool {
+        let endIndex = text.index(text.startIndex, offsetBy: phrase.count)
+
+        guard text.indices.contains(endIndex) else {
+            return false
+        }
+
+        let substring = text[..<endIndex]
+        return substring == phrase
     }
 
     private func determineNameType(name: String) {

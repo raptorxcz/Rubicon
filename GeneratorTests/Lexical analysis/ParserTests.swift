@@ -167,6 +167,31 @@ class ParserTests: XCTestCase {
         XCTAssertEqual(result, [.identifier(name: "Insurance.Basics"), .throws])
     }
 
+    func test_givenEscapingWithoutAt_whenParse_thenIdentifierIsParsed() {
+        let result = parser.parse("escaping")
+        XCTAssertEqual(result, [.identifier(name: "escaping")])
+    }
+
+    func test_givenEscaping_whenParse_thenEscapingIsParsed() {
+        let result = parser.parse("@escaping")
+        XCTAssertEqual(result, [.escaping])
+    }
+
+    func test_givenNameColonEscapingType_whenParse_thenIdentifierColonEscapingIdentifierIsParsed() {
+        let result = parser.parse("name: @escaping Abc")
+        XCTAssertEqual(result, [.identifier(name: "name"), .colon, .escaping, .identifier(name: "Abc")])
+    }
+
+    func test_givenAutoclosure_whenParse_thenAutoclosureIsParsed() {
+        let result = parser.parse("@autoclosure")
+        XCTAssertEqual(result, [.autoclosure])
+    }
+
+    func test_givenNameColonAutoclosureType_whenParse_thenIdentifierColonAutoclosureIdentifierIsParsed() {
+        let result = parser.parse("name: @autoclosure Abc")
+        XCTAssertEqual(result, [.identifier(name: "name"), .colon, .autoclosure, .identifier(name: "Abc")])
+    }
+
     func test_givenProtocolDefinition_whenParse_thenProtocolTokens() {
         var string = ""
         string += "protocol Satelite {\n"

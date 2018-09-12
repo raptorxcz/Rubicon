@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31045449214670F500F434D6 /* SimpleTypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31045448214670F500F434D6 /* SimpleTypeParser.swift */; };
+		3104544B2146711500F434D6 /* ClosureTypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104544A2146711500F434D6 /* ClosureTypeParser.swift */; };
+		3104544C2146717D00F434D6 /* SimpleTypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31045448214670F500F434D6 /* SimpleTypeParser.swift */; };
+		3104544D2146717F00F434D6 /* ClosureTypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104544A2146711500F434D6 /* ClosureTypeParser.swift */; };
+		3104544F214676CF00F434D6 /* ClosureTypeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104544E214676CF00F434D6 /* ClosureTypeParserTests.swift */; };
+		31D16C762146E02600CA5A11 /* TypeStringFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D16C752146E02600CA5A11 /* TypeStringFactory.swift */; };
+		31D16C772146E02D00CA5A11 /* TypeStringFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D16C752146E02600CA5A11 /* TypeStringFactory.swift */; };
 		666BDD771F51A36700CE4238 /* SampleProject.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB04749C1EC0685400FC2B34 /* SampleProject.txt */; };
 		669D6860202660CB00600E59 /* InvocationGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669D685F202660CB00600E59 /* InvocationGeneratorOutput.swift */; };
 		669D68622026624800600E59 /* PasteboardGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669D68612026624800600E59 /* PasteboardGeneratorOutput.swift */; };
@@ -44,7 +51,7 @@
 		BB0474891EC061C000FC2B34 /* FunctionDeclarationParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32E11EB12247005732CC /* FunctionDeclarationParserTests.swift */; };
 		BB04748B1EC061C000FC2B34 /* ProtocolParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32EB1EB12C78005732CC /* ProtocolParserTests.swift */; };
 		BB04748C1EC061C000FC2B34 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE891EB1145D00AEBE06 /* StorageTests.swift */; };
-		BB04748D1EC061C000FC2B34 /* TypeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */; };
+		BB04748D1EC061C000FC2B34 /* SimpleTypeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A01291EACBC6600D50CF7 /* SimpleTypeParserTests.swift */; };
 		BB04748E1EC061C000FC2B34 /* VarDeclarationTypeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA4331B1EABB2F90018CE48 /* VarDeclarationTypeParserTests.swift */; };
 		BB0474901EC061C000FC2B34 /* ArgumentsParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67AE091EB745F500BD20C4 /* ArgumentsParserTests.swift */; };
 		BB0474921EC0627900FC2B34 /* ArgumentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */; };
@@ -138,6 +145,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		31045448214670F500F434D6 /* SimpleTypeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTypeParser.swift; sourceTree = "<group>"; };
+		3104544A2146711500F434D6 /* ClosureTypeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureTypeParser.swift; sourceTree = "<group>"; };
+		3104544E214676CF00F434D6 /* ClosureTypeParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureTypeParserTests.swift; sourceTree = "<group>"; };
+		31D16C752146E02600CA5A11 /* TypeStringFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeStringFactory.swift; sourceTree = "<group>"; };
 		669D685F202660CB00600E59 /* InvocationGeneratorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationGeneratorOutput.swift; sourceTree = "<group>"; };
 		669D68612026624800600E59 /* PasteboardGeneratorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardGeneratorOutput.swift; sourceTree = "<group>"; };
 		BB0168D21EC78945001024A9 /* IndentationFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndentationFormatter.swift; sourceTree = "<group>"; };
@@ -175,7 +186,7 @@
 		BB67AE0E1EB7499900BD20C4 /* ArgumentsControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ArgumentsControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsController.swift; sourceTree = "<group>"; };
 		BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarDeclarationTypeParser.swift; sourceTree = "<group>"; };
-		BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TypeParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		BB8A01291EACBC6600D50CF7 /* SimpleTypeParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SimpleTypeParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB8A012B1EACBC8200D50CF7 /* TypeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeParser.swift; sourceTree = "<group>"; };
 		BB981FC21EBE262200BB1347 /* GeneratorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorOutput.swift; sourceTree = "<group>"; };
 		BB981FC41EBE267200BB1347 /* FileReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
@@ -325,6 +336,7 @@
 			children = (
 				BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */,
 				BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */,
+				31D16C752146E02600CA5A11 /* TypeStringFactory.swift */,
 			);
 			path = Generator;
 			sourceTree = "<group>";
@@ -412,6 +424,8 @@
 				BBCE32E31EB122A5005732CC /* FunctionDeclarationParser.swift */,
 				BBCE32ED1EB12CD4005732CC /* ProtocolParser.swift */,
 				BB8A012B1EACBC8200D50CF7 /* TypeParser.swift */,
+				31045448214670F500F434D6 /* SimpleTypeParser.swift */,
+				3104544A2146711500F434D6 /* ClosureTypeParser.swift */,
 				BB8A01261EAC99E400D50CF7 /* VarDeclarationTypeParser.swift */,
 			);
 			path = Parser;
@@ -440,11 +454,12 @@
 			isa = PBXGroup;
 			children = (
 				BB318B151EB240A300DF67FC /* ArgumentParserTests.swift */,
+				3104544E214676CF00F434D6 /* ClosureTypeParserTests.swift */,
 				BBCE32E11EB12247005732CC /* FunctionDeclarationParserTests.swift */,
 				BB981FC91EBE27AE00BB1347 /* HelpControllerTests.swift */,
 				BBCE32EB1EB12C78005732CC /* ProtocolParserTests.swift */,
 				BBD4DE891EB1145D00AEBE06 /* StorageTests.swift */,
-				BB8A01291EACBC6600D50CF7 /* TypeParserTests.swift */,
+				BB8A01291EACBC6600D50CF7 /* SimpleTypeParserTests.swift */,
 				BBA4331B1EABB2F90018CE48 /* VarDeclarationTypeParserTests.swift */,
 			);
 			path = "Syntactic analysis";
@@ -579,12 +594,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Kryštof Matěj";
 				TargetAttributes = {
 					BB0474301EC0609100FC2B34 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = M36Y4P27ZU;
+						DevelopmentTeam = FPP958R9T6;
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -605,7 +620,7 @@
 					};
 					BB0474A11EC068FA00FC2B34 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = M36Y4P27ZU;
+						DevelopmentTeam = FPP958R9T6;
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
@@ -709,10 +724,13 @@
 				BB04747E1EC0618600FC2B34 /* FunctionDeclarationType.swift in Sources */,
 				BB0474811EC0618600FC2B34 /* VarDeclarationType.swift in Sources */,
 				BB0474751EC0618600FC2B34 /* Token.swift in Sources */,
+				3104544B2146711500F434D6 /* ClosureTypeParser.swift in Sources */,
 				BB04747C1EC0618600FC2B34 /* VarDeclarationTypeParser.swift in Sources */,
 				BB0474741EC0618600FC2B34 /* Storage.swift in Sources */,
 				BB04747B1EC0618600FC2B34 /* TypeParser.swift in Sources */,
 				BB0474801EC0618600FC2B34 /* Type.swift in Sources */,
+				31D16C762146E02600CA5A11 /* TypeStringFactory.swift in Sources */,
+				31045449214670F500F434D6 /* SimpleTypeParser.swift in Sources */,
 				BB5A01E61EF69E8200960734 /* ArgumentsParser.swift in Sources */,
 				BB04747A1EC0618600FC2B34 /* ProtocolParser.swift in Sources */,
 				BB04747D1EC0618600FC2B34 /* ArgumentType.swift in Sources */,
@@ -731,7 +749,7 @@
 			files = (
 				BB0474871EC061C000FC2B34 /* ParserTests.swift in Sources */,
 				BB0474861EC061C000FC2B34 /* ProtocolSpyGeneratorControllerTests.swift in Sources */,
-				BB04748D1EC061C000FC2B34 /* TypeParserTests.swift in Sources */,
+				BB04748D1EC061C000FC2B34 /* SimpleTypeParserTests.swift in Sources */,
 				BB0474841EC061C000FC2B34 /* XCTextCase.swift in Sources */,
 				BB0474851EC061C000FC2B34 /* MockGeneratorControllerTests.swift in Sources */,
 				BB0474881EC061C000FC2B34 /* ArgumentParserTests.swift in Sources */,
@@ -739,6 +757,7 @@
 				BB04748C1EC061C000FC2B34 /* StorageTests.swift in Sources */,
 				BB04748B1EC061C000FC2B34 /* ProtocolParserTests.swift in Sources */,
 				BB0474901EC061C000FC2B34 /* ArgumentsParserTests.swift in Sources */,
+				3104544F214676CF00F434D6 /* ClosureTypeParserTests.swift in Sources */,
 				BB0474891EC061C000FC2B34 /* FunctionDeclarationParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -775,10 +794,13 @@
 				BB6E40211EC26A2A003CD916 /* Parser.swift in Sources */,
 				BB6E402A1EC26A2A003CD916 /* VarDeclarationTypeParser.swift in Sources */,
 				BB0474961EC062A400FC2B34 /* FileReaderImpl.swift in Sources */,
+				31D16C772146E02D00CA5A11 /* TypeStringFactory.swift in Sources */,
 				BB6E40291EC26A2A003CD916 /* TypeParser.swift in Sources */,
 				BB6E40261EC26A2A003CD916 /* ArgumentParser.swift in Sources */,
 				BB6E402C1EC26A2A003CD916 /* FunctionDeclarationType.swift in Sources */,
 				BB6E40231EC26A2A003CD916 /* Token.swift in Sources */,
+				3104544D2146717F00F434D6 /* ClosureTypeParser.swift in Sources */,
+				3104544C2146717D00F434D6 /* SimpleTypeParser.swift in Sources */,
 				BB981FC81EBE26DB00BB1347 /* CommandLineAssembly.swift in Sources */,
 				BB0474981EC062E400FC2B34 /* StandardGeneratorOutput.swift in Sources */,
 				BB6E40281EC26A2A003CD916 /* ProtocolParser.swift in Sources */,
@@ -832,7 +854,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = M36Y4P27ZU;
+				DEVELOPMENT_TEAM = FPP958R9T6;
 				INFOPLIST_FILE = RubiconApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.rubicon-app";
@@ -849,7 +871,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = M36Y4P27ZU;
+				DEVELOPMENT_TEAM = FPP958R9T6;
 				INFOPLIST_FILE = RubiconApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.rubicon-app";
@@ -932,7 +954,7 @@
 				CODE_SIGN_ENTITLEMENTS = "RubiconExtension/Supporting Files/RubiconExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = M36Y4P27ZU;
+				DEVELOPMENT_TEAM = FPP958R9T6;
 				INFOPLIST_FILE = RubiconExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
@@ -948,7 +970,7 @@
 				CODE_SIGN_ENTITLEMENTS = "RubiconExtension/Supporting Files/RubiconExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = M36Y4P27ZU;
+				DEVELOPMENT_TEAM = FPP958R9T6;
 				INFOPLIST_FILE = RubiconExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
@@ -972,6 +994,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -979,6 +1002,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1028,6 +1052,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1035,6 +1060,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
