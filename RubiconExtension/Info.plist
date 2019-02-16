@@ -30,31 +30,7 @@
 			<array>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).GenerateDummy</string>
-					<key>XCSourceEditorCommandIdentifier</key>
-					<string>GenerateDummy</string>
-					<key>XCSourceEditorCommandName</key>
-					<string>Generate dummy</string>
-				</dict>
-				<dict>
-					<key>XCSourceEditorCommandClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).GenerateSpy</string>
-					<key>XCSourceEditorCommandIdentifier</key>
-					<string>GeneratePrivateDummy</string>
-					<key>XCSourceEditorCommandName</key>
-					<string>Generate private dummy</string>
-				</dict>
-				<dict>
-					<key>XCSourceEditorCommandClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).GenerateDummy</string>
-					<key>XCSourceEditorCommandIdentifier</key>
-					<string>GenerateDummyToPasteboard</string>
-					<key>XCSourceEditorCommandName</key>
-					<string>Generate dummy to pasteboard</string>
-				</dict>
-				<dict>
-					<key>XCSourceEditorCommandClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).GenerateSpy</string>
+					<string>$(PRODUCT_MODULE_NAME).Generate</string>
 					<key>XCSourceEditorCommandIdentifier</key>
 					<string>GenerateSpy</string>
 					<key>XCSourceEditorCommandName</key>
@@ -62,7 +38,7 @@
 				</dict>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).GenerateSpy</string>
+					<string>$(PRODUCT_MODULE_NAME).Generate</string>
 					<key>XCSourceEditorCommandIdentifier</key>
 					<string>GeneratePrivateSpy</string>
 					<key>XCSourceEditorCommandName</key>
@@ -70,11 +46,35 @@
 				</dict>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).GenerateSpy</string>
+					<string>$(PRODUCT_MODULE_NAME).Generate</string>
 					<key>XCSourceEditorCommandIdentifier</key>
 					<string>GenerateSpyToPasteboard</string>
 					<key>XCSourceEditorCommandName</key>
 					<string>Generate spy to pasteboard</string>
+				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).Generate</string>
+					<key>XCSourceEditorCommandIdentifier</key>
+					<string>GenerateDummy</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>Generate dummy</string>
+				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).Generate</string>
+					<key>XCSourceEditorCommandIdentifier</key>
+					<string>GeneratePrivateDummy</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>Generate private dummy</string>
+				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).Generate</string>
+					<key>XCSourceEditorCommandIdentifier</key>
+					<string>GenerateDummyToPasteboard</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>Generate dummy to pasteboard</string>
 				</dict>
 			</array>
 			<key>XCSourceEditorExtensionPrincipalClass</key>
