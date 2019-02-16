@@ -28,6 +28,18 @@ class Generate: NSObject, XCSourceEditorCommand {
             let output = PasteboardGeneratorOutput(invocation: invocation)
             let createMockInteractor = ProtocolSpyGeneratorController()
             perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
+        case "GeneratePrivateStub":
+            let output = InvocationGeneratorOutput(invocation: invocation)
+            let createMockInteractor = CreateStubInteractor(visibility: "private")
+            perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
+        case "GenerateStub":
+            let output = InvocationGeneratorOutput(invocation: invocation)
+            let createMockInteractor = CreateStubInteractor()
+            perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
+        case "GenerateStubToPasteboard":
+            let output = PasteboardGeneratorOutput(invocation: invocation)
+            let createMockInteractor = CreateStubInteractor()
+            perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
         case "GeneratePrivateDummy":
             let output = InvocationGeneratorOutput(invocation: invocation)
             let createMockInteractor = CreateDummyInteractor(visibility: "private")

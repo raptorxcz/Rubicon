@@ -17,6 +17,9 @@
 		6606890D22170D61005E2936 /* CreateDummyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6606890C22170D61005E2936 /* CreateDummyInteractor.swift */; };
 		6606890F22170DB3005E2936 /* CreateDummyInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6606890E22170DB3005E2936 /* CreateDummyInteractorTests.swift */; };
 		666BDD771F51A36700CE4238 /* SampleProject.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB04749C1EC0685400FC2B34 /* SampleProject.txt */; };
+		6670D21D2218A74F006C07BB /* CreateStubInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6670D21C2218A74F006C07BB /* CreateStubInteractorTests.swift */; };
+		6670D21F2218A77F006C07BB /* CreateStubInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6670D21E2218A77F006C07BB /* CreateStubInteractor.swift */; };
+		6670D2202218A7A2006C07BB /* CreateStubInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6670D21E2218A77F006C07BB /* CreateStubInteractor.swift */; };
 		669D6860202660CB00600E59 /* InvocationGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669D685F202660CB00600E59 /* InvocationGeneratorOutput.swift */; };
 		669D68622026624800600E59 /* PasteboardGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669D68612026624800600E59 /* PasteboardGeneratorOutput.swift */; };
 		66E602B222183D320024BD91 /* CreateDummyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6606890C22170D61005E2936 /* CreateDummyInteractor.swift */; };
@@ -154,6 +157,8 @@
 		31D16C752146E02600CA5A11 /* TypeStringFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeStringFactory.swift; sourceTree = "<group>"; };
 		6606890C22170D61005E2936 /* CreateDummyInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDummyInteractor.swift; sourceTree = "<group>"; };
 		6606890E22170DB3005E2936 /* CreateDummyInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDummyInteractorTests.swift; sourceTree = "<group>"; };
+		6670D21C2218A74F006C07BB /* CreateStubInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStubInteractorTests.swift; sourceTree = "<group>"; };
+		6670D21E2218A77F006C07BB /* CreateStubInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStubInteractor.swift; sourceTree = "<group>"; };
 		669D685F202660CB00600E59 /* InvocationGeneratorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationGeneratorOutput.swift; sourceTree = "<group>"; };
 		669D68612026624800600E59 /* PasteboardGeneratorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardGeneratorOutput.swift; sourceTree = "<group>"; };
 		BB0168D21EC78945001024A9 /* IndentationFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndentationFormatter.swift; sourceTree = "<group>"; };
@@ -342,6 +347,7 @@
 				BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */,
 				BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */,
 				6606890C22170D61005E2936 /* CreateDummyInteractor.swift */,
+				6670D21E2218A77F006C07BB /* CreateStubInteractor.swift */,
 				31D16C752146E02600CA5A11 /* TypeStringFactory.swift */,
 			);
 			path = Generator;
@@ -353,6 +359,7 @@
 				BB4A738B1EBD147800A843FF /* MockGeneratorControllerTests.swift */,
 				BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */,
 				6606890E22170DB3005E2936 /* CreateDummyInteractorTests.swift */,
+				6670D21C2218A74F006C07BB /* CreateStubInteractorTests.swift */,
 			);
 			path = Generator;
 			sourceTree = "<group>";
@@ -727,6 +734,7 @@
 			files = (
 				BB4776EF1F018C79000BA4CB /* String.swift in Sources */,
 				BB0474771EC0618600FC2B34 /* GeneratorOutput.swift in Sources */,
+				6670D21F2218A77F006C07BB /* CreateStubInteractor.swift in Sources */,
 				BB0474721EC0618600FC2B34 /* ProtocolSpyGeneratorController.swift in Sources */,
 				BB04747E1EC0618600FC2B34 /* FunctionDeclarationType.swift in Sources */,
 				BB0474811EC0618600FC2B34 /* VarDeclarationType.swift in Sources */,
@@ -765,6 +773,7 @@
 				BB04748C1EC061C000FC2B34 /* StorageTests.swift in Sources */,
 				BB04748B1EC061C000FC2B34 /* ProtocolParserTests.swift in Sources */,
 				BB0474901EC061C000FC2B34 /* ArgumentsParserTests.swift in Sources */,
+				6670D21D2218A74F006C07BB /* CreateStubInteractorTests.swift in Sources */,
 				6606890F22170DB3005E2936 /* CreateDummyInteractorTests.swift in Sources */,
 				3104544F214676CF00F434D6 /* ClosureTypeParserTests.swift in Sources */,
 				BB0474891EC061C000FC2B34 /* FunctionDeclarationParserTests.swift in Sources */,
@@ -794,6 +803,7 @@
 				BBA24AA21EA9459800ADCAAF /* main.swift in Sources */,
 				BB6E401F1EC26A2A003CD916 /* MockGeneratorController.swift in Sources */,
 				BB4776F01F018CF6000BA4CB /* String.swift in Sources */,
+				6670D2202218A7A2006C07BB /* CreateStubInteractor.swift in Sources */,
 				BB6E402B1EC26A2A003CD916 /* ArgumentType.swift in Sources */,
 				BB6E402E1EC26A2A003CD916 /* Type.swift in Sources */,
 				BB6E40271EC26A2A003CD916 /* FunctionDeclarationParser.swift in Sources */,
