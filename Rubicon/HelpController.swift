@@ -26,6 +26,7 @@ extension HelpControllerImpl: HelpController {
         helpString += "Required arguments:\n"
         helpString += "--mocks path - generates spies (deprecated)\n"
         helpString += "--spy path - generates spies\n"
+        helpString += "--stub path - generates stubs\n"
         helpString += "--dummy path - generates dummies\n"
         output.showError(text: helpString)
     }

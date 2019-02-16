@@ -17,9 +17,9 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.9.0</string>
+	<string>1.10.0</string>
 	<key>CFBundleVersion</key>
-	<string>19</string>
+	<string>20</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSExtension</key>
@@ -51,6 +51,30 @@
 					<string>GenerateSpyToPasteboard</string>
 					<key>XCSourceEditorCommandName</key>
 					<string>Generate spy to pasteboard</string>
+				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).Generate</string>
+					<key>XCSourceEditorCommandIdentifier</key>
+					<string>GenerateStub</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>Generate stub</string>
+				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).Generate</string>
+					<key>XCSourceEditorCommandIdentifier</key>
+					<string>GeneratePrivateStub</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>Generate private stub</string>
+				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).Generate</string>
+					<key>XCSourceEditorCommandIdentifier</key>
+					<string>GenerateStubToPasteboard</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>Generate stub to pasteboard</string>
 				</dict>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>
