@@ -13,11 +13,11 @@ public protocol MocksGeneratorController {
 public class MocksGeneratorControllerImpl {
 
     fileprivate let output: GeneratorOutput
-    fileprivate let visibility: String?
+    fileprivate let interactor: CreateMockInteractor
 
-    public init(output: GeneratorOutput, visibility: String? = nil) {
+    public init(output: GeneratorOutput, interactor: CreateMockInteractor) {
         self.output = output
-        self.visibility = visibility
+        self.interactor = interactor
     }
 }
 
@@ -69,8 +69,7 @@ extension MocksGeneratorControllerImpl: MocksGeneratorController {
     func parseProtocol(storage: Storage) throws {
         let protocolParser = ProtocolParser()
         let protocolType = try protocolParser.parse(storage: storage)
-        let generator = ProtocolSpyGeneratorController()
-        let text = generator.generate(from: protocolType, visibility: visibility)
+        let text = interactor.generate(from: protocolType)
         output.save(text: text)
     }
 }

@@ -10,12 +10,14 @@ public class ArgumentsController {
 
     private let fileReader: FileReader
     private let helpController: HelpController
-    private let mocksController: MocksGeneratorController
+    private let spyMocksController: MocksGeneratorController
+    private let dummyMocksController: MocksGeneratorController
 
-    public init(fileReader: FileReader, helpController: HelpController, mocksController: MocksGeneratorController) {
+    public init(fileReader: FileReader, helpController: HelpController, spyMocksController: MocksGeneratorController, dummyMocksController: MocksGeneratorController) {
         self.fileReader = fileReader
         self.helpController = helpController
-        self.mocksController = mocksController
+        self.spyMocksController = spyMocksController
+        self.dummyMocksController = dummyMocksController
     }
 
     public func run(arguments: [String]) {
@@ -25,6 +27,12 @@ public class ArgumentsController {
         }
 
         let result = fileReader.readFiles(at: arguments[2])
-        mocksController.run(texts: result)
+
+        switch arguments[1] {
+        case "--dummy":
+            dummyMocksController.run(texts: result)
+        default:
+            spyMocksController.run(texts: result)
+        }
     }
 }

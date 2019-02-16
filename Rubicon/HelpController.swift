@@ -24,7 +24,9 @@ extension HelpControllerImpl: HelpController {
     public func run() {
         var helpString = ""
         helpString += "Required arguments:\n"
-        helpString += "--mocks path\n"
+        helpString += "--mocks path - generates spies (deprecated)\n"
+        helpString += "--spy path - generates spies\n"
+        helpString += "--dummy path - generates dummies\n"
         output.showError(text: helpString)
     }
 }

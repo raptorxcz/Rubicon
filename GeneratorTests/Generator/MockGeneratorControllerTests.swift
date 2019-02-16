@@ -16,7 +16,7 @@ class MockGeneratorControllerTests: XCTestCase {
 
     override func setUp() {
         generatorOutput = GeneratorOutputSpy()
-        sut = MocksGeneratorControllerImpl(output: generatorOutput)
+        sut = MocksGeneratorControllerImpl(output: generatorOutput, interactor: ProtocolSpyGeneratorController())
     }
 
     func test_givenNoStrings_whenRun_thenGenerateEmptyString() {
@@ -80,15 +80,6 @@ class MockGeneratorControllerTests: XCTestCase {
 
         XCTAssertEqual(generatorOutput.text, "class XSpy: X {\n}\nclass YSpy: Y {\n}\n")
         XCTAssertEqual(generatorOutput.saveCount, 2)
-    }
-
-    func test_givenEmptyProtocolAndVisibility_whenRun_thenGenerateEmptySpyWithVisibility() {
-        sut = MocksGeneratorControllerImpl(output: generatorOutput, visibility: "private")
-
-        sut.run(texts: ["protocol X {}"])
-
-        XCTAssertEqual(generatorOutput.text, "private class XSpy: X {\n}\n")
-        XCTAssertEqual(generatorOutput.saveCount, 1)
     }
 }
 

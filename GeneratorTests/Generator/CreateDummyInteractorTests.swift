@@ -1,287 +1,237 @@
 //
-//  ProtocolSpyGeneratorControllerTests.swift
-//  Rubicon
+//  CreateDummyInteractorTests.swift
+//  GeneratorTests
 //
-//  Created by Kryštof Matěj on 05/05/2017.
-//  Copyright © 2017 Kryštof Matěj. All rights reserved.
+//  Created by Kryštof Matěj on 15/02/2019.
+//  Copyright © 2019 Kryštof Matěj. All rights reserved.
 //
 
 import Generator
 import XCTest
 
-class ProtocolSpyGeneratorControllerTests: XCTestCase {
-
-    private var generator: ProtocolSpyGeneratorController!
+class CreateDummyInteractorTests: XCTestCase {
+    private var generator: CreateDummyInteractor!
     private let type = Type(name: "Color", isOptional: false)
 
-    func test_givenprotocolType_whenGenerate_thenGenerateEmptySpy() {
+    func test_givenprotocolType_whenGenerate_thenGenerateEmptyDummy() {
         let protocolType = ProtocolType(name: "Test", parents: [], variables: [], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class TestSpy: Test {",
+            "class TestDummy: Test {",
             "}",
             "",
         ])
     }
 
-    func test_givenprotocolTypeWithLongName_whenGenerate_thenGenerateEmptySpy() {
+    func test_givenprotocolTypeWithLongName_whenGenerate_thenGenerateEmptyDummy() {
         let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class TestTestTestTestTestSpy: TestTestTestTestTest {",
+            "class TestTestTestTestTestDummy: TestTestTestTestTest {",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithVariable_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithVariable_whenGenerate_thenGenerateDummy() {
         let variable = VarDeclarationType(isConstant: false, identifier: "color", type: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "class CarDummy: Car {",
             "",
-            "\tvar color: Color",
-            "",
-            "\tinit(color: Color) {",
-            "\t\tself.color = color",
+            "\tvar color: Color {",
+            "\t\tget {",
+            "\t\t\tfatalError()",
+            "\t\t}",
+            "\t\tset {",
+            "\t\t\tfatalError()",
+            "\t\t}",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithEscapingClosureVariable_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithEscapingClosureVariable_whenGenerate_thenGenerateDummy() {
         let type = Type(name: "(() -> Void)", isOptional: false, isClosure: true)
         let variable = VarDeclarationType(isConstant: false, identifier: "closeBlock", type: type)
         let protocolType = ProtocolType(name: "Door", parents: [], variables: [variable], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class DoorSpy: Door {",
+            "class DoorDummy: Door {",
             "",
-            "\tvar closeBlock: (() -> Void)",
-            "",
-            "\tinit(closeBlock: @escaping (() -> Void)) {",
-            "\t\tself.closeBlock = closeBlock",
+            "\tvar closeBlock: (() -> Void) {",
+            "\t\tget {",
+            "\t\t\tfatalError()",
+            "\t\t}",
+            "\t\tset {",
+            "\t\t\tfatalError()",
+            "\t\t}",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithConstant_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithConstant_whenGenerate_thenGenerateDummy() {
         let type = Type(name: "Color", isOptional: false)
         let variable = VarDeclarationType(isConstant: true, identifier: "color", type: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "class CarDummy: Car {",
             "",
-            "\tvar color: Color",
-            "",
-            "\tinit(color: Color) {",
-            "\t\tself.color = color",
+            "\tvar color: Color {",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithOptional_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithOptional_whenGenerate_thenGenerateDummy() {
         let type = Type(name: "Color", isOptional: true)
         let variable = VarDeclarationType(isConstant: true, identifier: "color", type: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "class CarDummy: Car {",
             "",
-            "\tvar color: Color?",
+            "\tvar color: Color? {",
+            "\t\tfatalError()",
+            "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithTwoVariables_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithTwoVariables_whenGenerate_thenGenerateDummy() {
         let variable1 = VarDeclarationType(isConstant: false, identifier: "color1", type: type)
         let variable2 = VarDeclarationType(isConstant: false, identifier: "color2", type: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable1, variable2], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "class CarDummy: Car {",
             "",
-            "\tvar color1: Color",
-            "\tvar color2: Color",
-            "",
-            "\tinit(color1: Color, color2: Color) {",
-            "\t\tself.color1 = color1",
-            "\t\tself.color2 = color2",
+            "\tvar color1: Color {",
+            "\t\tget {",
+            "\t\t\tfatalError()",
+            "\t\t}",
+            "\t\tset {",
+            "\t\t\tfatalError()",
+            "\t\t}",
+            "\t}",
+            "\tvar color2: Color {",
+            "\t\tget {",
+            "\t\t\tfatalError()",
+            "\t\t}",
+            "\t\tset {",
+            "\t\t\tfatalError()",
+            "\t\t}",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithSimpleFunction_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithSimpleFunction_whenGenerate_thenGenerateDummy() {
         let function = FunctionDeclarationType(name: "start")
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tvar startCount = 0",
+            "class CarDummy: Car {",
             "",
             "\tfunc start() {",
-            "\t\tstartCount += 1",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithFunctionWithReturn_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithFunctionWithReturn_whenGenerate_thenGenerateDummy() {
         let function = FunctionDeclarationType(name: "start", returnType: Type(name: "Int", isOptional: false))
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tvar startCount = 0",
-            "\tvar startReturn: Int",
-            "",
-            "\tinit(startReturn: Int) {",
-            "\t\tself.startReturn = startReturn",
-            "\t}",
+            "class CarDummy: Car {",
             "",
             "\tfunc start() -> Int {",
-            "\t\tstartCount += 1",
-            "\t\treturn startReturn",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithThrowingFunction_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithThrowingFunction_whenGenerate_thenGenerateDummy() {
         let function = FunctionDeclarationType(name: "start", isThrowing: true, returnType: Type(name: "Int", isOptional: false))
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tenum CarSpyError: Error {",
-            "\t\tcase spyError",
-            "\t}",
-            "\ttypealias ThrowBlock = () throws -> Void",
-            "",
-            "\tvar startCount = 0",
-            "\tvar startThrowBlock: ThrowBlock?",
-            "\tvar startReturn: Int",
-            "",
-            "\tinit(startReturn: Int) {",
-            "\t\tself.startReturn = startReturn",
-            "\t}",
+            "class CarDummy: Car {",
             "",
             "\tfunc start() throws -> Int {",
-            "\t\tstartCount += 1",
-            "\t\ttry startThrowBlock?()",
-            "\t\treturn startReturn",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithThrowingFunctionWithArguments_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithThrowingFunctionWithArguments_whenGenerate_thenGenerateDummy() {
         let argument = ArgumentType(label: "with", name: "label", type: type)
         let function = FunctionDeclarationType(name: "start", arguments: [argument], isThrowing: true, returnType: Type(name: "Int", isOptional: false))
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tenum CarSpyError: Error {",
-            "\t\tcase spyError",
-            "\t}",
-            "\ttypealias ThrowBlock = () throws -> Void",
-            "",
-            "\tstruct Start {",
-            "\t\tlet label: Color",
-            "\t}",
-            "",
-            "\tvar start = [Start]()",
-            "\tvar startThrowBlock: ThrowBlock?",
-            "\tvar startReturn: Int",
-            "",
-            "\tinit(startReturn: Int) {",
-            "\t\tself.startReturn = startReturn",
-            "\t}",
+            "class CarDummy: Car {",
             "",
             "\tfunc start(with label: Color) throws -> Int {",
-            "\t\tlet item = Start(label: label)",
-            "\t\tstart.append(item)",
-            "\t\ttry startThrowBlock?()",
-            "\t\treturn startReturn",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithMultipleReturnFunctions_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithMultipleReturnFunctions_whenGenerate_thenGenerateDummy() {
         let function = FunctionDeclarationType(name: "start", returnType: Type(name: "Int", isOptional: false))
         let function2 = FunctionDeclarationType(name: "stop", returnType: Type(name: "Int", isOptional: false))
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tvar startCount = 0",
-            "\tvar startReturn: Int",
-            "\tvar stopCount = 0",
-            "\tvar stopReturn: Int",
-            "",
-            "\tinit(startReturn: Int, stopReturn: Int) {",
-            "\t\tself.startReturn = startReturn",
-            "\t\tself.stopReturn = stopReturn",
-            "\t}",
+            "class CarDummy: Car {",
             "",
             "\tfunc start() -> Int {",
-            "\t\tstartCount += 1",
-            "\t\treturn startReturn",
+            "\t\tfatalError()",
             "\t}",
             "",
             "\tfunc stop() -> Int {",
-            "\t\tstopCount += 1",
-            "\t\treturn stopReturn",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithFunctionWithEscapingType_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithFunctionWithEscapingType_whenGenerate_thenGenerateDummy() {
         let argumentType = Type(name: "ActionBlock", isOptional: false, isClosure: true, prefix: .escaping)
         let argument = ArgumentType(label: "with", name: "action", type: argumentType)
         let function = FunctionDeclarationType(name: "start", arguments: [argument], returnType: nil)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tstruct Start {",
-            "\t\tlet action: ActionBlock",
-            "\t}",
-            "",
-            "\tvar start = [Start]()",
+            "class CarDummy: Car {",
             "",
             "\tfunc start(with action: @escaping ActionBlock) {",
-            "\t\tlet item = Start(action: action)",
-            "\t\tstart.append(item)",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithFunctionWithClosureParameterAndReturnClosure_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithFunctionWithClosureParameterAndReturnClosure_whenGenerate_thenGenerateDummy() {
         let argumentType = Type(name: "(String) -> Int", isOptional: false, isClosure: true, prefix: .escaping)
         let argument = ArgumentType(label: "with", name: "mapping", type: argumentType)
         let returnType = Type(name: "(Data) -> Void", isOptional: false, isClosure: true)
@@ -289,54 +239,33 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tstruct Start {",
-            "\t\tlet mapping: (String) -> Int",
-            "\t}",
-            "",
-            "\tvar start = [Start]()",
-            "\tvar startReturn: (Data) -> Void",
-            "",
-            "\tinit(startReturn: @escaping (Data) -> Void) {",
-            "\t\tself.startReturn = startReturn",
-            "\t}",
+            "class CarDummy: Car {",
             "",
             "\tfunc start(with mapping: @escaping (String) -> Int) -> (Data) -> Void {",
-            "\t\tlet item = Start(mapping: mapping)",
-            "\t\tstart.append(item)",
-            "\t\treturn startReturn",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithFunctionWithThrowingAutoclosureArgument_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithFunctionWithThrowingAutoclosureArgument_whenGenerate_thenGenerateDummy() {
         let type = Type(name: "(Window) throws -> Air", isOptional: false, isClosure: true)
         let function = FunctionDeclarationType(name: "rollDown", arguments: [], returnType: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tvar rollDownCount = 0",
-            "\tvar rollDownReturn: (Window) throws -> Air",
-            "",
-            "\tinit(rollDownReturn: @escaping (Window) throws -> Air) {",
-            "\t\tself.rollDownReturn = rollDownReturn",
-            "\t}",
+            "class CarDummy: Car {",
             "",
             "\tfunc rollDown() -> (Window) throws -> Air {",
-            "\t\trollDownCount += 1",
-            "\t\treturn rollDownReturn",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithFunctionWithClosureAndIntParameterAndOptionalReturnClosure_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithFunctionWithClosureAndIntParameterAndOptionalReturnClosure_whenGenerate_thenGenerateDummy() {
         let closureArgumentType = Type(name: "(String) -> Int", isOptional: false, isClosure: true, prefix: .escaping)
         let closureArgument = ArgumentType(label: "with", name: "mapping", type: closureArgumentType)
         let intType = Type(name: "Int", isOptional: false, isClosure: false)
@@ -346,73 +275,49 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tstruct Start {",
-            "\t\tlet mapping: (String) -> Int",
-            "\t\tlet count: Int",
-            "\t}",
-            "",
-            "\tvar start = [Start]()",
-            "\tvar startReturn: ((Data) -> Void)?",
+            "class CarDummy: Car {",
             "",
             "\tfunc start(with mapping: @escaping (String) -> Int, count: Int) -> ((Data) -> Void)? {",
-            "\t\tlet item = Start(mapping: mapping, count: count)",
-            "\t\tstart.append(item)",
-            "\t\treturn startReturn",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithFunctionWithArgument_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithFunctionWithArgument_whenGenerate_thenGenerateDummy() {
         let argument = ArgumentType(label: "a", name: "b", type: type)
         let function = FunctionDeclarationType(name: "start", arguments: [argument])
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tstruct Start {",
-            "\t\tlet b: Color",
-            "\t}",
-            "",
-            "\tvar start = [Start]()",
+            "class CarDummy: Car {",
             "",
             "\tfunc start(a b: Color) {",
-            "\t\tlet item = Start(b: b)",
-            "\t\tstart.append(item)",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithFunctionWithNoLabelAndArgument_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithFunctionWithNoLabelAndArgument_whenGenerate_thenGenerateDummy() {
         let argument = ArgumentType(label: "_", name: "b", type: type)
         let function = FunctionDeclarationType(name: "start", arguments: [argument])
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tstruct Start {",
-            "\t\tlet b: Color",
-            "\t}",
-            "",
-            "\tvar start = [Start]()",
+            "class CarDummy: Car {",
             "",
             "\tfunc start(_ b: Color) {",
-            "\t\tlet item = Start(b: b)",
-            "\t\tstart.append(item)",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithFunctionWithTwoArguments_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithFunctionWithTwoArguments_whenGenerate_thenGenerateDummy() {
         let argument = ArgumentType(label: "a", name: "b", type: type)
         let type2 = Type(name: "Color", isOptional: true)
         let argument2 = ArgumentType(label: nil, name: "d", type: type2)
@@ -420,112 +325,80 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tstruct Start {",
-            "\t\tlet b: Color",
-            "\t\tlet d: Color?",
-            "\t}",
-            "",
-            "\tvar start = [Start]()",
+            "class CarDummy: Car {",
             "",
             "\tfunc start(a b: Color, d: Color?) {",
-            "\t\tlet item = Start(b: b, d: d)",
-            "\t\tstart.append(item)",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithTwoFunctionWithArgument_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithTwoFunctionWithArgument_whenGenerate_thenGenerateDummy() {
         let argument = ArgumentType(label: "a", name: "b", type: type)
         let function = FunctionDeclarationType(name: "start", arguments: [argument])
         let function2 = FunctionDeclarationType(name: "stop", arguments: [argument])
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tstruct Start {",
-            "\t\tlet b: Color",
-            "\t}",
-            "",
-            "\tstruct Stop {",
-            "\t\tlet b: Color",
-            "\t}",
-            "",
-            "\tvar start = [Start]()",
-            "\tvar stop = [Stop]()",
+            "class CarDummy: Car {",
             "",
             "\tfunc start(a b: Color) {",
-            "\t\tlet item = Start(b: b)",
-            "\t\tstart.append(item)",
+            "\t\tfatalError()",
             "\t}",
             "",
             "\tfunc stop(a b: Color) {",
-            "\t\tlet item = Stop(b: b)",
-            "\t\tstop.append(item)",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithFunctionAndVarible_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithFunctionAndVarible_whenGenerate_thenGenerateDummy() {
         let variable = VarDeclarationType(isConstant: false, identifier: "color", type: type)
         let argument = ArgumentType(label: "a", name: "b", type: type)
         let function = FunctionDeclarationType(name: "start", arguments: [argument])
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "class CarDummy: Car {",
             "",
-            "\tvar color: Color",
-            "",
-            "\tstruct Start {",
-            "\t\tlet b: Color",
-            "\t}",
-            "",
-            "\tvar start = [Start]()",
-            "",
-            "\tinit(color: Color) {",
-            "\t\tself.color = color",
+            "\tvar color: Color {",
+            "\t\tget {",
+            "\t\t\tfatalError()",
+            "\t\t}",
+            "\t\tset {",
+            "\t\t\tfatalError()",
+            "\t\t}",
             "\t}",
             "",
             "\tfunc start(a b: Color) {",
-            "\t\tlet item = Start(b: b)",
-            "\t\tstart.append(item)",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithLongNames_whenGenerate_thenSpyIsGenerated() {
+    func test_givenProtocolWithLongNames_whenGenerate_thenDummyIsGenerated() {
         let argument = ArgumentType(label: nil, name: "productId", type: type)
         let function = FunctionDeclarationType(name: "startGenerating", arguments: [argument])
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tstruct StartGenerating {",
-            "\t\tlet productId: Color",
-            "\t}",
-            "",
-            "\tvar startGenerating = [StartGenerating]()",
+            "class CarDummy: Car {",
             "",
             "\tfunc startGenerating(productId: Color) {",
-            "\t\tlet item = StartGenerating(productId: productId)",
-            "\t\tstartGenerating.append(item)",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithSameFunctionNames_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithSameFunctionNames_whenGenerate_thenGenerateDummy() {
         let argument = ArgumentType(label: "a", name: "b", type: type)
         let argument2 = ArgumentType(label: "c", name: "d", type: type)
         let function = FunctionDeclarationType(name: "start", arguments: [argument])
@@ -533,34 +406,21 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
-            "",
-            "\tstruct StartA {",
-            "\t\tlet b: Color",
-            "\t}",
-            "",
-            "\tstruct StartC {",
-            "\t\tlet d: Color",
-            "\t}",
-            "",
-            "\tvar startA = [StartA]()",
-            "\tvar startC = [StartC]()",
+            "class CarDummy: Car {",
             "",
             "\tfunc start(a b: Color) {",
-            "\t\tlet item = StartA(b: b)",
-            "\t\tstartA.append(item)",
+            "\t\tfatalError()",
             "\t}",
             "",
             "\tfunc start(c d: Color) {",
-            "\t\tlet item = StartC(d: d)",
-            "\t\tstartC.append(item)",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
         ])
     }
 
-    func test_givenProtocolWithNoArgumentLabelAndReturnValue_whenGenerate_thenGenerateSpy() {
+    func test_givenProtocolWithNoArgumentLabelAndReturnValue_whenGenerate_thenGenerateDummy() {
         let argumentType = Type(name: "Int", isOptional: true)
         let argument = ArgumentType(label: "_", name: "value", type: argumentType)
         let returnType = Type(name: "String", isOptional: true)
@@ -568,19 +428,10 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class FormatterSpy: Formatter {",
-            "",
-            "\tstruct FormattedString {",
-            "\t\tlet value: Int?",
-            "\t}",
-            "",
-            "\tvar formattedString = [FormattedString]()",
-            "\tvar formattedStringReturn: String?",
+            "class FormatterDummy: Formatter {",
             "",
             "\tfunc formattedString(_ value: Int?) -> String? {",
-            "\t\tlet item = FormattedString(value: value)",
-            "\t\tformattedString.append(item)",
-            "\t\treturn formattedStringReturn",
+            "\t\tfatalError()",
             "\t}",
             "}",
             "",
@@ -591,14 +442,15 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
         let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
 
         equal(protocolType: protocolType, visibility: "private", rows: [
-            "private class TestTestTestTestTestSpy: TestTestTestTestTest {",
+            "private class TestTestTestTestTestDummy: TestTestTestTestTest {",
             "}",
             "",
         ])
     }
 
     private func equal(protocolType: ProtocolType, visibility: String? = nil, rows: [String], line: UInt = #line) {
-        generator = ProtocolSpyGeneratorController(visibility: visibility)
+        generator = CreateDummyInteractor(visibility: visibility)
+        
         let generatedRows = generator.generate(from: protocolType).components(separatedBy: "\n")
 
         XCTAssertEqual(generatedRows.count, rows.count, line: line)
