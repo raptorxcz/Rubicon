@@ -12,9 +12,10 @@ class CommandLineAssembly {
         let fileReader = FileReaderImpl()
         let output = StandardGeneratorOutput()
         let helpController = HelpControllerImpl(output: output)
-        let mocksController = MocksGeneratorControllerImpl(output: output)
+        let spyMocksController = MocksGeneratorControllerImpl(output: output, interactor: ProtocolSpyGeneratorController())
+        let dummyMocksController = MocksGeneratorControllerImpl(output: output, interactor: CreateDummyInteractor())
 
-        let argumentsController = ArgumentsController(fileReader: fileReader, helpController: helpController, mocksController: mocksController)
+        let argumentsController = ArgumentsController(fileReader: fileReader, helpController: helpController, spyMocksController: spyMocksController, dummyMocksController: dummyMocksController)
         argumentsController.run(arguments: arguments)
     }
 }

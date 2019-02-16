@@ -19,19 +19,34 @@ class GenerateSpy: NSObject, XCSourceEditorCommand {
         switch invocation.commandIdentifier {
         case "GeneratePrivateSpy":
             let output = InvocationGeneratorOutput(invocation: invocation)
-            perform(with: invocation, visibility: "private", generatorOutput: output, completionHandler: completionHandler)
+            let createMockInteractor = ProtocolSpyGeneratorController(visibility: "private")
+            perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
         case "GenerateSpy":
             let output = InvocationGeneratorOutput(invocation: invocation)
-            perform(with: invocation, visibility: nil, generatorOutput: output, completionHandler: completionHandler)
+            let createMockInteractor = ProtocolSpyGeneratorController()
+            perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
         case "GenerateSpyToPasteboard":
             let output = PasteboardGeneratorOutput(invocation: invocation)
-            perform(with: invocation, visibility: nil, generatorOutput: output, completionHandler: completionHandler)
+            let createMockInteractor = ProtocolSpyGeneratorController()
+            perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
+        case "GeneratePrivateDummy":
+            let output = InvocationGeneratorOutput(invocation: invocation)
+            let createMockInteractor = CreateDummyInteractor(visibility: "private")
+            perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
+        case "GenerateDummy":
+            let output = InvocationGeneratorOutput(invocation: invocation)
+            let createMockInteractor = CreateDummyInteractor()
+            perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
+        case "GenerateDummyToPasteboard":
+            let output = PasteboardGeneratorOutput(invocation: invocation)
+            let createMockInteractor = CreateDummyInteractor()
+            perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
         default:
             break
         }
     }
 
-    private func perform(with invocation: XCSourceEditorCommandInvocation, visibility: String?, generatorOutput: GeneratorOutput, completionHandler: @escaping (Error?) -> Void) {
+    private func perform(with invocation: XCSourceEditorCommandInvocation, generatorOutput: GeneratorOutput, createMockInteractor: CreateMockInteractor, completionHandler: @escaping (Error?) -> Void) {
         self.invocation = invocation
 
         guard var lines = invocation.buffer.lines as? [String] else {
@@ -49,7 +64,7 @@ class GenerateSpy: NSObject, XCSourceEditorCommand {
         let text = lines.reduce("", { $0 + "\n" + $1 })
 
         output = generatorOutput
-        let mocksController = MocksGeneratorControllerImpl(output: generatorOutput, visibility: visibility)
+        let mocksController = MocksGeneratorControllerImpl(output: generatorOutput, interactor: createMockInteractor)
         mocksController.run(texts: [text])
         completionHandler(nil)
     }

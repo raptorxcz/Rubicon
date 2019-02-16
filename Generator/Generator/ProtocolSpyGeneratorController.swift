@@ -6,16 +6,19 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-public class ProtocolSpyGeneratorController {
+public class ProtocolSpyGeneratorController: CreateMockInteractor {
 
+    private let visibility: String?
     private var protocolType: ProtocolType?
 
-    public init() {}
+    public init(visibility: String? = nil) {
+        self.visibility = visibility
+    }
 
-    public func generate(from protocolType: ProtocolType, visibility: String? = nil) -> String {
+    public func generate(from protocolType: ProtocolType) -> String {
         self.protocolType = protocolType
         var result = [String]()
-        result.append("\(makeVisibilityString(visibility))class \(protocolType.name)Spy: \(protocolType.name) {")
+        result.append("\(makeVisibilityString())class \(protocolType.name)Spy: \(protocolType.name) {")
         result += generateBody(from: protocolType)
         result.append("}")
 
@@ -26,7 +29,7 @@ public class ProtocolSpyGeneratorController {
         return string
     }
 
-    private func makeVisibilityString(_ visibility: String?) -> String {
+    private func makeVisibilityString() -> String {
         if let visibility = visibility {
             return "\(visibility) "
         } else {
