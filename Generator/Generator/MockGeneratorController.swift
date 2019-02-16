@@ -11,7 +11,6 @@ public protocol MocksGeneratorController {
 }
 
 public class MocksGeneratorControllerImpl {
-
     fileprivate let output: GeneratorOutput
     fileprivate let interactor: CreateMockInteractor
 
@@ -22,7 +21,6 @@ public class MocksGeneratorControllerImpl {
 }
 
 extension MocksGeneratorControllerImpl: MocksGeneratorController {
-
     public func run(texts: [String]) {
         for text in texts {
             process(text: text)

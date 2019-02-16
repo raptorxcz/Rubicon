@@ -17,9 +17,9 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.10.0</string>
+	<string>1.11.0</string>
 	<key>CFBundleVersion</key>
-	<string>20</string>
+	<string>21</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSExtension</key>
@@ -35,6 +35,14 @@
 					<string>GenerateSpy</string>
 					<key>XCSourceEditorCommandName</key>
 					<string>Generate spy</string>
+				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).Generate</string>
+					<key>XCSourceEditorCommandIdentifier</key>
+					<string>GeneratePublicSpy</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>Generate public spy</string>
 				</dict>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>
@@ -64,6 +72,14 @@
 					<key>XCSourceEditorCommandClassName</key>
 					<string>$(PRODUCT_MODULE_NAME).Generate</string>
 					<key>XCSourceEditorCommandIdentifier</key>
+					<string>GeneratePublicStub</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>Generate public stub</string>
+				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).Generate</string>
+					<key>XCSourceEditorCommandIdentifier</key>
 					<string>GeneratePrivateStub</string>
 					<key>XCSourceEditorCommandName</key>
 					<string>Generate private stub</string>
@@ -83,6 +99,14 @@
 					<string>GenerateDummy</string>
 					<key>XCSourceEditorCommandName</key>
 					<string>Generate dummy</string>
+				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).Generate</string>
+					<key>XCSourceEditorCommandIdentifier</key>
+					<string>GeneratePublicDummy</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>Generate public dummy</string>
 				</dict>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>

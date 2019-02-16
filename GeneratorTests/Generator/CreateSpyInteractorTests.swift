@@ -1,5 +1,5 @@
 //
-//  ProtocolSpyGeneratorControllerTests.swift
+//  CreateSpyInteractorTests.swift
 //  Rubicon
 //
 //  Created by Kryštof Matěj on 05/05/2017.
@@ -9,9 +9,8 @@
 import Generator
 import XCTest
 
-class ProtocolSpyGeneratorControllerTests: XCTestCase {
-
-    private var generator: ProtocolSpyGeneratorController!
+class CreateSpyInteractorTests: XCTestCase {
+    private var generator: CreateSpyInteractor!
     private let type = Type(name: "Color", isOptional: false)
 
     func test_givenprotocolType_whenGenerate_thenGenerateEmptySpy() {
@@ -590,15 +589,56 @@ class ProtocolSpyGeneratorControllerTests: XCTestCase {
     func test_givenEmptyProtocolAndPrivate_whenGenerate_thenGenerateSpy() {
         let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
 
-        equal(protocolType: protocolType, visibility: "private", rows: [
+        equal(protocolType: protocolType, accessLevel: .private, rows: [
             "private class TestTestTestTestTestSpy: TestTestTestTestTest {",
             "}",
             "",
         ])
     }
 
-    private func equal(protocolType: ProtocolType, visibility: String? = nil, rows: [String], line: UInt = #line) {
-        generator = ProtocolSpyGeneratorController(visibility: visibility)
+    func test_givenProtocolWithArgumentAndThrowingFunctionWithReturnValue_whenGeneratePublic_thenGenerateSpy() {
+        let variable = VarDeclarationType(isConstant: false, identifier: "color", type: type)
+        let argumentType = Type(name: "Int", isOptional: true)
+        let argument = ArgumentType(label: "_", name: "value", type: argumentType)
+        let returnType = Type(name: "String", isOptional: true)
+        let function = FunctionDeclarationType(name: "formattedString", arguments: [argument], isThrowing: true, returnType: returnType)
+        let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [variable], functions: [function])
+
+        equal(protocolType: protocolType, accessLevel: .public, rows: [
+            "public class FormatterSpy: Formatter {",
+            "",
+            "\tpublic enum FormatterSpyError: Error {",
+            "\t\tcase spyError",
+            "\t}",
+            "\tpublic typealias ThrowBlock = () throws -> Void",
+            "",
+            "\tpublic var color: Color",
+            "",
+            "\tpublic struct FormattedString {",
+            "\t\tpublic let value: Int?",
+            "\t}",
+            "",
+            "\tpublic var formattedString = [FormattedString]()",
+            "\tpublic var formattedStringThrowBlock: ThrowBlock?",
+            "\tpublic var formattedStringReturn: String?",
+            "",
+            "\tpublic init(color: Color) {",
+            "\t\tself.color = color",
+            "\t}",
+            "",
+            "\tpublic func formattedString(_ value: Int?) throws -> String? {",
+            "\t\tlet item = FormattedString(value: value)",
+            "\t\tformattedString.append(item)",
+            "\t\ttry formattedStringThrowBlock?()",
+            "\t\treturn formattedStringReturn",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
+    private func equal(protocolType: ProtocolType, accessLevel: AccessLevel = .internal, rows: [String], line: UInt = #line) {
+        generator = CreateSpyInteractor(accessLevel: accessLevel)
         let generatedRows = generator.generate(from: protocolType).components(separatedBy: "\n")
 
         XCTAssertEqual(generatedRows.count, rows.count, line: line)

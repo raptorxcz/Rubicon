@@ -1,24 +1,23 @@
 //
-//  ProtocolSpyGeneratorController.swift
+//  CreateSpyInteractor.swift
 //  Rubicon
 //
 //  Created by Kryštof Matěj on 05/05/2017.
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-public class ProtocolSpyGeneratorController: CreateMockInteractor {
-
-    private let visibility: String?
+public class CreateSpyInteractor: CreateMockInteractor {
+    private let accessLevel: AccessLevel
     private var protocolType: ProtocolType?
 
-    public init(visibility: String? = nil) {
-        self.visibility = visibility
+    public init(accessLevel: AccessLevel) {
+        self.accessLevel = accessLevel
     }
 
     public func generate(from protocolType: ProtocolType) -> String {
         self.protocolType = protocolType
         var result = [String]()
-        result.append("\(makeVisibilityString())class \(protocolType.name)Spy: \(protocolType.name) {")
+        result.append("\(accessLevel.makeClassString())class \(protocolType.name)Spy: \(protocolType.name) {")
         result += generateBody(from: protocolType)
         result.append("}")
 
@@ -27,14 +26,6 @@ public class ProtocolSpyGeneratorController: CreateMockInteractor {
             string.append("\n")
         }
         return string
-    }
-
-    private func makeVisibilityString() -> String {
-        if let visibility = visibility {
-            return "\(visibility) "
-        } else {
-            return ""
-        }
     }
 
     private func generateBody(from protocolType: ProtocolType) -> [String] {
@@ -86,10 +77,10 @@ public class ProtocolSpyGeneratorController: CreateMockInteractor {
 
         if isAnyFuncThrowing {
             return """
-            \tenum \(type.name)SpyError: Error {
+            \t\(accessLevel.makeContentString())enum \(type.name)SpyError: Error {
             \t\tcase spyError
             \t}
-            \ttypealias ThrowBlock = () throws -> Void
+            \t\(accessLevel.makeContentString())typealias ThrowBlock = () throws -> Void
             """
         } else {
             return nil
@@ -108,7 +99,7 @@ public class ProtocolSpyGeneratorController: CreateMockInteractor {
         var bodyRows = type.variables.compactMap(makeAssigment(of:))
         bodyRows += type.functions.compactMap(makeReturnAssigment(of:))
         var result = [String]()
-        result.append("\tinit(\(arguments)) {")
+        result.append("\t\(accessLevel.makeContentString())init(\(arguments)) {")
         result += bodyRows
         result.append("\t}")
         return result
@@ -154,7 +145,7 @@ public class ProtocolSpyGeneratorController: CreateMockInteractor {
 
         for variable in variables {
             let typeString = TypeStringFactory.makeSimpleString(variable.type)
-            result.append("\tvar \(variable.identifier): \(typeString)")
+            result.append("\t\(accessLevel.makeContentString())var \(variable.identifier): \(typeString)")
         }
 
         return result
@@ -182,18 +173,18 @@ public class ProtocolSpyGeneratorController: CreateMockInteractor {
         var result = ""
 
         if function.arguments.isEmpty {
-            result += "\tvar \(functionName)Count = 0"
+            result += "\t\(accessLevel.makeContentString())var \(functionName)Count = 0"
         } else {
             result += generateCallStackVariable(for: function)
         }
 
         if function.isThrowing {
-            result += "\n\tvar \(functionName)ThrowBlock: ThrowBlock?"
+            result += "\n\t\(accessLevel.makeContentString())var \(functionName)ThrowBlock: ThrowBlock?"
         }
 
         if let returnType = function.returnType {
             let returnTypeString = TypeStringFactory.makeSimpleString(returnType)
-            result += "\n\tvar \(functionName)Return: \(returnTypeString)"
+            result += "\n\t\(accessLevel.makeContentString())var \(functionName)Return: \(returnTypeString)"
         }
 
         return result
@@ -202,14 +193,14 @@ public class ProtocolSpyGeneratorController: CreateMockInteractor {
     private func generateCallStackVariable(for function: FunctionDeclarationType) -> String {
         let functionName = getName(from: function)
         let structName = makeStructName(from: function)
-        return "\tvar \(functionName) = [\(structName)]()"
+        return "\t\(accessLevel.makeContentString())var \(functionName) = [\(structName)]()"
     }
 
     private func generateStruct(for function: FunctionDeclarationType) -> String {
         let structName = makeStructName(from: function)
 
         var result = ""
-        result += "\tstruct \(structName) {\n"
+        result += "\t\(accessLevel.makeContentString())struct \(structName) {\n"
         result += function.arguments.map(makeRow(for:)).joined()
         result += "\t}\n"
         return result
@@ -217,7 +208,7 @@ public class ProtocolSpyGeneratorController: CreateMockInteractor {
 
     private func makeRow(for argument: ArgumentType) -> String {
         let typeString = TypeStringFactory.makeSimpleString(argument.type)
-        return "\t\tlet \(argument.name): \(typeString)\n"
+        return "\t\t\(accessLevel.makeContentString())let \(argument.name): \(typeString)\n"
     }
 
     private func getName(from function: FunctionDeclarationType) -> String {
@@ -323,7 +314,7 @@ public class ProtocolSpyGeneratorController: CreateMockInteractor {
             returnString += "-> \(returnTypeString) "
         }
 
-        result.append("\tfunc \(function.name)(\(argumentsString)) \(returnString){")
+        result.append("\t\(accessLevel.makeContentString())func \(function.name)(\(argumentsString)) \(returnString){")
         result += body.map({ "\t\t\($0)" })
         result.append("\t}")
         return result

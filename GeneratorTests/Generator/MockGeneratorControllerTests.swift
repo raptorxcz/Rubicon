@@ -10,13 +10,12 @@ import Generator
 import XCTest
 
 class MockGeneratorControllerTests: XCTestCase {
-
     private var sut: MocksGeneratorControllerImpl!
     private var generatorOutput: GeneratorOutputSpy!
 
     override func setUp() {
         generatorOutput = GeneratorOutputSpy()
-        sut = MocksGeneratorControllerImpl(output: generatorOutput, interactor: ProtocolSpyGeneratorController())
+        sut = MocksGeneratorControllerImpl(output: generatorOutput, interactor: CreateSpyInteractor(accessLevel: .internal))
     }
 
     func test_givenNoStrings_whenRun_thenGenerateEmptyString() {
@@ -84,7 +83,6 @@ class MockGeneratorControllerTests: XCTestCase {
 }
 
 private class GeneratorOutputSpy: GeneratorOutput {
-
     var text = ""
     var saveCount = 0
 

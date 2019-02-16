@@ -18,39 +18,51 @@ class Generate: NSObject, XCSourceEditorCommand {
         switch invocation.commandIdentifier {
         case "GeneratePrivateSpy":
             let output = InvocationGeneratorOutput(invocation: invocation)
-            let createMockInteractor = ProtocolSpyGeneratorController(visibility: "private")
+            let createMockInteractor = CreateSpyInteractor(accessLevel: .private)
             perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
         case "GenerateSpy":
             let output = InvocationGeneratorOutput(invocation: invocation)
-            let createMockInteractor = ProtocolSpyGeneratorController()
+            let createMockInteractor = CreateSpyInteractor(accessLevel: .internal)
+            perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
+        case "GeneratePublicSpy":
+            let output = InvocationGeneratorOutput(invocation: invocation)
+            let createMockInteractor = CreateSpyInteractor(accessLevel: .public)
             perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
         case "GenerateSpyToPasteboard":
             let output = PasteboardGeneratorOutput(invocation: invocation)
-            let createMockInteractor = ProtocolSpyGeneratorController()
+            let createMockInteractor = CreateSpyInteractor(accessLevel: .internal)
             perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
         case "GeneratePrivateStub":
             let output = InvocationGeneratorOutput(invocation: invocation)
-            let createMockInteractor = CreateStubInteractor(visibility: "private")
+            let createMockInteractor = CreateStubInteractor(accessLevel: .private)
             perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
         case "GenerateStub":
             let output = InvocationGeneratorOutput(invocation: invocation)
-            let createMockInteractor = CreateStubInteractor()
+            let createMockInteractor = CreateStubInteractor(accessLevel: .internal)
+            perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
+        case "GeneratePublicStub":
+            let output = InvocationGeneratorOutput(invocation: invocation)
+            let createMockInteractor = CreateStubInteractor(accessLevel: .public)
             perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
         case "GenerateStubToPasteboard":
             let output = PasteboardGeneratorOutput(invocation: invocation)
-            let createMockInteractor = CreateStubInteractor()
+            let createMockInteractor = CreateStubInteractor(accessLevel: .internal)
             perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
         case "GeneratePrivateDummy":
             let output = InvocationGeneratorOutput(invocation: invocation)
-            let createMockInteractor = CreateDummyInteractor(visibility: "private")
+            let createMockInteractor = CreateDummyInteractor(accessLevel: .private)
             perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
         case "GenerateDummy":
             let output = InvocationGeneratorOutput(invocation: invocation)
-            let createMockInteractor = CreateDummyInteractor()
+            let createMockInteractor = CreateDummyInteractor(accessLevel: .internal)
+            perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
+        case "GeneratePublicDummy":
+            let output = InvocationGeneratorOutput(invocation: invocation)
+            let createMockInteractor = CreateDummyInteractor(accessLevel: .public)
             perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
         case "GenerateDummyToPasteboard":
             let output = PasteboardGeneratorOutput(invocation: invocation)
-            let createMockInteractor = CreateDummyInteractor()
+            let createMockInteractor = CreateDummyInteractor(accessLevel: .internal)
             perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
         default:
             break

@@ -16,12 +16,16 @@
 		31D16C772146E02D00CA5A11 /* TypeStringFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D16C752146E02600CA5A11 /* TypeStringFactory.swift */; };
 		6606890D22170D61005E2936 /* CreateDummyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6606890C22170D61005E2936 /* CreateDummyInteractor.swift */; };
 		6606890F22170DB3005E2936 /* CreateDummyInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6606890E22170DB3005E2936 /* CreateDummyInteractorTests.swift */; };
+		6649FD802218BE6B00600098 /* AccessLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6649FD7F2218BE6B00600098 /* AccessLevel.swift */; };
 		666BDD771F51A36700CE4238 /* SampleProject.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB04749C1EC0685400FC2B34 /* SampleProject.txt */; };
 		6670D21D2218A74F006C07BB /* CreateStubInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6670D21C2218A74F006C07BB /* CreateStubInteractorTests.swift */; };
 		6670D21F2218A77F006C07BB /* CreateStubInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6670D21E2218A77F006C07BB /* CreateStubInteractor.swift */; };
 		6670D2202218A7A2006C07BB /* CreateStubInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6670D21E2218A77F006C07BB /* CreateStubInteractor.swift */; };
 		669D6860202660CB00600E59 /* InvocationGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669D685F202660CB00600E59 /* InvocationGeneratorOutput.swift */; };
 		669D68622026624800600E59 /* PasteboardGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669D68612026624800600E59 /* PasteboardGeneratorOutput.swift */; };
+		66AC4A4C2218C8CE003B24F7 /* AccessLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6649FD7F2218BE6B00600098 /* AccessLevel.swift */; };
+		66C8BA6C2218CB100099ACD8 /* CreateMockInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C8BA6B2218CB100099ACD8 /* CreateMockInteractor.swift */; };
+		66C8BA6D2218CB100099ACD8 /* CreateMockInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C8BA6B2218CB100099ACD8 /* CreateMockInteractor.swift */; };
 		66E602B222183D320024BD91 /* CreateDummyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6606890C22170D61005E2936 /* CreateDummyInteractor.swift */; };
 		BB0168D31EC78945001024A9 /* IndentationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0168D21EC78945001024A9 /* IndentationFormatter.swift */; };
 		BB0474341EC0609100FC2B34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474331EC0609100FC2B34 /* AppDelegate.swift */; };
@@ -33,7 +37,7 @@
 		BB0474681EC0611200FC2B34 /* Generator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474531EC0611200FC2B34 /* Generator.framework */; };
 		BB0474691EC0611200FC2B34 /* Generator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474531EC0611200FC2B34 /* Generator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BB0474711EC0618600FC2B34 /* MockGeneratorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */; };
-		BB0474721EC0618600FC2B34 /* ProtocolSpyGeneratorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */; };
+		BB0474721EC0618600FC2B34 /* CreateSpyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A73921EBD17CD00A843FF /* CreateSpyInteractor.swift */; };
 		BB0474731EC0618600FC2B34 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AB61EA946BD00ADCAAF /* Parser.swift */; };
 		BB0474741EC0618600FC2B34 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE8B1EB1149600AEBE06 /* Storage.swift */; };
 		BB0474751EC0618600FC2B34 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA81EA945C800ADCAAF /* Token.swift */; };
@@ -51,7 +55,7 @@
 		BB0474811EC0618600FC2B34 /* VarDeclarationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA433191EABB2DD0018CE48 /* VarDeclarationType.swift */; };
 		BB0474841EC061C000FC2B34 /* XCTextCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32E91EB12838005732CC /* XCTextCase.swift */; };
 		BB0474851EC061C000FC2B34 /* MockGeneratorControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A738B1EBD147800A843FF /* MockGeneratorControllerTests.swift */; };
-		BB0474861EC061C000FC2B34 /* ProtocolSpyGeneratorControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */; };
+		BB0474861EC061C000FC2B34 /* CreateSpyInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A73901EBD177B00A843FF /* CreateSpyInteractorTests.swift */; };
 		BB0474871EC061C000FC2B34 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24ACF1EA94DC700ADCAAF /* ParserTests.swift */; };
 		BB0474881EC061C000FC2B34 /* ArgumentParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB318B151EB240A300DF67FC /* ArgumentParserTests.swift */; };
 		BB0474891EC061C000FC2B34 /* FunctionDeclarationParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE32E11EB12247005732CC /* FunctionDeclarationParserTests.swift */; };
@@ -72,7 +76,7 @@
 		BB4776F01F018CF6000BA4CB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4776EE1F018C79000BA4CB /* String.swift */; };
 		BB5A01E61EF69E8200960734 /* ArgumentsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */; };
 		BB6E401F1EC26A2A003CD916 /* MockGeneratorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */; };
-		BB6E40201EC26A2A003CD916 /* ProtocolSpyGeneratorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */; };
+		BB6E40201EC26A2A003CD916 /* CreateSpyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A73921EBD17CD00A843FF /* CreateSpyInteractor.swift */; };
 		BB6E40211EC26A2A003CD916 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AB61EA946BD00ADCAAF /* Parser.swift */; };
 		BB6E40221EC26A2A003CD916 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4DE8B1EB1149600AEBE06 /* Storage.swift */; };
 		BB6E40231EC26A2A003CD916 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA81EA945C800ADCAAF /* Token.swift */; };
@@ -157,10 +161,12 @@
 		31D16C752146E02600CA5A11 /* TypeStringFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeStringFactory.swift; sourceTree = "<group>"; };
 		6606890C22170D61005E2936 /* CreateDummyInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDummyInteractor.swift; sourceTree = "<group>"; };
 		6606890E22170DB3005E2936 /* CreateDummyInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDummyInteractorTests.swift; sourceTree = "<group>"; };
+		6649FD7F2218BE6B00600098 /* AccessLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessLevel.swift; sourceTree = "<group>"; };
 		6670D21C2218A74F006C07BB /* CreateStubInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStubInteractorTests.swift; sourceTree = "<group>"; };
 		6670D21E2218A77F006C07BB /* CreateStubInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStubInteractor.swift; sourceTree = "<group>"; };
 		669D685F202660CB00600E59 /* InvocationGeneratorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationGeneratorOutput.swift; sourceTree = "<group>"; };
 		669D68612026624800600E59 /* PasteboardGeneratorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardGeneratorOutput.swift; sourceTree = "<group>"; };
+		66C8BA6B2218CB100099ACD8 /* CreateMockInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMockInteractor.swift; sourceTree = "<group>"; };
 		BB0168D21EC78945001024A9 /* IndentationFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndentationFormatter.swift; sourceTree = "<group>"; };
 		BB0168D41EC789FF001024A9 /* RubiconApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RubiconApp.entitlements; sourceTree = "<group>"; };
 		BB0474311EC0609100FC2B34 /* Rubicon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rubicon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -189,8 +195,8 @@
 		BB4776EE1F018C79000BA4CB /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		BB4A738B1EBD147800A843FF /* MockGeneratorControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MockGeneratorControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGeneratorController.swift; sourceTree = "<group>"; };
-		BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ProtocolSpyGeneratorControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolSpyGeneratorController.swift; sourceTree = "<group>"; };
+		BB4A73901EBD177B00A843FF /* CreateSpyInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CreateSpyInteractorTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		BB4A73921EBD17CD00A843FF /* CreateSpyInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSpyInteractor.swift; sourceTree = "<group>"; };
 		BB67AE091EB745F500BD20C4 /* ArgumentsParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ArgumentsParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB67AE0B1EB7462900BD20C4 /* ArgumentsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsParser.swift; sourceTree = "<group>"; };
 		BB67AE0E1EB7499900BD20C4 /* ArgumentsControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ArgumentsControllerTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -344,10 +350,12 @@
 		BB4A73891EBD143000A843FF /* Generator */ = {
 			isa = PBXGroup;
 			children = (
-				BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */,
-				BB4A73921EBD17CD00A843FF /* ProtocolSpyGeneratorController.swift */,
+				6649FD7F2218BE6B00600098 /* AccessLevel.swift */,
 				6606890C22170D61005E2936 /* CreateDummyInteractor.swift */,
+				BB4A73921EBD17CD00A843FF /* CreateSpyInteractor.swift */,
 				6670D21E2218A77F006C07BB /* CreateStubInteractor.swift */,
+				66C8BA6B2218CB100099ACD8 /* CreateMockInteractor.swift */,
+				BB4A738D1EBD14A700A843FF /* MockGeneratorController.swift */,
 				31D16C752146E02600CA5A11 /* TypeStringFactory.swift */,
 			);
 			path = Generator;
@@ -356,10 +364,10 @@
 		BB4A738A1EBD143800A843FF /* Generator */ = {
 			isa = PBXGroup;
 			children = (
-				BB4A738B1EBD147800A843FF /* MockGeneratorControllerTests.swift */,
-				BB4A73901EBD177B00A843FF /* ProtocolSpyGeneratorControllerTests.swift */,
 				6606890E22170DB3005E2936 /* CreateDummyInteractorTests.swift */,
+				BB4A73901EBD177B00A843FF /* CreateSpyInteractorTests.swift */,
 				6670D21C2218A74F006C07BB /* CreateStubInteractorTests.swift */,
+				BB4A738B1EBD147800A843FF /* MockGeneratorControllerTests.swift */,
 			);
 			path = Generator;
 			sourceTree = "<group>";
@@ -735,8 +743,9 @@
 				BB4776EF1F018C79000BA4CB /* String.swift in Sources */,
 				BB0474771EC0618600FC2B34 /* GeneratorOutput.swift in Sources */,
 				6670D21F2218A77F006C07BB /* CreateStubInteractor.swift in Sources */,
-				BB0474721EC0618600FC2B34 /* ProtocolSpyGeneratorController.swift in Sources */,
+				BB0474721EC0618600FC2B34 /* CreateSpyInteractor.swift in Sources */,
 				BB04747E1EC0618600FC2B34 /* FunctionDeclarationType.swift in Sources */,
+				6649FD802218BE6B00600098 /* AccessLevel.swift in Sources */,
 				BB0474811EC0618600FC2B34 /* VarDeclarationType.swift in Sources */,
 				BB0474751EC0618600FC2B34 /* Token.swift in Sources */,
 				3104544B2146711500F434D6 /* ClosureTypeParser.swift in Sources */,
@@ -754,6 +763,7 @@
 				BB0474791EC0618600FC2B34 /* FunctionDeclarationParser.swift in Sources */,
 				BB0474711EC0618600FC2B34 /* MockGeneratorController.swift in Sources */,
 				BB0474761EC0618600FC2B34 /* FileReader.swift in Sources */,
+				66C8BA6D2218CB100099ACD8 /* CreateMockInteractor.swift in Sources */,
 				BB0474731EC0618600FC2B34 /* Parser.swift in Sources */,
 				BB0474781EC0618600FC2B34 /* ArgumentParser.swift in Sources */,
 			);
@@ -764,7 +774,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB0474871EC061C000FC2B34 /* ParserTests.swift in Sources */,
-				BB0474861EC061C000FC2B34 /* ProtocolSpyGeneratorControllerTests.swift in Sources */,
+				BB0474861EC061C000FC2B34 /* CreateSpyInteractorTests.swift in Sources */,
 				BB04748D1EC061C000FC2B34 /* SimpleTypeParserTests.swift in Sources */,
 				BB0474841EC061C000FC2B34 /* XCTextCase.swift in Sources */,
 				BB0474851EC061C000FC2B34 /* MockGeneratorControllerTests.swift in Sources */,
@@ -798,12 +808,13 @@
 			files = (
 				BB6E402F1EC26A2A003CD916 /* VarDeclarationType.swift in Sources */,
 				BB6E402D1EC26A2A003CD916 /* ProtocolType.swift in Sources */,
-				BB6E40201EC26A2A003CD916 /* ProtocolSpyGeneratorController.swift in Sources */,
+				BB6E40201EC26A2A003CD916 /* CreateSpyInteractor.swift in Sources */,
 				BB6E40371EC26B2F003CD916 /* HelpController.swift in Sources */,
 				BBA24AA21EA9459800ADCAAF /* main.swift in Sources */,
 				BB6E401F1EC26A2A003CD916 /* MockGeneratorController.swift in Sources */,
 				BB4776F01F018CF6000BA4CB /* String.swift in Sources */,
 				6670D2202218A7A2006C07BB /* CreateStubInteractor.swift in Sources */,
+				66C8BA6C2218CB100099ACD8 /* CreateMockInteractor.swift in Sources */,
 				BB6E402B1EC26A2A003CD916 /* ArgumentType.swift in Sources */,
 				BB6E402E1EC26A2A003CD916 /* Type.swift in Sources */,
 				BB6E40271EC26A2A003CD916 /* FunctionDeclarationParser.swift in Sources */,
@@ -824,6 +835,7 @@
 				BB981FC81EBE26DB00BB1347 /* CommandLineAssembly.swift in Sources */,
 				BB0474981EC062E400FC2B34 /* StandardGeneratorOutput.swift in Sources */,
 				BB6E40281EC26A2A003CD916 /* ProtocolParser.swift in Sources */,
+				66AC4A4C2218C8CE003B24F7 /* AccessLevel.swift in Sources */,
 				BB6E40221EC26A2A003CD916 /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

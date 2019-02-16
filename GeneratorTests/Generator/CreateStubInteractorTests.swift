@@ -468,15 +468,49 @@ class CreateStubInteractorTests: XCTestCase {
     func test_givenEmptyProtocolAndPrivate_whenGenerate_thenGenerateStub() {
         let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
 
-        equal(protocolType: protocolType, visibility: "private", rows: [
+        equal(protocolType: protocolType, accessLevel: .private, rows: [
             "private class TestTestTestTestTestStub: TestTestTestTestTest {",
             "}",
             "",
         ])
     }
 
-    private func equal(protocolType: ProtocolType, visibility: String? = nil, rows: [String], line: UInt = #line) {
-        generator = CreateStubInteractor(visibility: visibility)
+    func test_givenProtocolWithArgumentAndThrowingFunctionWithReturnValue_whenGeneratePublic_thenGenerateStub() {
+        let variable = VarDeclarationType(isConstant: false, identifier: "color", type: type)
+        let argumentType = Type(name: "Int", isOptional: true)
+        let argument = ArgumentType(label: "_", name: "value", type: argumentType)
+        let returnType = Type(name: "String", isOptional: true)
+        let function = FunctionDeclarationType(name: "formattedString", arguments: [argument], isThrowing: true, returnType: returnType)
+        let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [variable], functions: [function])
+
+        equal(protocolType: protocolType, accessLevel: .public, rows: [
+            "public class FormatterStub: Formatter {",
+            "",
+            "\tpublic enum FormatterStubError: Error {",
+            "\t\tcase stubError",
+            "\t}",
+            "\tpublic typealias ThrowBlock = () throws -> Void",
+            "",
+            "\tpublic var color: Color",
+            "",
+            "\tpublic var formattedStringThrowBlock: ThrowBlock?",
+            "\tpublic var formattedStringReturn: String?",
+            "",
+            "\tpublic init(color: Color) {",
+            "\t\tself.color = color",
+            "\t}",
+            "",
+            "\tpublic func formattedString(_ value: Int?) throws -> String? {",
+            "\t\ttry formattedStringThrowBlock?()",
+            "\t\treturn formattedStringReturn",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
+    private func equal(protocolType: ProtocolType, accessLevel: AccessLevel = .internal, rows: [String], line: UInt = #line) {
+        generator = CreateStubInteractor(accessLevel: accessLevel)
         let generatedRows = generator.generate(from: protocolType).components(separatedBy: "\n")
 
         XCTAssertEqual(generatedRows.count, rows.count, line: line)

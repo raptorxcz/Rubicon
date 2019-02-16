@@ -7,7 +7,6 @@
 //
 
 class TypeStringFactory {
-
     static func makeSimpleString(_ type: Type) -> String {
         return "\(type.name)\(type.isOptional ? "?" : "")"
     }
