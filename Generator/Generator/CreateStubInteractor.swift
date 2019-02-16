@@ -7,18 +7,17 @@
 //
 
 public final class CreateStubInteractor: CreateMockInteractor {
-
-    private let visibility: String?
+    private let accessLevel: AccessLevel
     private var protocolType: ProtocolType?
 
-    public init(visibility: String? = nil) {
-        self.visibility = visibility
+    public init(accessLevel: AccessLevel) {
+        self.accessLevel = accessLevel
     }
 
     public func generate(from protocolType: ProtocolType) -> String {
         self.protocolType = protocolType
         var result = [String]()
-        result.append("\(makeVisibilityString())class \(protocolType.name)Stub: \(protocolType.name) {")
+        result.append("\(accessLevel.makeClassString())class \(protocolType.name)Stub: \(protocolType.name) {")
         result += generateBody(from: protocolType)
         result.append("}")
 
@@ -27,14 +26,6 @@ public final class CreateStubInteractor: CreateMockInteractor {
             string.append("\n")
         }
         return string
-    }
-
-    private func makeVisibilityString() -> String {
-        if let visibility = visibility {
-            return "\(visibility) "
-        } else {
-            return ""
-        }
     }
 
     private func generateBody(from protocolType: ProtocolType) -> [String] {
@@ -87,10 +78,10 @@ public final class CreateStubInteractor: CreateMockInteractor {
 
         if isAnyFuncThrowing {
             return """
-            \tenum \(type.name)StubError: Error {
+            \t\(accessLevel.makeContentString())enum \(type.name)StubError: Error {
             \t\tcase stubError
             \t}
-            \ttypealias ThrowBlock = () throws -> Void
+            \t\(accessLevel.makeContentString())typealias ThrowBlock = () throws -> Void
             """
         } else {
             return nil
@@ -109,7 +100,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         var bodyRows = type.variables.compactMap(makeAssigment(of:))
         bodyRows += type.functions.compactMap(makeReturnAssigment(of:))
         var result = [String]()
-        result.append("\tinit(\(arguments)) {")
+        result.append("\t\(accessLevel.makeContentString())init(\(arguments)) {")
         result += bodyRows
         result.append("\t}")
         return result
@@ -155,7 +146,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
 
         for variable in variables {
             let typeString = TypeStringFactory.makeSimpleString(variable.type)
-            result.append("\tvar \(variable.identifier): \(typeString)")
+            result.append("\t\(accessLevel.makeContentString())var \(variable.identifier): \(typeString)")
         }
 
         return result
@@ -177,12 +168,12 @@ public final class CreateStubInteractor: CreateMockInteractor {
         var results = [String]()
 
         if function.isThrowing {
-            results.append("\tvar \(functionName)ThrowBlock: ThrowBlock?")
+            results.append("\t\(accessLevel.makeContentString())var \(functionName)ThrowBlock: ThrowBlock?")
         }
 
         if let returnType = function.returnType {
             let returnTypeString = TypeStringFactory.makeSimpleString(returnType)
-            results.append("\tvar \(functionName)Return: \(returnTypeString)")
+            results.append("\t\(accessLevel.makeContentString())var \(functionName)Return: \(returnTypeString)")
         }
 
         return results
@@ -260,7 +251,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
             returnString += "-> \(returnTypeString) "
         }
 
-        result.append("\tfunc \(function.name)(\(argumentsString)) \(returnString){")
+        result.append("\t\(accessLevel.makeContentString())func \(function.name)(\(argumentsString)) \(returnString){")
         result += body.map({ "\t\t\($0)" })
         result.append("\t}")
         return result

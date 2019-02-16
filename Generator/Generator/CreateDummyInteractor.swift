@@ -6,23 +6,18 @@
 //  Copyright © 2019 Kryštof Matěj. All rights reserved.
 //
 
-public protocol CreateMockInteractor {
-    func generate(from protocolType: ProtocolType) -> String
-}
-
 public final class CreateDummyInteractor: CreateMockInteractor {
-
-    private let visibility: String?
+    private let accessLevel: AccessLevel
     private var protocolType: ProtocolType?
 
-    public init(visibility: String? = nil) {
-        self.visibility = visibility
+    public init(accessLevel: AccessLevel) {
+        self.accessLevel = accessLevel
     }
 
     public func generate(from protocolType: ProtocolType) -> String {
         self.protocolType = protocolType
         var result = [String]()
-        result.append("\(makeVisibilityString())class \(protocolType.name)Dummy: \(protocolType.name) {")
+        result.append("\(accessLevel.makeClassString())class \(protocolType.name)Dummy: \(protocolType.name) {")
         result += generateBody(from: protocolType)
         result.append("}")
 
@@ -31,14 +26,6 @@ public final class CreateDummyInteractor: CreateMockInteractor {
             string.append("\n")
         }
         return string
-    }
-
-    private func makeVisibilityString() -> String {
-        if let visibility = visibility {
-            return "\(visibility) "
-        } else {
-            return ""
-        }
     }
 
     private func generateBody(from protocolType: ProtocolType) -> [String] {
@@ -111,13 +98,13 @@ public final class CreateDummyInteractor: CreateMockInteractor {
 
             if variable.isConstant {
                 result += [
-                    "\tvar \(variable.identifier): \(typeString) {",
+                    "\t\(accessLevel.makeContentString())var \(variable.identifier): \(typeString) {",
                     "\t\tfatalError()",
                     "\t}",
                 ]
             } else {
                 result += [
-                    "\tvar \(variable.identifier): \(typeString) {",
+                    "\t\(accessLevel.makeContentString())var \(variable.identifier): \(typeString) {",
                     "\t\tget {",
                     "\t\t\tfatalError()",
                     "\t\t}",
@@ -189,7 +176,7 @@ public final class CreateDummyInteractor: CreateMockInteractor {
             returnString += "-> \(returnTypeString) "
         }
 
-        result.append("\tfunc \(function.name)(\(argumentsString)) \(returnString){")
+        result.append("\t\(accessLevel.makeContentString())func \(function.name)(\(argumentsString)) \(returnString){")
         result.append("\t\tfatalError()")
         result.append("\t}")
         return result

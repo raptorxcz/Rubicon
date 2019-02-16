@@ -438,19 +438,51 @@ class CreateDummyInteractorTests: XCTestCase {
         ])
     }
 
-    func test_givenEmptyProtocolAndPrivate_whenGenerate_thenGenerateSpy() {
+    func test_givenEmptyProtocolAndPrivate_whenGenerate_thenGenerateDummy() {
         let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
 
-        equal(protocolType: protocolType, visibility: "private", rows: [
+        equal(protocolType: protocolType, accessLevel: .private, rows: [
             "private class TestTestTestTestTestDummy: TestTestTestTestTest {",
             "}",
             "",
         ])
     }
 
-    private func equal(protocolType: ProtocolType, visibility: String? = nil, rows: [String], line: UInt = #line) {
-        generator = CreateDummyInteractor(visibility: visibility)
-        
+    func test_givenProtocolWithArgumentAndThrowingFunctionWithReturnValue_whenGeneratePublic_thenGenerateDummy() {
+        let variable = VarDeclarationType(isConstant: false, identifier: "color", type: type)
+        let variable2 = VarDeclarationType(isConstant: true, identifier: "color", type: type)
+        let argumentType = Type(name: "Int", isOptional: true)
+        let argument = ArgumentType(label: "_", name: "value", type: argumentType)
+        let returnType = Type(name: "String", isOptional: true)
+        let function = FunctionDeclarationType(name: "formattedString", arguments: [argument], isThrowing: true, returnType: returnType)
+        let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [variable, variable2], functions: [function])
+
+        equal(protocolType: protocolType, accessLevel: .public, rows: [
+            "public class FormatterDummy: Formatter {",
+            "",
+            "\tpublic var color: Color {",
+            "\t\tget {",
+            "\t\t\tfatalError()",
+            "\t\t}",
+            "\t\tset {",
+            "\t\t\tfatalError()",
+            "\t\t}",
+            "\t}",
+            "\tpublic var color: Color {",
+            "\t\tfatalError()",
+            "\t}",
+            "",
+            "\tpublic func formattedString(_ value: Int?) throws -> String? {",
+            "\t\tfatalError()",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
+    private func equal(protocolType: ProtocolType, accessLevel: AccessLevel = .internal, rows: [String], line: UInt = #line) {
+        generator = CreateDummyInteractor(accessLevel: accessLevel)
+
         let generatedRows = generator.generate(from: protocolType).components(separatedBy: "\n")
 
         XCTAssertEqual(generatedRows.count, rows.count, line: line)
