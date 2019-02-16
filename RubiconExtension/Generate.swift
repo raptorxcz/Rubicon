@@ -10,8 +10,7 @@ import Foundation
 import Generator
 import XcodeKit
 
-class GenerateSpy: NSObject, XCSourceEditorCommand {
-
+class Generate: NSObject, XCSourceEditorCommand {
     fileprivate var invocation: XCSourceEditorCommandInvocation?
     private var output: GeneratorOutput?
 

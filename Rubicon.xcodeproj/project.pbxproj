@@ -62,7 +62,7 @@
 		BB0474981EC062E400FC2B34 /* StandardGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474971EC062E400FC2B34 /* StandardGeneratorOutput.swift */; };
 		BB0474A51EC068FA00FC2B34 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474A41EC068FA00FC2B34 /* Cocoa.framework */; };
 		BB0474AA1EC068FA00FC2B34 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */; };
-		BB0474AC1EC068FA00FC2B34 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474AB1EC068FA00FC2B34 /* SourceEditorCommand.swift */; };
+		BB0474AC1EC068FA00FC2B34 /* Generate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474AB1EC068FA00FC2B34 /* Generate.swift */; };
 		BB0474B01EC068FA00FC2B34 /* Rubicon.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BB0474A21EC068FA00FC2B34 /* Rubicon.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BB0474B51EC0690600FC2B34 /* Generator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474531EC0611200FC2B34 /* Generator.framework */; };
 		BB4776EF1F018C79000BA4CB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4776EE1F018C79000BA4CB /* String.swift */; };
@@ -176,7 +176,7 @@
 		BB0474A41EC068FA00FC2B34 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BB0474A81EC068FA00FC2B34 /* RubiconExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RubiconExtension.entitlements; sourceTree = "<group>"; };
 		BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorExtension.swift; sourceTree = "<group>"; };
-		BB0474AB1EC068FA00FC2B34 /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
+		BB0474AB1EC068FA00FC2B34 /* Generate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generate.swift; sourceTree = "<group>"; };
 		BB0474AD1EC068FA00FC2B34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB318B151EB240A300DF67FC /* ArgumentParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ArgumentParserTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB318B171EB240D300DF67FC /* ArgumentParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentParser.swift; sourceTree = "<group>"; };
@@ -319,7 +319,7 @@
 			children = (
 				BB0474A71EC068FA00FC2B34 /* Supporting Files */,
 				BB0474AD1EC068FA00FC2B34 /* Info.plist */,
-				BB0474AB1EC068FA00FC2B34 /* SourceEditorCommand.swift */,
+				BB0474AB1EC068FA00FC2B34 /* Generate.swift */,
 				669D68612026624800600E59 /* PasteboardGeneratorOutput.swift */,
 				669D685F202660CB00600E59 /* InvocationGeneratorOutput.swift */,
 				BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */,
@@ -779,7 +779,7 @@
 				BB0474AA1EC068FA00FC2B34 /* SourceEditorExtension.swift in Sources */,
 				BB0168D31EC78945001024A9 /* IndentationFormatter.swift in Sources */,
 				669D68622026624800600E59 /* PasteboardGeneratorOutput.swift in Sources */,
-				BB0474AC1EC068FA00FC2B34 /* SourceEditorCommand.swift in Sources */,
+				BB0474AC1EC068FA00FC2B34 /* Generate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
