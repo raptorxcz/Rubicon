@@ -623,7 +623,7 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = M36Y4P27ZU;
 						LastSwiftMigration = 0910;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -644,7 +644,7 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = M36Y4P27ZU;
 						LastSwiftMigration = 0910;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					BBA24A9D1EA9459800ADCAAF = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -884,7 +884,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RubiconApp/RubiconApp.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = M36Y4P27ZU;
 				INFOPLIST_FILE = RubiconApp/Info.plist;
@@ -902,7 +902,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RubiconApp/RubiconApp.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = M36Y4P27ZU;
 				INFOPLIST_FILE = RubiconApp/Info.plist;
@@ -987,6 +987,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "RubiconExtension/Supporting Files/RubiconExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = M36Y4P27ZU;
 				INFOPLIST_FILE = RubiconExtension/Info.plist;
@@ -994,6 +995,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.rubicon-app.rubicon-enxtension";
 				PRODUCT_NAME = Rubicon;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -1003,6 +1005,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "RubiconExtension/Supporting Files/RubiconExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = M36Y4P27ZU;
 				INFOPLIST_FILE = RubiconExtension/Info.plist;
@@ -1010,6 +1013,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.im-art.rubicon-app.rubicon-enxtension";
 				PRODUCT_NAME = Rubicon;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
