@@ -6,7 +6,7 @@ Now available on AppStore [https://itunes.apple.com/cz/app/rubicon/id1238839496?
 
 Swift parser + mock generator
 
-Rubicon generates spys for protocol. Parsing closures is not supported. Generating methods for parent protocol is not supported.
+Rubicon generates spys for protocol. Generating methods for parent protocol is not supported.
 
 example:
 
