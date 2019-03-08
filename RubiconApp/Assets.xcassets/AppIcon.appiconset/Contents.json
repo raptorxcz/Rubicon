@@ -3,61 +3,61 @@
     {
       "size" : "16x16",
       "idiom" : "mac",
-      "filename" : "iTunesArtwork16.png",
+      "filename" : "Mac_16pt.png",
       "scale" : "1x"
     },
     {
       "size" : "16x16",
       "idiom" : "mac",
-      "filename" : "iTunesArtwork32-1.png",
+      "filename" : "Mac_16pt@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "32x32",
       "idiom" : "mac",
-      "filename" : "iTunesArtwork32.png",
+      "filename" : "Mac_32pt.png",
       "scale" : "1x"
     },
     {
       "size" : "32x32",
       "idiom" : "mac",
-      "filename" : "iTunesArtwork64.png",
+      "filename" : "Mac_32pt@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "128x128",
       "idiom" : "mac",
-      "filename" : "iTunesArtwork128.png",
+      "filename" : "Mac_128pt.png",
       "scale" : "1x"
     },
     {
       "size" : "128x128",
       "idiom" : "mac",
-      "filename" : "iTunesArtwork256.png",
+      "filename" : "Mac_128pt@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "256x256",
       "idiom" : "mac",
-      "filename" : "iTunesArtwork256-1.png",
+      "filename" : "Mac_256pt.png",
       "scale" : "1x"
     },
     {
       "size" : "256x256",
       "idiom" : "mac",
-      "filename" : "iTunesArtwork512.png",
+      "filename" : "Mac_256pt@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "512x512",
       "idiom" : "mac",
-      "filename" : "iTunesArtwork512-1.png",
+      "filename" : "Mac_512pt.png",
       "scale" : "1x"
     },
     {
       "size" : "512x512",
       "idiom" : "mac",
-      "filename" : "iTunesArtwork@2x.png",
+      "filename" : "Mac_512pt@2x.png",
       "scale" : "2x"
     }
   ],
