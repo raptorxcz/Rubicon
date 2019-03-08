@@ -27,15 +27,13 @@ protocol Car {
 
 ```
 
+####Spy
+
 output:
 
 ```swift
-class CarSpy: Car {
 
-    enum CarSpyError: Error {
-        case spyError
-    }
-    typealias ThrowBlock = () throws -> Void
+class CarSpy: Car {
 
     var name: String?
     var color: Int
@@ -47,14 +45,11 @@ class CarSpy: Car {
 
     var goCount = 0
     var load = [Load]()
-    var loadThrowBlock: ThrowBlock?
-    var loadReturn: Int
     var isFullCount = 0
     var isFullReturn: Bool
 
-    init(color: Int, loadReturn: Int, isFullReturn: Bool) {
+    init(color: Int, isFullReturn: Bool) {
         self.color = color
-        self.loadReturn = loadReturn
         self.isFullReturn = isFullReturn
     }
 
@@ -62,11 +57,9 @@ class CarSpy: Car {
         goCount += 1
     }
 
-    func load(with stuff: Int, label: String) throws -> Int {
+    func load(with stuff: Int, label: String) {
         let item = Load(stuff: stuff, label: label)
         load.append(item)
-        try loadThrowBlock?()
-        return loadReturn
     }
 
     func isFull() -> Bool {
@@ -74,6 +67,73 @@ class CarSpy: Car {
         return isFullReturn
     }
 }
+
+```
+
+####Mock
+
+output:
+
+```swift
+
+class CarStub: Car {
+
+    var name: String?
+    var color: Int
+
+    var isFullReturn: Bool
+
+    init(color: Int, isFullReturn: Bool) {
+        self.color = color
+        self.isFullReturn = isFullReturn
+    }
+
+    func go() {
+    }
+
+    func load(with stuff: Int, label: String) {
+    }
+
+    func isFull() -> Bool {
+        return isFullReturn
+    }
+}
+
+```
+
+####Dummy
+
+output:
+
+```swift
+
+class CarDummy: Car {
+
+    var name: String? {
+        fatalError()
+    }
+    var color: Int {
+        get {
+            fatalError()
+        }
+        set {
+            fatalError()
+        }
+    }
+
+    func go() {
+        fatalError()
+    }
+
+    func load(with stuff: Int, label: String) {
+        fatalError()
+    }
+
+    func isFull() -> Bool {
+        fatalError()
+    }
+}
+
 ```
 
 usage in tests:
