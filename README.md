@@ -1,14 +1,20 @@
+<p align="center">
+  <a href="https://github.com/raptorxcz/Rubicon">
+      <img src="RubiconApp/Assets.xcassets/AppIcon.appiconset/Mac_256pt.png" alt="Rubicon" srcset="RubiconApp/Assets.xcassets/AppIcon.appiconset/Mac_256pt@2x.png 2x" />
+    </a>
+</p>
+
 # Rubicon
 [![Build Status](https://travis-ci.org/raptorxcz/Rubicon.svg?branch=master)](https://travis-ci.org/raptorxcz/Rubicon)
 [![Build Status](https://codecov.io/gh/raptorxcz/Rubicon/branch/master/graph/badge.svg)](https://codecov.io/gh/raptorxcz/Rubicon)
 
-Now available on AppStore [https://itunes.apple.com/cz/app/rubicon/id1238839496?mt=12](https://itunes.apple.com/cz/app/rubicon/id1238839496?mt=12)
+**Again available on AppStore [https://itunes.apple.com/cz/app/rubicon/id1453837387](https://itunes.apple.com/cz/app/rubicon/id1453837387)**
 
 Swift parser + mock generator
 
 Rubicon generates spys for protocol. Generating methods for parent protocol is not supported.
 
-example:
+## Example
 
 input:
 
@@ -27,7 +33,7 @@ protocol Car {
 
 ```
 
-####Spy
+### Spy
 
 output:
 
@@ -70,7 +76,7 @@ class CarSpy: Car {
 
 ```
 
-####Mock
+### Mock
 
 output:
 
@@ -101,7 +107,7 @@ class CarStub: Car {
 
 ```
 
-####Dummy
+### Dummy
 
 output:
 
@@ -136,17 +142,17 @@ class CarDummy: Car {
 
 ```
 
-usage in tests:
+### Usage in tests:
+
 ```swift
 let carSpy = CarSpy()
 
 ...
 
-let a1 = carSpy.goCount == 1
-let a2 = carSpy.load.count == 1
-let a3 = carSpy.load[0].stuff == 2
-let a4 = carSpy.load[0].label == "name"
-
+XCTAssertEqual(carSpy.goCount, 1)
+XCTAssertEqual(carSpy.load.count, 1)
+XCTAssertEqual(carSpy.load[0].stuff, 2)
+XCTAssertEqual(carSpy.load[0].label, "name")
 ```
 
 ## CLI
@@ -154,13 +160,20 @@ let a4 = carSpy.load[0].label == "name"
 Rubicon cli can generate mocks for every protocol in folder. Script runs through every swift file and find every protocol definition. Result is printed at standard out.
 
 example:
+
 ```
-./rubicon --mocks .
+$ ./rubicon --spy .
 ```
 
-### options:
+### Options:
 
-`--mocks path` generates spys for protocols in files.
+`--mocks path` - generates spies (deprecated)
+
+`--spy path` - generates spies
+
+`--stub path` - generates stubs
+
+`--dummy path` - generates dummies
 
 ## Xcode extension
 
