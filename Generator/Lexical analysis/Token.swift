@@ -6,7 +6,7 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-public enum Token {
+public enum Token: Equatable {
     case identifier(name: String)
     case `protocol`
     case leftCurlyBracket
@@ -28,56 +28,5 @@ public enum Token {
     case `throws`
     case escaping
     case autoclosure
-}
-
-extension Token: Equatable {
-    public static func == (lhs: Token, rhs: Token) -> Bool {
-
-        switch (lhs, rhs) {
-        case let (.identifier(name1), .identifier(name2)):
-            return name1 == name2
-        case (.protocol, .protocol):
-            return true
-        case (.leftCurlyBracket, .leftCurlyBracket):
-            return true
-        case (.rightCurlyBracket, .rightCurlyBracket):
-            return true
-        case (.leftBracket, .leftBracket):
-            return true
-        case (.rightBracket, .rightBracket):
-            return true
-        case (.colon, .colon):
-            return true
-        case (.comma, .comma):
-            return true
-        case (.questionMark, .questionMark):
-            return true
-        case (.equal, .equal):
-            return true
-        case (.variable, .variable):
-            return true
-        case (.constant, .constant):
-            return true
-        case (.function, .function):
-            return true
-        case (.arrow, .arrow):
-            return true
-        case (.leftSquareBracket, .leftSquareBracket):
-            return true
-        case (.rightSquareBracket, .rightSquareBracket):
-            return true
-        case (.throws, .throws):
-            return true
-        case (.lessThan, .lessThan):
-            return true
-        case (.greaterThan, .greaterThan):
-            return true
-        case (.escaping, .escaping):
-            return true
-        case (.autoclosure, .autoclosure):
-            return true
-        default:
-            return false
-        }
-    }
+    case comment(text: String)
 }

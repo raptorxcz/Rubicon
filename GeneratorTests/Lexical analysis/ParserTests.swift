@@ -11,7 +11,6 @@ import Generator
 import XCTest
 
 class ParserTests: XCTestCase {
-
     let parser = Parser()
 
     func test_givenEmptyString_whenParse_thenEmptyResult() {
@@ -227,6 +226,30 @@ class ParserTests: XCTestCase {
             .rightCurlyBracket,
         ]
         XCTAssertEqual(result, expected)
+    }
+
+    func test_givenLineComment_whenParse_thenCommentIsParsed() {
+        let result = parser.parse("//a\n")
+
+        XCTAssertEqual(result, [.comment(text: "a")])
+    }
+
+    func test_givenLineCommentInContent_whenParse_thenCommentIsParsed() {
+        let result = parser.parse("\n//a\n\n")
+
+        XCTAssertEqual(result, [.comment(text: "a")])
+    }
+
+    func test_givenBlockComment_whenParse_thenCommentIsParsed() {
+        let result = parser.parse("/*a\n*/")
+
+        XCTAssertEqual(result, [.comment(text: "a\n")])
+    }
+
+    func test_givenBlockCommentInContent_whenParse_thenCommentIsParsed() {
+        let result = parser.parse("\n\n/*a\n*/\n\n")
+
+        XCTAssertEqual(result, [.comment(text: "a\n")])
     }
 
     func test_givenBigFile_whenParse_thenMeasureSpeed() {

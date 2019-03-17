@@ -7,18 +7,16 @@
 //
 
 public class Parser {
-
     private var buffer: String = ""
     private var results = [Token]()
     private let identifierCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_."
 
-    public init() {
-    }
+    public init() {}
 
     public func parse(_ text: String) -> [Token] {
         let text = text + " "
         var index = text.startIndex
-        let range = text.startIndex ..< text.endIndex
+        let range = text.startIndex..<text.endIndex
 
         while range.contains(index) {
             switch text[index] {
@@ -54,6 +52,8 @@ public class Parser {
                 index = parseName(from: index, in: text)
             case "@":
                 index = parseAt(from: index, in: text)
+            case "/":
+                index = parseCommentAt(from: index, in: text)
             default:
                 break
             }
@@ -74,7 +74,7 @@ public class Parser {
             isEndBackwardsQuoteRequired = true
         }
 
-        let range = index ..< text.endIndex
+        let range = index..<text.endIndex
         while range.contains(index) {
             let character = text[index]
 
@@ -128,6 +128,41 @@ public class Parser {
             return text.index(secondIndex, offsetBy: 11)
         }
         return index
+    }
+
+    private func parseCommentAt(from index: String.Index, in text: String) -> String.Index {
+        let secondIndex = text.index(after: index)
+
+        guard text.indices.contains(secondIndex) else {
+            return index
+        }
+        let substring = text[index...]
+
+        if substring.starts(with: "//") {
+            return parseLineComment(from: index, in: text, start: "//", end: "\n")
+        } else if substring.starts(with: "/*") {
+            return parseLineComment(from: index, in: text, start: "/*", end: "*/")
+        } else {
+            return text.index(after: index)
+        }
+    }
+
+    private func parseLineComment(from index: String.Index, in text: String, start: String, end: String) -> String.Index {
+        let secondIndex = text.index(after: index)
+        let substring = text[index...]
+
+        guard substring.starts(with: start) else {
+            return secondIndex
+        }
+
+        guard let endIndex = substring.startIndex(of: String.SubSequence(end)) else {
+            return secondIndex
+        }
+
+        let contentStartIndex = substring.index(after: secondIndex)
+        addToResult(.comment(text: String(substring[contentStartIndex..<endIndex])))
+
+        return endIndex
     }
 
     private func parseContains(phrase: String, in text: String) -> Bool {
