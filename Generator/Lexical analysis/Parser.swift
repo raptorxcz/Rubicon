@@ -158,10 +158,6 @@ public class Parser {
         guard let endIndex = substring.startIndex(of: String.SubSequence(end)) else {
             return secondIndex
         }
-
-        let contentStartIndex = substring.index(after: secondIndex)
-        addToResult(.comment(text: String(substring[contentStartIndex..<endIndex])))
-
         return endIndex
     }
 
