@@ -193,6 +193,9 @@ class ParserTests: XCTestCase {
 
     func test_givenProtocolDefinition_whenParse_thenProtocolTokens() {
         var string = ""
+        string += "//  Created by Kryštof Matěj on 18/03/2019.\n"
+        string += "/*  Copyright © 2019 Cleverlance. All rights reserved. */\n"
+        string += "\n"
         string += "protocol Satelite {\n"
         string += "    var panels: Int { get set }\n"
         string += "    func move(to x: Float, y: Float)\n"
@@ -229,27 +232,27 @@ class ParserTests: XCTestCase {
     }
 
     func test_givenLineComment_whenParse_thenCommentIsParsed() {
-        let result = parser.parse("//a\n")
+        let result = parser.parse("//class\n")
 
-        XCTAssertEqual(result, [.comment(text: "a")])
+        XCTAssertEqual(result, [])
     }
 
     func test_givenLineCommentInContent_whenParse_thenCommentIsParsed() {
-        let result = parser.parse("\n//a\n\n")
+        let result = parser.parse("\nprotocol//class\n\n")
 
-        XCTAssertEqual(result, [.comment(text: "a")])
+        XCTAssertEqual(result, [.protocol])
     }
 
     func test_givenBlockComment_whenParse_thenCommentIsParsed() {
-        let result = parser.parse("/*a\n*/")
+        let result = parser.parse("/*class\n*/")
 
-        XCTAssertEqual(result, [.comment(text: "a\n")])
+        XCTAssertEqual(result, [])
     }
 
     func test_givenBlockCommentInContent_whenParse_thenCommentIsParsed() {
-        let result = parser.parse("\n\n/*a\n*/\n\n")
+        let result = parser.parse("\nprotocol\n/*class\n*/\nprotocol\n")
 
-        XCTAssertEqual(result, [.comment(text: "a\n")])
+        XCTAssertEqual(result, [.protocol, .protocol])
     }
 
     func test_givenBigFile_whenParse_thenMeasureSpeed() {
