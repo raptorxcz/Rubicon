@@ -637,6 +637,26 @@ class CreateSpyInteractorTests: XCTestCase {
         ])
     }
 
+    func test_givenProtocolSimpleFunction_whenGeneratePublic_thenGenerateSpyWithEmptyInit() {
+        let function = FunctionDeclarationType(name: "go", arguments: [], isThrowing: false, returnType: nil)
+        let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, accessLevel: .public, rows: [
+            "public class FormatterSpy: Formatter {",
+            "",
+            "\tpublic var goCount = 0",
+            "",
+            "\tpublic init() {",
+            "\t}",
+            "",
+            "\tpublic func go() {",
+            "\t\tgoCount += 1",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
     private func equal(protocolType: ProtocolType, accessLevel: AccessLevel = .internal, rows: [String], line: UInt = #line) {
         generator = CreateSpyInteractor(accessLevel: accessLevel)
         let generatedRows = generator.generate(from: protocolType).components(separatedBy: "\n")

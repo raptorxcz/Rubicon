@@ -36,6 +36,13 @@ public final class CreateDummyInteractor: CreateMockInteractor {
             content += generateVariables(protocolType.variables)
         }
 
+        let initRows = generateInit(for: protocolType)
+
+        if !initRows.isEmpty {
+            content.append("")
+            content += initRows
+        }
+
         let body = generateFunctionsBody(for: protocolType)
         if !body.isEmpty {
             content.append("")
@@ -43,6 +50,17 @@ public final class CreateDummyInteractor: CreateMockInteractor {
         }
 
         return content
+    }
+
+    private func generateInit(for type: ProtocolType) -> [String] {
+        guard accessLevel == .public else {
+            return []
+        }
+
+        var result = [String]()
+        result.append("\t\(accessLevel.makeContentString())init() {")
+        result.append("\t}")
+        return result
     }
 
     private func generateFunctionsBody(for protocolType: ProtocolType) -> [String] {

@@ -509,6 +509,23 @@ class CreateStubInteractorTests: XCTestCase {
         ])
     }
 
+    func test_givenProtocolSimpleFunction_whenGeneratePublic_thenGenerateStubWithEmptyInit() {
+        let function = FunctionDeclarationType(name: "go", arguments: [], isThrowing: false, returnType: nil)
+        let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, accessLevel: .public, rows: [
+            "public class FormatterStub: Formatter {",
+            "",
+            "\tpublic init() {",
+            "\t}",
+            "",
+            "\tpublic func go() {",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
     private func equal(protocolType: ProtocolType, accessLevel: AccessLevel = .internal, rows: [String], line: UInt = #line) {
         generator = CreateStubInteractor(accessLevel: accessLevel)
         let generatedRows = generator.generate(from: protocolType).components(separatedBy: "\n")
