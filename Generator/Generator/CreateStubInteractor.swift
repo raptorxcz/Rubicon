@@ -93,7 +93,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         variables += type.functions.compactMap(makeReturnArgument(of:))
         let arguments = variables.joined(separator: ", ")
 
-        guard !arguments.isEmpty else {
+        guard !arguments.isEmpty || accessLevel == .public else {
             return []
         }
 
