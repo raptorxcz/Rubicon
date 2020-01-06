@@ -77,7 +77,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
 
         if isAnyFuncThrowing {
             return """
-            \t\(accessLevel.makeContentString())enum \(type.name)SpyError: Error {
+            \t\(accessLevel.makeContentString())enum SpyError: Error {
             \t\tcase spyError
             \t}
             \t\(accessLevel.makeContentString())typealias ThrowBlock = () throws -> Void
