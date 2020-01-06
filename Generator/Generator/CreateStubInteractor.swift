@@ -78,7 +78,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
 
         if isAnyFuncThrowing {
             return """
-            \t\(accessLevel.makeContentString())enum \(type.name)StubError: Error {
+            \t\(accessLevel.makeContentString())enum StubError: Error {
             \t\tcase stubError
             \t}
             \t\(accessLevel.makeContentString())typealias ThrowBlock = () throws -> Void

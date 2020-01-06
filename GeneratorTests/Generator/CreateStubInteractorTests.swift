@@ -160,7 +160,7 @@ class CreateStubInteractorTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class CarStub: Car {",
             "",
-            "\tenum CarStubError: Error {",
+            "\tenum StubError: Error {",
             "\t\tcase stubError",
             "\t}",
             "\ttypealias ThrowBlock = () throws -> Void",
@@ -189,7 +189,7 @@ class CreateStubInteractorTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class CarStub: Car {",
             "",
-            "\tenum CarStubError: Error {",
+            "\tenum StubError: Error {",
             "\t\tcase stubError",
             "\t}",
             "\ttypealias ThrowBlock = () throws -> Void",
@@ -486,7 +486,7 @@ class CreateStubInteractorTests: XCTestCase {
         equal(protocolType: protocolType, accessLevel: .public, rows: [
             "public class FormatterStub: Formatter {",
             "",
-            "\tpublic enum FormatterStubError: Error {",
+            "\tpublic enum StubError: Error {",
             "\t\tcase stubError",
             "\t}",
             "\tpublic typealias ThrowBlock = () throws -> Void",
