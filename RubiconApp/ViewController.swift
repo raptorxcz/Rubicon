@@ -7,18 +7,33 @@
 //
 
 import Cocoa
+import Generator
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, GeneratorOutput {
+    @IBOutlet weak var sourceTextField: NSTextField!
+    @IBOutlet weak var resultLabel: NSTextField!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    @IBAction func generateSpy(_ sender: Any) {
+        let spyMocksController = MocksGeneratorControllerImpl(output: self, interactor: CreateSpyInteractor(accessLevel: .internal))
+        let texts = [sourceTextField.stringValue]
+        spyMocksController.run(texts: texts)
     }
 
-    override var representedObject: Any? {
-        didSet {
-            // Update the view, if already loaded.
-        }
+    @IBAction func generateStub(_ sender: Any) {
+        let spyMocksController = MocksGeneratorControllerImpl(output: self, interactor: CreateStubInteractor(accessLevel: .internal))
+        let texts = [sourceTextField.stringValue]
+        spyMocksController.run(texts: texts)
+    }
+
+    @IBAction func generateDummy(_ sender: Any) {
+        let spyMocksController = MocksGeneratorControllerImpl(output: self, interactor: CreateDummyInteractor(accessLevel: .internal))
+        let texts = [sourceTextField.stringValue]
+        spyMocksController.run(texts: texts)
+    }
+
+    // MARK: - GeneratorOutput
+
+    func save(text: String) {
+        resultLabel.stringValue = text
     }
 }
