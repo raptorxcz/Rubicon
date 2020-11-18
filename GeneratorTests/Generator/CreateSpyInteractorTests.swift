@@ -165,7 +165,7 @@ class CreateSpyInteractorTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
-            "\tenum CarSpyError: Error {",
+            "\tenum SpyError: Error {",
             "\t\tcase spyError",
             "\t}",
             "\ttypealias ThrowBlock = () throws -> Void",
@@ -196,7 +196,7 @@ class CreateSpyInteractorTests: XCTestCase {
         equal(protocolType: protocolType, rows: [
             "class CarSpy: Car {",
             "",
-            "\tenum CarSpyError: Error {",
+            "\tenum SpyError: Error {",
             "\t\tcase spyError",
             "\t}",
             "\ttypealias ThrowBlock = () throws -> Void",
@@ -607,7 +607,7 @@ class CreateSpyInteractorTests: XCTestCase {
         equal(protocolType: protocolType, accessLevel: .public, rows: [
             "public class FormatterSpy: Formatter {",
             "",
-            "\tpublic enum FormatterSpyError: Error {",
+            "\tpublic enum SpyError: Error {",
             "\t\tcase spyError",
             "\t}",
             "\tpublic typealias ThrowBlock = () throws -> Void",
