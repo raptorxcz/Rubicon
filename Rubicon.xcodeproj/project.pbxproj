@@ -21,6 +21,8 @@
 		6670D21D2218A74F006C07BB /* CreateStubInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6670D21C2218A74F006C07BB /* CreateStubInteractorTests.swift */; };
 		6670D21F2218A77F006C07BB /* CreateStubInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6670D21E2218A77F006C07BB /* CreateStubInteractor.swift */; };
 		6670D2202218A7A2006C07BB /* CreateStubInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6670D21E2218A77F006C07BB /* CreateStubInteractor.swift */; };
+		66990B3125D4835D00F5875B /* XcodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF3D3871EC78F2B00FAB739 /* XcodeKit.framework */; };
+		66990B3225D4835D00F5875B /* XcodeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BBF3D3871EC78F2B00FAB739 /* XcodeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		669D6860202660CB00600E59 /* InvocationGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669D685F202660CB00600E59 /* InvocationGeneratorOutput.swift */; };
 		669D68622026624800600E59 /* PasteboardGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669D68612026624800600E59 /* PasteboardGeneratorOutput.swift */; };
 		66AC4A4C2218C8CE003B24F7 /* AccessLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6649FD7F2218BE6B00600098 /* AccessLevel.swift */; };
@@ -95,7 +97,6 @@
 		BB6E40371EC26B2F003CD916 /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FCB1EBE27F100BB1347 /* HelpController.swift */; };
 		BB981FC81EBE26DB00BB1347 /* CommandLineAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC71EBE26DB00BB1347 /* CommandLineAssembly.swift */; };
 		BBA24AA21EA9459800ADCAAF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA11EA9459800ADCAAF /* main.swift */; };
-		BBF3D3881EC78F2B00FAB739 /* XcodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF3D3871EC78F2B00FAB739 /* XcodeKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +131,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		66990B3325D4835D00F5875B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				66990B3225D4835D00F5875B /* XcodeKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BB04746D1EC0611200FC2B34 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -257,7 +269,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBF3D3881EC78F2B00FAB739 /* XcodeKit.framework in Frameworks */,
+				66990B3125D4835D00F5875B /* XcodeKit.framework in Frameworks */,
 				BB0474B51EC0690600FC2B34 /* Generator.framework in Frameworks */,
 				BB0474A51EC068FA00FC2B34 /* Cocoa.framework in Frameworks */,
 			);
@@ -582,6 +594,7 @@
 				BB04749E1EC068FA00FC2B34 /* Sources */,
 				BB04749F1EC068FA00FC2B34 /* Frameworks */,
 				BB0474A01EC068FA00FC2B34 /* Resources */,
+				66990B3325D4835D00F5875B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -886,12 +899,12 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 473264X5JK;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = RubiconApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cleverlance.rubicon;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)App";
 				PRODUCT_NAME = Rubicon;
@@ -908,11 +921,11 @@
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 473264X5JK;
 				INFOPLIST_FILE = RubiconApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cleverlance.rubicon;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)App";
 				PRODUCT_NAME = Rubicon;
@@ -1000,13 +1013,13 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 473264X5JK;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = RubiconExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cleverlance.rubicon.xcode-enxtension";
 				PRODUCT_NAME = Rubicon;
 				PROVISIONING_PROFILE_SPECIFIER = "Rubicon Xcode Extension";
@@ -1022,12 +1035,12 @@
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 473264X5JK;
 				INFOPLIST_FILE = RubiconExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cleverlance.rubicon.xcode-enxtension";
 				PRODUCT_NAME = Rubicon;
 				PROVISIONING_PROFILE_SPECIFIER = "Rubicon Xcode Extension App Store";
