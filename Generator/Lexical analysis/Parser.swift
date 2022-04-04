@@ -186,6 +186,8 @@ public class Parser {
             token = .function
         case "throws":
             token = .throws
+        case "async":
+            token = .async
         default:
             token = .identifier(name: name)
         }

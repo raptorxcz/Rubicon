@@ -40,6 +40,7 @@ class FunctionDeclarationParserTests: XCTestCase {
             let definition = try FunctionDeclarationParser(storage: storage).parse()
             XCTAssertEqual(definition.name, "f")
             XCTAssertEqual(definition.isThrowing, false)
+            XCTAssertEqual(definition.isAsync, false)
             XCTAssertEqual(storage.current, .colon)
         } catch {
             XCTFail()
@@ -145,16 +146,41 @@ class FunctionDeclarationParserTests: XCTestCase {
         let tokens: [Token] = [.function, .identifier(name: "f"), .leftBracket, .rightBracket, .throws, .arrow, .identifier(name: "Int")]
         let storage = try Storage(tokens: tokens)
 
-        do {
-            let definition = try FunctionDeclarationParser(storage: storage).parse()
-            XCTAssertEqual(definition.name, "f")
-            XCTAssertEqual(definition.arguments.count, 0)
-            XCTAssertEqual(definition.isThrowing, true)
-            XCTAssertEqual(definition.returnType?.name, "Int")
-            XCTAssertEqual(storage.current, .identifier(name: "Int"))
-        } catch {
-            XCTFail()
-        }
+        let definition = try FunctionDeclarationParser(storage: storage).parse()
+
+        XCTAssertEqual(definition.name, "f")
+        XCTAssertEqual(definition.arguments.count, 0)
+        XCTAssertEqual(definition.isThrowing, true)
+        XCTAssertEqual(definition.returnType?.name, "Int")
+        XCTAssertEqual(storage.current, .identifier(name: "Int"))
+    }
+
+    func test_givenAsyncFunctionWithReturn_whenParse_thenFunctionIsParsed() throws {
+        let tokens: [Token] = [.function, .identifier(name: "f"), .leftBracket, .rightBracket, .async, .arrow, .identifier(name: "Int")]
+        let storage = try Storage(tokens: tokens)
+
+        let definition = try FunctionDeclarationParser(storage: storage).parse()
+
+        XCTAssertEqual(definition.name, "f")
+        XCTAssertEqual(definition.arguments.count, 0)
+        XCTAssertEqual(definition.isThrowing, false)
+        XCTAssertEqual(definition.isAsync, true)
+        XCTAssertEqual(definition.returnType?.name, "Int")
+        XCTAssertEqual(storage.current, .identifier(name: "Int"))
+    }
+
+    func test_givenThrowingAndAsyncFunctionWithReturn_whenParse_thenFunctionIsParsed() throws {
+        let tokens: [Token] = [.function, .identifier(name: "f"), .leftBracket, .rightBracket, .async, .throws, .arrow, .identifier(name: "Int")]
+        let storage = try Storage(tokens: tokens)
+
+        let definition = try FunctionDeclarationParser(storage: storage).parse()
+
+        XCTAssertEqual(definition.name, "f")
+        XCTAssertEqual(definition.arguments.count, 0)
+        XCTAssertEqual(definition.isThrowing, true)
+        XCTAssertEqual(definition.isAsync, true)
+        XCTAssertEqual(definition.returnType?.name, "Int")
+        XCTAssertEqual(storage.current, .identifier(name: "Int"))
     }
 
     private func testParserException(with storage: Storage, _ exception: FunctionDeclarationParserError) {

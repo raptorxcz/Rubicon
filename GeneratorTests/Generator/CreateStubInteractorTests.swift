@@ -153,6 +153,27 @@ class CreateStubInteractorTests: XCTestCase {
         ])
     }
 
+    func test_givenProtocolWithAsyncFunction_whenGenerate_thenGenerateStub() {
+        let function = FunctionDeclarationType(name: "start", isAsync: true, returnType: Type(name: "Int", isOptional: false))
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarStub: Car {",
+            "",
+            "\tvar startReturn: Int",
+            "",
+            "\tinit(startReturn: Int) {",
+            "\t\tself.startReturn = startReturn",
+            "\t}",
+            "",
+            "\tfunc start() async -> Int {",
+            "\t\treturn startReturn",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
     func test_givenProtocolWithThrowingFunction_whenGenerate_thenGenerateStub() {
         let function = FunctionDeclarationType(name: "start", isThrowing: true, returnType: Type(name: "Int", isOptional: false))
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
@@ -173,6 +194,34 @@ class CreateStubInteractorTests: XCTestCase {
             "\t}",
             "",
             "\tfunc start() throws -> Int {",
+            "\t\ttry startThrowBlock?()",
+            "\t\treturn startReturn",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
+    func test_givenProtocolWithThrowingAndAsyncFunction_whenGenerate_thenGenerateStub() {
+        let function = FunctionDeclarationType(name: "start", isThrowing: true, isAsync: true, returnType: Type(name: "Int", isOptional: false))
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarStub: Car {",
+            "",
+            "\tenum StubError: Error {",
+            "\t\tcase stubError",
+            "\t}",
+            "\ttypealias ThrowBlock = () throws -> Void",
+            "",
+            "\tvar startThrowBlock: ThrowBlock?",
+            "\tvar startReturn: Int",
+            "",
+            "\tinit(startReturn: Int) {",
+            "\t\tself.startReturn = startReturn",
+            "\t}",
+            "",
+            "\tfunc start() async throws -> Int {",
             "\t\ttry startThrowBlock?()",
             "\t\treturn startReturn",
             "\t}",

@@ -10,12 +10,14 @@ public struct FunctionDeclarationType {
     public let name: String
     public let arguments: [ArgumentType]
     public let isThrowing: Bool
+    public let isAsync: Bool
     public let returnType: Type?
 
-    public init(name: String, arguments: [ArgumentType] = [], isThrowing: Bool = false, returnType: Type? = nil) {
+    public init(name: String, arguments: [ArgumentType] = [], isThrowing: Bool = false, isAsync: Bool = false, returnType: Type? = nil) {
         self.name = name
         self.arguments = arguments
         self.isThrowing = isThrowing
+        self.isAsync = isAsync
         self.returnType = returnType
     }
 }
