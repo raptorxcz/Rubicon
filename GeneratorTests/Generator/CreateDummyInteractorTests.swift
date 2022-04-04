@@ -163,6 +163,21 @@ class CreateDummyInteractorTests: XCTestCase {
         ])
     }
 
+    func test_givenProtocolWithAsyncFunction_whenGenerate_thenGenerateDummy() {
+        let function = FunctionDeclarationType(name: "start", isAsync: true, returnType: Type(name: "Int", isOptional: false))
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarDummy: Car {",
+            "",
+            "\tfunc start() async -> Int {",
+            "\t\tfatalError()",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
     func test_givenProtocolWithThrowingFunction_whenGenerate_thenGenerateDummy() {
         let function = FunctionDeclarationType(name: "start", isThrowing: true, returnType: Type(name: "Int", isOptional: false))
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
@@ -171,6 +186,21 @@ class CreateDummyInteractorTests: XCTestCase {
             "class CarDummy: Car {",
             "",
             "\tfunc start() throws -> Int {",
+            "\t\tfatalError()",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
+    func test_givenProtocolWithThrowingAndAsyncFunction_whenGenerate_thenGenerateDummy() {
+        let function = FunctionDeclarationType(name: "start", isThrowing: true, isAsync: true, returnType: Type(name: "Int", isOptional: false))
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarDummy: Car {",
+            "",
+            "\tfunc start() async throws -> Int {",
             "\t\tfatalError()",
             "\t}",
             "}",

@@ -305,6 +305,10 @@ public class CreateSpyInteractor: CreateMockInteractor {
         let argumentsString = function.arguments.map(generateArgument).joined(separator: ", ")
         var returnString = ""
 
+        if function.isAsync {
+            returnString += "async "
+        }
+
         if function.isThrowing {
             returnString += "throws "
         }

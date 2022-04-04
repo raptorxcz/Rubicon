@@ -47,6 +47,12 @@ public class FunctionDeclarationParser {
 
         moveToNextIfPossible()
 
+        let isAsyncFunction = isAsync()
+
+        if isAsyncFunction {
+            moveToNextIfPossible()
+        }
+
         let isThrowingFunction = isThrowing()
 
         if isThrowingFunction {
@@ -66,7 +72,11 @@ public class FunctionDeclarationParser {
             returnType = type
         }
 
-        return FunctionDeclarationType(name: name, arguments: arguments, isThrowing: isThrowingFunction, returnType: returnType)
+        return FunctionDeclarationType(name: name, arguments: arguments, isThrowing: isThrowingFunction, isAsync: isAsyncFunction, returnType: returnType)
+    }
+
+    private func isAsync() -> Bool {
+        return storage.current == .async
     }
 
     private func isThrowing() -> Bool {

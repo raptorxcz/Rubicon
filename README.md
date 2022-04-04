@@ -28,6 +28,7 @@ protocol Car {
     func go()
     func load(with stuff: Int, label: String) throws -> Int
     func isFull() -> Bool
+    func download() async throws -> [String]
 
 }
 
@@ -41,6 +42,11 @@ output:
 
 class CarSpy: Car {
 
+    enum SpyError: Error {
+        case spyError
+    }
+    typealias ThrowBlock = () throws -> Void
+
     var name: String?
     var color: Int
 
@@ -51,26 +57,41 @@ class CarSpy: Car {
 
     var goCount = 0
     var load = [Load]()
+    var loadThrowBlock: ThrowBlock?
+    var loadReturn: Int
     var isFullCount = 0
     var isFullReturn: Bool
+    var downloadCount = 0
+    var downloadThrowBlock: ThrowBlock?
+    var downloadReturn: [String]
 
-    init(color: Int, isFullReturn: Bool) {
+    init(color: Int, loadReturn: Int, isFullReturn: Bool, downloadReturn: [String]) {
         self.color = color
+        self.loadReturn = loadReturn
         self.isFullReturn = isFullReturn
+        self.downloadReturn = downloadReturn
     }
 
     func go() {
         goCount += 1
     }
 
-    func load(with stuff: Int, label: String) {
+    func load(with stuff: Int, label: String) throws -> Int {
         let item = Load(stuff: stuff, label: label)
         load.append(item)
+        try loadThrowBlock?()
+        return loadReturn
     }
 
     func isFull() -> Bool {
         isFullCount += 1
         return isFullReturn
+    }
+
+    func download() async throws -> [String] {
+        downloadCount += 1
+        try downloadThrowBlock?()
+        return downloadReturn
     }
 }
 
@@ -84,24 +105,42 @@ output:
 
 class CarStub: Car {
 
+    enum StubError: Error {
+        case stubError
+    }
+    typealias ThrowBlock = () throws -> Void
+
     var name: String?
     var color: Int
 
+    var loadThrowBlock: ThrowBlock?
+    var loadReturn: Int
     var isFullReturn: Bool
+    var downloadThrowBlock: ThrowBlock?
+    var downloadReturn: [String]
 
-    init(color: Int, isFullReturn: Bool) {
+    init(color: Int, loadReturn: Int, isFullReturn: Bool, downloadReturn: [String]) {
         self.color = color
+        self.loadReturn = loadReturn
         self.isFullReturn = isFullReturn
+        self.downloadReturn = downloadReturn
     }
 
     func go() {
     }
 
-    func load(with stuff: Int, label: String) {
+    func load(with stuff: Int, label: String) throws -> Int {
+        try loadThrowBlock?()
+        return loadReturn
     }
 
     func isFull() -> Bool {
         return isFullReturn
+    }
+
+    func download() async throws -> [String] {
+        try downloadThrowBlock?()
+        return downloadReturn
     }
 }
 
@@ -131,11 +170,15 @@ class CarDummy: Car {
         fatalError()
     }
 
-    func load(with stuff: Int, label: String) {
+    func load(with stuff: Int, label: String) throws -> Int {
         fatalError()
     }
 
     func isFull() -> Bool {
+        fatalError()
+    }
+
+    func download() async throws -> [String] {
         fatalError()
     }
 }

@@ -158,6 +158,29 @@ class CreateSpyInteractorTests: XCTestCase {
         ])
     }
 
+    func test_givenProtocolWithAsyncFunction_whenGenerate_thenGenerateSpy() {
+        let function = FunctionDeclarationType(name: "start", isAsync: true, returnType: Type(name: "Int", isOptional: false))
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarSpy: Car {",
+            "",
+            "\tvar startCount = 0",
+            "\tvar startReturn: Int",
+            "",
+            "\tinit(startReturn: Int) {",
+            "\t\tself.startReturn = startReturn",
+            "\t}",
+            "",
+            "\tfunc start() async -> Int {",
+            "\t\tstartCount += 1",
+            "\t\treturn startReturn",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
     func test_givenProtocolWithThrowingFunction_whenGenerate_thenGenerateSpy() {
         let function = FunctionDeclarationType(name: "start", isThrowing: true, returnType: Type(name: "Int", isOptional: false))
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
@@ -179,6 +202,36 @@ class CreateSpyInteractorTests: XCTestCase {
             "\t}",
             "",
             "\tfunc start() throws -> Int {",
+            "\t\tstartCount += 1",
+            "\t\ttry startThrowBlock?()",
+            "\t\treturn startReturn",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
+    func test_givenProtocolWithThrowingAndAsyncFunction_whenGenerate_thenGenerateSpy() {
+        let function = FunctionDeclarationType(name: "start", isThrowing: true, isAsync: true, returnType: Type(name: "Int", isOptional: false))
+        let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "class CarSpy: Car {",
+            "",
+            "\tenum SpyError: Error {",
+            "\t\tcase spyError",
+            "\t}",
+            "\ttypealias ThrowBlock = () throws -> Void",
+            "",
+            "\tvar startCount = 0",
+            "\tvar startThrowBlock: ThrowBlock?",
+            "\tvar startReturn: Int",
+            "",
+            "\tinit(startReturn: Int) {",
+            "\t\tself.startReturn = startReturn",
+            "\t}",
+            "",
+            "\tfunc start() async throws -> Int {",
             "\t\tstartCount += 1",
             "\t\ttry startThrowBlock?()",
             "\t\treturn startReturn",
