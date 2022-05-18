@@ -17,7 +17,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
     public func generate(from protocolType: ProtocolType) -> String {
         self.protocolType = protocolType
         var result = [String]()
-        result.append("\(accessLevel.makeClassString())class \(protocolType.name)Spy: \(protocolType.name) {")
+        result.append("\(accessLevel.makeClassString())final class \(protocolType.name)Spy: \(protocolType.name) {")
         result += generateBody(from: protocolType)
         result.append("}")
 

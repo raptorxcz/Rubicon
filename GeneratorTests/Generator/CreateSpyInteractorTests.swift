@@ -17,7 +17,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Test", parents: [], variables: [], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class TestSpy: Test {",
+            "final class TestSpy: Test {",
             "}",
             "",
         ])
@@ -27,7 +27,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class TestTestTestTestTestSpy: TestTestTestTestTest {",
+            "final class TestTestTestTestTestSpy: TestTestTestTestTest {",
             "}",
             "",
         ])
@@ -38,7 +38,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tvar color: Color",
             "",
@@ -56,7 +56,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Door", parents: [], variables: [variable], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class DoorSpy: Door {",
+            "final class DoorSpy: Door {",
             "",
             "\tvar closeBlock: (() -> Void)",
             "",
@@ -73,7 +73,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let variable = VarDeclarationType(isConstant: true, identifier: "color", type: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tvar color: Color",
             "",
@@ -90,7 +90,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let variable = VarDeclarationType(isConstant: true, identifier: "color", type: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tvar color: Color?",
             "}",
@@ -104,7 +104,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable1, variable2], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tvar color1: Color",
             "\tvar color2: Color",
@@ -123,7 +123,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tvar startCount = 0",
             "",
@@ -140,7 +140,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tvar startCount = 0",
             "\tvar startReturn: Int",
@@ -163,7 +163,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tvar startCount = 0",
             "\tvar startReturn: Int",
@@ -186,7 +186,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tenum SpyError: Error {",
             "\t\tcase spyError",
@@ -216,7 +216,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tenum SpyError: Error {",
             "\t\tcase spyError",
@@ -247,7 +247,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tenum SpyError: Error {",
             "\t\tcase spyError",
@@ -283,7 +283,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tvar startCount = 0",
             "\tvar startReturn: Int",
@@ -316,7 +316,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tstruct Start {",
             "\t\tlet action: ActionBlock",
@@ -341,7 +341,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tstruct Start {",
             "\t\tlet mapping: (String) -> Int",
@@ -370,7 +370,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tvar rollDownCount = 0",
             "\tvar rollDownReturn: (Window) throws -> Air",
@@ -398,7 +398,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tstruct Start {",
             "\t\tlet mapping: (String) -> Int",
@@ -424,7 +424,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tstruct Start {",
             "\t\tlet b: Color",
@@ -447,7 +447,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tstruct Start {",
             "\t\tlet b: Color",
@@ -472,7 +472,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tstruct Start {",
             "\t\tlet b: Color",
@@ -497,7 +497,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tstruct Start {",
             "\t\tlet b: Color",
@@ -531,7 +531,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tvar color: Color",
             "",
@@ -560,7 +560,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tstruct StartGenerating {",
             "\t\tlet productId: Color",
@@ -585,7 +585,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
-            "class CarSpy: Car {",
+            "final class CarSpy: Car {",
             "",
             "\tstruct StartA {",
             "\t\tlet b: Color",
@@ -620,7 +620,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class FormatterSpy: Formatter {",
+            "final class FormatterSpy: Formatter {",
             "",
             "\tstruct FormattedString {",
             "\t\tlet value: Int?",
@@ -643,7 +643,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
 
         equal(protocolType: protocolType, accessLevel: .private, rows: [
-            "private class TestTestTestTestTestSpy: TestTestTestTestTest {",
+            "private final class TestTestTestTestTestSpy: TestTestTestTestTest {",
             "}",
             "",
         ])
@@ -658,7 +658,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [variable], functions: [function])
 
         equal(protocolType: protocolType, accessLevel: .public, rows: [
-            "public class FormatterSpy: Formatter {",
+            "public final class FormatterSpy: Formatter {",
             "",
             "\tpublic enum SpyError: Error {",
             "\t\tcase spyError",
@@ -695,7 +695,7 @@ class CreateSpyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, accessLevel: .public, rows: [
-            "public class FormatterSpy: Formatter {",
+            "public final class FormatterSpy: Formatter {",
             "",
             "\tpublic var goCount = 0",
             "",

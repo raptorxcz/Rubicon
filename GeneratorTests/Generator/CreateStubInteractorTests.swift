@@ -17,7 +17,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Test", parents: [], variables: [], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class TestStub: Test {",
+            "final class TestStub: Test {",
             "}",
             "",
         ])
@@ -27,7 +27,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class TestTestTestTestTestStub: TestTestTestTestTest {",
+            "final class TestTestTestTestTestStub: TestTestTestTestTest {",
             "}",
             "",
         ])
@@ -38,7 +38,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tvar color: Color",
             "",
@@ -56,7 +56,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Door", parents: [], variables: [variable], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class DoorStub: Door {",
+            "final class DoorStub: Door {",
             "",
             "\tvar closeBlock: (() -> Void)",
             "",
@@ -73,7 +73,7 @@ class CreateStubInteractorTests: XCTestCase {
         let variable = VarDeclarationType(isConstant: true, identifier: "color", type: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tvar color: Color",
             "",
@@ -90,7 +90,7 @@ class CreateStubInteractorTests: XCTestCase {
         let variable = VarDeclarationType(isConstant: true, identifier: "color", type: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tvar color: Color?",
             "}",
@@ -104,7 +104,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable1, variable2], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tvar color1: Color",
             "\tvar color2: Color",
@@ -123,7 +123,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tfunc start() {",
             "\t}",
@@ -137,7 +137,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tvar startReturn: Int",
             "",
@@ -158,7 +158,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tvar startReturn: Int",
             "",
@@ -179,7 +179,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tenum StubError: Error {",
             "\t\tcase stubError",
@@ -207,7 +207,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tenum StubError: Error {",
             "\t\tcase stubError",
@@ -236,7 +236,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tenum StubError: Error {",
             "\t\tcase stubError",
@@ -265,7 +265,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tvar startReturn: Int",
             "\tvar stopReturn: Int",
@@ -294,7 +294,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tfunc start(with action: @escaping ActionBlock) {",
             "\t}",
@@ -311,7 +311,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tvar startReturn: (Data) -> Void",
             "",
@@ -333,7 +333,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tvar rollDownReturn: (Window) throws -> Air",
             "",
@@ -359,7 +359,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tvar startReturn: ((Data) -> Void)?",
             "",
@@ -377,7 +377,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tfunc start(a b: Color) {",
             "\t}",
@@ -392,7 +392,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tfunc start(_ b: Color) {",
             "\t}",
@@ -409,7 +409,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tfunc start(a b: Color, d: Color?) {",
             "\t}",
@@ -425,7 +425,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tfunc start(a b: Color) {",
             "\t}",
@@ -444,7 +444,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tvar color: Color",
             "",
@@ -465,7 +465,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tfunc startGenerating(productId: Color) {",
             "\t}",
@@ -482,7 +482,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
-            "class CarStub: Car {",
+            "final class CarStub: Car {",
             "",
             "\tfunc start(a b: Color) {",
             "\t}",
@@ -502,7 +502,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class FormatterStub: Formatter {",
+            "final class FormatterStub: Formatter {",
             "",
             "\tvar formattedStringReturn: String?",
             "",
@@ -518,7 +518,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
 
         equal(protocolType: protocolType, accessLevel: .private, rows: [
-            "private class TestTestTestTestTestStub: TestTestTestTestTest {",
+            "private final class TestTestTestTestTestStub: TestTestTestTestTest {",
             "}",
             "",
         ])
@@ -533,7 +533,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [variable], functions: [function])
 
         equal(protocolType: protocolType, accessLevel: .public, rows: [
-            "public class FormatterStub: Formatter {",
+            "public final class FormatterStub: Formatter {",
             "",
             "\tpublic enum StubError: Error {",
             "\t\tcase stubError",
@@ -563,7 +563,7 @@ class CreateStubInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, accessLevel: .public, rows: [
-            "public class FormatterStub: Formatter {",
+            "public final class FormatterStub: Formatter {",
             "",
             "\tpublic init() {",
             "\t}",
