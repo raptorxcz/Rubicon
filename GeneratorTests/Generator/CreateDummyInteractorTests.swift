@@ -17,7 +17,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Test", parents: [], variables: [], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class TestDummy: Test {",
+            "final class TestDummy: Test {",
             "}",
             "",
         ])
@@ -27,7 +27,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class TestTestTestTestTestDummy: TestTestTestTestTest {",
+            "final class TestTestTestTestTestDummy: TestTestTestTestTest {",
             "}",
             "",
         ])
@@ -38,7 +38,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tvar color: Color {",
             "\t\tget {",
@@ -59,7 +59,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Door", parents: [], variables: [variable], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class DoorDummy: Door {",
+            "final class DoorDummy: Door {",
             "",
             "\tvar closeBlock: (() -> Void) {",
             "\t\tget {",
@@ -79,7 +79,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let variable = VarDeclarationType(isConstant: true, identifier: "color", type: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tvar color: Color {",
             "\t\tfatalError()",
@@ -94,7 +94,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let variable = VarDeclarationType(isConstant: true, identifier: "color", type: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tvar color: Color? {",
             "\t\tfatalError()",
@@ -110,7 +110,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable1, variable2], functions: [])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tvar color1: Color {",
             "\t\tget {",
@@ -138,7 +138,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start() {",
             "\t\tfatalError()",
@@ -153,7 +153,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start() -> Int {",
             "\t\tfatalError()",
@@ -168,7 +168,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start() async -> Int {",
             "\t\tfatalError()",
@@ -183,7 +183,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start() throws -> Int {",
             "\t\tfatalError()",
@@ -198,7 +198,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start() async throws -> Int {",
             "\t\tfatalError()",
@@ -214,7 +214,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start(with label: Color) throws -> Int {",
             "\t\tfatalError()",
@@ -230,7 +230,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start() -> Int {",
             "\t\tfatalError()",
@@ -251,7 +251,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start(with action: @escaping ActionBlock) {",
             "\t\tfatalError()",
@@ -269,7 +269,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start(with mapping: @escaping (String) -> Int) -> (Data) -> Void {",
             "\t\tfatalError()",
@@ -285,7 +285,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc rollDown() -> (Window) throws -> Air {",
             "\t\tfatalError()",
@@ -305,7 +305,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start(with mapping: @escaping (String) -> Int, count: Int) -> ((Data) -> Void)? {",
             "\t\tfatalError()",
@@ -321,7 +321,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start(a b: Color) {",
             "\t\tfatalError()",
@@ -337,7 +337,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start(_ b: Color) {",
             "\t\tfatalError()",
@@ -355,7 +355,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start(a b: Color, d: Color?) {",
             "\t\tfatalError()",
@@ -372,7 +372,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start(a b: Color) {",
             "\t\tfatalError()",
@@ -393,7 +393,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tvar color: Color {",
             "\t\tget {",
@@ -418,7 +418,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc startGenerating(productId: Color) {",
             "\t\tfatalError()",
@@ -436,7 +436,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
-            "class CarDummy: Car {",
+            "final class CarDummy: Car {",
             "",
             "\tfunc start(a b: Color) {",
             "\t\tfatalError()",
@@ -458,7 +458,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
-            "class FormatterDummy: Formatter {",
+            "final class FormatterDummy: Formatter {",
             "",
             "\tfunc formattedString(_ value: Int?) -> String? {",
             "\t\tfatalError()",
@@ -472,7 +472,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
 
         equal(protocolType: protocolType, accessLevel: .private, rows: [
-            "private class TestTestTestTestTestDummy: TestTestTestTestTest {",
+            "private final class TestTestTestTestTestDummy: TestTestTestTestTest {",
             "}",
             "",
         ])
@@ -488,7 +488,7 @@ class CreateDummyInteractorTests: XCTestCase {
         let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [variable, variable2], functions: [function])
 
         equal(protocolType: protocolType, accessLevel: .public, rows: [
-            "public class FormatterDummy: Formatter {",
+            "public final class FormatterDummy: Formatter {",
             "",
             "\tpublic var color: Color {",
             "\t\tget {",

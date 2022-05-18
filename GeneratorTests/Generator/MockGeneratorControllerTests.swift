@@ -63,21 +63,21 @@ class MockGeneratorControllerTests: XCTestCase {
     func test_givenEmptyProtocol_whenRun_thenGenerateEmptySpy() {
         sut.run(texts: ["protocol X {}"])
 
-        XCTAssertEqual(generatorOutput.text, "class XSpy: X {\n}\n")
+        XCTAssertEqual(generatorOutput.text, "final class XSpy: X {\n}\n")
         XCTAssertEqual(generatorOutput.saveCount, 1)
     }
 
     func test_givenEmptyProtocolInContext_whenRun_thenGenerateEmptySpy() {
         sut.run(texts: ["class {} protocol X {}"])
 
-        XCTAssertEqual(generatorOutput.text, "class XSpy: X {\n}\n")
+        XCTAssertEqual(generatorOutput.text, "final class XSpy: X {\n}\n")
         XCTAssertEqual(generatorOutput.saveCount, 1)
     }
 
     func test_givenTwoEmptyProtocolsInContext_whenRun_thenGenerateEmptySpy() {
         sut.run(texts: ["", "class {} protocol X {} var X protocol Y {}"])
 
-        XCTAssertEqual(generatorOutput.text, "class XSpy: X {\n}\nclass YSpy: Y {\n}\n")
+        XCTAssertEqual(generatorOutput.text, "final class XSpy: X {\n}\nfinal class YSpy: Y {\n}\n")
         XCTAssertEqual(generatorOutput.saveCount, 2)
     }
 }
