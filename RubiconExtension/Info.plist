@@ -124,6 +124,14 @@
 					<key>XCSourceEditorCommandName</key>
 					<string>Generate dummy to pasteboard</string>
 				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).Generate</string>
+					<key>XCSourceEditorCommandIdentifier</key>
+					<string>AddTearDownMethod</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>Add tearDown method to tests</string>
+				</dict>
 			</array>
 			<key>XCSourceEditorExtensionPrincipalClass</key>
 			<string>$(PRODUCT_MODULE_NAME).SourceEditorExtension</string>

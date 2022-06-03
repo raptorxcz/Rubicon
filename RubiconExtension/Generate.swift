@@ -64,6 +64,8 @@ class Generate: NSObject, XCSourceEditorCommand {
             let output = PasteboardGeneratorOutput(invocation: invocation)
             let createMockInteractor = CreateDummyInteractor(accessLevel: .internal)
             perform(with: invocation, generatorOutput: output, createMockInteractor: createMockInteractor, completionHandler: completionHandler)
+        case "AddTearDownMethod":
+            processTearDown(with: invocation, completionHandler: completionHandler)
         default:
             break
         }
@@ -84,7 +86,7 @@ class Generate: NSObject, XCSourceEditorCommand {
             }
         }
 
-        let text = lines.reduce("", { $0 + "\n" + $1 })
+        let text = lines.joined()
 
         output = generatorOutput
         let mocksController = MocksGeneratorControllerImpl(output: generatorOutput, interactor: createMockInteractor)
@@ -92,7 +94,30 @@ class Generate: NSObject, XCSourceEditorCommand {
         completionHandler(nil)
     }
 
+    private func processTearDown(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void) {
+        guard let lines = invocation.buffer.lines as? [String] else {
+            completionHandler(GenerateError.missingLines)
+            return
+        }
+
+        let interactor = TearDownInteractor(nilableVariablesParser: NilableVariablesParserImpl())
+        let text = lines.joined()
+
+        do {
+            let newFile = try interactor.execute(text: text, spacing: invocation.buffer.indentationWidth)
+            invocation.buffer.lines.removeAllObjects()
+            invocation.buffer.lines.addObjects(from: newFile.components(separatedBy: "\n").dropLast())
+            completionHandler(nil)
+        } catch {
+            completionHandler(error)
+        }
+    }
+
     private func isEmptyRange(_ range: XCSourceTextRange) -> Bool {
         return range.start.line != range.end.line || (range.start.line == range.end.line && range.start.column != range.end.column)
     }
+}
+
+private enum GenerateError: Error {
+    case missingLines
 }
