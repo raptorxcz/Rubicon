@@ -12,7 +12,7 @@
 
 Swift parser + mock generator
 
-Rubicon generates spys for protocol. Generating methods for parent protocol is not supported.
+Rubicon generates test doubles for protocols: stubs, spies, and dummies. Generating methods for parent protocol is not supported.
 
 ## Example
 
@@ -97,7 +97,7 @@ class CarSpy: Car {
 
 ```
 
-### Mock
+### Stub
 
 output:
 
@@ -200,7 +200,7 @@ XCTAssertEqual(carSpy.load[0].label, "name")
 
 ## CLI
 
-Rubicon cli can generate mocks for every protocol in folder. Script runs through every swift file and find every protocol definition. Result is printed at standard out.
+Rubicon CLI can generate mocks for every protocol in folder. Script runs through every swift file and finds every protocol definition. Result is printed at standard out.
 
 example:
 
@@ -220,5 +220,5 @@ $ ./rubicon --spy .
 
 ## Xcode extension
 
-Xcode extension can generate Spy for every or selected `protocol`  in current file. Spy can be written to source file or pasteboard.
+Xcode extension can generate test doubles for all or just selected protocols in the current file. The resulting test double can be written to the source file or pasteboard.
 
