@@ -185,6 +185,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2C57FE2A28E5DB9700CCFB1D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		31045448214670F500F434D6 /* SimpleTypeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTypeParser.swift; sourceTree = "<group>"; };
 		3104544A2146711500F434D6 /* ClosureTypeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureTypeParser.swift; sourceTree = "<group>"; };
 		3104544E214676CF00F434D6 /* ClosureTypeParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureTypeParserTests.swift; sourceTree = "<group>"; };
@@ -442,6 +443,7 @@
 		BBA24A951EA9459800ADCAAF = {
 			isa = PBXGroup;
 			children = (
+				2C57FE2A28E5DB9700CCFB1D /* README.md */,
 				BB0474A31EC068FA00FC2B34 /* Frameworks */,
 				BB0474541EC0611200FC2B34 /* Generator */,
 				BB0474611EC0611200FC2B34 /* GeneratorTests */,
