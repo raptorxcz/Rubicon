@@ -188,6 +188,10 @@ public class Parser {
             token = .throws
         case "async":
             token = .async
+        case "some":
+            token = .some
+        case "any":
+            token = .any
         default:
             token = .identifier(name: name)
         }

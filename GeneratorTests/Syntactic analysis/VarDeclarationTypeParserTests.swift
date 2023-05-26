@@ -119,9 +119,34 @@ class VarDeclarationTypeParserTests: XCTestCase {
         do {
             let parser = VarDeclarationTypeParser()
             let type = try parser.parse(storage: storage)
+            XCTAssertNil(type.prefix)
             XCTAssertEqual(type.isConstant, true)
             XCTAssertEqual(type.identifier, "x")
             XCTAssertEqual(type.type.name, "Int")
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenSomeConstantDefinition_whenParse_thenParseVariable() throws {
+        let storage = try Storage(tokens: [.some, .variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .identifier(name: "get"), .rightCurlyBracket])
+
+        do {
+            let parser = VarDeclarationTypeParser()
+            let type = try parser.parse(storage: storage)
+            XCTAssertEqual(type.prefix, "some")
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test_givenAnyConstantDefinition_whenParse_thenParseVariable() throws {
+        let storage = try Storage(tokens: [.any, .variable, .identifier(name: "x"), .colon, .identifier(name: "Int"), .leftCurlyBracket, .identifier(name: "get"), .rightCurlyBracket])
+
+        do {
+            let parser = VarDeclarationTypeParser()
+            let type = try parser.parse(storage: storage)
+            XCTAssertEqual(type.prefix, "any")
         } catch {
             XCTFail()
         }

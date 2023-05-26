@@ -6,9 +6,17 @@
 //  Copyright © 2018 Kryštof Matěj. All rights reserved.
 //
 
-class TypeStringFactory {
+enum TypeStringFactory {
     static func makeSimpleString(_ type: Type) -> String {
-        return "\(type.name)\(type.isOptional ? "?" : "")"
+        return "\(makeExistencial(for: type))\(type.name)\(type.isOptional ? "?" : "")"
+    }
+
+    private static func makeExistencial(for type: Type) -> String {
+        if let existencial = type.existencial {
+            return existencial + " "
+        } else {
+            return ""
+        }
     }
 
     static func makeFunctionArgumentString(_ type: Type) -> String {

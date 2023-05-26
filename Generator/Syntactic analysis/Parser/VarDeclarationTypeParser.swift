@@ -34,6 +34,7 @@ public class VarDeclarationTypeParser {
         var state = State.start
         var identifier: String?
         var type: Type?
+        var prefix: String?
         let index = storage.currentIndex()
 
         while !isEnd {
@@ -49,6 +50,10 @@ public class VarDeclarationTypeParser {
             case .start:
                 if token == .variable {
                     state = .variable
+                } else if token == .some {
+                    prefix = "some"
+                } else if token == .any {
+                    prefix = "any"
                 } else {
                     state = .error
                 }
@@ -114,7 +119,7 @@ public class VarDeclarationTypeParser {
                 }
             case .rightCurlyBracket:
                 if let identifier = identifier, let type = type {
-                    return VarDeclarationType(isConstant: isConstant, identifier: identifier, type: type)
+                    return VarDeclarationType(prefix: prefix, isConstant: isConstant, identifier: identifier, type: type)
                 }
             case .error:
                 isEnd = true

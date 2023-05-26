@@ -267,4 +267,14 @@ class ParserTests: XCTestCase {
         let result = parser.parse("async")
         XCTAssertEqual(result, [.async])
     }
+
+    func test_givenSomeKeyword_whenParse_thenKeywordIsParsed() {
+        let result = parser.parse("some")
+        XCTAssertEqual(result, [.some])
+    }
+
+    func test_givenAnyKeyword_whenParse_thenKeywordIsParsed() {
+        let result = parser.parse("any")
+        XCTAssertEqual(result, [.any])
+    }
 }
