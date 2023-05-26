@@ -12,15 +12,17 @@ public enum TypePrefix: String {
 }
 
 public struct Type {
+    public var existencial: String?
     public var name: String
     public var isOptional: Bool
     public var isClosure: Bool
     public var prefix: TypePrefix?
 
-    public init(name: String, isOptional: Bool, isClosure: Bool = false, prefix: TypePrefix? = nil) {
+    public init(name: String, isOptional: Bool, isClosure: Bool = false, prefix: TypePrefix? = nil, existencial: String?) {
         self.name = name
         self.isOptional = isOptional
         self.isClosure = isClosure
         self.prefix = prefix
+        self.existencial = existencial
     }
 }

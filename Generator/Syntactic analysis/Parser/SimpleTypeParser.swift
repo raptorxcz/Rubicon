@@ -26,6 +26,7 @@ public class SimpleTypeParser {
     }
 
     public func parseSimpleType() throws -> Type {
+        let existencial = parseExistencial()
         var name = try parseName()
         let isOptional = isOptionalParsed()
 
@@ -35,7 +36,19 @@ public class SimpleTypeParser {
             name += "<\(subtypes.map({ $0.name }).joined(separator: ", "))>"
         }
 
-        return Type(name: name, isOptional: isOptional)
+        return Type(name: name, isOptional: isOptional, existencial: existencial)
+    }
+
+    private func parseExistencial() -> String? {
+        if storage.current == .some {
+            _ = try? storage.next()
+            return "some"
+        } else if storage.current == .any {
+            _ = try? storage.next()
+            return "any"
+        } else {
+            return nil
+        }
     }
 
     private func parseGenericTypes() throws -> [Type] {
@@ -90,16 +103,18 @@ public class SimpleTypeParser {
     }
 
     private func parseDictionary(keyType: Type) throws -> Type {
+        let existencial = parseExistencial()
         let valueType = try parseSimpleType()
         try parseRightSquareBracket()
         let isOptional = isOptionalParsed()
-        return Type(name: "[\(makeTypeString(keyType)): \(makeTypeString(valueType))]", isOptional: isOptional)
+        return Type(name: "[\(makeTypeString(keyType)): \(makeTypeString(valueType))]", isOptional: isOptional, existencial: existencial)
     }
 
     private func parseArray(type: Type) throws -> Type {
+        let existencial = parseExistencial()
         try parseRightSquareBracket()
         let isOptional = isOptionalParsed()
-        return Type(name: "[\(makeTypeString(type))]", isOptional: isOptional)
+        return Type(name: "[\(makeTypeString(type))]", isOptional: isOptional, existencial: existencial)
     }
 
     private func parseName() throws -> String {

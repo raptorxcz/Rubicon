@@ -55,6 +55,34 @@ class SimpleTypeParserTests: XCTestCase {
         }
     }
 
+    func test_givenSomeNameColonTokens_whenParse_thenParse() throws {
+        let storage = try Storage(tokens: [.some, .identifier(name: "x"), .colon])
+        let parser = makeParser(storage: storage)
+
+        let type = try parser.parse()
+
+        XCTAssertEqual(type.name, "x")
+        XCTAssertEqual(type.isOptional, false)
+        XCTAssertEqual(type.isClosure, false)
+        XCTAssertNil(type.prefix)
+        XCTAssertEqual(storage.current, .colon)
+        XCTAssertEqual(type.existencial, "some")
+    }
+
+    func test_givenAnyNameColonTokens_whenParse_thenParse() throws {
+        let storage = try Storage(tokens: [.some, .identifier(name: "x"), .colon])
+        let parser = makeParser(storage: storage)
+
+        let type = try parser.parse()
+
+        XCTAssertEqual(type.name, "x")
+        XCTAssertEqual(type.isOptional, false)
+        XCTAssertEqual(type.isClosure, false)
+        XCTAssertNil(type.prefix)
+        XCTAssertEqual(storage.current, .colon)
+        XCTAssertEqual(type.existencial, "some")
+    }
+
     func test_givenNameQuestionMarkTokens_whenParse_thenParse() throws {
         let storage = try Storage(tokens: [.identifier(name: "x"), .questionMark, .colon])
         let parser = makeParser(storage: storage)

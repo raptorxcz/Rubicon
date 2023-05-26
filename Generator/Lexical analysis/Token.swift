@@ -29,4 +29,6 @@ public enum Token: Equatable {
     case escaping
     case autoclosure
     case `async`
+    case some
+    case any
 }

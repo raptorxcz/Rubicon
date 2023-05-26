@@ -50,7 +50,7 @@ public class ClosureTypeParser {
         }
 
         let name = makeClosureName(parameters: parametersTypes, returnType: returnType, isOptional: isOptional, isThrowing: isThrowing)
-        return Type(name: name, isOptional: isOptional, isClosure: true, prefix: prefix)
+        return Type(name: name, isOptional: isOptional, isClosure: true, prefix: prefix, existencial: nil)
     }
 
     private func parseSimpleTypeClosure(prefix: TypePrefix?) throws -> Type {

@@ -11,7 +11,7 @@ import XCTest
 
 class CreateSpyInteractorTests: XCTestCase {
     private var generator: CreateSpyInteractor!
-    private let type = Type(name: "Color", isOptional: false)
+    private let type = Type.makeStub(name: "Color", isOptional: false)
 
     func test_givenprotocolType_whenGenerate_thenGenerateEmptySpy() {
         let protocolType = ProtocolType(name: "Test", parents: [], variables: [], functions: [])
@@ -51,7 +51,7 @@ class CreateSpyInteractorTests: XCTestCase {
     }
 
     func test_givenProtocolWithEscapingClosureVariable_whenGenerate_thenGenerateSpy() {
-        let type = Type(name: "(() -> Void)", isOptional: false, isClosure: true)
+        let type = Type.makeStub(name: "(() -> Void)", isOptional: false, isClosure: true)
         let variable = VarDeclarationType(isConstant: false, identifier: "closeBlock", type: type)
         let protocolType = ProtocolType(name: "Door", parents: [], variables: [variable], functions: [])
 
@@ -69,7 +69,7 @@ class CreateSpyInteractorTests: XCTestCase {
     }
 
     func test_givenProtocolWithConstant_whenGenerate_thenGenerateSpy() {
-        let type = Type(name: "Color", isOptional: false)
+        let type = Type.makeStub(name: "Color", isOptional: false)
         let variable = VarDeclarationType(isConstant: true, identifier: "color", type: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
         equal(protocolType: protocolType, rows: [
@@ -86,7 +86,7 @@ class CreateSpyInteractorTests: XCTestCase {
     }
 
     func test_givenProtocolWithOptional_whenGenerate_thenGenerateSpy() {
-        let type = Type(name: "Color", isOptional: true)
+        let type = Type.makeStub(name: "Color", isOptional: true)
         let variable = VarDeclarationType(isConstant: true, identifier: "color", type: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [variable], functions: [])
         equal(protocolType: protocolType, rows: [
@@ -136,7 +136,7 @@ class CreateSpyInteractorTests: XCTestCase {
     }
 
     func test_givenProtocolWithFunctionWithReturn_whenGenerate_thenGenerateSpy() {
-        let function = FunctionDeclarationType(name: "start", returnType: Type(name: "Int", isOptional: false))
+        let function = FunctionDeclarationType(name: "start", returnType: Type.makeStub(name: "Int", isOptional: false))
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
@@ -159,7 +159,7 @@ class CreateSpyInteractorTests: XCTestCase {
     }
 
     func test_givenProtocolWithAsyncFunction_whenGenerate_thenGenerateSpy() {
-        let function = FunctionDeclarationType(name: "start", isAsync: true, returnType: Type(name: "Int", isOptional: false))
+        let function = FunctionDeclarationType(name: "start", isAsync: true, returnType: Type.makeStub(name: "Int", isOptional: false))
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
@@ -182,7 +182,7 @@ class CreateSpyInteractorTests: XCTestCase {
     }
 
     func test_givenProtocolWithThrowingFunction_whenGenerate_thenGenerateSpy() {
-        let function = FunctionDeclarationType(name: "start", isThrowing: true, returnType: Type(name: "Int", isOptional: false))
+        let function = FunctionDeclarationType(name: "start", isThrowing: true, returnType: Type.makeStub(name: "Int", isOptional: false))
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
@@ -212,7 +212,7 @@ class CreateSpyInteractorTests: XCTestCase {
     }
 
     func test_givenProtocolWithThrowingAndAsyncFunction_whenGenerate_thenGenerateSpy() {
-        let function = FunctionDeclarationType(name: "start", isThrowing: true, isAsync: true, returnType: Type(name: "Int", isOptional: false))
+        let function = FunctionDeclarationType(name: "start", isThrowing: true, isAsync: true, returnType: Type.makeStub(name: "Int", isOptional: false))
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
@@ -243,7 +243,7 @@ class CreateSpyInteractorTests: XCTestCase {
 
     func test_givenProtocolWithThrowingFunctionWithArguments_whenGenerate_thenGenerateSpy() {
         let argument = ArgumentType(label: "with", name: "label", type: type)
-        let function = FunctionDeclarationType(name: "start", arguments: [argument], isThrowing: true, returnType: Type(name: "Int", isOptional: false))
+        let function = FunctionDeclarationType(name: "start", arguments: [argument], isThrowing: true, returnType: Type.makeStub(name: "Int", isOptional: false))
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
         equal(protocolType: protocolType, rows: [
@@ -278,8 +278,8 @@ class CreateSpyInteractorTests: XCTestCase {
     }
 
     func test_givenProtocolWithMultipleReturnFunctions_whenGenerate_thenGenerateSpy() {
-        let function = FunctionDeclarationType(name: "start", returnType: Type(name: "Int", isOptional: false))
-        let function2 = FunctionDeclarationType(name: "stop", returnType: Type(name: "Int", isOptional: false))
+        let function = FunctionDeclarationType(name: "start", returnType: Type.makeStub(name: "Int", isOptional: false))
+        let function2 = FunctionDeclarationType(name: "stop", returnType: Type.makeStub(name: "Int", isOptional: false))
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function, function2])
 
         equal(protocolType: protocolType, rows: [
@@ -310,7 +310,7 @@ class CreateSpyInteractorTests: XCTestCase {
     }
 
     func test_givenProtocolWithFunctionWithEscapingType_whenGenerate_thenGenerateSpy() {
-        let argumentType = Type(name: "ActionBlock", isOptional: false, isClosure: true, prefix: .escaping)
+        let argumentType = Type.makeStub(name: "ActionBlock", isOptional: false, isClosure: true, prefix: .escaping)
         let argument = ArgumentType(label: "with", name: "action", type: argumentType)
         let function = FunctionDeclarationType(name: "start", arguments: [argument], returnType: nil)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
@@ -334,9 +334,9 @@ class CreateSpyInteractorTests: XCTestCase {
     }
 
     func test_givenProtocolWithFunctionWithClosureParameterAndReturnClosure_whenGenerate_thenGenerateSpy() {
-        let argumentType = Type(name: "(String) -> Int", isOptional: false, isClosure: true, prefix: .escaping)
+        let argumentType = Type.makeStub(name: "(String) -> Int", isOptional: false, isClosure: true, prefix: .escaping)
         let argument = ArgumentType(label: "with", name: "mapping", type: argumentType)
-        let returnType = Type(name: "(Data) -> Void", isOptional: false, isClosure: true)
+        let returnType = Type.makeStub(name: "(Data) -> Void", isOptional: false, isClosure: true)
         let function = FunctionDeclarationType(name: "start", arguments: [argument], returnType: returnType)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
@@ -365,7 +365,7 @@ class CreateSpyInteractorTests: XCTestCase {
     }
 
     func test_givenProtocolWithFunctionWithThrowingAutoclosureArgument_whenGenerate_thenGenerateSpy() {
-        let type = Type(name: "(Window) throws -> Air", isOptional: false, isClosure: true)
+        let type = Type.makeStub(name: "(Window) throws -> Air", isOptional: false, isClosure: true)
         let function = FunctionDeclarationType(name: "rollDown", arguments: [], returnType: type)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
@@ -389,11 +389,11 @@ class CreateSpyInteractorTests: XCTestCase {
     }
 
     func test_givenProtocolWithFunctionWithClosureAndIntParameterAndOptionalReturnClosure_whenGenerate_thenGenerateSpy() {
-        let closureArgumentType = Type(name: "(String) -> Int", isOptional: false, isClosure: true, prefix: .escaping)
+        let closureArgumentType = Type.makeStub(name: "(String) -> Int", isOptional: false, isClosure: true, prefix: .escaping)
         let closureArgument = ArgumentType(label: "with", name: "mapping", type: closureArgumentType)
-        let intType = Type(name: "Int", isOptional: false, isClosure: false)
+        let intType = Type.makeStub(name: "Int", isOptional: false, isClosure: false)
         let intArgument = ArgumentType(label: nil, name: "count", type: intType)
-        let returnType = Type(name: "((Data) -> Void)", isOptional: true, isClosure: true)
+        let returnType = Type.makeStub(name: "((Data) -> Void)", isOptional: true, isClosure: true)
         let function = FunctionDeclarationType(name: "start", arguments: [closureArgument, intArgument], returnType: returnType)
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
 
@@ -466,7 +466,7 @@ class CreateSpyInteractorTests: XCTestCase {
 
     func test_givenProtocolWithFunctionWithTwoArguments_whenGenerate_thenGenerateSpy() {
         let argument = ArgumentType(label: "a", name: "b", type: type)
-        let type2 = Type(name: "Color", isOptional: true)
+        let type2 = Type.makeStub(name: "Color", isOptional: true)
         let argument2 = ArgumentType(label: nil, name: "d", type: type2)
         let function = FunctionDeclarationType(name: "start", arguments: [argument, argument2])
         let protocolType = ProtocolType(name: "Car", parents: [], variables: [], functions: [function])
@@ -613,9 +613,9 @@ class CreateSpyInteractorTests: XCTestCase {
     }
 
     func test_givenProtocolWithNoArgumentLabelAndReturnValue_whenGenerate_thenGenerateSpy() {
-        let argumentType = Type(name: "Int", isOptional: true)
+        let argumentType = Type.makeStub(name: "Int", isOptional: true)
         let argument = ArgumentType(label: "_", name: "value", type: argumentType)
-        let returnType = Type(name: "String", isOptional: true)
+        let returnType = Type.makeStub(name: "String", isOptional: true)
         let function = FunctionDeclarationType(name: "formattedString", arguments: [argument], returnType: returnType)
         let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [], functions: [function])
 
@@ -639,6 +639,33 @@ class CreateSpyInteractorTests: XCTestCase {
         ])
     }
 
+    func test_givenProtocolWithExistencial_whenGenerate_thenGenerateSpy() {
+        let argumentType = Type.makeStub(name: "Int", isOptional: true, existencial: "some")
+        let argument = ArgumentType(label: "_", name: "value", type: argumentType)
+        let returnType = Type.makeStub(name: "String", isOptional: true)
+        let function = FunctionDeclarationType(name: "formattedString", arguments: [argument], returnType: returnType)
+        let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [], functions: [function])
+
+        equal(protocolType: protocolType, rows: [
+            "final class FormatterSpy: Formatter {",
+            "",
+            "\tstruct FormattedString {",
+            "\t\tlet value: some Int?",
+            "\t}",
+            "",
+            "\tvar formattedString = [FormattedString]()",
+            "\tvar formattedStringReturn: String?",
+            "",
+            "\tfunc formattedString(_ value: some Int?) -> String? {",
+            "\t\tlet item = FormattedString(value: value)",
+            "\t\tformattedString.append(item)",
+            "\t\treturn formattedStringReturn",
+            "\t}",
+            "}",
+            "",
+        ])
+    }
+
     func test_givenEmptyProtocolAndPrivate_whenGenerate_thenGenerateSpy() {
         let protocolType = ProtocolType(name: "TestTestTestTestTest", parents: [], variables: [], functions: [])
 
@@ -651,9 +678,9 @@ class CreateSpyInteractorTests: XCTestCase {
 
     func test_givenProtocolWithArgumentAndThrowingFunctionWithReturnValue_whenGeneratePublic_thenGenerateSpy() {
         let variable = VarDeclarationType(isConstant: false, identifier: "color", type: type)
-        let argumentType = Type(name: "Int", isOptional: true)
+        let argumentType = Type.makeStub(name: "Int", isOptional: true)
         let argument = ArgumentType(label: "_", name: "value", type: argumentType)
-        let returnType = Type(name: "String", isOptional: true)
+        let returnType = Type.makeStub(name: "String", isOptional: true)
         let function = FunctionDeclarationType(name: "formattedString", arguments: [argument], isThrowing: true, returnType: returnType)
         let protocolType = ProtocolType(name: "Formatter", parents: [], variables: [variable], functions: [function])
 
