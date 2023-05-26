@@ -970,6 +970,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = 473264X5JK;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 473264X5JK;
 				INFOPLIST_FILE = RubiconApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -985,6 +986,7 @@
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)App";
 				PRODUCT_NAME = Rubicon;
 				PROVISIONING_PROFILE_SPECIFIER = "Rubicon App Store";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "Rubicon App Store";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1136,6 +1138,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = 473264X5JK;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 473264X5JK;
 				INFOPLIST_FILE = RubiconExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1151,6 +1154,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cleverlance.rubicon.xcode-enxtension";
 				PRODUCT_NAME = Rubicon;
 				PROVISIONING_PROFILE_SPECIFIER = "Rubicon Xcode Extension App Store";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "Rubicon Xcode Extension App Store";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
