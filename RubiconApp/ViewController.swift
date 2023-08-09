@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import Generator
+import Rubicon
 
 class ViewController: NSViewController, GeneratorOutput {
     @IBOutlet weak var sourceTextField: NSTextView!

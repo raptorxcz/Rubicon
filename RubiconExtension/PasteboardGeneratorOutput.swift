@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Generator
+import Rubicon
 import XcodeKit
 
 class PasteboardGeneratorOutput: GeneratorOutput {
