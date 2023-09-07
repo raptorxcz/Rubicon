@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		663D0DE52AA9F625001253F7 /* ArgumentsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663D0DE42AA9F625001253F7 /* ArgumentsParser.swift */; };
 		6656B5EB2AA9F805003E6391 /* Rubicon in Frameworks */ = {isa = PBXBuildFile; productRef = 6656B5EA2AA9F805003E6391 /* Rubicon */; };
-		6656B5ED2AA9F80A003E6391 /* Rubicon in Frameworks */ = {isa = PBXBuildFile; productRef = 6656B5EC2AA9F80A003E6391 /* Rubicon */; };
 		66990B3125D4835D00F5875B /* XcodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF3D3871EC78F2B00FAB739 /* XcodeKit.framework */; };
 		66990B3225D4835D00F5875B /* XcodeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BBF3D3871EC78F2B00FAB739 /* XcodeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		669D6860202660CB00600E59 /* InvocationGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669D685F202660CB00600E59 /* InvocationGeneratorOutput.swift */; };
@@ -19,16 +17,10 @@
 		BB0474361EC0609100FC2B34 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474351EC0609100FC2B34 /* ViewController.swift */; };
 		BB0474381EC0609100FC2B34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB0474371EC0609100FC2B34 /* Assets.xcassets */; };
 		BB04743B1EC0609100FC2B34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB0474391EC0609100FC2B34 /* Main.storyboard */; };
-		BB0474921EC0627900FC2B34 /* ArgumentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */; };
-		BB0474961EC062A400FC2B34 /* FileReaderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474951EC062A400FC2B34 /* FileReaderImpl.swift */; };
-		BB0474981EC062E400FC2B34 /* StandardGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474971EC062E400FC2B34 /* StandardGeneratorOutput.swift */; };
 		BB0474A51EC068FA00FC2B34 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0474A41EC068FA00FC2B34 /* Cocoa.framework */; };
 		BB0474AA1EC068FA00FC2B34 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */; };
 		BB0474AC1EC068FA00FC2B34 /* Generate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0474AB1EC068FA00FC2B34 /* Generate.swift */; };
 		BB0474B01EC068FA00FC2B34 /* Rubicon.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BB0474A21EC068FA00FC2B34 /* Rubicon.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		BB6E40371EC26B2F003CD916 /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FCB1EBE27F100BB1347 /* HelpController.swift */; };
-		BB981FC81EBE26DB00BB1347 /* CommandLineAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB981FC71EBE26DB00BB1347 /* CommandLineAssembly.swift */; };
-		BBA24AA21EA9459800ADCAAF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA24AA11EA9459800ADCAAF /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,8 +70,6 @@
 
 /* Begin PBXFileReference section */
 		2C57FE2A28E5DB9700CCFB1D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		663D0DE42AA9F625001253F7 /* ArgumentsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArgumentsParser.swift; path = RubiconCLI/ArgumentsParser.swift; sourceTree = SOURCE_ROOT; };
-		663D0DE62AA9F66F001253F7 /* RubiconTests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RubiconTests; sourceTree = "<group>"; };
 		6656B5E92AA9F7E6003E6391 /* Rubicon */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Rubicon; sourceTree = "<group>"; };
 		669D685F202660CB00600E59 /* InvocationGeneratorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationGeneratorOutput.swift; sourceTree = "<group>"; };
 		669D68612026624800600E59 /* PasteboardGeneratorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardGeneratorOutput.swift; sourceTree = "<group>"; };
@@ -91,19 +81,12 @@
 		BB0474371EC0609100FC2B34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB04743A1EC0609100FC2B34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BB04743C1EC0609100FC2B34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BB0474951EC062A400FC2B34 /* FileReaderImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReaderImpl.swift; sourceTree = "<group>"; };
-		BB0474971EC062E400FC2B34 /* StandardGeneratorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardGeneratorOutput.swift; sourceTree = "<group>"; };
 		BB0474A21EC068FA00FC2B34 /* Rubicon.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Rubicon.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB0474A41EC068FA00FC2B34 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BB0474A81EC068FA00FC2B34 /* RubiconExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RubiconExtension.entitlements; sourceTree = "<group>"; };
 		BB0474A91EC068FA00FC2B34 /* SourceEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorExtension.swift; sourceTree = "<group>"; };
 		BB0474AB1EC068FA00FC2B34 /* Generate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generate.swift; sourceTree = "<group>"; };
 		BB0474AD1EC068FA00FC2B34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsController.swift; sourceTree = "<group>"; };
-		BB981FC71EBE26DB00BB1347 /* CommandLineAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineAssembly.swift; sourceTree = "<group>"; };
-		BB981FCB1EBE27F100BB1347 /* HelpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpController.swift; sourceTree = "<group>"; };
-		BBA24A9E1EA9459800ADCAAF /* RubiconCLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RubiconCLI; sourceTree = BUILT_PRODUCTS_DIR; };
-		BBA24AA11EA9459800ADCAAF /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		BBF3D3871EC78F2B00FAB739 /* XcodeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XcodeKit.framework; path = Library/Frameworks/XcodeKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
@@ -122,14 +105,6 @@
 			files = (
 				66990B3125D4835D00F5875B /* XcodeKit.framework in Frameworks */,
 				BB0474A51EC068FA00FC2B34 /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BBA24A9B1EA9459800ADCAAF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6656B5ED2AA9F80A003E6391 /* Rubicon in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,14 +163,6 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		BB981FC61EBE26BA00BB1347 /* Assembly */ = {
-			isa = PBXGroup;
-			children = (
-				BB981FC71EBE26DB00BB1347 /* CommandLineAssembly.swift */,
-			);
-			path = Assembly;
-			sourceTree = "<group>";
-		};
 		BBA24A951EA9459800ADCAAF = {
 			isa = PBXGroup;
 			children = (
@@ -204,34 +171,17 @@
 				BBA24A9F1EA9459800ADCAAF /* Products */,
 				2C57FE2A28E5DB9700CCFB1D /* README.md */,
 				BB0474321EC0609100FC2B34 /* RubiconApp */,
-				BBA24AA01EA9459800ADCAAF /* RubiconCLI */,
 				BB0474A61EC068FA00FC2B34 /* RubiconExtension */,
-				663D0DE62AA9F66F001253F7 /* RubiconTests */,
 			);
 			sourceTree = "<group>";
 		};
 		BBA24A9F1EA9459800ADCAAF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BBA24A9E1EA9459800ADCAAF /* RubiconCLI */,
 				BB0474311EC0609100FC2B34 /* Rubicon.app */,
 				BB0474A21EC068FA00FC2B34 /* Rubicon.appex */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		BBA24AA01EA9459800ADCAAF /* RubiconCLI */ = {
-			isa = PBXGroup;
-			children = (
-				663D0DE42AA9F625001253F7 /* ArgumentsParser.swift */,
-				BB981FC61EBE26BA00BB1347 /* Assembly */,
-				BB67AE101EB74ACC00BD20C4 /* ArgumentsController.swift */,
-				BB0474951EC062A400FC2B34 /* FileReaderImpl.swift */,
-				BB981FCB1EBE27F100BB1347 /* HelpController.swift */,
-				BB0474971EC062E400FC2B34 /* StandardGeneratorOutput.swift */,
-				BBA24AA11EA9459800ADCAAF /* main.swift */,
-			);
-			path = RubiconCLI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,25 +228,6 @@
 			productReference = BB0474A21EC068FA00FC2B34 /* Rubicon.appex */;
 			productType = "com.apple.product-type.xcode-extension";
 		};
-		BBA24A9D1EA9459800ADCAAF /* RubiconCLI */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = BBA24AA51EA9459800ADCAAF /* Build configuration list for PBXNativeTarget "RubiconCLI" */;
-			buildPhases = (
-				BBA24A9A1EA9459800ADCAAF /* Sources */,
-				BBA24A9B1EA9459800ADCAAF /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = RubiconCLI;
-			packageProductDependencies = (
-				6656B5EC2AA9F80A003E6391 /* Rubicon */,
-			);
-			productName = Rubicon;
-			productReference = BBA24A9E1EA9459800ADCAAF /* RubiconCLI */;
-			productType = "com.apple.product-type.tool";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -325,11 +256,6 @@
 						LastSwiftMigration = 1130;
 						ProvisioningStyle = Manual;
 					};
-					BBA24A9D1EA9459800ADCAAF = {
-						CreatedOnToolsVersion = 8.3.2;
-						LastSwiftMigration = 1330;
-						ProvisioningStyle = Automatic;
-					};
 				};
 			};
 			buildConfigurationList = BBA24A991EA9459800ADCAAF /* Build configuration list for PBXProject "Rubicon" */;
@@ -347,7 +273,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BBA24A9D1EA9459800ADCAAF /* RubiconCLI */,
 				BB0474301EC0609100FC2B34 /* RubiconApp */,
 				BB0474A11EC068FA00FC2B34 /* RubiconExtension */,
 			);
@@ -392,20 +317,6 @@
 				BB0168D31EC78945001024A9 /* IndentationFormatter.swift in Sources */,
 				669D68622026624800600E59 /* PasteboardGeneratorOutput.swift in Sources */,
 				BB0474AC1EC068FA00FC2B34 /* Generate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BBA24A9A1EA9459800ADCAAF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BB6E40371EC26B2F003CD916 /* HelpController.swift in Sources */,
-				BBA24AA21EA9459800ADCAAF /* main.swift in Sources */,
-				BB0474921EC0627900FC2B34 /* ArgumentsController.swift in Sources */,
-				663D0DE52AA9F625001253F7 /* ArgumentsParser.swift in Sources */,
-				BB0474961EC062A400FC2B34 /* FileReaderImpl.swift in Sources */,
-				BB981FC81EBE26DB00BB1347 /* CommandLineAssembly.swift in Sources */,
-				BB0474981EC062E400FC2B34 /* StandardGeneratorOutput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -674,30 +585,6 @@
 			};
 			name = Release;
 		};
-		BBA24AA61EA9459800ADCAAF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				DEAD_CODE_STRIPPING = YES;
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		BBA24AA71EA9459800ADCAAF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				DEAD_CODE_STRIPPING = YES;
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -728,23 +615,10 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BBA24AA51EA9459800ADCAAF /* Build configuration list for PBXNativeTarget "RubiconCLI" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BBA24AA61EA9459800ADCAAF /* Debug */,
-				BBA24AA71EA9459800ADCAAF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		6656B5EA2AA9F805003E6391 /* Rubicon */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Rubicon;
-		};
-		6656B5EC2AA9F80A003E6391 /* Rubicon */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Rubicon;
 		};

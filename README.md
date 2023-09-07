@@ -198,26 +198,6 @@ XCTAssertEqual(carSpy.load[0].stuff, 2)
 XCTAssertEqual(carSpy.load[0].label, "name")
 ```
 
-## CLI
-
-Rubicon CLI can generate mocks for every protocol in folder. Script runs through every swift file and finds every protocol definition. Result is printed at standard out.
-
-example:
-
-```
-$ ./rubicon --spy .
-```
-
-### Options:
-
-`--mocks path` - generates spies (deprecated)
-
-`--spy path` - generates spies
-
-`--stub path` - generates stubs
-
-`--dummy path` - generates dummies
-
 ## Xcode extension
 
 Xcode extension can generate test doubles for all or just selected protocols in the current file. The resulting test double can be written to the source file or pasteboard.
