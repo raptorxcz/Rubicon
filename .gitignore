@@ -66,3 +66,5 @@ fastlane/test_output
 
 Package.resolved
 Signing
+.DS_Store
+.swiftpm
