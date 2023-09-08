@@ -44,11 +44,11 @@ public class ArgumentParser {
 
         _ = try? storage.next()
 
-        let typeParser = TypeParser(storage: storage)
-        guard let type = try? typeParser.parse() else {
+//        let typeParser = TypeDeclarationParser()
+//        guard let type = try? typeParser.parse() else {
             throw ArgumentParserError.invalidType
-        }
+//        }
 
-        return ArgumentDeclaration(label: label, name: name, type: type)
+//        return ArgumentDeclaration(label: label, name: name, type: type)
     }
 }

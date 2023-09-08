@@ -16,40 +16,40 @@ public enum ProtocolParserError: Error {
 
 public class ProtocolParser {
 
-    private let variableParser = VarDeclarationTypeParser()
+//    private let variableParser = VarDeclarationParser()
 
     public init() {}
 
     public func parse(storage: Storage) throws -> ProtocolDeclaration {
-        guard storage.current == .protocol else {
+      //  guard storage.current == .protocol else {
             throw ProtocolParserError.invalidProtocolToken
-        }
-
-        guard let nameToken = try? storage.next(), case let .identifier(name) = nameToken else {
-            throw ProtocolParserError.invalidNameToken
-        }
-
-        let parents: [String]
-
-        if let nextToken = try? storage.next(), nextToken == .colon {
-            parents = try parseParents(storage: storage)
-        } else {
-            parents = []
-        }
-
-        guard storage.current == .leftCurlyBracket else {
-            throw ProtocolParserError.expectedLeftBracket
-        }
-
-        _ = try? storage.next()
-        let protocolType = parseProtocol(with: name, parents: parents, storage: storage)
-
-        guard storage.current == .rightCurlyBracket else {
-            throw ProtocolParserError.expectedRightBracket
-        }
-
-        _ = try? storage.next()
-        return protocolType
+//        }
+//
+//        guard let nameToken = try? storage.next(), case let .identifier(name) = nameToken else {
+//            throw ProtocolParserError.invalidNameToken
+//        }
+//
+//        let parents: [String]
+//
+//        if let nextToken = try? storage.next(), nextToken == .colon {
+//            parents = try parseParents(storage: storage)
+//        } else {
+//            parents = []
+//        }
+//
+//        guard storage.current == .leftCurlyBracket else {
+//            throw ProtocolParserError.expectedLeftBracket
+//        }
+//
+//        _ = try? storage.next()
+//        let protocolType = parseProtocol(with: name, parents: parents, storage: storage)
+//
+//        guard storage.current == .rightCurlyBracket else {
+//            throw ProtocolParserError.expectedRightBracket
+//        }
+//
+//        _ = try? storage.next()
+//        return protocolType
     }
 
     private func parseParents(storage: Storage) throws -> [String] {
@@ -85,10 +85,10 @@ public class ProtocolParser {
         while isSomethingParsed {
             isSomethingParsed = false
 
-            if let variable = try? variableParser.parse(storage: storage) {
-                variables.append(variable)
-                isSomethingParsed = true
-            }
+//            if let variable = try? variableParser.parse(storage: storage) {
+//                variables.append(variable)
+//                isSomethingParsed = true
+//            }
 
             if let function = try? FunctionDeclarationParser(storage: storage).parse() {
                 functions.append(function)

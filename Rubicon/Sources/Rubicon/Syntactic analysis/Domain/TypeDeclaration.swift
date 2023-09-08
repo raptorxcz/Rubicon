@@ -6,12 +6,12 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-public enum TypePrefix: String {
+public enum TypePrefix: String, Equatable {
     case escaping = "@escaping"
     case autoclosure = "@autoclosure"
 }
 
-public struct TypeDeclaration {
+public struct TypeDeclaration: Equatable {
     public var existencial: String?
     public var name: String
     public var isOptional: Bool

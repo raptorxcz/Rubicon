@@ -9,4 +9,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build
-      run: xcodebuild test  -project Rubicon.xcodeproj -scheme Generator
+      run: cd Rubicon && swift test --enable-code-coverage

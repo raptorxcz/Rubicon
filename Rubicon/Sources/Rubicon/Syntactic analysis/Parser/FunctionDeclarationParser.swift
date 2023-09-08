@@ -64,12 +64,12 @@ public class FunctionDeclarationParser {
         if storage.current == .arrow {
             moveToNextIfPossible()
 
-            let typeParser = TypeParser(storage: storage)
-            guard let type = try? typeParser.parse() else {
-                throw FunctionDeclarationParserError.invalidReturnType
-            }
+//            let typeParser = TypeDeclarationParser(storage: storage)
+//            guard let type = try? typeParser.parse() else {
+//                throw FunctionDeclarationParserError.invalidReturnType
+//            }
 
-            returnType = type
+//            returnType = type
         }
 
         return FunctionDeclaration(name: name, arguments: arguments, isThrowing: isThrowingFunction, isAsync: isAsyncFunction, returnType: returnType)
