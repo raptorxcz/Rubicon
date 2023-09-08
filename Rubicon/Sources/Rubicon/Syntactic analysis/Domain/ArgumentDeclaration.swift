@@ -6,14 +6,8 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-public struct ArgumentDeclaration {
-    public var label: String?
-    public var name: String
-    public var type: TypeDeclaration
-
-    public init(label: String?, name: String, type: TypeDeclaration) {
-        self.label = label
-        self.name = name
-        self.type = type
-    }
+struct ArgumentDeclaration: Equatable {
+    var label: String?
+    var name: String
+    var type: TypeDeclaration
 }

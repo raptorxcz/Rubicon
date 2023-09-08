@@ -12,26 +12,26 @@ enum TypeStringFactory {
     }
 
     private static func makeExistencial(for type: TypeDeclaration) -> String {
-        if let existencial = type.existencial {
-            return existencial + " "
-        } else {
+//        if let existencial = type.existencial {
+//            return existencial + " "
+//        } else {
             return ""
-        }
+//        }
     }
 
     static func makeFunctionArgumentString(_ type: TypeDeclaration) -> String {
         var prefix = ""
-        if let prefixValue = type.prefix {
-            prefix = prefixValue.rawValue + " "
-        }
+//        if let prefixValue = type.prefix {
+//            prefix = prefixValue.rawValue + " "
+//        }
         return prefix + makeSimpleString(type)
     }
 
     static func makeInitString(_ type: TypeDeclaration) -> String {
         var prefix = ""
-        if type.isClosure && !type.isOptional {
-            prefix = TypePrefix.escaping.rawValue + " "
-        }
+//        if type.isClosure && !type.isOptional {
+//            prefix = TypePrefix.escaping.rawValue + " "
+//        }
         return prefix + makeSimpleString(type)
     }
 }

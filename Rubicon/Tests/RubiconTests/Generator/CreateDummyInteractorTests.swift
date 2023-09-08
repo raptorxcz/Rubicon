@@ -6,7 +6,7 @@
 //  Copyright © 2019 Kryštof Matěj. All rights reserved.
 //
 
-import Rubicon
+@testable import Rubicon
 import XCTest
 
 //class CreateDummyInteractorTests: XCTestCase {
@@ -531,17 +531,11 @@ import XCTest
 extension TypeDeclaration {
     static func makeStub(
         name: String = "Int",
-        isOptional: Bool = false,
-        isClosure: Bool = false,
-        prefix: TypePrefix? = nil,
-        existencial: String? = nil
+        isOptional: Bool = false
     ) -> TypeDeclaration {
         return TypeDeclaration(
             name: name,
-            isOptional: isOptional,
-            isClosure: isClosure,
-            prefix: prefix,
-            existencial: existencial
+            isOptional: isOptional
         )
     }
 }

@@ -6,18 +6,10 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-public struct FunctionDeclaration {
-    public let name: String
-    public let arguments: [ArgumentDeclaration]
-    public let isThrowing: Bool
-    public let isAsync: Bool
-    public let returnType: TypeDeclaration?
-
-    public init(name: String, arguments: [ArgumentDeclaration] = [], isThrowing: Bool = false, isAsync: Bool = false, returnType: TypeDeclaration? = nil) {
-        self.name = name
-        self.arguments = arguments
-        self.isThrowing = isThrowing
-        self.isAsync = isAsync
-        self.returnType = returnType
-    }
+struct FunctionDeclaration: Equatable {
+    let name: String
+    let arguments: [ArgumentDeclaration]
+    let isThrowing: Bool
+    let isAsync: Bool
+    let returnType: TypeDeclaration?
 }

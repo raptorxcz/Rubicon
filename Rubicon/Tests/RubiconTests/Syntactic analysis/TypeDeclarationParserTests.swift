@@ -1,14 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Kryštof Matěj on 08.09.2023.
-//
-
 @testable import Rubicon
-import XCTest
 import SwiftParser
 import SwiftSyntax
+import XCTest
 
 final class TypeDeclarationParserTests: XCTestCase {
     var sut: TypeDeclarationParserImpl!
@@ -23,127 +16,111 @@ final class TypeDeclarationParserTests: XCTestCase {
         sut = nil
     }
 
-    func test_givenEmptyString_whenParse_thenThrowError() {
-        let node = parse(string: "")
-
-        XCTAssertThrowsError(try sut.parse(node: node)) { error in
-            XCTAssertEqual(error as? TypeDeclarationParserError, .missingDeclaration)
-        }
-    }
-
     func test_givenSimpleType_whenParse_thenReturnDeclaration() throws {
-        let node = parse(string: "T")
+        let node = try parse(string: "T")
 
         let declaration = try sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "T")
-        XCTAssertEqual(declaration.isClosure, false)
         XCTAssertEqual(declaration.isOptional, false)
-        XCTAssertNil(declaration.prefix)
     }
 
     func test_givenOptionalType_whenParse_thenReturnDeclaration() throws {
-        let node = parse(string: "T?")
+        let node = try parse(string: "T?")
 
         let declaration = try sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "T?")
-        XCTAssertEqual(declaration.isClosure, false)
         XCTAssertEqual(declaration.isOptional, true)
-        XCTAssertNil(declaration.prefix)
     }
 
     func test_givenForcedUpwrappedType_whenParse_thenReturnDeclaration() throws {
-        let node = parse(string: "T!")
+        let node = try parse(string: "T!")
 
         let declaration = try sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "T!")
-        XCTAssertEqual(declaration.isClosure, false)
         XCTAssertEqual(declaration.isOptional, false)
-        XCTAssertNil(declaration.prefix)
     }
 
     func test_givenClosure_whenParse_thenReturnDeclaration() throws {
-        let node = parse(string: "() -> Void")
+        let node = try parse(string: "() -> Void")
 
         let declaration = try sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "() -> Void")
-        XCTAssertEqual(declaration.isClosure, false)
         XCTAssertEqual(declaration.isOptional, false)
-        XCTAssertNil(declaration.prefix)
     }
 
     func test_givenOptionalClosure_whenParse_thenReturnDeclaration() throws {
-        let node = parse(string: "() -> Void?")
+        let node = try parse(string: "() -> Void?")
 
         let declaration = try sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "() -> Void?")
-        XCTAssertEqual(declaration.isClosure, false)
         XCTAssertEqual(declaration.isOptional, true)
-        XCTAssertNil(declaration.prefix)
     }
 
-// TODO: not working, question is, is it swift parser error?
-//    func test_givenSomeType_whenParse_thenReturnDeclaration() throws {
-//        let node = parse(string: "some T")
-//
-//        let declaration = try sut.parse(node: node)
-//
-//        XCTAssertEqual(declaration.name, "some T")
-//        XCTAssertEqual(declaration.isClosure, false)
-//        XCTAssertEqual(declaration.isOptional, false)
-//        XCTAssertNil(declaration.prefix)
-//    }
+    func test_givenSomeType_whenParse_thenReturnDeclaration() throws {
+        let node = try parse(string: "some T")
+
+        let declaration = try sut.parse(node: node)
+
+        XCTAssertEqual(declaration.name, "some T")
+        XCTAssertEqual(declaration.isOptional, false)
+    }
 
     func test_givenAnyType_whenParse_thenReturnDeclaration() throws {
-        let node = parse(string: "any T")
+        let node = try parse(string: "any T")
 
         let declaration = try sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "any T")
-        XCTAssertEqual(declaration.isClosure, false)
         XCTAssertEqual(declaration.isOptional, false)
-        XCTAssertNil(declaration.prefix)
     }
 
     func test_givenDictionaryType_whenParse_thenReturnDeclaration() throws {
-        let node = parse(string: "[A: B]")
+        let node = try parse(string: "[A: B]")
 
         let declaration = try sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "[A: B]")
-        XCTAssertEqual(declaration.isClosure, false)
         XCTAssertEqual(declaration.isOptional, false)
-        XCTAssertNil(declaration.prefix)
     }
 
     func test_givenGenericType_whenParse_thenReturnDeclaration() throws {
-        let node = parse(string: "A<B>")
+        let node = try parse(string: "A<B>")
 
         let declaration = try sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "A<B>")
-        XCTAssertEqual(declaration.isClosure, false)
         XCTAssertEqual(declaration.isOptional, false)
-        XCTAssertNil(declaration.prefix)
     }
 
     func test_givenOptionalGenericType_whenParse_thenReturnDeclaration() throws {
-        let node = parse(string: "A<B>?")
+        let node = try parse(string: "A<B>?")
 
         let declaration = try sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "A<B>?")
-        XCTAssertEqual(declaration.isClosure, false)
         XCTAssertEqual(declaration.isOptional, true)
-        XCTAssertNil(declaration.prefix)
     }
 
-    private func parse(string: String) -> SyntaxProtocol {
-        return SwiftParser.Parser.parse(source: string)
+    private func parse(string: String) throws -> TypeSyntax {
+        let file = SwiftParser.Parser.parse(source: "let v: " + string)
+
+        guard let variableDeclaration = file.statements.first?.item.as(VariableDeclSyntax.self) else {
+            throw TestsError.error
+        }
+
+        guard let typeDeclaration = variableDeclaration.bindings.first?.typeAnnotation?.type else {
+            throw TestsError.error
+        }
+
+        return typeDeclaration
     }
 }
 
+private enum TestsError: Error {
+    case error
+}

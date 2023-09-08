@@ -6,23 +6,12 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-public enum TypePrefix: String, Equatable {
+enum TypePrefix: String, Equatable {
     case escaping = "@escaping"
     case autoclosure = "@autoclosure"
 }
 
-public struct TypeDeclaration: Equatable {
-    public var existencial: String?
-    public var name: String
-    public var isOptional: Bool
-    public var isClosure: Bool
-    public var prefix: TypePrefix?
-
-    public init(name: String, isOptional: Bool, isClosure: Bool = false, prefix: TypePrefix? = nil, existencial: String?) {
-        self.name = name
-        self.isOptional = isOptional
-        self.isClosure = isClosure
-        self.prefix = prefix
-        self.existencial = existencial
-    }
+struct TypeDeclaration: Equatable {
+    var name: String
+    var isOptional: Bool
 }
