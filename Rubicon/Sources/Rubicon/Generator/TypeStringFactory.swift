@@ -7,11 +7,11 @@
 //
 
 enum TypeStringFactory {
-    static func makeSimpleString(_ type: Type) -> String {
+    static func makeSimpleString(_ type: TypeDeclaration) -> String {
         return "\(makeExistencial(for: type))\(type.name)\(type.isOptional ? "?" : "")"
     }
 
-    private static func makeExistencial(for type: Type) -> String {
+    private static func makeExistencial(for type: TypeDeclaration) -> String {
         if let existencial = type.existencial {
             return existencial + " "
         } else {
@@ -19,7 +19,7 @@ enum TypeStringFactory {
         }
     }
 
-    static func makeFunctionArgumentString(_ type: Type) -> String {
+    static func makeFunctionArgumentString(_ type: TypeDeclaration) -> String {
         var prefix = ""
         if let prefixValue = type.prefix {
             prefix = prefixValue.rawValue + " "
@@ -27,7 +27,7 @@ enum TypeStringFactory {
         return prefix + makeSimpleString(type)
     }
 
-    static func makeInitString(_ type: Type) -> String {
+    static func makeInitString(_ type: TypeDeclaration) -> String {
         var prefix = ""
         if type.isClosure && !type.isOptional {
             prefix = TypePrefix.escaping.rawValue + " "

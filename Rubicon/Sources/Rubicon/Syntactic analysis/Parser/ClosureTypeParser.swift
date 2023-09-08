@@ -20,14 +20,14 @@ public class ClosureTypeParser {
         self.storage = storage
     }
 
-    public func parse() throws -> Type {
+    public func parse() throws -> TypeDeclaration {
         guard isFirstTokenValidForClosure() else {
             throw ClosureTypeParserError.invalidStartToken
         }
         return try parseClosure()
     }
 
-    private func parseClosure() throws -> Type {
+    private func parseClosure() throws -> TypeDeclaration {
         let prefix = try parsePrefix()
 
         guard try parseIsLeftBracket() else {
@@ -50,18 +50,18 @@ public class ClosureTypeParser {
         }
 
         let name = makeClosureName(parameters: parametersTypes, returnType: returnType, isOptional: isOptional, isThrowing: isThrowing)
-        return Type(name: name, isOptional: isOptional, isClosure: true, prefix: prefix, existencial: nil)
+        return TypeDeclaration(name: name, isOptional: isOptional, isClosure: true, prefix: prefix, existencial: nil)
     }
 
-    private func parseSimpleTypeClosure(prefix: TypePrefix?) throws -> Type {
+    private func parseSimpleTypeClosure(prefix: TypePrefix?) throws -> TypeDeclaration {
         var simpleType = try parseSimpleType()
         simpleType.isClosure = true
         simpleType.prefix = prefix
         return simpleType
     }
 
-    private func parseParametersList() throws -> [Type] {
-        var types = [Type]()
+    private func parseParametersList() throws -> [TypeDeclaration] {
+        var types = [TypeDeclaration]()
 
         while !isCurrentTokenRightBracket() {
             types.append(try parseSimpleType())
@@ -75,7 +75,7 @@ public class ClosureTypeParser {
         return types
     }
 
-    private func parseSimpleType() throws -> Type {
+    private func parseSimpleType() throws -> TypeDeclaration {
         return try SimpleTypeParser(storage: storage).parse()
     }
 
@@ -136,7 +136,7 @@ public class ClosureTypeParser {
         return true
     }
 
-    private func makeClosureName(parameters: [Type], returnType: Type, isOptional: Bool, isThrowing: Bool) -> String {
+    private func makeClosureName(parameters: [TypeDeclaration], returnType: TypeDeclaration, isOptional: Bool, isThrowing: Bool) -> String {
         let parametersString = parameters
             .map { TypeStringFactory.makeSimpleString($0) }
             .joined(separator: ", ")

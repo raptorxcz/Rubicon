@@ -23,7 +23,7 @@ public class FunctionDeclarationParser {
         self.storage = storage
     }
 
-    public func parse() throws -> FunctionDeclarationType {
+    public func parse() throws -> FunctionDeclaration {
         let index = storage.currentIndex()
         try parseFuncKeyword()
 
@@ -59,7 +59,7 @@ public class FunctionDeclarationParser {
             moveToNextIfPossible()
         }
 
-        var returnType: Type?
+        var returnType: TypeDeclaration?
 
         if storage.current == .arrow {
             moveToNextIfPossible()
@@ -72,7 +72,7 @@ public class FunctionDeclarationParser {
             returnType = type
         }
 
-        return FunctionDeclarationType(name: name, arguments: arguments, isThrowing: isThrowingFunction, isAsync: isAsyncFunction, returnType: returnType)
+        return FunctionDeclaration(name: name, arguments: arguments, isThrowing: isThrowingFunction, isAsync: isAsyncFunction, returnType: returnType)
     }
 
     private func isAsync() -> Bool {
@@ -93,8 +93,8 @@ public class FunctionDeclarationParser {
         }
     }
 
-    private func parseArguments() -> [ArgumentType] {
-        var arguments = [ArgumentType]()
+    private func parseArguments() -> [ArgumentDeclaration] {
+        var arguments = [ArgumentDeclaration]()
 
         if let argument = try? argumentParser.parse(storage: storage) {
             arguments.append(argument)

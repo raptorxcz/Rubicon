@@ -28,12 +28,12 @@ public class VarDeclarationTypeParser {
 
     public init() {}
 
-    public func parse(storage: Storage) throws -> VarDeclarationType {
+    public func parse(storage: Storage) throws -> VarDeclaration {
         var isConstant = true
         var isEnd = false
         var state = State.start
         var identifier: String?
-        var type: Type?
+        var type: TypeDeclaration?
         var prefix: String?
         let index = storage.currentIndex()
 
@@ -119,7 +119,7 @@ public class VarDeclarationTypeParser {
                 }
             case .rightCurlyBracket:
                 if let identifier = identifier, let type = type {
-                    return VarDeclarationType(prefix: prefix, isConstant: isConstant, identifier: identifier, type: type)
+                    return VarDeclaration(prefix: prefix, isConstant: isConstant, identifier: identifier, type: type)
                 }
             case .error:
                 isEnd = true

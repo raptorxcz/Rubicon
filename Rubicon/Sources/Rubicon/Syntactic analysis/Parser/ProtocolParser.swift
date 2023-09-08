@@ -20,7 +20,7 @@ public class ProtocolParser {
 
     public init() {}
 
-    public func parse(storage: Storage) throws -> ProtocolType {
+    public func parse(storage: Storage) throws -> ProtocolDeclaration {
         guard storage.current == .protocol else {
             throw ProtocolParserError.invalidProtocolToken
         }
@@ -76,9 +76,9 @@ public class ProtocolParser {
 
         return parents
     }
-    private func parseProtocol(with name: String, parents: [String], storage: Storage) -> ProtocolType {
-        var variables = [VarDeclarationType]()
-        var functions = [FunctionDeclarationType]()
+    private func parseProtocol(with name: String, parents: [String], storage: Storage) -> ProtocolDeclaration {
+        var variables = [VarDeclaration]()
+        var functions = [FunctionDeclaration]()
 
         var isSomethingParsed = true
 
@@ -96,6 +96,6 @@ public class ProtocolParser {
             }
         }
 
-        return ProtocolType(name: name, parents: parents, variables: variables, functions: functions)
+        return ProtocolDeclaration(name: name, parents: parents, variables: variables, functions: functions)
     }
 }

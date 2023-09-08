@@ -21,11 +21,11 @@ public class SimpleTypeParser {
         self.storage = storage
     }
 
-    public func parse() throws -> Type {
+    public func parse() throws -> TypeDeclaration {
         return try parseStructure()
     }
 
-    public func parseSimpleType() throws -> Type {
+    public func parseSimpleType() throws -> TypeDeclaration {
         let existencial = parseExistencial()
         var name = try parseName()
         let isOptional = isOptionalParsed()
@@ -36,7 +36,7 @@ public class SimpleTypeParser {
             name += "<\(subtypes.map({ $0.name }).joined(separator: ", "))>"
         }
 
-        return Type(name: name, isOptional: isOptional, existencial: existencial)
+        return TypeDeclaration(name: name, isOptional: isOptional, existencial: existencial)
     }
 
     private func parseExistencial() -> String? {
@@ -51,7 +51,7 @@ public class SimpleTypeParser {
         }
     }
 
-    private func parseGenericTypes() throws -> [Type] {
+    private func parseGenericTypes() throws -> [TypeDeclaration] {
         guard storage.current == .lessThan else {
             return []
         }
@@ -67,8 +67,8 @@ public class SimpleTypeParser {
         return types
     }
 
-    private func parseListedTypes() throws -> [Type] {
-        var types = [Type]()
+    private func parseListedTypes() throws -> [TypeDeclaration] {
+        var types = [TypeDeclaration]()
 
         repeat {
             _ = try storage.next()
@@ -83,7 +83,7 @@ public class SimpleTypeParser {
         return types
     }
 
-    private func parseStructure() throws -> Type {
+    private func parseStructure() throws -> TypeDeclaration {
         guard case .leftSquareBracket = storage.current else {
             return try parseSimpleType()
         }
@@ -91,7 +91,7 @@ public class SimpleTypeParser {
         _ = try storage.next()
 
         let contentType = try parse()
-        let resultType: Type
+        let resultType: TypeDeclaration
 
         if isColonParsed() {
             resultType = try parseDictionary(keyType: contentType)
@@ -102,19 +102,19 @@ public class SimpleTypeParser {
         return resultType
     }
 
-    private func parseDictionary(keyType: Type) throws -> Type {
+    private func parseDictionary(keyType: TypeDeclaration) throws -> TypeDeclaration {
         let existencial = parseExistencial()
         let valueType = try parseSimpleType()
         try parseRightSquareBracket()
         let isOptional = isOptionalParsed()
-        return Type(name: "[\(makeTypeString(keyType)): \(makeTypeString(valueType))]", isOptional: isOptional, existencial: existencial)
+        return TypeDeclaration(name: "[\(makeTypeString(keyType)): \(makeTypeString(valueType))]", isOptional: isOptional, existencial: existencial)
     }
 
-    private func parseArray(type: Type) throws -> Type {
+    private func parseArray(type: TypeDeclaration) throws -> TypeDeclaration {
         let existencial = parseExistencial()
         try parseRightSquareBracket()
         let isOptional = isOptionalParsed()
-        return Type(name: "[\(makeTypeString(type))]", isOptional: isOptional, existencial: existencial)
+        return TypeDeclaration(name: "[\(makeTypeString(type))]", isOptional: isOptional, existencial: existencial)
     }
 
     private func parseName() throws -> String {
@@ -154,7 +154,7 @@ public class SimpleTypeParser {
         _ = try storage.next()
     }
 
-    private func makeTypeString(_ type: Type) -> String {
+    private func makeTypeString(_ type: TypeDeclaration) -> String {
         return TypeStringFactory.makeSimpleString(type)
     }
 }

@@ -13,7 +13,7 @@ public class TypeParser {
         self.storage = storage
     }
 
-    public func parse() throws -> Type {
+    public func parse() throws -> TypeDeclaration {
         if isClosure() {
             return try ClosureTypeParser(storage: storage).parse()
         } else {

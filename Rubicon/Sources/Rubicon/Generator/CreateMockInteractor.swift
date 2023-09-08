@@ -7,5 +7,5 @@
 //
 
 public protocol CreateMockInteractor {
-    func generate(from protocolType: ProtocolType) -> String
+    func generate(from protocolType: ProtocolDeclaration) -> String
 }
