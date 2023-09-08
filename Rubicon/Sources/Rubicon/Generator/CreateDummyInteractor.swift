@@ -8,13 +8,13 @@
 
 public final class CreateDummyInteractor: CreateMockInteractor {
     private let accessLevel: AccessLevel
-    private var protocolType: ProtocolType?
+    private var protocolType: ProtocolDeclaration?
 
     public init(accessLevel: AccessLevel) {
         self.accessLevel = accessLevel
     }
 
-    public func generate(from protocolType: ProtocolType) -> String {
+    public func generate(from protocolType: ProtocolDeclaration) -> String {
         self.protocolType = protocolType
         var result = [String]()
         result.append("\(accessLevel.makeClassString())final class \(protocolType.name)Dummy: \(protocolType.name) {")
@@ -28,7 +28,7 @@ public final class CreateDummyInteractor: CreateMockInteractor {
         return string
     }
 
-    private func generateBody(from protocolType: ProtocolType) -> [String] {
+    private func generateBody(from protocolType: ProtocolDeclaration) -> [String] {
         var content = [String]()
 
         if !protocolType.variables.isEmpty {
@@ -52,7 +52,7 @@ public final class CreateDummyInteractor: CreateMockInteractor {
         return content
     }
 
-    private func generateInit(for type: ProtocolType) -> [String] {
+    private func generateInit(for type: ProtocolDeclaration) -> [String] {
         guard accessLevel == .public else {
             return []
         }
@@ -63,7 +63,7 @@ public final class CreateDummyInteractor: CreateMockInteractor {
         return result
     }
 
-    private func generateFunctionsBody(for protocolType: ProtocolType) -> [String] {
+    private func generateFunctionsBody(for protocolType: ProtocolDeclaration) -> [String] {
         var rows = [[String]]()
 
         for function in protocolType.functions {
@@ -73,7 +73,7 @@ public final class CreateDummyInteractor: CreateMockInteractor {
         return rows.joined(separator: [""]).compactMap({ $0 })
     }
 
-    private func makeArgument(from variable: VarDeclarationType) -> String? {
+    private func makeArgument(from variable: VarDeclaration) -> String? {
         if variable.type.isOptional {
             return nil
         } else {
@@ -82,7 +82,7 @@ public final class CreateDummyInteractor: CreateMockInteractor {
         }
     }
 
-    private func makeAssigment(of variable: VarDeclarationType) -> String? {
+    private func makeAssigment(of variable: VarDeclaration) -> String? {
         if variable.type.isOptional {
             return nil
         } else {
@@ -90,7 +90,7 @@ public final class CreateDummyInteractor: CreateMockInteractor {
         }
     }
 
-    private func makeReturnArgument(of function: FunctionDeclarationType) -> String? {
+    private func makeReturnArgument(of function: FunctionDeclaration) -> String? {
         guard let returnType = function.returnType, !returnType.isOptional else {
             return nil
         }
@@ -99,7 +99,7 @@ public final class CreateDummyInteractor: CreateMockInteractor {
         return "\(functionName)Return: \(typeString)"
     }
 
-    private func makeReturnAssigment(of function: FunctionDeclarationType) -> String? {
+    private func makeReturnAssigment(of function: FunctionDeclaration) -> String? {
         guard let returnType = function.returnType, !returnType.isOptional else {
             return nil
         }
@@ -108,7 +108,7 @@ public final class CreateDummyInteractor: CreateMockInteractor {
         return "\t\tself.\(functionName)Return = \(functionName)Return"
     }
 
-    private func generateVariables(_ variables: [VarDeclarationType]) -> [String] {
+    private func generateVariables(_ variables: [VarDeclaration]) -> [String] {
         var result = [String]()
 
         for variable in variables {
@@ -137,14 +137,14 @@ public final class CreateDummyInteractor: CreateMockInteractor {
         return result
     }
 
-    private func getName(from function: FunctionDeclarationType) -> String {
+    private func getName(from function: FunctionDeclaration) -> String {
         let argumentsTitles = function.arguments.map(getArgumentName(from:)).joined()
         let arguments = isFunctionNameUnique(function) ? argumentsTitles : ""
 
         return "\(function.name)\(arguments)"
     }
 
-    private func getArgumentName(from type: ArgumentType) -> String {
+    private func getArgumentName(from type: ArgumentDeclaration) -> String {
         if let label = type.label, label != "_" {
             return label.capitalizingFirstLetter()
         } else {
@@ -152,7 +152,7 @@ public final class CreateDummyInteractor: CreateMockInteractor {
         }
     }
 
-    private func isFunctionNameUnique(_ function: FunctionDeclarationType) -> Bool {
+    private func isFunctionNameUnique(_ function: FunctionDeclaration) -> Bool {
         guard let protocolType = protocolType else {
             return false
         }
@@ -168,7 +168,7 @@ public final class CreateDummyInteractor: CreateMockInteractor {
         return matchCount > 1
     }
 
-    private func generateArgument(_ argument: ArgumentType) -> String {
+    private func generateArgument(_ argument: ArgumentDeclaration) -> String {
         let labelString: String
 
         if let label = argument.label {
@@ -180,7 +180,7 @@ public final class CreateDummyInteractor: CreateMockInteractor {
         return "\(labelString)\(argument.name): \(typeString)"
     }
 
-    private func generateDummy(of function: FunctionDeclarationType) -> [String] {
+    private func generateDummy(of function: FunctionDeclaration) -> [String] {
         var result = [String]()
         let argumentsString = function.arguments.map(generateArgument).joined(separator: ", ")
         var returnString = ""

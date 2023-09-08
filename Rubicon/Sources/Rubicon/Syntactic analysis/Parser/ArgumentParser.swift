@@ -16,7 +16,7 @@ public class ArgumentParser {
 
     public init() {}
 
-    public func parse(storage: Storage) throws -> ArgumentType {
+    public func parse(storage: Storage) throws -> ArgumentDeclaration {
         guard case let .identifier(label) = storage.current else {
             throw ArgumentParserError.invalidName
         }
@@ -25,7 +25,7 @@ public class ArgumentParser {
             throw ArgumentParserError.invalidColon
         }
 
-        let argumentType: ArgumentType
+        let argumentType: ArgumentDeclaration
 
         if case let .identifier(name) = secondToken {
             _ = try? storage.next()
@@ -37,7 +37,7 @@ public class ArgumentParser {
         return argumentType
     }
 
-    private func parseColon(in storage: Storage, label: String?, name: String) throws -> ArgumentType {
+    private func parseColon(in storage: Storage, label: String?, name: String) throws -> ArgumentDeclaration {
         guard storage.current == .colon else {
             throw ArgumentParserError.invalidColon
         }
@@ -49,6 +49,6 @@ public class ArgumentParser {
             throw ArgumentParserError.invalidType
         }
 
-        return ArgumentType(label: label, name: name, type: type)
+        return ArgumentDeclaration(label: label, name: name, type: type)
     }
 }

@@ -8,13 +8,13 @@
 
 public class CreateSpyInteractor: CreateMockInteractor {
     private let accessLevel: AccessLevel
-    private var protocolType: ProtocolType?
+    private var protocolType: ProtocolDeclaration?
 
     public init(accessLevel: AccessLevel) {
         self.accessLevel = accessLevel
     }
 
-    public func generate(from protocolType: ProtocolType) -> String {
+    public func generate(from protocolType: ProtocolDeclaration) -> String {
         self.protocolType = protocolType
         var result = [String]()
         result.append("\(accessLevel.makeClassString())final class \(protocolType.name)Spy: \(protocolType.name) {")
@@ -28,7 +28,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return string
     }
 
-    private func generateBody(from protocolType: ProtocolType) -> [String] {
+    private func generateBody(from protocolType: ProtocolDeclaration) -> [String] {
         var content = [String]()
 
         if let throwSampleError = makeThrowSampleError(for: protocolType) {
@@ -62,7 +62,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return content
     }
 
-    private func generateFunctionsBody(for protocolType: ProtocolType) -> [String] {
+    private func generateFunctionsBody(for protocolType: ProtocolDeclaration) -> [String] {
         var rows = [[String]]()
 
         for function in protocolType.functions {
@@ -72,7 +72,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return rows.joined(separator: [""]).compactMap({ $0 })
     }
 
-    private func makeThrowSampleError(for type: ProtocolType) -> String? {
+    private func makeThrowSampleError(for type: ProtocolDeclaration) -> String? {
         let isAnyFuncThrowing = type.functions.contains(where: { $0.isThrowing })
 
         if isAnyFuncThrowing {
@@ -87,7 +87,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         }
     }
 
-    private func generateInit(for type: ProtocolType) -> [String] {
+    private func generateInit(for type: ProtocolDeclaration) -> [String] {
         var variables = type.variables.compactMap(makeArgument(from:))
         variables += type.functions.compactMap(makeReturnArgument(of:))
         let arguments = variables.joined(separator: ", ")
@@ -105,7 +105,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return result
     }
 
-    private func makeArgument(from variable: VarDeclarationType) -> String? {
+    private func makeArgument(from variable: VarDeclaration) -> String? {
         if variable.type.isOptional {
             return nil
         } else {
@@ -114,7 +114,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         }
     }
 
-    private func makeAssigment(of variable: VarDeclarationType) -> String? {
+    private func makeAssigment(of variable: VarDeclaration) -> String? {
         if variable.type.isOptional {
             return nil
         } else {
@@ -122,7 +122,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         }
     }
 
-    private func makeReturnArgument(of function: FunctionDeclarationType) -> String? {
+    private func makeReturnArgument(of function: FunctionDeclaration) -> String? {
         guard let returnType = function.returnType, !returnType.isOptional else {
             return nil
         }
@@ -131,7 +131,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return "\(functionName)Return: \(typeString)"
     }
 
-    private func makeReturnAssigment(of function: FunctionDeclarationType) -> String? {
+    private func makeReturnAssigment(of function: FunctionDeclaration) -> String? {
         guard let returnType = function.returnType, !returnType.isOptional else {
             return nil
         }
@@ -140,7 +140,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return "\t\tself.\(functionName)Return = \(functionName)Return"
     }
 
-    private func generateVariables(_ variables: [VarDeclarationType]) -> [String] {
+    private func generateVariables(_ variables: [VarDeclaration]) -> [String] {
         var result = [String]()
 
         for variable in variables {
@@ -151,7 +151,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return result
     }
 
-    private func generateSpyVariables(for functions: [FunctionDeclarationType]) -> [String] {
+    private func generateSpyVariables(for functions: [FunctionDeclaration]) -> [String] {
         var result = [String]()
 
         for function in functions {
@@ -167,7 +167,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return result
     }
 
-    private func generateFunctionVariables(_ function: FunctionDeclarationType) -> String {
+    private func generateFunctionVariables(_ function: FunctionDeclaration) -> String {
         let functionName = getName(from: function)
 
         var result = ""
@@ -190,13 +190,13 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return result
     }
 
-    private func generateCallStackVariable(for function: FunctionDeclarationType) -> String {
+    private func generateCallStackVariable(for function: FunctionDeclaration) -> String {
         let functionName = getName(from: function)
         let structName = makeStructName(from: function)
         return "\t\(accessLevel.makeContentString())var \(functionName) = [\(structName)]()"
     }
 
-    private func generateStruct(for function: FunctionDeclarationType) -> String {
+    private func generateStruct(for function: FunctionDeclaration) -> String {
         let structName = makeStructName(from: function)
 
         var result = ""
@@ -206,19 +206,19 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return result
     }
 
-    private func makeRow(for argument: ArgumentType) -> String {
+    private func makeRow(for argument: ArgumentDeclaration) -> String {
         let typeString = TypeStringFactory.makeSimpleString(argument.type)
         return "\t\t\(accessLevel.makeContentString())let \(argument.name): \(typeString)\n"
     }
 
-    private func getName(from function: FunctionDeclarationType) -> String {
+    private func getName(from function: FunctionDeclaration) -> String {
         let argumentsTitles = function.arguments.map(getArgumentName(from:)).joined()
         let arguments = isFunctionNameUnique(function) ? argumentsTitles : ""
 
         return "\(function.name)\(arguments)"
     }
 
-    private func getArgumentName(from type: ArgumentType) -> String {
+    private func getArgumentName(from type: ArgumentDeclaration) -> String {
         if let label = type.label, label != "_" {
             return label.capitalizingFirstLetter()
         } else {
@@ -226,7 +226,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         }
     }
 
-    private func isFunctionNameUnique(_ function: FunctionDeclarationType) -> Bool {
+    private func isFunctionNameUnique(_ function: FunctionDeclaration) -> Bool {
         guard let protocolType = protocolType else {
             return false
         }
@@ -242,7 +242,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return matchCount > 1
     }
 
-    private func generateArgument(_ argument: ArgumentType) -> String {
+    private func generateArgument(_ argument: ArgumentDeclaration) -> String {
         let labelString: String
 
         if let label = argument.label {
@@ -254,7 +254,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return "\(labelString)\(argument.name): \(typeString)"
     }
 
-    private func generateSpy(of function: FunctionDeclarationType) -> [String] {
+    private func generateSpy(of function: FunctionDeclaration) -> [String] {
         if function.arguments.isEmpty {
             return generateSpyWithoutArguments(of: function)
         } else {
@@ -262,7 +262,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         }
     }
 
-    private func generateSpyWithoutArguments(of function: FunctionDeclarationType) -> [String] {
+    private func generateSpyWithoutArguments(of function: FunctionDeclaration) -> [String] {
         let functionName = getName(from: function)
         var functionBody = [String]()
 
@@ -279,7 +279,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return makeFunctionDefinition(of: function, body: functionBody)
     }
 
-    private func generateSpyWithArguments(of function: FunctionDeclarationType) -> [String] {
+    private func generateSpyWithArguments(of function: FunctionDeclaration) -> [String] {
         let functionName = getName(from: function)
         let structName = makeStructName(from: function)
 
@@ -300,7 +300,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return makeFunctionDefinition(of: function, body: functionBody)
     }
 
-    private func makeFunctionDefinition(of function: FunctionDeclarationType, body: [String]) -> [String] {
+    private func makeFunctionDefinition(of function: FunctionDeclaration, body: [String]) -> [String] {
         var result = [String]()
         let argumentsString = function.arguments.map(generateArgument).joined(separator: ", ")
         var returnString = ""
@@ -324,7 +324,7 @@ public class CreateSpyInteractor: CreateMockInteractor {
         return result
     }
 
-    private func makeStructName(from function: FunctionDeclarationType) -> String {
+    private func makeStructName(from function: FunctionDeclaration) -> String {
         return getName(from: function).capitalizingFirstLetter()
     }
 }

@@ -8,13 +8,13 @@
 
 public final class CreateStubInteractor: CreateMockInteractor {
     private let accessLevel: AccessLevel
-    private var protocolType: ProtocolType?
+    private var protocolType: ProtocolDeclaration?
 
     public init(accessLevel: AccessLevel) {
         self.accessLevel = accessLevel
     }
 
-    public func generate(from protocolType: ProtocolType) -> String {
+    public func generate(from protocolType: ProtocolDeclaration) -> String {
         self.protocolType = protocolType
         var result = [String]()
         result.append("\(accessLevel.makeClassString())final class \(protocolType.name)Stub: \(protocolType.name) {")
@@ -28,7 +28,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         return string
     }
 
-    private func generateBody(from protocolType: ProtocolType) -> [String] {
+    private func generateBody(from protocolType: ProtocolDeclaration) -> [String] {
         var content = [String]()
 
         if let throwSampleError = makeThrowSampleError(for: protocolType) {
@@ -63,7 +63,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         return content
     }
 
-    private func generateFunctionsBody(for protocolType: ProtocolType) -> [String] {
+    private func generateFunctionsBody(for protocolType: ProtocolDeclaration) -> [String] {
         var rows = [[String]]()
 
         for function in protocolType.functions {
@@ -73,7 +73,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         return rows.joined(separator: [""]).compactMap({ $0 })
     }
 
-    private func makeThrowSampleError(for type: ProtocolType) -> String? {
+    private func makeThrowSampleError(for type: ProtocolDeclaration) -> String? {
         let isAnyFuncThrowing = type.functions.contains(where: { $0.isThrowing })
 
         if isAnyFuncThrowing {
@@ -88,7 +88,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         }
     }
 
-    private func generateInit(for type: ProtocolType) -> [String] {
+    private func generateInit(for type: ProtocolDeclaration) -> [String] {
         var variables = type.variables.compactMap(makeArgument(from:))
         variables += type.functions.compactMap(makeReturnArgument(of:))
         let arguments = variables.joined(separator: ", ")
@@ -106,7 +106,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         return result
     }
 
-    private func makeArgument(from variable: VarDeclarationType) -> String? {
+    private func makeArgument(from variable: VarDeclaration) -> String? {
         if variable.type.isOptional {
             return nil
         } else {
@@ -115,7 +115,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         }
     }
 
-    private func makeAssigment(of variable: VarDeclarationType) -> String? {
+    private func makeAssigment(of variable: VarDeclaration) -> String? {
         if variable.type.isOptional {
             return nil
         } else {
@@ -123,7 +123,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         }
     }
 
-    private func makeReturnArgument(of function: FunctionDeclarationType) -> String? {
+    private func makeReturnArgument(of function: FunctionDeclaration) -> String? {
         guard let returnType = function.returnType, !returnType.isOptional else {
             return nil
         }
@@ -132,7 +132,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         return "\(functionName)Return: \(typeString)"
     }
 
-    private func makeReturnAssigment(of function: FunctionDeclarationType) -> String? {
+    private func makeReturnAssigment(of function: FunctionDeclaration) -> String? {
         guard let returnType = function.returnType, !returnType.isOptional else {
             return nil
         }
@@ -141,7 +141,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         return "\t\tself.\(functionName)Return = \(functionName)Return"
     }
 
-    private func generateVariables(_ variables: [VarDeclarationType]) -> [String] {
+    private func generateVariables(_ variables: [VarDeclaration]) -> [String] {
         var result = [String]()
 
         for variable in variables {
@@ -152,7 +152,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         return result
     }
 
-    private func generateStubVariables(for functions: [FunctionDeclarationType]) -> [String] {
+    private func generateStubVariables(for functions: [FunctionDeclaration]) -> [String] {
         var result = [String]()
 
         for function in functions {
@@ -162,7 +162,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         return result
     }
 
-    private func generateFunctionVariables(_ function: FunctionDeclarationType) -> [String] {
+    private func generateFunctionVariables(_ function: FunctionDeclaration) -> [String] {
         let functionName = getName(from: function)
 
         var results = [String]()
@@ -179,14 +179,14 @@ public final class CreateStubInteractor: CreateMockInteractor {
         return results
     }
 
-    private func getName(from function: FunctionDeclarationType) -> String {
+    private func getName(from function: FunctionDeclaration) -> String {
         let argumentsTitles = function.arguments.map(getArgumentName(from:)).joined()
         let arguments = isFunctionNameUnique(function) ? argumentsTitles : ""
 
         return "\(function.name)\(arguments)"
     }
 
-    private func getArgumentName(from type: ArgumentType) -> String {
+    private func getArgumentName(from type: ArgumentDeclaration) -> String {
         if let label = type.label, label != "_" {
             return label.capitalizingFirstLetter()
         } else {
@@ -194,7 +194,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         }
     }
 
-    private func isFunctionNameUnique(_ function: FunctionDeclarationType) -> Bool {
+    private func isFunctionNameUnique(_ function: FunctionDeclaration) -> Bool {
         guard let protocolType = protocolType else {
             return false
         }
@@ -210,7 +210,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         return matchCount > 1
     }
 
-    private func generateArgument(_ argument: ArgumentType) -> String {
+    private func generateArgument(_ argument: ArgumentDeclaration) -> String {
         let labelString: String
 
         if let label = argument.label {
@@ -222,7 +222,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         return "\(labelString)\(argument.name): \(typeString)"
     }
 
-    private func generateStub(of function: FunctionDeclarationType) -> [String] {
+    private func generateStub(of function: FunctionDeclaration) -> [String] {
         let functionName = getName(from: function)
         var functionBody = [String]()
 
@@ -237,7 +237,7 @@ public final class CreateStubInteractor: CreateMockInteractor {
         return makeFunctionDefinition(of: function, body: functionBody)
     }
 
-    private func makeFunctionDefinition(of function: FunctionDeclarationType, body: [String]) -> [String] {
+    private func makeFunctionDefinition(of function: FunctionDeclaration, body: [String]) -> [String] {
         var result = [String]()
         let argumentsString = function.arguments.map(generateArgument).joined(separator: ", ")
         var returnString = ""

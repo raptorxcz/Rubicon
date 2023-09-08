@@ -255,6 +255,7 @@ class ParserTests: XCTestCase {
         XCTAssertEqual(result, [.protocol, .protocol])
     }
 
+// TODO: After migrating to SPM, loading file have to be refactored
 //    func test_givenBigFile_whenParse_thenMeasureSpeed() {
 //        let url = Bundle(for: ParserTests.self).url(forResource: "SampleProject", withExtension: "txt")!
 //        let string = try! String(contentsOf: url, encoding: .utf8)

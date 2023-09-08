@@ -1,5 +1,5 @@
 //
-//  Type.swift
+//  TypeDeclaration.swift
 //  Rubicon
 //
 //  Created by Kryštof Matěj on 26/04/2017.
@@ -11,7 +11,7 @@ public enum TypePrefix: String {
     case autoclosure = "@autoclosure"
 }
 
-public struct Type {
+public struct TypeDeclaration {
     public var existencial: String?
     public var name: String
     public var isOptional: Bool
