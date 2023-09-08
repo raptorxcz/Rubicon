@@ -6,13 +6,13 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-public struct VarDeclaration {
-    public var prefix: String?
-    public var isConstant: Bool
-    public var identifier: String
-    public var type: TypeDeclaration
+struct VarDeclaration: Equatable {
+    var prefix: String?
+    var isConstant: Bool
+    var identifier: String
+    var type: TypeDeclaration
 
-    public init(prefix: String? = nil, isConstant: Bool, identifier: String, type: TypeDeclaration) {
+    init(prefix: String? = nil, isConstant: Bool, identifier: String, type: TypeDeclaration) {
         self.prefix = prefix
         self.isConstant = isConstant
         self.identifier = identifier

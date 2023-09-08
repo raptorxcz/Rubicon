@@ -6,16 +6,9 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-public struct ProtocolDeclaration {
-    public var name: String
-    public var parents: [String]
-    public var variables: [VarDeclaration]
-    public var functions: [FunctionDeclaration]
-
-    public init(name: String, parents: [String], variables: [VarDeclaration], functions: [FunctionDeclaration]) {
-        self.name = name
-        self.parents = parents
-        self.variables = variables
-        self.functions = functions
-    }
+struct ProtocolDeclaration: Equatable {
+    var name: String
+    var parents: [String]
+    var variables: [VarDeclaration]
+    var functions: [FunctionDeclaration]
 }

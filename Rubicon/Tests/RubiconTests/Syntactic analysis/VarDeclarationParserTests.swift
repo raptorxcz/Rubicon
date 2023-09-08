@@ -27,7 +27,7 @@ final class VarDeclarationParserTests: XCTestCase {
         sut = nil
     }
 
-    func test_givenEmptyString_whenParse_thenThrowMissingVarOrLet() {
+    func test_givenEmptyString_whenParse_thenThrowMissingDeclaration() {
         let node = parse(string: "")
 
         XCTAssertThrowsError(try sut.parse(node: node)) { error in
