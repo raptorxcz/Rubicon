@@ -125,11 +125,15 @@ final class ArgumentDeclarationParserSpy: ArgumentDeclarationParser {
 }
 
 extension ArgumentDeclaration {
-    static func makeStub() -> ArgumentDeclaration {
+    static func makeStub(
+        label: String? = "label",
+        name: String = "name",
+        type: TypeDeclaration = .makeStub()
+    ) -> ArgumentDeclaration {
         return ArgumentDeclaration(
-            label: "label",
-            name: "name",
-            type: .makeStub()
+            label: label,
+            name: name,
+            type: type
         )
     }
 }

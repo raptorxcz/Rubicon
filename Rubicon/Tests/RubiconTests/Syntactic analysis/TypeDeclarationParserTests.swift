@@ -23,6 +23,7 @@ final class TypeDeclarationParserTests: XCTestCase {
 
         XCTAssertEqual(declaration.name, "T")
         XCTAssertEqual(declaration.isOptional, false)
+        XCTAssertEqual(declaration.prefix, [])
     }
 
     func test_givenOptionalType_whenParse_thenReturnDeclaration() throws {
@@ -104,6 +105,16 @@ final class TypeDeclarationParserTests: XCTestCase {
 
         XCTAssertEqual(declaration.name, "A<B>?")
         XCTAssertEqual(declaration.isOptional, true)
+    }
+
+    func test_givenEscapingClosure_whenParse_thenReturnDeclaration() throws {
+        let node = try parse(string: "@escaping Block")
+
+        let declaration = sut.parse(node: node)
+
+        XCTAssertEqual(declaration.name, "Block")
+        XCTAssertEqual(declaration.isOptional, false)
+        XCTAssertEqual(declaration.prefix, [.escaping])
     }
 
     private func parse(string: String) throws -> TypeSyntax {

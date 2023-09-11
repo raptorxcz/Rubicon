@@ -102,13 +102,19 @@ final class FunctionDeclarationParserSpy: FunctionDeclarationParser {
 }
 
 extension FunctionDeclaration {
-    static func makeStub() -> FunctionDeclaration {
+    static func makeStub(
+        name: String = "name",
+        arguments: [ArgumentDeclaration] = [],
+        isThrowing: Bool = false,
+        isAsync: Bool = false,
+        returnType: TypeDeclaration? = nil
+    ) -> FunctionDeclaration {
         return FunctionDeclaration(
-            name: "name",
-            arguments: [],
-            isThrowing: false,
-            isAsync: false,
-            returnType: nil
+            name: name,
+            arguments: arguments,
+            isThrowing: isThrowing,
+            isAsync: isAsync,
+            returnType: returnType
         )
     }
 }
@@ -141,9 +147,11 @@ final class VarDeclarationParserSpy: VarDeclarationParser {
 }
 
 extension VarDeclaration {
-    static func makeStub() -> VarDeclaration {
+    static func makeStub(
+        isConstant: Bool = false
+    ) -> VarDeclaration {
         return VarDeclaration(
-            isConstant: false,
+            isConstant: isConstant,
             identifier: "identifier",
             type: .makeStub()
         )
