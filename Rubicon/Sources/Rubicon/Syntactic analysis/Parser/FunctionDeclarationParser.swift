@@ -10,7 +10,7 @@ import SwiftParser
 import SwiftSyntax
 
 protocol FunctionDeclarationParser {
-    func parse(node: FunctionDeclSyntax) throws -> FunctionDeclaration
+    func parse(node: FunctionDeclSyntax) -> FunctionDeclaration
 }
 
 final class FunctionDeclarationParserImpl: FunctionDeclarationParser {
@@ -25,13 +25,13 @@ final class FunctionDeclarationParserImpl: FunctionDeclarationParser {
         self.argumentDeclarationParser = argumentDeclarationParser
     }
 
-    func parse(node: FunctionDeclSyntax) throws -> FunctionDeclaration {
+    func parse(node: FunctionDeclSyntax) -> FunctionDeclaration {
         return FunctionDeclaration(
             name: node.name.text,
-            arguments: try node.signature.parameterClause.parameters.map(argumentDeclarationParser.parse(node:)),
+            arguments: node.signature.parameterClause.parameters.map(argumentDeclarationParser.parse(node:)),
             isThrowing: node.signature.effectSpecifiers?.throwsSpecifier != nil,
             isAsync: node.signature.effectSpecifiers?.asyncSpecifier != nil,
-            returnType: try (node.signature.returnClause?.type).map(typeDeclarationParser.parse(node:))
+            returnType: (node.signature.returnClause?.type).map(typeDeclarationParser.parse(node:))
         )
     }
 }

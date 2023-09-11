@@ -22,7 +22,7 @@ final class ArgumentDeclarationParserTests: XCTestCase {
     func test_givenArgument_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "label name: Type")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.label, "label")
         XCTAssertEqual(declaration.name, "name")
@@ -34,7 +34,7 @@ final class ArgumentDeclarationParserTests: XCTestCase {
     func test_givenArgumentWithoutLabel_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "name: Type")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.label, nil)
         XCTAssertEqual(declaration.name, "name")
@@ -46,7 +46,7 @@ final class ArgumentDeclarationParserTests: XCTestCase {
     func test_givenArgumentWithUnderscore_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "_ name: Type")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertNil(declaration.label)
         XCTAssertEqual(declaration.name, "name")
