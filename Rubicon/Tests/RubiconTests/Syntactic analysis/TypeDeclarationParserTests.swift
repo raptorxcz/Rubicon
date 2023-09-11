@@ -17,7 +17,7 @@ final class TypeDeclarationParserTests: XCTestCase {
     }
 
     func test_givenSimpleType_whenParse_thenReturnDeclaration() throws {
-        let node = try parse(string: "T")
+        let node = try parse(string: "T ")
 
         let declaration = sut.parse(node: node)
 

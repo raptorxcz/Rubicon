@@ -11,7 +11,7 @@ final class ProtocolGeneratorTests: XCTestCase {
         sut = ProtocolGeneratorImpl(accessLevelGenerator: accessLevelGeneratorSpy)
     }
 
-    func test_whenGenerate_thenGenerateEmptyStub() {
+    func test_whenGenerate_thenGenerateCode() {
         let code = sut.makeProtocol(from: .makeStub(), stub: "Dummy", content: "content")
 
         equal(string: code, rows: [

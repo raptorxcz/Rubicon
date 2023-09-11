@@ -8,7 +8,7 @@ final class VariableGeneratorTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        typeGeneratorSpy = TypeGeneratorSpy(makeVariableCodeReturn: "Type")
+        typeGeneratorSpy = TypeGeneratorSpy(makeVariableCodeReturn: "Type", makeArgumentCodeReturn: "")
         accessLevelGeneratorSpy = AccessLevelGeneratorSpy(
             makeClassAccessLevelReturn: "",
             makeContentAccessLevelReturn: "accessLevel "
@@ -26,14 +26,13 @@ final class VariableGeneratorTests: XCTestCase {
 
         equal(string: code, rows: [
             "\taccessLevel var identifier: Type {",
-            "\tget {",
-            "\t\tgetContent",
+            "\t\tget {",
+            "getContent",
+            "\t\t}",
+            "\t\tset {",
+            "setContent",
+            "\t\t}",
             "\t}",
-            "\tset {",
-            "\t\tsetContent",
-            "\t}",
-            "}",
-            ""
         ])
     }
 
@@ -44,11 +43,10 @@ final class VariableGeneratorTests: XCTestCase {
 
         equal(string: code, rows: [
             "\taccessLevel var identifier: Type {",
-            "\tget {",
-            "\t\tgetContent",
+            "\t\tget {",
+            "getContent",
+            "\t\t}",
             "\t}",
-            "}",
-            ""
         ])
     }
 }
@@ -58,16 +56,29 @@ final class TypeGeneratorSpy: TypeGenerator {
         let declaration: TypeDeclaration
     }
 
+    struct MakeArgumentCode {
+        let declaration: TypeDeclaration
+    }
+
     var makeVariableCode = [MakeVariableCode]()
     var makeVariableCodeReturn: String
+    var makeArgumentCode = [MakeArgumentCode]()
+    var makeArgumentCodeReturn: String
 
-    init(makeVariableCodeReturn: String) {
+    init(makeVariableCodeReturn: String, makeArgumentCodeReturn: String) {
         self.makeVariableCodeReturn = makeVariableCodeReturn
+        self.makeArgumentCodeReturn = makeArgumentCodeReturn
     }
 
     func makeVariableCode(from declaration: TypeDeclaration) -> String {
         let item = MakeVariableCode(declaration: declaration)
         makeVariableCode.append(item)
         return makeVariableCodeReturn
+    }
+
+    func makeArgumentCode(from declaration: TypeDeclaration) -> String {
+        let item = MakeArgumentCode(declaration: declaration)
+        makeArgumentCode.append(item)
+        return makeArgumentCodeReturn
     }
 }
