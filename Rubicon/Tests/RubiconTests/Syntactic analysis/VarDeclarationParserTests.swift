@@ -7,9 +7,9 @@
 //
 
 @testable import Rubicon
-import XCTest
 import SwiftParser
 import SwiftSyntax
+import XCTest
 
 final class VarDeclarationParserTests: XCTestCase {
     private var typeDeclarationParserSpy: TypeDeclarationParserSpy!
@@ -27,16 +27,20 @@ final class VarDeclarationParserTests: XCTestCase {
         sut = nil
     }
 
-    func test_givenEmptyString_whenParse_thenThrowMissingDeclaration() {
-        let node = parse(string: "")
+    func test_givenVariable_whenParse_thenReturnType() throws {
+        let node = try parse(string: "var name: Type")
 
-        XCTAssertThrowsError(try sut.parse(node: node)) { error in
-            XCTAssertEqual(error as? VarDeclarationError, .missingDeclaration)
-        }
+        let declaration = try sut.parse(node: node)
+
+        XCTAssertEqual(declaration.identifier, "name")
+        XCTAssertEqual(declaration.isConstant, false)
+        XCTAssertEqual(declaration.type, .makeStub())
+        XCTAssertEqual(typeDeclarationParserSpy.parse.count, 1)
+        XCTAssertEqual(typeDeclarationParserSpy.parse.first?.node.description, "Type")
     }
 
-    func test_givenValidDeclaration_whenParse_thenReturnType() throws {
-        let node = parse(string: "let name: Type")
+    func test_givenConstant_whenParse_thenReturnType() throws {
+        let node = try parse(string: "let name: Type")
 
         let declaration = try sut.parse(node: node)
 
@@ -47,33 +51,43 @@ final class VarDeclarationParserTests: XCTestCase {
         XCTAssertEqual(typeDeclarationParserSpy.parse.first?.node.description, "Type")
     }
 
-    private func parse(string: String) -> SyntaxProtocol {
-        return SwiftParser.Parser.parse(source: string)
+    private func parse(string: String) throws -> VariableDeclSyntax {
+        let string = """
+        protocol X {
+            \(string)
+        }
+        """
+        let file = SwiftParser.Parser.parse(source: string)
+        guard let protocolDeclaration = file.statements.first?.item.as(ProtocolDeclSyntax.self) else {
+            throw TestsError.error
+        }
+        guard let varDeclaration = protocolDeclaration.memberBlock.members.first?.decl.as(VariableDeclSyntax.self) else {
+            throw TestsError.error
+        }
+
+        return varDeclaration
     }
 }
 
 final class TypeDeclarationParserSpy: TypeDeclarationParser {
-    enum SpyError: Error {
-        case spyError
-    }
-    typealias ThrowBlock = () throws -> Void
-
     struct Parse {
-        let node: SyntaxProtocol
+        let node: TypeSyntax
     }
 
     var parse = [Parse]()
-    var parseThrowBlock: ThrowBlock?
     var parseReturn: TypeDeclaration
 
     init(parseReturn: TypeDeclaration) {
         self.parseReturn = parseReturn
     }
 
-    func parse(node: some SyntaxProtocol) throws -> TypeDeclaration {
+    func parse(node: TypeSyntax) -> TypeDeclaration {
         let item = Parse(node: node)
         parse.append(item)
-        try parseThrowBlock?()
         return parseReturn
     }
+}
+
+private enum TestsError: Error {
+    case error
 }

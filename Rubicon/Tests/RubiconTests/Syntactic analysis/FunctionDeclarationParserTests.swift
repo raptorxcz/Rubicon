@@ -7,9 +7,9 @@
 //
 
 @testable import Rubicon
-import XCTest
 import SwiftParser
 import SwiftSyntax
+import XCTest
 
 final class FunctionDeclarationParserTests: XCTestCase {
     private var typeDeclarationParserSpy: TypeDeclarationParserSpy!
@@ -35,7 +35,7 @@ final class FunctionDeclarationParserTests: XCTestCase {
     func test_givenFunction_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "func name()")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "name")
         XCTAssertEqual(declaration.arguments.count, 0)
@@ -47,7 +47,7 @@ final class FunctionDeclarationParserTests: XCTestCase {
     func test_givenFunctionWithArguments_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "func name(a: B)")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.arguments.count, 1)
         XCTAssertEqual(declaration.arguments.first, .makeStub())
@@ -58,7 +58,7 @@ final class FunctionDeclarationParserTests: XCTestCase {
     func test_givenThrowingFunction_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "func name() throws")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.isThrowing, true)
     }
@@ -66,7 +66,7 @@ final class FunctionDeclarationParserTests: XCTestCase {
     func test_givenAsyncFunction_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "func name() async")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.isAsync, true)
     }
@@ -74,13 +74,12 @@ final class FunctionDeclarationParserTests: XCTestCase {
     func test_givenFunctionWithResult_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "func name() -> C")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.returnType, .makeStub())
         XCTAssertEqual(typeDeclarationParserSpy.parse.count, 1)
         XCTAssertEqual(typeDeclarationParserSpy.parse.first?.node.description, "C")
     }
-
 
     private func parse(string: String) throws -> FunctionDeclSyntax {
         let string = """
@@ -107,28 +106,20 @@ private enum TestsError: Error {
 }
 
 final class ArgumentDeclarationParserSpy: ArgumentDeclarationParser {
-
-    enum SpyError: Error {
-        case spyError
-    }
-    typealias ThrowBlock = () throws -> Void
-
     struct Parse {
         let node: FunctionParameterSyntax
     }
 
     var parse = [Parse]()
-    var parseThrowBlock: ThrowBlock?
     var parseReturn: ArgumentDeclaration
 
     init(parseReturn: ArgumentDeclaration) {
         self.parseReturn = parseReturn
     }
 
-    func parse(node: FunctionParameterSyntax) throws -> ArgumentDeclaration {
+    func parse(node: FunctionParameterSyntax) -> ArgumentDeclaration {
         let item = Parse(node: node)
         parse.append(item)
-        try parseThrowBlock?()
         return parseReturn
     }
 }

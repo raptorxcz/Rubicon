@@ -1,101 +1,108 @@
-//
-//  ProtocolParser.swift
-//  Rubicon
-//
-//  Created by Kryštof Matěj on 26/04/2017.
-//  Copyright © 2017 Kryštof Matěj. All rights reserved.
-//
-//
-//public enum ProtocolParserError: Error {
-//    case invalidProtocolToken
-//    case invalidNameToken
-//    case expectedParentProtocol
-//    case expectedLeftBracket
-//    case expectedRightBracket
-//}
-//
-//public class ProtocolParser {
-//
-////    private let variableParser = VarDeclarationParser()
-//
-//    public init() {}
-//
-//    public func parse(storage: Storage) throws -> ProtocolDeclaration {
-//      //  guard storage.current == .protocol else {
-//            throw ProtocolParserError.invalidProtocolToken
-////        }
-////
-////        guard let nameToken = try? storage.next(), case let .identifier(name) = nameToken else {
-////            throw ProtocolParserError.invalidNameToken
-////        }
-////
-////        let parents: [String]
-////
-////        if let nextToken = try? storage.next(), nextToken == .colon {
-////            parents = try parseParents(storage: storage)
-////        } else {
-////            parents = []
-////        }
-////
-////        guard storage.current == .leftCurlyBracket else {
-////            throw ProtocolParserError.expectedLeftBracket
-////        }
-////
-////        _ = try? storage.next()
-////        let protocolType = parseProtocol(with: name, parents: parents, storage: storage)
-////
-////        guard storage.current == .rightCurlyBracket else {
-////            throw ProtocolParserError.expectedRightBracket
-////        }
-////
-////        _ = try? storage.next()
-////        return protocolType
-//    }
-//
-//    private func parseParents(storage: Storage) throws -> [String] {
-//        var parents = [String]()
-//        var continueRepeating = false
-//
-//        repeat {
-//            continueRepeating = false
-//
-//            guard let parentToken = try? storage.next(), case let .identifier(parentName) = parentToken else {
-//                throw ProtocolParserError.expectedParentProtocol
-//            }
-//
-//            parents.append(parentName)
-//
-//            guard let separatorToken = try? storage.next() else {
-//                throw ProtocolParserError.expectedLeftBracket
-//            }
-//
-//            if separatorToken == .comma {
-//                continueRepeating = true
-//            }
-//        } while continueRepeating
-//
-//        return parents
-//    }
-//    private func parseProtocol(with name: String, parents: [String], storage: Storage) -> ProtocolDeclaration {
-//        var variables = [VarDeclaration]()
-//        var functions = [FunctionDeclaration]()
-//
-//        var isSomethingParsed = true
-//
-//        while isSomethingParsed {
-//            isSomethingParsed = false
-//
-////            if let variable = try? variableParser.parse(storage: storage) {
-////                variables.append(variable)
-////                isSomethingParsed = true
-////            }
-//
-////            if let function = try? FunctionDeclarationParser(storage: storage).parse() {
-////                functions.append(function)
-////                isSomethingParsed = true
-////            }
-//        }
-//
-//        return ProtocolDeclaration(name: name, parents: parents, variables: variables, functions: functions)
-//    }
-//}
+import SwiftParser
+import SwiftSyntax
+
+protocol ProtocolParser {
+    func parse(text: String) throws -> [ProtocolDeclaration]
+}
+
+final class ProtocolParserImpl: ProtocolParser {
+    private let functionParser: FunctionDeclarationParser
+    private let varParser: VarDeclarationParser
+
+    init(
+        functionParser: FunctionDeclarationParser,
+        varParser: VarDeclarationParser
+    ) {
+        self.functionParser = functionParser
+        self.varParser = varParser
+    }
+
+    func parse(text: String) throws -> [ProtocolDeclaration] {
+        let text = SwiftParser.Parser.parse(source: text)
+        let visitor = ProtocolVisitor(
+            functionParser: functionParser,
+            varParser: varParser
+        )
+        return visitor.execute(node: text)
+    }
+}
+
+private class ProtocolVisitor: SyntaxVisitor {
+    private let functionParser: FunctionDeclarationParser
+    private let varParser: VarDeclarationParser
+    private var result = [ProtocolDeclaration]()
+
+    public init(
+        functionParser: FunctionDeclarationParser,
+        varParser: VarDeclarationParser
+    ) {
+        self.functionParser = functionParser
+        self.varParser = varParser
+        super.init(viewMode: .sourceAccurate)
+    }
+
+    func execute(node: some SyntaxProtocol) -> [ProtocolDeclaration] {
+        walk(node)
+        return result
+    }
+
+    override func visit(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind {
+        let functionsVisitor = FunctionsVisitor(functionParser: functionParser)
+        let varsVisitor = VariablesVisitor(varParser: varParser)
+
+        result.append(
+            ProtocolDeclaration(
+                name: node.name.text,
+                parents: [],
+                variables: varsVisitor.execute(node: node),
+                functions: functionsVisitor.execute(node: node)
+            )
+        )
+        return .visitChildren
+    }
+}
+
+private class FunctionsVisitor: SyntaxVisitor {
+    private let functionParser: FunctionDeclarationParser
+    private var result = [FunctionDeclaration]()
+
+    public init(functionParser: FunctionDeclarationParser) {
+        self.functionParser = functionParser
+        super.init(viewMode: .sourceAccurate)
+    }
+
+    func execute(node: some SyntaxProtocol) -> [FunctionDeclaration] {
+        walk(node)
+        return result
+    }
+
+    override func visit(_ node: FunctionDeclSyntax) -> SyntaxVisitorContinueKind {
+        let declaration = functionParser.parse(node: node)
+        result.append(declaration)
+        return .visitChildren
+    }
+}
+
+
+private class VariablesVisitor: SyntaxVisitor {
+    private let varParser: VarDeclarationParser
+    private var result = [VarDeclaration]()
+
+    public init(varParser: VarDeclarationParser) {
+        self.varParser = varParser
+        super.init(viewMode: .sourceAccurate)
+    }
+
+    func execute(node: some SyntaxProtocol) -> [VarDeclaration] {
+        walk(node)
+        return result
+    }
+
+    override func visit(_ node: VariableDeclSyntax) -> SyntaxVisitorContinueKind {
+        do {
+            let declaration = try varParser.parse(node: node)
+            result.append(declaration)
+        } catch {}
+        return .visitChildren
+    }
+}

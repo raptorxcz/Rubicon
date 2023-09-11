@@ -10,7 +10,7 @@ import SwiftParser
 import SwiftSyntax
 
 protocol ArgumentDeclarationParser {
-    func parse(node: FunctionParameterSyntax) throws -> ArgumentDeclaration
+    func parse(node: FunctionParameterSyntax) -> ArgumentDeclaration
 }
 
 class ArgumentDeclarationParserImpl: ArgumentDeclarationParser {
@@ -20,11 +20,11 @@ class ArgumentDeclarationParserImpl: ArgumentDeclarationParser {
         self.typeDeclarationParser = typeDeclarationParser
     }
 
-    func parse(node: FunctionParameterSyntax) throws -> ArgumentDeclaration {
+    func parse(node: FunctionParameterSyntax) -> ArgumentDeclaration {
         return ArgumentDeclaration(
             label: makeLabel(from: node),
             name: makeName(from: node),
-            type: try typeDeclarationParser.parse(node: node.type)
+            type: typeDeclarationParser.parse(node: node.type)
         )
     }
 

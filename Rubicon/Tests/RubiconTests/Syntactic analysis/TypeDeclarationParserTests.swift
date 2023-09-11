@@ -19,7 +19,7 @@ final class TypeDeclarationParserTests: XCTestCase {
     func test_givenSimpleType_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "T")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "T")
         XCTAssertEqual(declaration.isOptional, false)
@@ -28,7 +28,7 @@ final class TypeDeclarationParserTests: XCTestCase {
     func test_givenOptionalType_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "T?")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "T?")
         XCTAssertEqual(declaration.isOptional, true)
@@ -37,7 +37,7 @@ final class TypeDeclarationParserTests: XCTestCase {
     func test_givenForcedUpwrappedType_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "T!")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "T!")
         XCTAssertEqual(declaration.isOptional, false)
@@ -46,7 +46,7 @@ final class TypeDeclarationParserTests: XCTestCase {
     func test_givenClosure_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "() -> Void")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "() -> Void")
         XCTAssertEqual(declaration.isOptional, false)
@@ -55,7 +55,7 @@ final class TypeDeclarationParserTests: XCTestCase {
     func test_givenOptionalClosure_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "() -> Void?")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "() -> Void?")
         XCTAssertEqual(declaration.isOptional, true)
@@ -64,7 +64,7 @@ final class TypeDeclarationParserTests: XCTestCase {
     func test_givenSomeType_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "some T")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "some T")
         XCTAssertEqual(declaration.isOptional, false)
@@ -73,7 +73,7 @@ final class TypeDeclarationParserTests: XCTestCase {
     func test_givenAnyType_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "any T")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "any T")
         XCTAssertEqual(declaration.isOptional, false)
@@ -82,7 +82,7 @@ final class TypeDeclarationParserTests: XCTestCase {
     func test_givenDictionaryType_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "[A: B]")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "[A: B]")
         XCTAssertEqual(declaration.isOptional, false)
@@ -91,7 +91,7 @@ final class TypeDeclarationParserTests: XCTestCase {
     func test_givenGenericType_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "A<B>")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "A<B>")
         XCTAssertEqual(declaration.isOptional, false)
@@ -100,7 +100,7 @@ final class TypeDeclarationParserTests: XCTestCase {
     func test_givenOptionalGenericType_whenParse_thenReturnDeclaration() throws {
         let node = try parse(string: "A<B>?")
 
-        let declaration = try sut.parse(node: node)
+        let declaration = sut.parse(node: node)
 
         XCTAssertEqual(declaration.name, "A<B>?")
         XCTAssertEqual(declaration.isOptional, true)

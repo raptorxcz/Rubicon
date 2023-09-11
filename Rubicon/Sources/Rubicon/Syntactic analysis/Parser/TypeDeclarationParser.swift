@@ -2,7 +2,7 @@ import SwiftParser
 import SwiftSyntax
 
 protocol TypeDeclarationParser {
-    func parse(node: TypeSyntax) throws -> TypeDeclaration
+    func parse(node: TypeSyntax) -> TypeDeclaration
 }
 
 enum TypeDeclarationParserError: Error {
@@ -10,7 +10,7 @@ enum TypeDeclarationParserError: Error {
 }
 
 final class TypeDeclarationParserImpl: TypeDeclarationParser {
-    func parse(node: TypeSyntax) throws -> TypeDeclaration {
+    func parse(node: TypeSyntax) -> TypeDeclaration {
         return TypeDeclaration(
             name: node.description,
             isOptional: isOptional(node: node)
