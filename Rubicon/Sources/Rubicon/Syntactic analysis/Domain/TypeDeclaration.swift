@@ -6,12 +6,14 @@
 //  Copyright © 2017 Kryštof Matěj. All rights reserved.
 //
 
-enum TypePrefix: String, Equatable {
-    case escaping = "@escaping"
-    case autoclosure = "@autoclosure"
-}
 
 struct TypeDeclaration: Equatable {
+    enum Prefix: String, Equatable {
+        case escaping = "@escaping"
+        case autoclosure = "@autoclosure"
+    }
+
     var name: String
     var isOptional: Bool
+    let prefix: [Prefix]
 }

@@ -20,18 +20,15 @@ enum TypeStringFactory {
     }
 
     static func makeFunctionArgumentString(_ type: TypeDeclaration) -> String {
-        var prefix = ""
-//        if let prefixValue = type.prefix {
-//            prefix = prefixValue.rawValue + " "
-//        }
+        let prefix = type.prefix.map { $0.rawValue + " " }.joined()
         return prefix + makeSimpleString(type)
     }
 
     static func makeInitString(_ type: TypeDeclaration) -> String {
-        var prefix = ""
-//        if type.isClosure && !type.isOptional {
-//            prefix = TypePrefix.escaping.rawValue + " "
-//        }
+        let prefix = type.prefix.map {
+            type.isOptional ? "" : $0.rawValue + " "
+        }.joined()
         return prefix + makeSimpleString(type)
     }
 }
+
