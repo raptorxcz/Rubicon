@@ -19,7 +19,7 @@ final class TypeDeclarationParserImpl: TypeDeclarationParser {
             )
         } else {
             return TypeDeclaration(
-                name: node.description,
+                name: node.description.trimmingCharacters(in: .whitespacesAndNewlines),
                 isOptional: isOptional(node: node),
                 prefix: []
             )

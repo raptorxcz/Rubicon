@@ -18,23 +18,21 @@ final class VariableGeneratorImpl: VariableGenerator {
         if declaration.isConstant {
             return """
             \t\(accessLevelGenerator.makeContentAccessLevel())var \(declaration.identifier): \(typeGenerator.makeVariableCode(from: declaration.type)) {
-            \tget {
-            \t\tgetContent
+            \t\tget {
+            \(getContent)
+            \t\t}
             \t}
-            }
-
             """
         } else {
             return """
             \t\(accessLevelGenerator.makeContentAccessLevel())var \(declaration.identifier): \(typeGenerator.makeVariableCode(from: declaration.type)) {
-            \tget {
-            \t\tgetContent
+            \t\tget {
+            \(getContent)
+            \t\t}
+            \t\tset {
+            \(setContent)
+            \t\t}
             \t}
-            \tset {
-            \t\tsetContent
-            \t}
-            }
-
             """
         }
     }
