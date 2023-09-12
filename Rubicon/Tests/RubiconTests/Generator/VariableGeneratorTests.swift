@@ -4,6 +4,7 @@ import XCTest
 final class VariableGeneratorTests: XCTestCase {
     private var typeGeneratorSpy: TypeGeneratorSpy!
     private var accessLevelGeneratorSpy: AccessLevelGeneratorSpy!
+    private var indentationGeneratorStub: IndentationGeneratorStub!
     private var sut: VariableGeneratorImpl!
 
     override func setUp() {
@@ -13,40 +14,62 @@ final class VariableGeneratorTests: XCTestCase {
             makeClassAccessLevelReturn: "",
             makeContentAccessLevelReturn: "accessLevel "
         )
+        indentationGeneratorStub = IndentationGeneratorStub()
         sut = VariableGeneratorImpl(
             typeGenerator: typeGeneratorSpy,
-            accessLevelGenerator: accessLevelGeneratorSpy
+            accessLevelGenerator: accessLevelGeneratorSpy,
+            indentationGenerator: indentationGeneratorStub
         )
     }
 
     func test_whenGenerate_thenGenerateCode() {
         let variableDeclaration = VarDeclaration.makeStub()
 
-        let code = sut.makeStubCode(from: variableDeclaration, getContent: "getContent", setContent: "setContent")
+        let code = sut.makeStubCode(from: variableDeclaration, getContent: ["getContent"], setContent: ["setContent"])
 
-        equal(string: code, rows: [
-            "\taccessLevel var identifier: Type {",
-            "\t\tget {",
-            "getContent",
-            "\t\t}",
-            "\t\tset {",
-            "setContent",
-            "\t\t}",
-            "\t}",
+        equal(code, rows: [
+            "accessLevel var identifier: Type {",
+            "-get {",
+            "--getContent",
+            "-}",
+            "-set {",
+            "--setContent",
+            "-}",
+            "}",
         ])
     }
 
     func test_givenConstant_whenGenerate_thenGenerateCode() {
         let variableDeclaration = VarDeclaration.makeStub(isConstant: true)
 
-        let code = sut.makeStubCode(from: variableDeclaration, getContent: "getContent", setContent: "setContent")
+        let code = sut.makeStubCode(from: variableDeclaration, getContent: ["getContent"], setContent: ["setContent"])
+
+        equal(code, rows: [
+            "accessLevel var identifier: Type {",
+            "-get {",
+            "--getContent",
+            "-}",
+            "}",
+        ])
+    }
+
+    func test_whenMakeCode_thenGenerateCode() {
+        let variableDeclaration = VarDeclaration.makeStub()
+
+        let code = sut.makeCode(from: variableDeclaration)
 
         equal(string: code, rows: [
-            "\taccessLevel var identifier: Type {",
-            "\t\tget {",
-            "getContent",
-            "\t\t}",
-            "\t}",
+            "accessLevel var identifier: Type"
+        ])
+    }
+
+    func test_givenConstant_whenMakeCode_thenGenerateCode() {
+        let variableDeclaration = VarDeclaration.makeStub(isConstant: true)
+
+        let code = sut.makeCode(from: variableDeclaration)
+
+        equal(string: code, rows: [
+            "accessLevel let identifier: Type",
         ])
     }
 }

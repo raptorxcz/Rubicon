@@ -5,22 +5,21 @@ final class DummyGeneratorTests: XCTestCase {
     private var protocolGeneratorSpy: ProtocolGeneratorSpy!
     private var variableGeneratorSpy: VariableGeneratorSpy!
     private var functionGeneratorSpy: FunctionGeneratorSpy!
-    private var accessLevelGeneratorSpy: AccessLevelGeneratorSpy!
+    private var initGeneratorSpy: InitGeneratorSpy!
     private var sut: DummyGenerator!
     private let type = TypeDeclaration.makeStub(name: "Color", isOptional: false)
 
     override func setUp() {
         super.setUp()
-        protocolGeneratorSpy = ProtocolGeneratorSpy(makeProtocolReturn: "result")
-        variableGeneratorSpy = VariableGeneratorSpy(makeStubCodeReturn: "variable")
-        functionGeneratorSpy = FunctionGeneratorSpy(makeCodeReturn: "function")
-        accessLevelGeneratorSpy = AccessLevelGeneratorSpy(makeClassAccessLevelReturn: "", makeContentAccessLevelReturn: "accessLevel ")
+        protocolGeneratorSpy = ProtocolGeneratorSpy(makeProtocolReturn: ["result"])
+        variableGeneratorSpy = VariableGeneratorSpy(makeStubCodeReturn: ["variable"], makeCodeReturn: "")
+        functionGeneratorSpy = FunctionGeneratorSpy(makeCodeReturn: ["function"])
+        initGeneratorSpy = InitGeneratorSpy(makeCodeReturn: ["init"])
         sut = DummyGenerator(
             protocolGenerator: protocolGeneratorSpy,
             variableGenerator: variableGeneratorSpy,
             functionGenerator: functionGeneratorSpy,
-            accessLevel: .internal,
-            accessLevelGenerator: accessLevelGeneratorSpy
+            initGenerator: initGeneratorSpy
         )
     }
 
@@ -30,8 +29,10 @@ final class DummyGeneratorTests: XCTestCase {
         XCTAssertEqual(protocolGeneratorSpy.makeProtocol.count, 1)
         XCTAssertEqual(protocolGeneratorSpy.makeProtocol.first?.declaration, .makeStub())
         XCTAssertEqual(protocolGeneratorSpy.makeProtocol.first?.stub, "Dummy")
-        XCTAssertEqual(protocolGeneratorSpy.makeProtocol.first?.content, "")
-        XCTAssertEqual(result, "result")
+        equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
+            "init",
+        ])
+        XCTAssertEqual(result, "result\n")
     }
 
     func test_givenProtocolWithVariable_whenGenerate_thenGenerateDummy() {
@@ -39,11 +40,15 @@ final class DummyGeneratorTests: XCTestCase {
 
         _ = sut.generate(from: protocolDeclaration)
 
-        XCTAssertEqual(protocolGeneratorSpy.makeProtocol.first?.content, "variable\n")
+        equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
+            "variable",
+            "",
+            "init",
+        ])
         XCTAssertEqual(variableGeneratorSpy.makeStubCode.count, 1)
         XCTAssertEqual(variableGeneratorSpy.makeStubCode.first?.declaration, .makeStub())
-        XCTAssertEqual(variableGeneratorSpy.makeStubCode.first?.getContent, "\t\t\tfatalError()")
-        XCTAssertEqual(variableGeneratorSpy.makeStubCode.first?.setContent, "\t\t\tfatalError()")
+        XCTAssertEqual(variableGeneratorSpy.makeStubCode.first?.getContent, ["fatalError()"])
+        XCTAssertEqual(variableGeneratorSpy.makeStubCode.first?.setContent, ["fatalError()"])
     }
 
     func test_givenProtocolWithVariables_whenGenerate_thenGenerateDummy() {
@@ -51,7 +56,12 @@ final class DummyGeneratorTests: XCTestCase {
 
         _ = sut.generate(from: protocolDeclaration)
 
-        XCTAssertEqual(protocolGeneratorSpy.makeProtocol.first?.content, "variable\nvariable\n")
+        equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
+            "variable",
+            "variable",
+            "",
+            "init",
+        ])
         XCTAssertEqual(variableGeneratorSpy.makeStubCode.count, 2)
     }
 
@@ -60,25 +70,14 @@ final class DummyGeneratorTests: XCTestCase {
 
         _ = sut.generate(from: protocolDeclaration)
 
-        XCTAssertEqual(protocolGeneratorSpy.makeProtocol.first?.content, "function\n")
+        equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
+            "init",
+            "",
+            "function",
+        ])
         XCTAssertEqual(functionGeneratorSpy.makeCode.count, 1)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration, .makeStub())
-        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.content, "\t\tfatalError()")
-    }
-
-    func test_givenPublicAccessLevel_whenGenerate_thenGenerateCode() {
-        sut = DummyGenerator(
-            protocolGenerator: protocolGeneratorSpy,
-            variableGenerator: variableGeneratorSpy,
-            functionGenerator: functionGeneratorSpy,
-            accessLevel: .public,
-            accessLevelGenerator: accessLevelGeneratorSpy
-        )
-
-        let result = sut.generate(from: .makeStub())
-
-        XCTAssertEqual(protocolGeneratorSpy.makeProtocol.first?.content, "\taccessLevel init() {\n\t}\n")
-        XCTAssertEqual(result, "result")
+        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.content, ["fatalError()"])
     }
 }
 
@@ -114,17 +113,17 @@ final class ProtocolGeneratorSpy: ProtocolGenerator {
     struct MakeProtocol {
         let declaration: ProtocolDeclaration
         let stub: String
-        let content: String
+        let content: [String]
     }
 
     var makeProtocol = [MakeProtocol]()
-    var makeProtocolReturn: String
+    var makeProtocolReturn: [String]
 
-    init(makeProtocolReturn: String) {
+    init(makeProtocolReturn: [String]) {
         self.makeProtocolReturn = makeProtocolReturn
     }
 
-    func makeProtocol(from declaration: ProtocolDeclaration, stub: String, content: String) -> String {
+    func makeProtocol(from declaration: ProtocolDeclaration, stub: String, content: [String]) -> [String] {
         let item = MakeProtocol(declaration: declaration, stub: stub, content: content)
         makeProtocol.append(item)
         return makeProtocolReturn
@@ -134,38 +133,51 @@ final class ProtocolGeneratorSpy: ProtocolGenerator {
 final class VariableGeneratorSpy: VariableGenerator {
     struct MakeStubCode {
         let declaration: VarDeclaration
-        let getContent: String
-        let setContent: String
+        let getContent: [String]
+        let setContent: [String]
+    }
+
+    struct MakeCode {
+        let declaration: VarDeclaration
     }
 
     var makeStubCode = [MakeStubCode]()
-    var makeStubCodeReturn: String
+    var makeStubCodeReturn: [String]
+    var makeCode = [MakeCode]()
+    var makeCodeReturn: String
 
-    init(makeStubCodeReturn: String) {
+    init(makeStubCodeReturn: [String], makeCodeReturn: String) {
         self.makeStubCodeReturn = makeStubCodeReturn
+        self.makeCodeReturn = makeCodeReturn
     }
 
-    func makeStubCode(from declaration: VarDeclaration, getContent: String, setContent: String) -> String {
+    func makeStubCode(from declaration: VarDeclaration, getContent: [String], setContent: [String]) -> [String] {
         let item = MakeStubCode(declaration: declaration, getContent: getContent, setContent: setContent)
         makeStubCode.append(item)
         return makeStubCodeReturn
+    }
+
+    func makeCode(from declaration: VarDeclaration) -> String {
+        let item = MakeCode(declaration: declaration)
+        makeCode.append(item)
+        return makeCodeReturn
     }
 }
 
 final class FunctionGeneratorSpy: FunctionGenerator {
     struct MakeCode {
         let declaration: FunctionDeclaration
-        let content: String
+        let content: [String]
     }
 
     var makeCode = [MakeCode]()
-    var makeCodeReturn: String
+    var makeCodeReturn: [String]
 
-    init(makeCodeReturn: String) {
+    init(makeCodeReturn: [String]) {
         self.makeCodeReturn = makeCodeReturn
     }
 
-    func makeCode(from declaration: FunctionDeclaration, content: String) -> String {
+    func makeCode(from declaration: FunctionDeclaration, content: [String]) -> [String] {
         let item = MakeCode(declaration: declaration, content: content)
         makeCode.append(item)
         return makeCodeReturn
