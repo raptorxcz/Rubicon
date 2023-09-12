@@ -3,29 +3,39 @@ import XCTest
 
 final class ProtocolGeneratorTests: XCTestCase {
     private var accessLevelGeneratorSpy: AccessLevelGeneratorSpy!
+    private var indentationGeneratorStub: IndentationGeneratorStub!
     private var sut: ProtocolGeneratorImpl!
 
     override func setUp() {
         super.setUp()
         accessLevelGeneratorSpy = AccessLevelGeneratorSpy(makeClassAccessLevelReturn: "accessLevel ", makeContentAccessLevelReturn: "")
-        sut = ProtocolGeneratorImpl(accessLevelGenerator: accessLevelGeneratorSpy)
+        indentationGeneratorStub = IndentationGeneratorStub()
+        sut = ProtocolGeneratorImpl(
+            accessLevelGenerator: accessLevelGeneratorSpy,
+            indentationGenerator: indentationGeneratorStub
+        )
     }
 
     func test_whenGenerate_thenGenerateCode() {
-        let code = sut.makeProtocol(from: .makeStub(), stub: "Dummy", content: "content")
+        let code = sut.makeProtocol(from: .makeStub(), stub: "Dummy", content: ["content", "content2"])
 
-        equal(string: code, rows: [
+        equal(code, rows: [
             "accessLevel final class NameDummy: Name {",
-            "content",
+            "-content",
+            "-content2",
             "}",
-            "",
         ])
         XCTAssertEqual(accessLevelGeneratorSpy.makeClassAccessLevelCount, 1)
     }
 }
 
-func equal(string: String, rows: [String], line: UInt = #line, file: StaticString = #file) {
-    let generatedRows = string.components(separatedBy: "\n")
+func equal(string: String?, rows: [String], line: UInt = #line, file: StaticString = #file) {
+    let generatedRows = string?.components(separatedBy: "\n")
+    equal(generatedRows, rows: rows, line: line, file: file)
+}
+
+func equal(_ strings: [String]?, rows: [String], line: UInt = #line, file: StaticString = #file) {
+    let generatedRows = strings ?? []
 
     XCTAssertEqual(generatedRows.count, rows.count, file: file, line: line)
     var index: UInt = 1

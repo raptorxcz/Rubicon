@@ -148,12 +148,14 @@ final class VarDeclarationParserSpy: VarDeclarationParser {
 
 extension VarDeclaration {
     static func makeStub(
-        isConstant: Bool = false
+        isConstant: Bool = false,
+        identifier: String = "identifier",
+        type: TypeDeclaration = .makeStub()
     ) -> VarDeclaration {
         return VarDeclaration(
             isConstant: isConstant,
-            identifier: "identifier",
-            type: .makeStub()
+            identifier: identifier,
+            type: type
         )
     }
 }
