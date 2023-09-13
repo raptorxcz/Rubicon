@@ -1,5 +1,6 @@
 protocol FunctionNameGenerator {
     func makeUniqueName(for function: FunctionDeclaration, in functions: [FunctionDeclaration]) -> String
+    func makeStructUniqueName(for function: FunctionDeclaration, in functions: [FunctionDeclaration]) -> String
 }
 
 final class FunctionNameGeneratorImpl: FunctionNameGenerator {
@@ -36,4 +37,9 @@ final class FunctionNameGeneratorImpl: FunctionNameGenerator {
     private func isFunctionNameUnique(_ function: FunctionDeclaration, in functions: [FunctionDeclaration]) -> Bool {
         return !functions.contains(where:  { $0.name == function.name && $0 != function })
     }
+
+    func makeStructUniqueName(for function: FunctionDeclaration, in functions: [FunctionDeclaration]) -> String {
+        return makeFirstLetterCapitalized(in: makeUniqueName(for: function, in: functions))
+    }
+
 }

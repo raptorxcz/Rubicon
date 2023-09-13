@@ -1,13 +1,14 @@
 @testable import Rubicon
 import XCTest
 
-final class StubGeneratorTests: XCTestCase {
+final class SpyGeneratorTests: XCTestCase {
     private var protocolGeneratorSpy: ProtocolGeneratorSpy!
     private var variableGeneratorSpy: VariableGeneratorSpy!
     private var functionGeneratorSpy: FunctionGeneratorSpy!
     private var functionNameGeneratorSpy: FunctionNameGeneratorSpy!
     private var initGeneratorSpy: InitGeneratorSpy!
-    private var sut: StubGenerator!
+    private var structGeneratorSpy: StructGeneratorSpy!
+    private var sut: SpyGenerator!
     private let type = TypeDeclaration.makeStub(name: "Color", isOptional: false)
 
     override func setUp() {
@@ -15,14 +16,16 @@ final class StubGeneratorTests: XCTestCase {
         protocolGeneratorSpy = ProtocolGeneratorSpy(makeProtocolReturn: ["result"])
         variableGeneratorSpy = VariableGeneratorSpy(makeStubCodeReturn: [], makeCodeReturn: "variable")
         functionGeneratorSpy = FunctionGeneratorSpy(makeCodeReturn: ["function"])
-        functionNameGeneratorSpy = FunctionNameGeneratorSpy(makeUniqueNameReturn: "functionName", makeStructUniqueNameReturn: "")
+        functionNameGeneratorSpy = FunctionNameGeneratorSpy(makeUniqueNameReturn: "functionName", makeStructUniqueNameReturn: "StructName")
         initGeneratorSpy = InitGeneratorSpy(makeCodeReturn: ["init"])
-        sut = StubGenerator(
+        structGeneratorSpy = StructGeneratorSpy(makeCodeReturn: ["struct"])
+        sut = SpyGenerator(
             protocolGenerator: protocolGeneratorSpy,
             variableGenerator: variableGeneratorSpy,
             functionGenerator: functionGeneratorSpy,
             functionNameGenerator: functionNameGeneratorSpy,
-            initGenerator: initGeneratorSpy
+            initGenerator: initGeneratorSpy,
+            structGenerator: structGeneratorSpy
         )
     }
 
@@ -31,7 +34,7 @@ final class StubGeneratorTests: XCTestCase {
 
         XCTAssertEqual(protocolGeneratorSpy.makeProtocol.count, 1)
         XCTAssertEqual(protocolGeneratorSpy.makeProtocol.first?.declaration, .makeStub())
-        XCTAssertEqual(protocolGeneratorSpy.makeProtocol.first?.stub, "Stub")
+        XCTAssertEqual(protocolGeneratorSpy.makeProtocol.first?.stub, "Spy")
         equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
             "init",
         ])
@@ -74,13 +77,16 @@ final class StubGeneratorTests: XCTestCase {
         _ = sut.generate(from: protocolDeclaration)
 
         equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
+            "var functionNameCount = 0",
+            "",
             "init",
             "",
             "function",
         ])
+        XCTAssertEqual(variableGeneratorSpy.makeCode.count, 0)
         XCTAssertEqual(functionGeneratorSpy.makeCode.count, 1)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration, .makeStub())
-        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.content, [])
+        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.content, ["functionNameCount += 1"])
     }
 
     func test_givenProtocolWithFunctionWithtReturn_whenGenerate_thenGenerateStub() {
@@ -95,10 +101,13 @@ final class StubGeneratorTests: XCTestCase {
         XCTAssertEqual(functionGeneratorSpy.makeCode.count, 1)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration, .makeStub(returnType: .makeStub()))
         equal(functionGeneratorSpy.makeCode.first?.content, rows: [
+            "functionNameCount += 1",
             "return functionNameReturn",
         ])
         equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
             "variable",
+            "",
+            "var functionNameCount = 0",
             "",
             "init",
             "",
@@ -118,9 +127,14 @@ final class StubGeneratorTests: XCTestCase {
         XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.isConstant, false)
         XCTAssertEqual(functionGeneratorSpy.makeCode.count, 1)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration, .makeStub(returnType: returnType))
-        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.content, ["return functionNameReturn"])
+        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.content, [
+            "functionNameCount += 1",
+            "return functionNameReturn",
+        ])
         equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
             "variable",
+            "",
+            "var functionNameCount = 0",
             "",
             "init",
             "",
@@ -145,6 +159,7 @@ final class StubGeneratorTests: XCTestCase {
         XCTAssertEqual(functionGeneratorSpy.makeCode.count, 1)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration, functionDeclaration)
         equal(functionGeneratorSpy.makeCode.first?.content, rows: [
+            "functionNameCount += 1",
             "try functionNameThrowBlock?()",
             "return functionNameReturn",
         ])
@@ -152,50 +167,49 @@ final class StubGeneratorTests: XCTestCase {
             "variable",
             "variable",
             "",
+            "var functionNameCount = 0",
+            "",
             "init",
             "",
             "function",
         ])
     }
-}
 
-final class FunctionNameGeneratorSpy: FunctionNameGenerator {
-    struct MakeUniqueName {
-        let function: FunctionDeclaration
-        let functions: [FunctionDeclaration]
-    }
+    func test_givenProtocolWithFunctionWithArgument_whenGenerate_thenGenerateStub() {
+        let functionDeclaration = FunctionDeclaration.makeStub(arguments: [.makeStub()])
+        let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [functionDeclaration])
 
-    struct MakeStructUniqueName {
-        let function: FunctionDeclaration
-        let functions: [FunctionDeclaration]
-    }
+        _ = sut.generate(from: protocolDeclaration)
 
-    var makeUniqueName = [MakeUniqueName]()
-    var makeUniqueNameReturn: String
-    var makeStructUniqueName = [MakeStructUniqueName]()
-    var makeStructUniqueNameReturn: String
-
-    init(makeUniqueNameReturn: String, makeStructUniqueNameReturn: String) {
-        self.makeUniqueNameReturn = makeUniqueNameReturn
-        self.makeStructUniqueNameReturn = makeStructUniqueNameReturn
-    }
-
-    func makeUniqueName(for function: FunctionDeclaration, in functions: [FunctionDeclaration]) -> String {
-        let item = MakeUniqueName(function: function, functions: functions)
-        makeUniqueName.append(item)
-        return makeUniqueNameReturn
-    }
-
-    func makeStructUniqueName(for function: FunctionDeclaration, in functions: [FunctionDeclaration]) -> String {
-        let item = MakeStructUniqueName(function: function, functions: functions)
-        makeStructUniqueName.append(item)
-        return makeStructUniqueNameReturn
+        equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
+            "struct",
+            "",
+            "var functionName = [StructName]()",
+            "",
+            "init",
+            "",
+            "function",
+        ])
+        XCTAssertEqual(functionGeneratorSpy.makeCode.count, 1)
+        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration, functionDeclaration)
+        equal(functionGeneratorSpy.makeCode.first?.content, rows: [
+            "let item = StructName(name: name)",
+            "functionName.append(item)",
+        ])
+        XCTAssertEqual(functionNameGeneratorSpy.makeStructUniqueName.count, 3)
+        XCTAssertEqual(functionNameGeneratorSpy.makeStructUniqueName.first?.function, functionDeclaration)
+        XCTAssertEqual(structGeneratorSpy.makeCode.count, 1)
+        XCTAssertEqual(structGeneratorSpy.makeCode.first?.declaration.name, "StructName")
+        XCTAssertEqual(structGeneratorSpy.makeCode.first?.declaration.variables.count, 1)
+        XCTAssertEqual(structGeneratorSpy.makeCode.first?.declaration.variables.first?.isConstant, true)
+        XCTAssertEqual(structGeneratorSpy.makeCode.first?.declaration.variables.first?.identifier, "name")
+        XCTAssertEqual(structGeneratorSpy.makeCode.first?.declaration.variables.first?.type, .makeStub())
     }
 }
 
-final class InitGeneratorSpy: InitGenerator {
+final class StructGeneratorSpy: StructGenerator {
     struct MakeCode {
-        let variables: [VarDeclaration]
+        let declaration: StructDeclaration
     }
 
     var makeCode = [MakeCode]()
@@ -205,8 +219,8 @@ final class InitGeneratorSpy: InitGenerator {
         self.makeCodeReturn = makeCodeReturn
     }
 
-    func makeCode(with variables: [VarDeclaration]) -> [String] {
-        let item = MakeCode(variables: variables)
+    func makeCode(from declaration: StructDeclaration) -> [String] {
+        let item = MakeCode(declaration: declaration)
         makeCode.append(item)
         return makeCodeReturn
     }

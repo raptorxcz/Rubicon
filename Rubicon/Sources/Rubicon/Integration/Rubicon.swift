@@ -11,6 +11,7 @@ public final class Rubicon {
         let functionNameGenerator: FunctionNameGenerator
         let indentationGenerator: IndentationGenerator
         let initGenerator: InitGenerator
+        let structGenerator: StructGenerator
     }
 
     public func makeDummy(code: String, accessLevel: AccessLevel, indentStep: String) -> [String] {
@@ -56,6 +57,29 @@ public final class Rubicon {
         )
     }
 
+    public func makeSpy(code: String, accessLevel: AccessLevel, indentStep: String) -> [String] {
+        let parser = makeParser()
+        let generator = makeSpyGenerator(accessLevel: accessLevel, indentStep: indentStep)
+        do {
+            let protocols = try parser.parse(text: code)
+            return protocols.map(generator.generate(from:))
+        } catch {
+            return []
+        }
+    }
+
+    private func makeSpyGenerator(accessLevel: AccessLevel, indentStep: String) -> SpyGenerator {
+        let dependencies = makeDependencies(for: accessLevel, indentStep: indentStep)
+        return SpyGenerator(
+            protocolGenerator: dependencies.protocolGenerator,
+            variableGenerator: dependencies.variableGenerator,
+            functionGenerator: dependencies.functionGenerator,
+            functionNameGenerator: dependencies.functionNameGenerator,
+            initGenerator: dependencies.initGenerator,
+            structGenerator: dependencies.structGenerator
+        )
+    }
+
 
     private func makeDependencies(for accessLevel: AccessLevel, indentStep: String) -> Dependencies {
         let indentationGenerator = IndentationGeneratorImpl(indentStep: indentStep)
@@ -86,6 +110,11 @@ public final class Rubicon {
             indentationGenerator: indentationGenerator,
             argumentGenerator: argumentGenerator
         )
+        let structGenerator = StructGeneratorImpl(
+            accessLevelGenerator: accessLevelGenerator,
+            variableGenerator: variableGenerator,
+            indentationGenerator: indentationGenerator
+        )
 
         return Dependencies(
             protocolGenerator: protocolGenerator,
@@ -96,7 +125,8 @@ public final class Rubicon {
             argumentGenerator: argumentGenerator,
             functionNameGenerator: functionNameGenerator,
             indentationGenerator: indentationGenerator,
-            initGenerator: initGenerator
+            initGenerator: initGenerator,
+            structGenerator: structGenerator
         )
     }
 
