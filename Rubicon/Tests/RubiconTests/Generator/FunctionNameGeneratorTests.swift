@@ -52,4 +52,12 @@ final class FunctionNameGeneratorTests: XCTestCase {
 
         XCTAssertEqual(name, "nameLabelAttribute")
     }
+
+    func test_givenSingleFunction_whenMakeStructUniqueName_thenReturnShortName() {
+        let function = FunctionDeclaration.makeStub(arguments: [.makeStub()])
+
+        let name = sut.makeStructUniqueName(for: function, in: [function])
+
+        XCTAssertEqual(name, "Name")
+    }
 }
