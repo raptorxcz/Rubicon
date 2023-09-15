@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/raptorxcz/Rubicon">
-      <img src="Application.RubiconApp/Assets.xcassets/AppIcon.appiconset/mac-256.png" alt="Rubicon" srcset="Application.RubiconApp/Assets.xcassets/AppIcon.appiconset/mac-512.png 2x" />
+      <img src="Application/RubiconApp/Assets.xcassets/AppIcon.appiconset/mac-256.png" alt="Rubicon" srcset="Application/RubiconApp/Assets.xcassets/AppIcon.appiconset/mac-512.png 2x" />
     </a>
 </p>
 
