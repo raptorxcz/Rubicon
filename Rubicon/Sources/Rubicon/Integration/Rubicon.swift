@@ -148,4 +148,13 @@ public final class Rubicon {
         )
     }
 
+    public func updateTearDown(text: String, spacing: Int) throws -> String {
+        let parser = NilableVariablesParserImpl()
+        let tearDownInteractor = TearDownInteractor(nilableVariablesParser: parser)
+        return try tearDownInteractor.execute(text: text, spacing: spacing)
+    }
+
+    func x() {
+        Rubicon().makeSpy(code: <#T##String#>, accessLevel: <#T##AccessLevel#>, indentStep: <#T##String#>)
+    }
 }

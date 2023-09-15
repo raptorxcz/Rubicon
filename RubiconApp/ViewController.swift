@@ -9,31 +9,19 @@
 import Cocoa
 import Rubicon
 
-class ViewController: NSViewController, GeneratorOutput {
+class ViewController: NSViewController {
     @IBOutlet weak var sourceTextField: NSTextView!
     @IBOutlet var resultLabel: NSTextView!
 
     @IBAction func generateSpy(_ sender: Any) {
-        let spyMocksController = MocksGeneratorControllerImpl(output: self, interactor: CreateSpyInteractor(accessLevel: .internal))
-        let texts = [sourceTextField.string]
-        spyMocksController.run(texts: texts)
+        resultLabel.string = Rubicon().makeSpy(code: sourceTextField.string, accessLevel: .internal, indentStep: "    ").joined(separator: "\n\n")
     }
 
     @IBAction func generateStub(_ sender: Any) {
-        let spyMocksController = MocksGeneratorControllerImpl(output: self, interactor: CreateStubInteractor(accessLevel: .internal))
-        let texts = [sourceTextField.string]
-        spyMocksController.run(texts: texts)
+        resultLabel.string = Rubicon().makeStub(code: sourceTextField.string, accessLevel: .internal, indentStep: "    ").joined(separator: "\n\n")
     }
 
     @IBAction func generateDummy(_ sender: Any) {
-        let spyMocksController = MocksGeneratorControllerImpl(output: self, interactor: CreateDummyInteractor(accessLevel: .internal))
-        let texts = [sourceTextField.string]
-        spyMocksController.run(texts: texts)
-    }
-
-    // MARK: - GeneratorOutput
-
-    func save(text: String) {
-        resultLabel.string = text
+        resultLabel.string = Rubicon().makeDummy(code: sourceTextField.string, accessLevel: .internal, indentStep: "    ").joined(separator: "\n\n")
     }
 }
