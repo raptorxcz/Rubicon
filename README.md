@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/raptorxcz/Rubicon">
-      <img src="RubiconApp/Assets.xcassets/AppIcon.appiconset/Mac_256pt.png" alt="Rubicon" srcset="RubiconApp/Assets.xcassets/AppIcon.appiconset/Mac_256pt@2x.png 2x" />
+      <img src="Application.RubiconApp/Assets.xcassets/AppIcon.appiconset/mac-256.png" alt="Rubicon" srcset="Application.RubiconApp/Assets.xcassets/AppIcon.appiconset/mac-512.png 2x" />
     </a>
 </p>
 
@@ -8,7 +8,7 @@
 [![Build Status](https://travis-ci.org/raptorxcz/Rubicon.svg?branch=master)](https://travis-ci.org/raptorxcz/Rubicon)
 [![Build Status](https://codecov.io/gh/raptorxcz/Rubicon/branch/master/graph/badge.svg)](https://codecov.io/gh/raptorxcz/Rubicon)
 
-**Again available on AppStore [https://itunes.apple.com/cz/app/rubicon/id1453837387](https://itunes.apple.com/cz/app/rubicon/id1453837387)**
+**Available on AppStore [https://itunes.apple.com/cz/app/rubicon/id1453837387](https://itunes.apple.com/cz/app/rubicon/id1453837387)**
 
 Swift parser + mock generator
 
