@@ -10,9 +10,7 @@ import Foundation
 import Rubicon
 import XcodeKit
 
-class InvocationGeneratorOutput: GeneratorOutput {
-
-    private let indentFormatter = IndentationFormatter()
+class InvocationGeneratorOutput {
     private let invocation: XCSourceEditorCommandInvocation
     private lazy var indent: String = {
         let buffer = self.invocation.buffer
@@ -36,7 +34,7 @@ class InvocationGeneratorOutput: GeneratorOutput {
     }
 
     func save(text: String) {
-        let lines = indentFormatter.format(indent: indent, string: text).components(separatedBy: "\n")
-        invocation.buffer.lines.addObjects(from: lines)
+        
+//        invocation.buffer.lines.addObjects(from: lines)
     }
 }

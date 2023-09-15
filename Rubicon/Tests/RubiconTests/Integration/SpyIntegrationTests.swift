@@ -8,6 +8,7 @@ final class SpyIntegrationTests: XCTestCase {
             var name: String? { get }
             var color: Int { get set }
 
+            @MainActor
             func go()
             func load(with stuff: Int, label: String) throws -> Int
             func isFull(validate: @escaping () -> Void) -> Bool
