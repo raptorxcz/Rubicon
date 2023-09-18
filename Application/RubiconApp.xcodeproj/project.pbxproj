@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		66324BAC2AB84623009A3CBB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66324BAB2AB84622009A3CBB /* Cocoa.framework */; };
-		66324BAE2AB84623009A3CBB /* XcodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66324BAD2AB84623009A3CBB /* XcodeKit.framework */; };
 		66324BB12AB84623009A3CBB /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66324BB02AB84623009A3CBB /* SourceEditorExtension.swift */; };
 		66324BB82AB84623009A3CBB /* RubiconExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 66324BA92AB84622009A3CBB /* RubiconExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		66324BC02AB8464F009A3CBB /* InvocationGeneratorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66324BBD2AB8464F009A3CBB /* InvocationGeneratorOutput.swift */; };
@@ -16,6 +15,8 @@
 		667AB2802AB846F900886FD1 /* Rubicon in Frameworks */ = {isa = PBXBuildFile; productRef = 667AB27F2AB846F900886FD1 /* Rubicon */; };
 		667AB2822AB848B100886FD1 /* Generate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66324BBF2AB8464F009A3CBB /* Generate.swift */; };
 		667AB2842AB84A2D00886FD1 /* Rubicon in Frameworks */ = {isa = PBXBuildFile; productRef = 667AB2832AB84A2D00886FD1 /* Rubicon */; };
+		66D05B572AB87531007D443D /* XcodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66324BAD2AB84623009A3CBB /* XcodeKit.framework */; };
+		66D05B582AB87531007D443D /* XcodeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 66324BAD2AB84623009A3CBB /* XcodeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		66DA42602AB845D00074F268 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DA425F2AB845D00074F268 /* AppDelegate.swift */; };
 		66DA42622AB845D00074F268 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DA42612AB845D00074F268 /* ViewController.swift */; };
 		66DA42642AB845D00074F268 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66DA42632AB845D00074F268 /* Assets.xcassets */; };
@@ -44,6 +45,17 @@
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		66D05B592AB87531007D443D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				66D05B582AB87531007D443D /* XcodeKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -57,7 +69,7 @@
 		66324BBE2AB8464F009A3CBB /* PasteboardGeneratorOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasteboardGeneratorOutput.swift; sourceTree = "<group>"; };
 		66324BBF2AB8464F009A3CBB /* Generate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generate.swift; sourceTree = "<group>"; };
 		66324BC42AB846C7009A3CBB /* Rubicon */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Rubicon; path = ..; sourceTree = "<group>"; };
-		66DA425C2AB845D00074F268 /* RubiconApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RubiconApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		66DA425C2AB845D00074F268 /* Rubicon for Xcode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rubicon for Xcode.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66DA425F2AB845D00074F268 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66DA42612AB845D00074F268 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		66DA42632AB845D00074F268 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -70,9 +82,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66D05B572AB87531007D443D /* XcodeKit.framework in Frameworks */,
 				667AB2842AB84A2D00886FD1 /* Rubicon in Frameworks */,
 				66324BAC2AB84623009A3CBB /* Cocoa.framework in Frameworks */,
-				66324BAE2AB84623009A3CBB /* XcodeKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,7 +143,7 @@
 		66DA425D2AB845D00074F268 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				66DA425C2AB845D00074F268 /* RubiconApp.app */,
+				66DA425C2AB845D00074F268 /* Rubicon for Xcode.app */,
 				66324BA92AB84622009A3CBB /* RubiconExtension.appex */,
 			);
 			name = Products;
@@ -159,6 +171,7 @@
 				66324BA52AB84622009A3CBB /* Sources */,
 				66324BA62AB84622009A3CBB /* Frameworks */,
 				66324BA72AB84622009A3CBB /* Resources */,
+				66D05B592AB87531007D443D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -172,9 +185,9 @@
 			productReference = 66324BA92AB84622009A3CBB /* RubiconExtension.appex */;
 			productType = "com.apple.product-type.xcode-extension";
 		};
-		66DA425B2AB845D00074F268 /* RubiconApp */ = {
+		66DA425B2AB845D00074F268 /* Rubicon */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 66DA42812AB845D00074F268 /* Build configuration list for PBXNativeTarget "RubiconApp" */;
+			buildConfigurationList = 66DA42812AB845D00074F268 /* Build configuration list for PBXNativeTarget "Rubicon" */;
 			buildPhases = (
 				66DA42582AB845D00074F268 /* Sources */,
 				66DA42592AB845D00074F268 /* Frameworks */,
@@ -186,12 +199,12 @@
 			dependencies = (
 				66324BB72AB84623009A3CBB /* PBXTargetDependency */,
 			);
-			name = RubiconApp;
+			name = Rubicon;
 			packageProductDependencies = (
 				667AB27F2AB846F900886FD1 /* Rubicon */,
 			);
 			productName = RubiconApp;
-			productReference = 66DA425C2AB845D00074F268 /* RubiconApp.app */;
+			productReference = 66DA425C2AB845D00074F268 /* Rubicon for Xcode.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -225,7 +238,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				66DA425B2AB845D00074F268 /* RubiconApp */,
+				66DA425B2AB845D00074F268 /* Rubicon */,
 				66324BA82AB84622009A3CBB /* RubiconExtension */,
 			);
 		};
@@ -300,7 +313,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_ASSET_PATHS = ..;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 473264X5JK;
@@ -331,7 +344,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_ASSET_PATHS = ..;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 473264X5JK;
@@ -478,7 +491,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 473264X5JK;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -494,7 +507,7 @@
 				);
 				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cleverlance.rubicon;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Rubicon for Xcode";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "Rubicon macOS Dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -512,7 +525,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 473264X5JK;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -528,7 +541,7 @@
 				);
 				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cleverlance.rubicon;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Rubicon for Xcode";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "Rubicon App Store";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -557,7 +570,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		66DA42812AB845D00074F268 /* Build configuration list for PBXNativeTarget "RubiconApp" */ = {
+		66DA42812AB845D00074F268 /* Build configuration list for PBXNativeTarget "Rubicon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				66DA42822AB845D00074F268 /* Debug */,

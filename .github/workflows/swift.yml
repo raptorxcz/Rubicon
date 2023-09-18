@@ -8,5 +8,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        xcode-version: '14.3'
     - name: Build
-      run: cd Rubicon && swift test --enable-code-coverage
+      run: swift test --enable-code-coverage
