@@ -21,15 +21,14 @@ input:
 ```swift
 
 protocol Car {
-
     var name: String? { get }
     var color: Int { get set }
-
+    
+    @MainActor
     func go()
     func load(with stuff: Int, label: String) throws -> Int
     func isFull() -> Bool
     func download() async throws -> [String]
-
 }
 
 ```
@@ -40,30 +39,24 @@ output:
 
 ```swift
 
-class CarSpy: Car {
-
-    enum SpyError: Error {
-        case spyError
-    }
-    typealias ThrowBlock = () throws -> Void
-
-    var name: String?
-    var color: Int
-
+final class CarSpy: Car {
     struct Load {
         let stuff: Int
         let label: String
     }
 
+    var name: String?
+    var color: Int
+    var loadThrowBlock: () -> Void?
+    var loadReturn: Int
+    var isFullReturn: Bool
+    var downloadThrowBlock: () -> Void?
+    var downloadReturn: [String]
+
     var goCount = 0
     var load = [Load]()
-    var loadThrowBlock: ThrowBlock?
-    var loadReturn: Int
     var isFullCount = 0
-    var isFullReturn: Bool
     var downloadCount = 0
-    var downloadThrowBlock: ThrowBlock?
-    var downloadReturn: [String]
 
     init(color: Int, loadReturn: Int, isFullReturn: Bool, downloadReturn: [String]) {
         self.color = color
@@ -103,20 +96,13 @@ output:
 
 ```swift
 
-class CarStub: Car {
-
-    enum StubError: Error {
-        case stubError
-    }
-    typealias ThrowBlock = () throws -> Void
-
+final class CarStub: Car {
     var name: String?
     var color: Int
-
-    var loadThrowBlock: ThrowBlock?
+    var loadThrowBlock: () -> Void?
     var loadReturn: Int
     var isFullReturn: Bool
-    var downloadThrowBlock: ThrowBlock?
+    var downloadThrowBlock: () -> Void?
     var downloadReturn: [String]
 
     init(color: Int, loadReturn: Int, isFullReturn: Bool, downloadReturn: [String]) {
@@ -152,10 +138,11 @@ output:
 
 ```swift
 
-class CarDummy: Car {
-
+final class CarDummy: Car {
     var name: String? {
-        fatalError()
+        get {
+            fatalError()
+        }
     }
     var color: Int {
         get {

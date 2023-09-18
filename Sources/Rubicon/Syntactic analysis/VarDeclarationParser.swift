@@ -28,17 +28,33 @@ final class VarDeclarationParserImpl: VarDeclarationParser {
         let type = typeDeclarationParser.parse(node: typeAnnotation.type)
 
         return VarDeclaration(
-            prefix: nil,
-            isConstant: isConstant(token: node.bindingSpecifier),
+            isConstant: isLetConstant(token: node.bindingSpecifier) || isReadOnly(binding: binding),
             identifier: binding.pattern.description,
             type: type
         )
     }
 
-    private func isConstant(token: TokenSyntax) -> Bool {
+    private func isLetConstant(token: TokenSyntax) -> Bool {
         switch token.tokenKind {
         case .keyword(.let):
             return true
+        default:
+            return false
+        }
+    }
+
+    private func isReadOnly(binding: PatternBindingSyntax) -> Bool {
+        guard let accessorBlock = binding.accessorBlock else {
+            return false
+        }
+
+        switch accessorBlock.accessors {
+        case .accessors(let list):
+            guard let item = list.first else {
+                return false
+            }
+
+            return item.accessorSpecifier.tokenKind == TokenKind.keyword(.get) && list.count == 1
         default:
             return false
         }
