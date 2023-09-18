@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "66DA425B2AB845D00074F268"
-               BuildableName = "RubiconApp.app"
-               BlueprintName = "RubiconApp"
+               BuildableName = "Rubicon for Xcode.app"
+               BlueprintName = "Rubicon"
                ReferencedContainer = "container:RubiconApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,8 +44,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "66DA425B2AB845D00074F268"
-            BuildableName = "RubiconApp.app"
-            BlueprintName = "RubiconApp"
+            BuildableName = "Rubicon for Xcode.app"
+            BlueprintName = "Rubicon"
             ReferencedContainer = "container:RubiconApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -61,8 +61,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "66DA425B2AB845D00074F268"
-            BuildableName = "RubiconApp.app"
-            BlueprintName = "RubiconApp"
+            BuildableName = "Rubicon for Xcode.app"
+            BlueprintName = "Rubicon"
             ReferencedContainer = "container:RubiconApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
