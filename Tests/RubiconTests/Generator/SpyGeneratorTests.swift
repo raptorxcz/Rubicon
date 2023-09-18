@@ -41,7 +41,7 @@ final class SpyGeneratorTests: XCTestCase {
         XCTAssertEqual(result, "result\n")
     }
 
-    func test_givenProtocolWithVariable_whenGenerate_thenGenerateStub() {
+    func test_givenProtocolWithVariable_whenGenerate_thenGenerateSpy() {
         let protocolDeclaration = ProtocolDeclaration.makeStub(variables: [.makeStub()])
 
         _ = sut.generate(from: protocolDeclaration)
@@ -57,7 +57,15 @@ final class SpyGeneratorTests: XCTestCase {
         XCTAssertEqual(initGeneratorSpy.makeCode.first?.variables, [.makeStub()])
     }
 
-    func test_givenProtocolWithVariables_whenGenerate_thenGenerateStub() {
+    func test_givenProtocolWithConstant_whenGenerate_thenGenerateSpy() {
+        let protocolDeclaration = ProtocolDeclaration.makeStub(variables: [.makeStub(isConstant: true)])
+
+        _ = sut.generate(from: protocolDeclaration)
+
+        XCTAssertEqual(initGeneratorSpy.makeCode.first?.variables.first?.isConstant, false)
+    }
+
+    func test_givenProtocolWithVariables_whenGenerate_thenGenerateSpy() {
         let protocolDeclaration = ProtocolDeclaration.makeStub(variables: [.makeStub(), .makeStub()])
 
         _ = sut.generate(from: protocolDeclaration)
@@ -71,7 +79,7 @@ final class SpyGeneratorTests: XCTestCase {
         ])
     }
 
-    func test_givenProtocolWithFunctionWithoutReturn_whenGenerate_thenGenerateStub() {
+    func test_givenProtocolWithFunctionWithoutReturn_whenGenerate_thenGenerateSpy() {
         let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [.makeStub()])
 
         _ = sut.generate(from: protocolDeclaration)
@@ -89,7 +97,7 @@ final class SpyGeneratorTests: XCTestCase {
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.content, ["functionNameCount += 1"])
     }
 
-    func test_givenProtocolWithFunctionWithtReturn_whenGenerate_thenGenerateStub() {
+    func test_givenProtocolWithFunctionWithtReturn_whenGenerate_thenGenerateSpy() {
         let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [.makeStub(returnType: .makeStub())])
 
         _ = sut.generate(from: protocolDeclaration)
@@ -115,7 +123,7 @@ final class SpyGeneratorTests: XCTestCase {
         ])
     }
 
-    func test_givenProtocolWithFunctionWithtOptionalReturn_whenGenerate_thenGenerateStub() {
+    func test_givenProtocolWithFunctionWithtOptionalReturn_whenGenerate_thenGenerateSpy() {
         let returnType = TypeDeclaration.makeStub(isOptional: true)
         let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [.makeStub(returnType: returnType)])
 
@@ -142,7 +150,7 @@ final class SpyGeneratorTests: XCTestCase {
         ])
     }
 
-    func test_givenProtocolWithThrowingFunction_whenGenerate_thenGenerateStub() {
+    func test_givenProtocolWithThrowingFunction_whenGenerate_thenGenerateSpy() {
         let returnType = TypeDeclaration.makeStub(isOptional: true)
         let functionDeclaration = FunctionDeclaration.makeStub(isThrowing: true, returnType: returnType)
         let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [functionDeclaration])
@@ -175,7 +183,7 @@ final class SpyGeneratorTests: XCTestCase {
         ])
     }
 
-    func test_givenProtocolWithFunctionWithArgument_whenGenerate_thenGenerateStub() {
+    func test_givenProtocolWithFunctionWithArgument_whenGenerate_thenGenerateSpy() {
         let functionDeclaration = FunctionDeclaration.makeStub(arguments: [.makeStub()])
         let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [functionDeclaration])
 

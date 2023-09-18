@@ -54,6 +54,14 @@ final class StubGeneratorTests: XCTestCase {
         XCTAssertEqual(initGeneratorSpy.makeCode.first?.variables, [.makeStub()])
     }
 
+    func test_givenProtocolWithConstant_whenGenerate_thenGenerateStub() {
+        let protocolDeclaration = ProtocolDeclaration.makeStub(variables: [.makeStub(isConstant: true)])
+
+        _ = sut.generate(from: protocolDeclaration)
+
+        XCTAssertEqual(initGeneratorSpy.makeCode.first?.variables.first?.isConstant, false)
+    }
+
     func test_givenProtocolWithVariables_whenGenerate_thenGenerateStub() {
         let protocolDeclaration = ProtocolDeclaration.makeStub(variables: [.makeStub(), .makeStub()])
 

@@ -51,6 +51,30 @@ final class VarDeclarationParserTests: XCTestCase {
         XCTAssertEqual(typeDeclarationParserSpy.parse.first?.node.description, "Type")
     }
 
+    func test_givenConstantInProtocol_whenParse_thenReturnType() throws {
+        let node = try parse(string: "var name: Type { get }")
+
+        let declaration = try sut.parse(node: node)
+
+        XCTAssertEqual(declaration.identifier, "name")
+        XCTAssertEqual(declaration.isConstant, true)
+        XCTAssertEqual(declaration.type, .makeStub())
+        XCTAssertEqual(typeDeclarationParserSpy.parse.count, 1)
+        XCTAssertEqual(typeDeclarationParserSpy.parse.first?.node.description, "Type ")
+    }
+
+    func test_givenVariableInProtocol_whenParse_thenReturnType() throws {
+        let node = try parse(string: "var name: Type { get set }")
+
+        let declaration = try sut.parse(node: node)
+
+        XCTAssertEqual(declaration.identifier, "name")
+        XCTAssertEqual(declaration.isConstant, false)
+        XCTAssertEqual(declaration.type, .makeStub())
+        XCTAssertEqual(typeDeclarationParserSpy.parse.count, 1)
+        XCTAssertEqual(typeDeclarationParserSpy.parse.first?.node.description, "Type ")
+    }
+
     private func parse(string: String) throws -> VariableDeclSyntax {
         let string = """
         protocol X {

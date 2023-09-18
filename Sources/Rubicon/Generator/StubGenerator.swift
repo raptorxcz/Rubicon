@@ -43,7 +43,15 @@ final class StubGenerator {
     }
 
     private func makeVariables(from declaration: ProtocolDeclaration) -> [VarDeclaration] {
-        return declaration.variables + declaration.functions.flatMap { makeFunctionReturnVariable(from: $0, protocolDeclaration: declaration) }
+        return declaration.variables.map(makeStubVariable) + declaration.functions.flatMap { makeFunctionReturnVariable(from: $0, protocolDeclaration: declaration) }
+    }
+
+    private func makeStubVariable(from declaration: VarDeclaration) -> VarDeclaration {
+        return VarDeclaration(
+            isConstant: false,
+            identifier: declaration.identifier,
+            type: declaration.type
+        )
     }
 
     private func makeFunctionReturnVariable(from declaration: FunctionDeclaration, protocolDeclaration: ProtocolDeclaration) -> [VarDeclaration] {

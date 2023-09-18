@@ -7,13 +7,11 @@
 //
 
 struct VarDeclaration: Equatable {
-    var prefix: String?
     var isConstant: Bool
     var identifier: String
     var type: TypeDeclaration
 
-    init(prefix: String? = nil, isConstant: Bool, identifier: String, type: TypeDeclaration) {
-        self.prefix = prefix
+    init(isConstant: Bool, identifier: String, type: TypeDeclaration) { 
         self.isConstant = isConstant
         self.identifier = identifier
         self.type = type

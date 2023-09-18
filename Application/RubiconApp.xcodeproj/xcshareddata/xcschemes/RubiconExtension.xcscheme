@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BB0474A11EC068FA00FC2B34"
-               BuildableName = "Rubicon.appex"
+               BlueprintIdentifier = "66324BA82AB84622009A3CBB"
+               BuildableName = "RubiconExtension.appex"
                BlueprintName = "RubiconExtension"
-               ReferencedContainer = "container:Rubicon.xcodeproj">
+               ReferencedContainer = "container:RubiconApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,10 +29,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BB0474301EC0609100FC2B34"
-               BuildableName = "Rubicon.app"
+               BlueprintIdentifier = "66DA425B2AB845D00074F268"
+               BuildableName = "RubiconApp.app"
                BlueprintName = "RubiconApp"
-               ReferencedContainer = "container:Rubicon.xcodeproj">
+               ReferencedContainer = "container:RubiconApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -41,18 +41,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BB0474301EC0609100FC2B34"
-            BuildableName = "Rubicon.app"
-            BlueprintName = "RubiconApp"
-            ReferencedContainer = "container:Rubicon.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <Testables>
-      </Testables>
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -66,20 +56,16 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <RemoteRunnable
-         runnableDebuggingMode = "0"
-         BundleIdentifier = "com.apple.dt.Xcode"
-         RemotePath = "/Applications/Xcode.app">
-      </RemoteRunnable>
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BB0474301EC0609100FC2B34"
-            BuildableName = "Rubicon.app"
+            BlueprintIdentifier = "66DA425B2AB845D00074F268"
+            BuildableName = "RubiconApp.app"
             BlueprintName = "RubiconApp"
-            ReferencedContainer = "container:Rubicon.xcodeproj">
+            ReferencedContainer = "container:RubiconApp.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -93,10 +79,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BB0474301EC0609100FC2B34"
-            BuildableName = "Rubicon.app"
+            BlueprintIdentifier = "66DA425B2AB845D00074F268"
+            BuildableName = "RubiconApp.app"
             BlueprintName = "RubiconApp"
-            ReferencedContainer = "container:Rubicon.xcodeproj">
+            ReferencedContainer = "container:RubiconApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -13,7 +13,7 @@ final class TypeDeclarationParserImpl: TypeDeclarationParser {
     func parse(node: TypeSyntax) -> TypeDeclaration {
         if let attributedType = node.as(AttributedTypeSyntax.self) {
             return TypeDeclaration(
-                name: attributedType.baseType.description,
+                name: attributedType.baseType.description.trimmingCharacters(in: .whitespacesAndNewlines),
                 isOptional: isOptional(node: node),
                 prefix: attributedType.attributes.compactMap(makePrefix(from:))
             )
