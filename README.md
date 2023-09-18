@@ -47,12 +47,12 @@ final class CarSpy: Car {
 
     var name: String?
     var color: Int
-    var loadThrowBlock: () -> Void?
+
+    var loadThrowBlock: (() -> Void)?
     var loadReturn: Int
     var isFullReturn: Bool
-    var downloadThrowBlock: () -> Void?
+    var downloadThrowBlock: (() -> Void)?
     var downloadReturn: [String]
-
     var goCount = 0
     var load = [Load]()
     var isFullCount = 0
@@ -99,10 +99,10 @@ output:
 final class CarStub: Car {
     var name: String?
     var color: Int
-    var loadThrowBlock: () -> Void?
+    var loadThrowBlock: (() -> Void)?
     var loadReturn: Int
     var isFullReturn: Bool
-    var downloadThrowBlock: () -> Void?
+    var downloadThrowBlock: (() -> Void)?
     var downloadReturn: [String]
 
     init(color: Int, loadReturn: Int, isFullReturn: Bool, downloadReturn: [String]) {
