@@ -40,7 +40,7 @@ final class SpyGenerator {
 
         content.append(makeVariables(from: protocolType).map(variableGenerator.makeCode))
         content.append(makeSpyVariables(from: protocolType))
-        content.append(initGenerator.makeCode(with: makeVariables(from: protocolType)))
+        content.append(initGenerator.makeCode(with: makeVariables(from: protocolType) + makeReturnVariables(from: protocolType)))
 
         content += protocolType.functions.map {
             makeFunction(from: $0, protocolDeclaration: protocolType)
@@ -51,7 +51,11 @@ final class SpyGenerator {
     }
 
     private func makeVariables(from declaration: ProtocolDeclaration) -> [VarDeclaration] {
-        return declaration.variables.map(makeSpyVariable) + declaration.functions.flatMap { makeFunctionReturnVariable(from: $0, protocolDeclaration: declaration) }
+        return declaration.variables.map(makeSpyVariable)
+    }
+
+    private func makeReturnVariables(from declaration: ProtocolDeclaration) -> [VarDeclaration] {
+        return declaration.functions.flatMap { makeFunctionReturnVariable(from: $0, protocolDeclaration: declaration) }
     }
 
     private func makeSpyVariable(from declaration: VarDeclaration) -> VarDeclaration {
@@ -67,7 +71,7 @@ final class SpyGenerator {
         var variables = [VarDeclaration]()
 
         if declaration.isThrowing {
-            let throwBlockType = TypeDeclaration(name: "() -> Void?", isOptional: true, prefix: [.escaping])
+            let throwBlockType = TypeDeclaration(name: "(() -> Void)?", isOptional: true, prefix: [.escaping])
             variables.append(VarDeclaration(isConstant: false, identifier: name + "ThrowBlock", type: throwBlockType))
         }
 
@@ -79,7 +83,7 @@ final class SpyGenerator {
     }
 
     private func makeSpyVariables(from declaration: ProtocolDeclaration) -> [String] {
-        return declaration.functions.map { makeSpyVariable(from: $0, protocolDeclaration: declaration) }
+        return makeReturnVariables(from: declaration).map(variableGenerator.makeCode) + declaration.functions.map { makeSpyVariable(from: $0, protocolDeclaration: declaration) }
     }
 
     private func makeSpyVariable(from declaration: FunctionDeclaration, protocolDeclaration: ProtocolDeclaration) -> String {

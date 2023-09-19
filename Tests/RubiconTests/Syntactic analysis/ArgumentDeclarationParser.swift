@@ -48,7 +48,7 @@ final class ArgumentDeclarationParserTests: XCTestCase {
 
         let declaration = sut.parse(node: node)
 
-        XCTAssertNil(declaration.label)
+        XCTAssertEqual(declaration.label, "_")
         XCTAssertEqual(declaration.name, "name")
         XCTAssertEqual(declaration.type, .makeStub())
         XCTAssertEqual(typeDeclarationParserSpy.parse.count, 1)

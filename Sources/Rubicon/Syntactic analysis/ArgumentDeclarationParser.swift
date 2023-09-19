@@ -34,12 +34,7 @@ class ArgumentDeclarationParserImpl: ArgumentDeclarationParser {
         }
 
         let token = node.firstName
-        switch token.tokenKind {
-        case .wildcard:
-            return nil
-        default:
-            return token.text
-        }
+        return token.text
     }
 
     private func makeName(from node: FunctionParameterSyntax) -> String {
