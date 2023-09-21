@@ -71,7 +71,7 @@ final class SpyGenerator {
         var variables = [VarDeclaration]()
 
         if declaration.isThrowing {
-            let throwBlockType = TypeDeclaration(name: "(() -> Void)?", isOptional: true, prefix: [.escaping])
+            let throwBlockType = TypeDeclaration(name: "(() throws -> Void)?", isOptional: true, prefix: [.escaping])
             variables.append(VarDeclaration(isConstant: false, identifier: name + "ThrowBlock", type: throwBlockType))
         }
 

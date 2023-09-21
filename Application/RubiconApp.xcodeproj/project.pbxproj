@@ -319,7 +319,7 @@
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 473264X5JK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RubiconExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RubiconExtension;
+				INFOPLIST_KEY_CFBundleDisplayName = Rubicon;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -350,7 +350,7 @@
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 473264X5JK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RubiconExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RubiconExtension;
+				INFOPLIST_KEY_CFBundleDisplayName = Rubicon;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
