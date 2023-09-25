@@ -14,7 +14,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-syntax", revision: "335d3417646a6e146fc0abcfc03104c63c46c52a"),
+        .package(url: "https://github.com/apple/swift-syntax", from: "509.0.0"),
     ],
     targets: [
         .target(
