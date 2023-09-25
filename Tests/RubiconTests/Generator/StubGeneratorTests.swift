@@ -145,7 +145,7 @@ final class StubGeneratorTests: XCTestCase {
 
         XCTAssertEqual(variableGeneratorSpy.makeCode.count, 2)
         XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.identifier, "functionNameThrowBlock")
-        XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.type, .makeStub(name: "() -> Void?", isOptional: true, prefix: [.escaping]))
+        XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.type, .makeStub(name: "(() throws -> Void)?", isOptional: true, prefix: [.escaping]))
         XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.isConstant, false)
         XCTAssertEqual(variableGeneratorSpy.makeCode.last?.declaration.identifier, "functionNameReturn")
         XCTAssertEqual(variableGeneratorSpy.makeCode.last?.declaration.type, returnType)

@@ -30,8 +30,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "66DA425B2AB845D00074F268"
-               BuildableName = "RubiconApp.app"
-               BlueprintName = "RubiconApp"
+               BuildableName = "Rubicon for Xcode.app"
+               BlueprintName = "Rubicon"
                ReferencedContainer = "container:RubiconApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -56,16 +56,20 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "0"
+         BundleIdentifier = "com.apple.dt.Xcode"
+         RemotePath = "/Applications/Xcode.app">
+      </RemoteRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "66DA425B2AB845D00074F268"
-            BuildableName = "RubiconApp.app"
-            BlueprintName = "RubiconApp"
+            BuildableName = "Rubicon for Xcode.app"
+            BlueprintName = "Rubicon"
             ReferencedContainer = "container:RubiconApp.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -80,8 +84,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "66DA425B2AB845D00074F268"
-            BuildableName = "RubiconApp.app"
-            BlueprintName = "RubiconApp"
+            BuildableName = "Rubicon for Xcode.app"
+            BlueprintName = "Rubicon"
             ReferencedContainer = "container:RubiconApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

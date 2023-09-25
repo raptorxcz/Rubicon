@@ -11,7 +11,7 @@ final class SpyIntegrationTests: XCTestCase {
             @MainActor
             func go()
             func load(with stuff: Int, label: String) throws -> Int
-            func isFull(validate: @escaping () -> Void) -> Bool
+            func isFull(_ validate: @escaping () -> Void) -> Bool
             func download() async throws -> [String]
         }
         """
@@ -32,12 +32,12 @@ final class SpyIntegrationTests: XCTestCase {
             "",
             "-var name: String?",
             "-var color: Int",
-            "-var loadThrowBlock: () -> Void?",
+            "",
+            "-var loadThrowBlock: (() throws -> Void)?",
             "-var loadReturn: Int",
             "-var isFullReturn: Bool",
-            "-var downloadThrowBlock: () -> Void?",
+            "-var downloadThrowBlock: (() throws -> Void)?",
             "-var downloadReturn: [String]",
-            "",
             "-var goCount = 0",
             "-var load = [Load]()",
             "-var isFull = [IsFull]()",
@@ -61,7 +61,7 @@ final class SpyIntegrationTests: XCTestCase {
             "--return loadReturn",
             "-}",
             "",
-            "-func isFull(validate: @escaping () -> Void) -> Bool {",
+            "-func isFull(_ validate: @escaping () -> Void) -> Bool {",
             "--let item = IsFull(validate: validate)",
             "--isFull.append(item)",
             "--return isFullReturn",
