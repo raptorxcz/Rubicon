@@ -80,6 +80,30 @@ final class ProtocolParserTests: XCTestCase {
         XCTAssertEqual(varParserSpy.parse.count, 2)
         XCTAssertEqual(varParserSpy.parse.first?.node.description, "\n    var a: Int { get set }")
     }
+
+    func test_givenProtocolWithInheritance_whenParse_thenReturnProtocol() throws {
+        let text = """
+        protocol A: B {
+        }
+        """
+
+        let protocols = try sut.parse(text: text)
+
+        XCTAssertEqual(protocols.first?.name, "A")
+        XCTAssertEqual(protocols.first?.parents, ["B"])
+    }
+
+    func test_givenProtocolWithMultipleInheritance_whenParse_thenReturnProtocol() throws {
+        let text = """
+        protocol A: B, C {
+        }
+        """
+
+        let protocols = try sut.parse(text: text)
+
+        XCTAssertEqual(protocols.first?.name, "A")
+        XCTAssertEqual(protocols.first?.parents, ["B", "C"])
+    }
 }
 
 final class FunctionDeclarationParserSpy: FunctionDeclarationParser {

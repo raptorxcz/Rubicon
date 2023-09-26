@@ -16,10 +16,20 @@ final class ProtocolGeneratorImpl: ProtocolGenerator {
 
     func makeProtocol(from declaration: ProtocolDeclaration, stub: String, content: [String]) -> [String] {
         let content = content.map(indentationGenerator.indenting)
+        let parentClause = makeParentClause(from: declaration, stub: stub)
+        let header = declaration.name + stub + parentClause + declaration.name
         return [
-        "\(accessLevelGenerator.makeClassAccessLevel())final class \(declaration.name)\(stub): \(declaration.name) {"
+        "\(accessLevelGenerator.makeClassAccessLevel())final class \(header) {"
         ] + content + [
         "}",
         ]
+    }
+
+    private func makeParentClause(from declaration: ProtocolDeclaration, stub: String) -> String {
+        if let parent = declaration.parents.first, declaration.parents.count == 1 {
+            return ": \(parent)\(stub), "
+        } else {
+            return ": "
+        }
     }
 }
