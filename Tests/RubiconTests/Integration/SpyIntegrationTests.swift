@@ -4,7 +4,7 @@ import XCTest
 final class SpyIntegrationTests: XCTestCase {
     func test_givenProtocol_whenMakeDummy_thenReturnStub() {
         let code = """
-        protocol Car {
+        protocol Car: Vehicle {
             var name: String? { get }
             var color: Int { get set }
 
@@ -20,7 +20,7 @@ final class SpyIntegrationTests: XCTestCase {
         let result = sut.makeSpy(code: code, accessLevel: .internal, indentStep: "-")
 
         equal(string: result.first ?? "", rows: [
-            "final class CarSpy: Car {",
+            "final class CarSpy: VehicleSpy, Car {",
             "-struct Load {",
             "--let stuff: Int",
             "--let label: String",
