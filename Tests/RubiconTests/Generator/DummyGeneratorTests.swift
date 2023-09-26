@@ -97,12 +97,13 @@ extension TypeDeclaration {
 
 extension ProtocolDeclaration {
     static func makeStub(
+        parents: [String] = [],
         variables: [VarDeclaration] = [],
         functions: [FunctionDeclaration] = []
     ) -> ProtocolDeclaration {
         return ProtocolDeclaration(
             name: "Name",
-            parents: [],
+            parents: parents,
             variables: variables,
             functions: functions
         )

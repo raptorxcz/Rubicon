@@ -53,12 +53,20 @@ private class ProtocolVisitor: SyntaxVisitor {
         result.append(
             ProtocolDeclaration(
                 name: node.name.text,
-                parents: [],
+                parents: node.inheritanceClause?.inheritedTypes.compactMap(parseParent) ?? [],
                 variables: varsVisitor.execute(node: node),
                 functions: functionsVisitor.execute(node: node)
             )
         )
         return .visitChildren
+    }
+
+    private func parseParent(from inheridedTypeSyntax: InheritedTypeSyntax) -> String? {
+        guard let type = inheridedTypeSyntax.type.as(IdentifierTypeSyntax.self) else {
+            return nil
+        }
+
+        return type.name.text
     }
 }
 
