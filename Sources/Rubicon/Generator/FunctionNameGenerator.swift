@@ -13,7 +13,7 @@ final class FunctionNameGeneratorImpl: FunctionNameGenerator {
     }
 
     private func makeLongName(for function: FunctionDeclaration) -> String {
-        return ([function.name] + function.arguments.map(makeLongArgument(for:))).joined()
+        return ([stringReplacingEscapingCharacters(in: function.name)] + function.arguments.map(makeLongArgument(for:))).joined()
     }
 
     private func makeLongArgument(for argument: ArgumentDeclaration) -> String {
@@ -29,9 +29,14 @@ final class FunctionNameGeneratorImpl: FunctionNameGenerator {
     }
 
     private func makeFirstLetterCapitalized(in string: String) -> String {
-        let first = String(string.prefix(1)).capitalized
-        let other = String(string.dropFirst())
+        let functionNameWithoutEscapingCharacters = stringReplacingEscapingCharacters(in: string)
+        let first = String(functionNameWithoutEscapingCharacters.prefix(1)).capitalized
+        let other = String(functionNameWithoutEscapingCharacters.dropFirst())
         return first + other
+    }
+
+    private func stringReplacingEscapingCharacters(in string: String) -> String {
+        string.replacingOccurrences(of: "`", with: "")
     }
 
     private func isFunctionNameUnique(_ function: FunctionDeclaration, in functions: [FunctionDeclaration]) -> Bool {
@@ -41,5 +46,4 @@ final class FunctionNameGeneratorImpl: FunctionNameGenerator {
     func makeStructUniqueName(for function: FunctionDeclaration, in functions: [FunctionDeclaration]) -> String {
         return makeFirstLetterCapitalized(in: makeUniqueName(for: function, in: functions))
     }
-
 }

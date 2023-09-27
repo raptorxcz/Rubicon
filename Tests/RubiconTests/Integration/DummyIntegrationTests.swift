@@ -12,6 +12,7 @@ final class DummyIntegrationTests: XCTestCase {
             func load(with stuff: Int, label: String) throws -> Int
             func isFull(validate: @escaping () -> Void) -> Bool
             func download() async throws -> [String]
+            func `continue`(from screenId: String)
         }
         """
         let sut = Rubicon()
@@ -50,6 +51,10 @@ final class DummyIntegrationTests: XCTestCase {
             "-}",
             "",
             "-public func download() async throws -> [String] {",
+            "--fatalError()",
+            "-}",
+            "",
+            "-public func `continue`(from screenId: String) {",
             "--fatalError()",
             "-}",
             "}",
