@@ -2,7 +2,7 @@ import Rubicon
 import XCTest
 
 final class StubIntegrationTests: XCTestCase {
-    func test_givenProtocol_whenMakeDummy_thenReturnStub() {
+    func test_givenProtocol_whenMakeStub_thenReturnStub() {
         let code = """
         protocol Car {
             var name: String? { get }
@@ -12,6 +12,7 @@ final class StubIntegrationTests: XCTestCase {
             func load(with stuff: Int, label: String) throws -> Int
             func isFull(validate: @escaping () -> Void) -> Bool
             func download() async throws -> [String]
+            func `continue`(from screenId: String)
         }
         """
         let sut = Rubicon()
@@ -50,6 +51,9 @@ final class StubIntegrationTests: XCTestCase {
             "-func download() async throws -> [String] {",
             "--try downloadThrowBlock?()",
             "--return downloadReturn",
+            "-}",
+            "",
+            "-func `continue`(from screenId: String) {",
             "-}",
             "}",
             ""

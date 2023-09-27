@@ -2,7 +2,7 @@ import Rubicon
 import XCTest
 
 final class SpyIntegrationTests: XCTestCase {
-    func test_givenProtocol_whenMakeDummy_thenReturnStub() {
+    func test_givenProtocol_whenMakeSpy_thenReturnSpy() {
         let code = """
         protocol Car: Vehicle {
             var name: String? { get }
@@ -13,6 +13,7 @@ final class SpyIntegrationTests: XCTestCase {
             func load(with stuff: Int, label: String) throws -> Int
             func isFull(_ validate: @escaping () -> Void) -> Bool
             func download() async throws -> [String]
+            func `continue`(from screenId: String)
         }
         """
         let sut = Rubicon()
@@ -30,6 +31,10 @@ final class SpyIntegrationTests: XCTestCase {
             "--let validate: () -> Void",
             "-}",
             "",
+            "-struct Continue {",
+            "--let screenId: String",
+            "-}",
+            "",
             "-var name: String?",
             "-var color: Int",
             "",
@@ -42,6 +47,7 @@ final class SpyIntegrationTests: XCTestCase {
             "-var load = [Load]()",
             "-var isFull = [IsFull]()",
             "-var downloadCount = 0",
+            "-var `continue` = [Continue]()",
             "",
             "-init(color: Int, loadReturn: Int, isFullReturn: Bool, downloadReturn: [String]) {",
             "--self.color = color",
@@ -71,6 +77,11 @@ final class SpyIntegrationTests: XCTestCase {
             "--downloadCount += 1",
             "--try downloadThrowBlock?()",
             "--return downloadReturn",
+            "-}",
+            "",
+            "-func `continue`(from screenId: String) {",
+            "--let item = Continue(screenId: screenId)",
+            "--`continue`.append(item)",
             "-}",
             "}",
             ""
