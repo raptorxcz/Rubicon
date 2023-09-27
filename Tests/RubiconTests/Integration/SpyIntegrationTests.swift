@@ -98,4 +98,31 @@ final class SpyIntegrationTests: XCTestCase {
             ""
         ])
     }
+
+    func test_givenSingleSwiftKeywordEscapingFunction_whenMakeSpy_thenMakesSpy() {
+        let code = """
+        protocol Car: Vehicle {
+            func `continue`(from id: String)
+        }
+        """
+        let sut = Rubicon()
+
+        let result = sut.makeSpy(code: code, accessLevel: .internal, indentStep: "-")
+
+        equal(string: result.first ?? "", rows: [
+            "final class CarSpy: VehicleSpy, Car {",
+            "-struct Continue {",
+            "--let id: String",
+            "-}",
+            "",
+            "-var `continue` = [Continue]()",
+            "",
+            "-func `continue`(from id: String) {",
+            "--let item = Continue(id: id)",
+            "--`continue`.append(item)",
+            "-}",
+            "}",
+            ""
+        ])
+    }
 }
