@@ -14,6 +14,7 @@ final class SpyIntegrationTests: XCTestCase {
             func isFull(_ validate: @escaping () -> Void) -> Bool
             func download() async throws -> [String]
             func `continue`(from screenId: String)
+            func `continue`(from id: String)
         }
         """
         let sut = Rubicon()
@@ -31,8 +32,12 @@ final class SpyIntegrationTests: XCTestCase {
             "--let validate: () -> Void",
             "-}",
             "",
-            "-struct Continue {",
+            "-struct ContinueFromScreenId {",
             "--let screenId: String",
+            "-}",
+            "",
+            "-struct ContinueFromId {",
+            "--let id: String",
             "-}",
             "",
             "-var name: String?",
@@ -47,7 +52,8 @@ final class SpyIntegrationTests: XCTestCase {
             "-var load = [Load]()",
             "-var isFull = [IsFull]()",
             "-var downloadCount = 0",
-            "-var `continue` = [Continue]()",
+            "-var continueFromScreenId = [ContinueFromScreenId]()",
+            "-var continueFromId = [ContinueFromId]()",
             "",
             "-init(color: Int, loadReturn: Int, isFullReturn: Bool, downloadReturn: [String]) {",
             "--self.color = color",
@@ -80,8 +86,13 @@ final class SpyIntegrationTests: XCTestCase {
             "-}",
             "",
             "-func `continue`(from screenId: String) {",
-            "--let item = Continue(screenId: screenId)",
-            "--`continue`.append(item)",
+            "--let item = ContinueFromScreenId(screenId: screenId)",
+            "--continueFromScreenId.append(item)",
+            "-}",
+            "",
+            "-func `continue`(from id: String) {",
+            "--let item = ContinueFromId(id: id)",
+            "--continueFromId.append(item)",
             "-}",
             "}",
             ""
