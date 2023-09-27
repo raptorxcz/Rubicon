@@ -68,4 +68,13 @@ final class FunctionNameGeneratorTests: XCTestCase {
 
         XCTAssertEqual(name, "Continue")
     }
+
+    func test_givenMultipleFunctionWithSwiftKeywordEscapingCharacters_whenMakeStructUniqueName_thenReturnsFullNameWithoutEscapedCharacters() {
+        let function = FunctionDeclaration.makeStub(name: "`continue`", arguments: [.init(name: "fromScreenId", type: .makeStub())])
+        let otherFunction = FunctionDeclaration.makeStub(name: "`continue`", arguments: [.init(name: "id", type: .makeStub())])
+
+        let name = sut.makeStructUniqueName(for: function, in: [function, otherFunction])
+
+        XCTAssertEqual(name, "ContinueFromScreenId")
+    }
 }
