@@ -60,4 +60,12 @@ final class FunctionNameGeneratorTests: XCTestCase {
 
         XCTAssertEqual(name, "Name")
     }
+
+    func test_givenFunctionWithSwiftKeywordEscapingCharacters_whenMakeStructUniqueName_thenReturnsNameWithoutEscapedCharacters() {
+        let function = FunctionDeclaration.makeStub(name: "`continue`")
+
+        let name = sut.makeStructUniqueName(for: function, in: [function])
+
+        XCTAssertEqual(name, "Continue")
+    }
 }

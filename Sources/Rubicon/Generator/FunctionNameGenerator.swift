@@ -29,8 +29,9 @@ final class FunctionNameGeneratorImpl: FunctionNameGenerator {
     }
 
     private func makeFirstLetterCapitalized(in string: String) -> String {
-        let first = String(string.prefix(1)).capitalized
-        let other = String(string.dropFirst())
+        let functionNameWithoutEscapingCharacters = string.replacingOccurrences(of: "`", with: "")
+        let first = String(functionNameWithoutEscapingCharacters.prefix(1)).capitalized
+        let other = String(functionNameWithoutEscapingCharacters.dropFirst())
         return first + other
     }
 
@@ -41,5 +42,4 @@ final class FunctionNameGeneratorImpl: FunctionNameGenerator {
     func makeStructUniqueName(for function: FunctionDeclaration, in functions: [FunctionDeclaration]) -> String {
         return makeFirstLetterCapitalized(in: makeUniqueName(for: function, in: functions))
     }
-
 }
