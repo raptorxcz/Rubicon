@@ -40,7 +40,7 @@ public final class Rubicon {
         let generator = makeStubGenerator(accessLevel: accessLevel, indentStep: indentStep)
         do {
             let protocols = try parser.parse(text: code)
-            return protocols.map(generator.generate(from:))
+            return protocols.map { generator.generate(from: $0) }
         } catch {
             return []
         }
