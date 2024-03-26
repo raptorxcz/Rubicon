@@ -38,6 +38,12 @@ final class StubGeneratorTests: XCTestCase {
         XCTAssertEqual(result, "result\n")
     }
 
+    func test_givenEmptyProtocolWithCustomSuffix_whenGenerate_thenGenerateCode() {
+        let result = sut.generate(from: .makeStub(), stubSuffix: "Mock")
+
+        XCTAssertEqual(protocolGeneratorSpy.makeProtocol.first?.stub, "Mock")
+    }
+
     func test_givenProtocolWithVariable_whenGenerate_thenGenerateStub() {
         let protocolDeclaration = ProtocolDeclaration.makeStub(variables: [.makeStub()])
 
