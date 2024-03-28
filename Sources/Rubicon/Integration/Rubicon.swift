@@ -76,7 +76,8 @@ public final class Rubicon {
             functionGenerator: dependencies.functionGenerator,
             functionNameGenerator: dependencies.functionNameGenerator,
             initGenerator: dependencies.initGenerator,
-            structGenerator: dependencies.structGenerator
+            structGenerator: dependencies.structGenerator,
+            accessLevelGenerator: dependencies.accessLevelGenerator
         )
     }
 
