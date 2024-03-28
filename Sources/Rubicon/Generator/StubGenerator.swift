@@ -19,11 +19,11 @@ final class StubGenerator {
         self.initGenerator = initGenerator
     }
 
-    func generate(from protocolType: ProtocolDeclaration, stubSuffix: String = "Stub") -> String {
+    func generate(from protocolType: ProtocolDeclaration, nameSuffix: String) -> String {
         let content = generateBody(from: protocolType)
         return protocolGenerator.makeProtocol(
             from: protocolType,
-            stub: stubSuffix,
+            stub: nameSuffix,
             content: content
         ).joined(separator: "\n") + "\n"
     }
