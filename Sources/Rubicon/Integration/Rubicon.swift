@@ -35,12 +35,12 @@ public final class Rubicon {
         )
     }
 
-    public func makeStub(code: String, accessLevel: AccessLevel, indentStep: String) -> [String] {
+    public func makeStub(code: String, accessLevel: AccessLevel, indentStep: String, nameSuffix: String = "Stub") -> [String] {
         let parser = makeParser()
         let generator = makeStubGenerator(accessLevel: accessLevel, indentStep: indentStep)
         do {
             let protocols = try parser.parse(text: code)
-            return protocols.map { generator.generate(from: $0) }
+            return protocols.map { generator.generate(from: $0, nameSuffix: nameSuffix) }
         } catch {
             return []
         }
