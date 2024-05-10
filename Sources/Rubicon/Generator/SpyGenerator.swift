@@ -6,6 +6,7 @@ final class SpyGenerator {
     private let initGenerator: InitGenerator
     private let structGenerator: StructGenerator
     private let accessLevelGenerator: AccessLevelGenerator
+    private var isInitWithOptionalsEnabled: Bool = false
 
     init(
         protocolGenerator: ProtocolGenerator,
@@ -25,7 +26,8 @@ final class SpyGenerator {
         self.accessLevelGenerator = accessLevelGenerator
     }
 
-    func generate(from protocolType: ProtocolDeclaration) -> String {
+    func generate(from protocolType: ProtocolDeclaration, isInitWithOptionalsEnabled: Bool) -> String {
+        self.isInitWithOptionalsEnabled = isInitWithOptionalsEnabled
         let content = generateBody(from: protocolType)
         return protocolGenerator.makeProtocol(
             from: protocolType,
@@ -43,7 +45,12 @@ final class SpyGenerator {
 
         content.append(makeVariables(from: protocolType).map(variableGenerator.makeCode))
         content.append(makeSpyVariables(from: protocolType))
-        content.append(initGenerator.makeCode(with: makeVariables(from: protocolType) + makeReturnVariables(from: protocolType)))
+        let initVariables = makeVariables(from: protocolType) + makeReturnVariables(from: protocolType)
+        let nonOptionalInitVariables = initVariables.filter { !$0.type.isOptional }
+        content.append(initGenerator.makeCode(
+            with: isInitWithOptionalsEnabled ? initVariables : nonOptionalInitVariables,
+            isAddingDefaultValueToOptionalsEnabled: isInitWithOptionalsEnabled
+        ))
 
         content += protocolType.functions.map {
             makeFunction(from: $0, protocolDeclaration: protocolType)

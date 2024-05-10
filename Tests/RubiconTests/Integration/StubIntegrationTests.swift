@@ -17,7 +17,7 @@ final class StubIntegrationTests: XCTestCase {
         """
         let sut = Rubicon()
 
-        let result = sut.makeStub(code: code, accessLevel: .internal, indentStep: "-")
+        let result = sut.makeStub(code: code, configuration: .makeStub(isInitWithOptionalsEnabled: true))
 
         equal(string: result.first ?? "", rows: [
             "final class CarStub: Car {",
@@ -29,10 +29,13 @@ final class StubIntegrationTests: XCTestCase {
             "-var downloadThrowBlock: (() throws -> Void)?",
             "-var downloadReturn: [String]",
             "",
-            "-init(color: Int, loadReturn: Int, isFullReturn: Bool, downloadReturn: [String]) {",
+            "-init(name: String? = nil, color: Int, loadThrowBlock: @escaping (() throws -> Void)? = nil, loadReturn: Int, isFullReturn: Bool, downloadThrowBlock: @escaping (() throws -> Void)? = nil, downloadReturn: [String]) {",
+            "--self.name = name",
             "--self.color = color",
+            "--self.loadThrowBlock = loadThrowBlock",
             "--self.loadReturn = loadReturn",
             "--self.isFullReturn = isFullReturn",
+            "--self.downloadThrowBlock = downloadThrowBlock",
             "--self.downloadReturn = downloadReturn",
             "-}",
             "",
@@ -58,5 +61,17 @@ final class StubIntegrationTests: XCTestCase {
             "}",
             ""
         ])
+    }
+}
+
+
+extension StubConfiguration {
+    static func makeStub(isInitWithOptionalsEnabled: Bool = false) -> StubConfiguration {
+        StubConfiguration(
+            accessLevel: .internal,
+            indentStep: "-",
+            nameSuffix: "Stub",
+            isInitWithOptionalsEnabled: isInitWithOptionalsEnabled
+        )
     }
 }

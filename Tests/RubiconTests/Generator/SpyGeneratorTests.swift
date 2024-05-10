@@ -33,7 +33,7 @@ final class SpyGeneratorTests: XCTestCase {
     }
 
     func test_givenEmptyProtocol_whenGenerate_thenGenerateCode() {
-        let result = sut.generate(from: .makeStub())
+        let result = sut.generate(from: .makeStub(), isInitWithOptionalsEnabled: false)
 
         XCTAssertEqual(protocolGeneratorSpy.makeProtocol.count, 1)
         XCTAssertEqual(protocolGeneratorSpy.makeProtocol.first?.declaration, .makeStub())
@@ -47,7 +47,7 @@ final class SpyGeneratorTests: XCTestCase {
     func test_givenProtocolWithVariable_whenGenerate_thenGenerateSpy() {
         let protocolDeclaration = ProtocolDeclaration.makeStub(variables: [.makeStub()])
 
-        _ = sut.generate(from: protocolDeclaration)
+        _ = sut.generate(from: protocolDeclaration, isInitWithOptionalsEnabled: false)
 
         XCTAssertEqual(variableGeneratorSpy.makeCode.count, 1)
         XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration, .makeStub())
@@ -58,12 +58,13 @@ final class SpyGeneratorTests: XCTestCase {
         ])
         XCTAssertEqual(initGeneratorSpy.makeCode.count, 1)
         XCTAssertEqual(initGeneratorSpy.makeCode.first?.variables, [.makeStub()])
+        XCTAssertEqual(initGeneratorSpy.makeCode.first?.isAddingDefaultValueToOptionalsEnabled, false)
     }
 
     func test_givenProtocolWithConstant_whenGenerate_thenGenerateSpy() {
         let protocolDeclaration = ProtocolDeclaration.makeStub(variables: [.makeStub(isConstant: true)])
 
-        _ = sut.generate(from: protocolDeclaration)
+        _ = sut.generate(from: protocolDeclaration, isInitWithOptionalsEnabled: false)
 
         XCTAssertEqual(initGeneratorSpy.makeCode.first?.variables.first?.isConstant, false)
     }
@@ -71,7 +72,7 @@ final class SpyGeneratorTests: XCTestCase {
     func test_givenProtocolWithVariables_whenGenerate_thenGenerateSpy() {
         let protocolDeclaration = ProtocolDeclaration.makeStub(variables: [.makeStub(), .makeStub()])
 
-        _ = sut.generate(from: protocolDeclaration)
+        _ = sut.generate(from: protocolDeclaration, isInitWithOptionalsEnabled: false)
 
         XCTAssertEqual(variableGeneratorSpy.makeCode.count, 2)
         equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
@@ -85,7 +86,7 @@ final class SpyGeneratorTests: XCTestCase {
     func test_givenProtocolWithFunctionWithoutReturn_whenGenerate_thenGenerateSpy() {
         let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [.makeStub()])
 
-        _ = sut.generate(from: protocolDeclaration)
+        _ = sut.generate(from: protocolDeclaration, isInitWithOptionalsEnabled: false)
 
         equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
             "accessLevel var functionNameCount = 0",
@@ -103,7 +104,7 @@ final class SpyGeneratorTests: XCTestCase {
     func test_givenProtocolWithFunctionWithtReturn_whenGenerate_thenGenerateSpy() {
         let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [.makeStub(returnType: .makeStub())])
 
-        _ = sut.generate(from: protocolDeclaration)
+        _ = sut.generate(from: protocolDeclaration, isInitWithOptionalsEnabled: false)
 
         XCTAssertEqual(variableGeneratorSpy.makeCode.count, 1)
         XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.identifier, "functionNameReturn")
@@ -129,7 +130,7 @@ final class SpyGeneratorTests: XCTestCase {
         let returnType = TypeDeclaration.makeStub(isOptional: true)
         let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [.makeStub(returnType: returnType)])
 
-        _ = sut.generate(from: protocolDeclaration)
+        _ = sut.generate(from: protocolDeclaration, isInitWithOptionalsEnabled: false)
 
         XCTAssertEqual(variableGeneratorSpy.makeCode.count, 1)
         XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.identifier, "functionNameReturn")
@@ -156,7 +157,7 @@ final class SpyGeneratorTests: XCTestCase {
         let functionDeclaration = FunctionDeclaration.makeStub(isThrowing: true, returnType: returnType)
         let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [functionDeclaration])
 
-        _ = sut.generate(from: protocolDeclaration)
+        _ = sut.generate(from: protocolDeclaration, isInitWithOptionalsEnabled: false)
 
         XCTAssertEqual(variableGeneratorSpy.makeCode.count, 2)
         XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.identifier, "functionNameThrowBlock")
@@ -187,7 +188,7 @@ final class SpyGeneratorTests: XCTestCase {
         let functionDeclaration = FunctionDeclaration.makeStub(arguments: [.makeStub()])
         let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [functionDeclaration])
 
-        _ = sut.generate(from: protocolDeclaration)
+        _ = sut.generate(from: protocolDeclaration, isInitWithOptionalsEnabled: false)
 
         equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
             "struct",
@@ -212,6 +213,27 @@ final class SpyGeneratorTests: XCTestCase {
         XCTAssertEqual(structGeneratorSpy.makeCode.first?.declaration.variables.first?.isConstant, true)
         XCTAssertEqual(structGeneratorSpy.makeCode.first?.declaration.variables.first?.identifier, "name")
         XCTAssertEqual(structGeneratorSpy.makeCode.first?.declaration.variables.first?.type, .makeStub())
+    }
+
+    func test_givenProtocolWithOptionalVariablesAndIsInitWithOptionalsEnabled_whenGenerate_thenGenerateSpyWithMultipleInits() {
+        let protocolDeclaration = ProtocolDeclaration.makeStub(
+            variables: [
+                .makeStub(),
+                .makeStub(type: .makeStub(isOptional: true))
+            ]
+        )
+
+        _ = sut.generate(from: protocolDeclaration, isInitWithOptionalsEnabled: true)
+
+        XCTAssertEqual(variableGeneratorSpy.makeCode.count, 2)
+        equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
+            "variable",
+            "variable",
+            "",
+            "init",
+        ])
+        XCTAssertEqual(initGeneratorSpy.makeCode.count, 1)
+        XCTAssertEqual(initGeneratorSpy.makeCode.first?.isAddingDefaultValueToOptionalsEnabled, true)
     }
 }
 

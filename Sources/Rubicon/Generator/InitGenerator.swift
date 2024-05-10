@@ -1,5 +1,5 @@
 protocol InitGenerator {
-    func makeCode(with variables: [VarDeclaration]) -> [String]
+    func makeCode(with variables: [VarDeclaration], isAddingDefaultValueToOptionalsEnabled: Bool) -> [String]
 }
 
 final class InitGeneratorImpl: InitGenerator {
@@ -20,14 +20,17 @@ final class InitGeneratorImpl: InitGenerator {
         self.argumentGenerator = argumentGenerator
     }
 
-    func makeCode(with variables: [VarDeclaration]) -> [String] {
-        let assignments = variables.compactMap(makeAssigment(of:))
+    func makeCode(with variables: [VarDeclaration], isAddingDefaultValueToOptionalsEnabled: Bool) -> [String] {
+        let assignments = variables.map(makeAssigment(of:))
 
         guard !assignments.isEmpty || accessLevel == .public else {
             return []
         }
 
-        let initArguments = variables.compactMap(makeInitArgument(from:)).joined(separator: ", ")
+        let initArguments = variables.map { makeInitArgument(
+            from: $0,
+            isAddingDefaultValueToOptionalsEnabled: isAddingDefaultValueToOptionalsEnabled
+        ) } .joined(separator: ", ")
 
         return [
             "\(accessLevelGenerator.makeContentAccessLevel())init(\(initArguments)) {"
@@ -36,20 +39,13 @@ final class InitGeneratorImpl: InitGenerator {
         ]
     }
 
-    private func makeAssigment(of variable: VarDeclaration) -> String? {
-        if variable.type.isOptional {
-            return nil
-        } else {
-            return "self.\(variable.identifier) = \(variable.identifier)"
-        }
+    private func makeAssigment(of variable: VarDeclaration) -> String {
+        return "self.\(variable.identifier) = \(variable.identifier)"
     }
 
-    private func makeInitArgument(from variable: VarDeclaration) -> String? {
-        if variable.type.isOptional {
-            return nil
-        } else {
-            let declaration = ArgumentDeclaration(name: variable.identifier, type: variable.type)
-            return argumentGenerator.makeCode(from: declaration)
-        }
+    private func makeInitArgument(from variable: VarDeclaration, isAddingDefaultValueToOptionalsEnabled: Bool) -> String {
+        let defaultValue = isAddingDefaultValueToOptionalsEnabled && variable.type.isOptional ? " = nil" : ""
+        let declaration = ArgumentDeclaration(name: variable.identifier, type: variable.type)
+        return argumentGenerator.makeCode(from: declaration) + defaultValue
     }
 }

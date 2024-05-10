@@ -4,6 +4,7 @@ final class StubGenerator {
     private let functionGenerator: FunctionGenerator
     private let functionNameGenerator: FunctionNameGenerator
     private let initGenerator: InitGenerator
+    private var isInitWithOptionalsEnabled: Bool = false
 
     init(
         protocolGenerator: ProtocolGenerator,
@@ -19,7 +20,8 @@ final class StubGenerator {
         self.initGenerator = initGenerator
     }
 
-    func generate(from protocolType: ProtocolDeclaration, nameSuffix: String) -> String {
+    func generate(from protocolType: ProtocolDeclaration, nameSuffix: String, isInitWithOptionalsEnabled: Bool) -> String {
+        self.isInitWithOptionalsEnabled = isInitWithOptionalsEnabled
         let content = generateBody(from: protocolType)
         return protocolGenerator.makeProtocol(
             from: protocolType,
@@ -32,7 +34,12 @@ final class StubGenerator {
         var content = [[String]]()
 
         content.append(makeVariables(from: protocolType).map(variableGenerator.makeCode))
-        content.append(initGenerator.makeCode(with: makeVariables(from: protocolType)))
+        let initVariables = makeVariables(from: protocolType)
+        let nonOptionalInitVariables = initVariables.filter { !$0.type.isOptional }
+        content.append(initGenerator.makeCode(
+            with:  isInitWithOptionalsEnabled ? initVariables : nonOptionalInitVariables,
+            isAddingDefaultValueToOptionalsEnabled: isInitWithOptionalsEnabled
+        ))
 
         content += protocolType.functions.map {
             makeFunction(from: $0, protocolDeclaration: protocolType)
