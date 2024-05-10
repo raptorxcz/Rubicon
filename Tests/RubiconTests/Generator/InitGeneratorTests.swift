@@ -61,7 +61,10 @@ final class InitGeneratorTests: XCTestCase {
         initialize(accessLevel: .public)
 
         let result = sut.makeCode(
-            with: [.makeStub(), .makeStub(type: .makeStub(isOptional: true))],
+            with: [
+                .makeStub(type: .makeStub(prefix: [.escaping])),
+                .makeStub(type: .makeStub(isOptional: true, prefix: [.escaping]))
+            ],
             isAddingDefaultValueToOptionalsEnabled: false
         )
 
@@ -72,7 +75,8 @@ final class InitGeneratorTests: XCTestCase {
             "}",
         ])
         XCTAssertEqual(argumentGeneratorSpy.makeCode.count, 2)
-        XCTAssertEqual(argumentGeneratorSpy.makeCode.first?.declaration, .makeStub(label: nil, name: "identifier", type: .makeStub()))
+        XCTAssertEqual(argumentGeneratorSpy.makeCode.first?.declaration, .makeStub(label: nil, name: "identifier", type: .makeStub(prefix: [.escaping])))
+        XCTAssertEqual(argumentGeneratorSpy.makeCode.last?.declaration, .makeStub(label: nil, name: "identifier", type: .makeStub(isOptional: true, prefix: [])))
     }
 
     func test_givenOptionalVariableAndIsAddingDefaultValueToOptionalsEnabled_whenMakeCode_thenMakeInit() {
