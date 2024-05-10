@@ -11,18 +11,6 @@ public enum AccessLevel {
     case `internal`
     case `private`
 
-    // TODO: DELETE ME LATER!
-    func makeClassString() -> String {
-        switch self {
-        case .public:
-            return "public "
-        case .internal:
-            return ""
-        case .private:
-            return "private "
-        }
-    }
-
     func makeContentString() -> String {
         switch self {
         case .public:

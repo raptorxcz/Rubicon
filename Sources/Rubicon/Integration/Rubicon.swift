@@ -1,3 +1,38 @@
+public struct SpyConfiguration {
+    public let accessLevel: AccessLevel
+    public let indentStep: String
+    public let isInitWithOptionalsEnabled: Bool
+
+    public init(
+        accessLevel: AccessLevel,
+        indentStep: String,
+        isInitWithOptionalsEnabled: Bool
+    ) {
+        self.accessLevel = accessLevel
+        self.indentStep = indentStep
+        self.isInitWithOptionalsEnabled = isInitWithOptionalsEnabled
+    }
+}
+
+public struct StubConfiguration {
+    public let accessLevel: AccessLevel
+    public let indentStep: String
+    public let nameSuffix: String
+    public let isInitWithOptionalsEnabled: Bool
+
+    public init(
+        accessLevel: AccessLevel,
+        indentStep: String,
+        nameSuffix: String = "Stub",
+        isInitWithOptionalsEnabled: Bool
+    ) {
+        self.accessLevel = accessLevel
+        self.indentStep = indentStep
+        self.nameSuffix = nameSuffix
+        self.isInitWithOptionalsEnabled = isInitWithOptionalsEnabled
+    }
+}
+
 public final class Rubicon {
     public init() {}
 
@@ -35,12 +70,21 @@ public final class Rubicon {
         )
     }
 
-    public func makeStub(code: String, accessLevel: AccessLevel, indentStep: String, nameSuffix: String = "Stub") -> [String] {
+    public func makeStub(code: String, configuration: StubConfiguration) -> [String] {
         let parser = makeParser()
-        let generator = makeStubGenerator(accessLevel: accessLevel, indentStep: indentStep)
+        let generator = makeStubGenerator(
+            accessLevel: configuration.accessLevel,
+            indentStep: configuration.indentStep
+        )
         do {
             let protocols = try parser.parse(text: code)
-            return protocols.map { generator.generate(from: $0, nameSuffix: nameSuffix) }
+            return protocols.map {
+                generator.generate(
+                    from: $0,
+                    nameSuffix: configuration.nameSuffix,
+                    isInitWithOptionalsEnabled: configuration.isInitWithOptionalsEnabled
+                )
+            }
         } catch {
             return []
         }
@@ -57,12 +101,20 @@ public final class Rubicon {
         )
     }
 
-    public func makeSpy(code: String, accessLevel: AccessLevel, indentStep: String) -> [String] {
+    public func makeSpy(code: String, configuration: SpyConfiguration) -> [String] {
         let parser = makeParser()
-        let generator = makeSpyGenerator(accessLevel: accessLevel, indentStep: indentStep)
+        let generator = makeSpyGenerator(
+            accessLevel: configuration.accessLevel,
+            indentStep: configuration.indentStep
+        )
         do {
             let protocols = try parser.parse(text: code)
-            return protocols.map(generator.generate(from:))
+            return protocols.map{
+                generator.generate(
+                    from: $0,
+                    isInitWithOptionalsEnabled: configuration.isInitWithOptionalsEnabled
+                )
+            }
         } catch {
             return []
         }
