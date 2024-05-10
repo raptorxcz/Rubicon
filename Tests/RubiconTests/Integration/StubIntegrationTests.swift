@@ -29,7 +29,7 @@ final class StubIntegrationTests: XCTestCase {
             "-var downloadThrowBlock: (() throws -> Void)?",
             "-var downloadReturn: [String]",
             "",
-            "-init(name: String? = nil, color: Int, loadThrowBlock: @escaping (() throws -> Void)? = nil, loadReturn: Int, isFullReturn: Bool, downloadThrowBlock: @escaping (() throws -> Void)? = nil, downloadReturn: [String]) {",
+            "-init(name: String? = nil, color: Int, loadThrowBlock: (() throws -> Void)? = nil, loadReturn: Int, isFullReturn: Bool, downloadThrowBlock: (() throws -> Void)? = nil, downloadReturn: [String]) {",
             "--self.name = name",
             "--self.color = color",
             "--self.loadThrowBlock = loadThrowBlock",
