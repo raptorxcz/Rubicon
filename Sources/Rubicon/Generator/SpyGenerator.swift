@@ -5,6 +5,7 @@ final class SpyGenerator {
     private let functionNameGenerator: FunctionNameGenerator
     private let initGenerator: InitGenerator
     private let structGenerator: StructGenerator
+    private let accessLevelGenerator: AccessLevelGenerator
 
     init(
         protocolGenerator: ProtocolGenerator,
@@ -12,7 +13,8 @@ final class SpyGenerator {
         functionGenerator: FunctionGenerator,
         functionNameGenerator: FunctionNameGenerator,
         initGenerator: InitGenerator,
-        structGenerator: StructGenerator
+        structGenerator: StructGenerator,
+        accessLevelGenerator: AccessLevelGenerator
     ) {
         self.protocolGenerator = protocolGenerator
         self.variableGenerator = variableGenerator
@@ -20,6 +22,7 @@ final class SpyGenerator {
         self.functionNameGenerator = functionNameGenerator
         self.initGenerator = initGenerator
         self.structGenerator = structGenerator
+        self.accessLevelGenerator = accessLevelGenerator
     }
 
     func generate(from protocolType: ProtocolDeclaration) -> String {
@@ -90,10 +93,10 @@ final class SpyGenerator {
         let name = functionNameGenerator.makeUniqueName(for: declaration, in: protocolDeclaration.functions)
 
         if declaration.arguments.isEmpty {
-            return "var \(name)Count = 0"
+            return "\(accessLevelGenerator.makeContentAccessLevel())var \(name)Count = 0"
         } else {
             let structName = functionNameGenerator.makeStructUniqueName(for: declaration, in: protocolDeclaration.functions)
-            return "var \(name) = [\(structName)]()"
+            return "\(accessLevelGenerator.makeContentAccessLevel())var \(name) = [\(structName)]()"
         }
     }
 

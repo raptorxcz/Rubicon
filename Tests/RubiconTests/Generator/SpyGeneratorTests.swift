@@ -8,6 +8,7 @@ final class SpyGeneratorTests: XCTestCase {
     private var functionNameGeneratorSpy: FunctionNameGeneratorSpy!
     private var initGeneratorSpy: InitGeneratorSpy!
     private var structGeneratorSpy: StructGeneratorSpy!
+    private var accessLevelGeneratorSpy: AccessLevelGeneratorSpy!
     private var sut: SpyGenerator!
     private let type = TypeDeclaration.makeStub(name: "Color", isOptional: false)
 
@@ -19,13 +20,15 @@ final class SpyGeneratorTests: XCTestCase {
         functionNameGeneratorSpy = FunctionNameGeneratorSpy(makeUniqueNameReturn: "functionName", makeStructUniqueNameReturn: "StructName")
         initGeneratorSpy = InitGeneratorSpy(makeCodeReturn: ["init"])
         structGeneratorSpy = StructGeneratorSpy(makeCodeReturn: ["struct"])
+        accessLevelGeneratorSpy = AccessLevelGeneratorSpy(makeClassAccessLevelReturn: "", makeContentAccessLevelReturn: "accessLevel ")
         sut = SpyGenerator(
             protocolGenerator: protocolGeneratorSpy,
             variableGenerator: variableGeneratorSpy,
             functionGenerator: functionGeneratorSpy,
             functionNameGenerator: functionNameGeneratorSpy,
             initGenerator: initGeneratorSpy,
-            structGenerator: structGeneratorSpy
+            structGenerator: structGeneratorSpy,
+            accessLevelGenerator: accessLevelGeneratorSpy
         )
     }
 
@@ -85,7 +88,7 @@ final class SpyGeneratorTests: XCTestCase {
         _ = sut.generate(from: protocolDeclaration)
 
         equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
-            "var functionNameCount = 0",
+            "accessLevel var functionNameCount = 0",
             "",
             "init",
             "",
@@ -114,7 +117,7 @@ final class SpyGeneratorTests: XCTestCase {
         ])
         equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
             "variable",
-            "var functionNameCount = 0",
+            "accessLevel var functionNameCount = 0",
             "",
             "init",
             "",
@@ -140,7 +143,7 @@ final class SpyGeneratorTests: XCTestCase {
         ])
         equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
             "variable",
-            "var functionNameCount = 0",
+            "accessLevel var functionNameCount = 0",
             "",
             "init",
             "",
@@ -172,7 +175,7 @@ final class SpyGeneratorTests: XCTestCase {
         equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
             "variable",
             "variable",
-            "var functionNameCount = 0",
+            "accessLevel var functionNameCount = 0",
             "",
             "init",
             "",
@@ -189,7 +192,7 @@ final class SpyGeneratorTests: XCTestCase {
         equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
             "struct",
             "",
-            "var functionName = [StructName]()",
+            "accessLevel var functionName = [StructName]()",
             "",
             "init",
             "",
