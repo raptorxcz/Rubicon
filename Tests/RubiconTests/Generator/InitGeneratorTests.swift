@@ -26,7 +26,7 @@ final class InitGeneratorTests: XCTestCase {
     }
 
     func test_givenNoVariable_whenMakeCode_thenDoNotMakeInit() {
-        let result = sut.makeCode(with: [])
+        let result = sut.makeCode(with: [], isAddingDefaultValueToOptionalsEnabled: false)
 
         XCTAssertEqual(result, [])
     }
@@ -34,7 +34,7 @@ final class InitGeneratorTests: XCTestCase {
     func test_givenPublicAccessLevelAndNoVariable_whenMakeCode_thenMakeInit() {
         initialize(accessLevel: .public)
 
-        let result = sut.makeCode(with: [])
+        let result = sut.makeCode(with: [], isAddingDefaultValueToOptionalsEnabled: false)
 
         equal(result, rows: [
             "accessLevel init() {",
@@ -45,7 +45,7 @@ final class InitGeneratorTests: XCTestCase {
     func test_givenSomeVariables_whenMakeCode_thenMakeInit() {
         initialize(accessLevel: .public)
 
-        let result = sut.makeCode(with: [.makeStub(), .makeStub()])
+        let result = sut.makeCode(with: [.makeStub(), .makeStub()], isAddingDefaultValueToOptionalsEnabled: false)
 
         equal(result, rows: [
             "accessLevel init(argument, argument) {",
@@ -60,14 +60,36 @@ final class InitGeneratorTests: XCTestCase {
     func test_givenOptionalVariable_whenMakeCode_thenMakeInit() {
         initialize(accessLevel: .public)
 
-        let result = sut.makeCode(with: [.makeStub(), .makeStub(type: .makeStub(isOptional: true))])
+        let result = sut.makeCode(
+            with: [.makeStub(), .makeStub(type: .makeStub(isOptional: true))],
+            isAddingDefaultValueToOptionalsEnabled: false
+        )
 
         equal(result, rows: [
-            "accessLevel init(argument) {",
+            "accessLevel init(argument, argument) {",
+            "-self.identifier = identifier",
             "-self.identifier = identifier",
             "}",
         ])
-        XCTAssertEqual(argumentGeneratorSpy.makeCode.count, 1)
+        XCTAssertEqual(argumentGeneratorSpy.makeCode.count, 2)
+        XCTAssertEqual(argumentGeneratorSpy.makeCode.first?.declaration, .makeStub(label: nil, name: "identifier", type: .makeStub()))
+    }
+
+    func test_givenOptionalVariableAndIsAddingDefaultValueToOptionalsEnabled_whenMakeCode_thenMakeInit() {
+        initialize(accessLevel: .public)
+
+        let result = sut.makeCode(
+            with: [.makeStub(), .makeStub(type: .makeStub(isOptional: true))],
+            isAddingDefaultValueToOptionalsEnabled: true
+        )
+
+        equal(result, rows: [
+            "accessLevel init(argument, argument = nil) {",
+            "-self.identifier = identifier",
+            "-self.identifier = identifier",
+            "}",
+        ])
+        XCTAssertEqual(argumentGeneratorSpy.makeCode.count, 2)
         XCTAssertEqual(argumentGeneratorSpy.makeCode.first?.declaration, .makeStub(label: nil, name: "identifier", type: .makeStub()))
     }
 }

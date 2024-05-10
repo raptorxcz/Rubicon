@@ -35,7 +35,7 @@ final class DummyGenerator {
                 setContent: ["fatalError()"]
             )
         })
-        content.append(initGenerator.makeCode(with: []))
+        content.append(initGenerator.makeCode(with: [], isAddingDefaultValueToOptionalsEnabled: false))
 
         content += protocolType.functions.map {
             return functionGenerator.makeCode(from: $0, content: ["fatalError()"])
