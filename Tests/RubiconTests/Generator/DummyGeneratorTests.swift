@@ -169,17 +169,18 @@ final class FunctionGeneratorSpy: FunctionGenerator {
     struct MakeCode {
         let declaration: FunctionDeclaration
         let content: [String]
+        let isEachArgumentOnNewLineEnabled: Bool
     }
 
-    var makeCode = [MakeCode]()
     var makeCodeReturn: [String]
+    var makeCode = [MakeCode]()
 
     init(makeCodeReturn: [String]) {
         self.makeCodeReturn = makeCodeReturn
     }
 
-    func makeCode(from declaration: FunctionDeclaration, content: [String]) -> [String] {
-        let item = MakeCode(declaration: declaration, content: content)
+    func makeCode(from declaration: FunctionDeclaration, content: [String], isEachArgumentOnNewLineEnabled: Bool) -> [String] {
+        let item = MakeCode(declaration: declaration, content: content, isEachArgumentOnNewLineEnabled: isEachArgumentOnNewLineEnabled)
         makeCode.append(item)
         return makeCodeReturn
     }

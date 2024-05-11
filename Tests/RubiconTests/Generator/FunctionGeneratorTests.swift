@@ -25,7 +25,7 @@ final class FunctionGeneratorTests: XCTestCase {
     func test_whenGenerate_thenGenerateCode() {
         let declaration = FunctionDeclaration.makeStub()
 
-        let code = sut.makeCode(from: declaration, content: ["content", "content2"])
+        let code = sut.makeCode(from: declaration, content: ["content", "content2"], isEachArgumentOnNewLineEnabled: false)
 
         equal(code, rows: [
             "accessLevel func name() {",
@@ -39,7 +39,7 @@ final class FunctionGeneratorTests: XCTestCase {
     func test_givenThrow_whenGenerate_thenGenerateCode() {
         let declaration = FunctionDeclaration.makeStub(isThrowing: true)
 
-        let code = sut.makeCode(from: declaration, content: ["content"])
+        let code = sut.makeCode(from: declaration, content: ["content"], isEachArgumentOnNewLineEnabled: false)
 
         equal(code, rows: [
             "accessLevel func name() throws {",
@@ -51,7 +51,7 @@ final class FunctionGeneratorTests: XCTestCase {
     func test_givenAsync_whenGenerate_thenGenerateCode() {
         let declaration = FunctionDeclaration.makeStub(isAsync: true)
 
-        let code = sut.makeCode(from: declaration, content: ["content"])
+        let code = sut.makeCode(from: declaration, content: ["content"], isEachArgumentOnNewLineEnabled: false)
 
         equal(code, rows: [
             "accessLevel func name() async {",
@@ -63,7 +63,7 @@ final class FunctionGeneratorTests: XCTestCase {
     func test_givenThrowAndAsync_whenGenerate_thenGenerateCode() {
         let declaration = FunctionDeclaration.makeStub(isThrowing: true, isAsync: true)
 
-        let code = sut.makeCode(from: declaration, content: ["content"])
+        let code = sut.makeCode(from: declaration, content: ["content"], isEachArgumentOnNewLineEnabled: false)
 
         equal(code, rows: [
             "accessLevel func name() async throws {",
@@ -75,7 +75,7 @@ final class FunctionGeneratorTests: XCTestCase {
     func test_givenThrowAndAsyncAndResult_whenGenerate_thenGenerateCode() {
         let declaration = FunctionDeclaration.makeStub(isThrowing: true, isAsync: true, returnType: .makeStub())
 
-        let code = sut.makeCode(from: declaration, content: ["content"])
+        let code = sut.makeCode(from: declaration, content: ["content"], isEachArgumentOnNewLineEnabled: false)
 
         equal(code, rows: [
             "accessLevel func name() async throws -> Type {",
@@ -87,7 +87,7 @@ final class FunctionGeneratorTests: XCTestCase {
     func test_givenArgument_whenGenerate_thenGenerateCode() {
         let declaration = FunctionDeclaration.makeStub(arguments: [.makeStub()])
 
-        let code = sut.makeCode(from: declaration, content: ["content"])
+        let code = sut.makeCode(from: declaration, content: ["content"], isEachArgumentOnNewLineEnabled: false)
 
         equal(code, rows: [
             "accessLevel func name(argument) {",
@@ -101,7 +101,7 @@ final class FunctionGeneratorTests: XCTestCase {
     func test_givenArguments_whenGenerate_thenGenerateCode() {
         let declaration = FunctionDeclaration.makeStub(arguments: [.makeStub(), .makeStub(label: "a", name: "b", type: .makeStub())])
 
-        let code = sut.makeCode(from: declaration, content: ["content"])
+        let code = sut.makeCode(from: declaration, content: ["content"], isEachArgumentOnNewLineEnabled: false)
 
         equal(code, rows: [
             "accessLevel func name(argument, argument) {",
@@ -109,6 +109,40 @@ final class FunctionGeneratorTests: XCTestCase {
             "}",
         ])
         XCTAssertEqual(argumentGeneratorSpy.makeCode.count, 2)
+    }
+
+    func test_givenStaticFunction_whenGenerate_thenGenerateCode() {
+        let declaration = FunctionDeclaration.makeStub(
+            isStatic: true
+        )
+
+        let code = sut.makeCode(from: declaration, content: ["content"], isEachArgumentOnNewLineEnabled: false)
+
+        equal(code, rows: [
+            "accessLevel static func name() {",
+            "-content",
+            "}",
+        ])
+    }
+
+    func test_givenIsEachArgumentOnNewLineEnabled_whenGenerate_thenGenerateCode() {
+        let declaration = FunctionDeclaration.makeStub(arguments: [
+            .makeStub(),
+            .makeStub(),
+            .makeStub(defaultValue: ".abc()")
+        ])
+
+        let code = sut.makeCode(from: declaration, content: ["content"], isEachArgumentOnNewLineEnabled: true)
+
+        equal(code, rows: [
+            "accessLevel func name(",
+            "-argument,",
+            "-argument,",
+            "-argument",
+            ") {",
+            "-content",
+            "}",
+        ])
     }
 }
 

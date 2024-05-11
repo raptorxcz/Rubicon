@@ -128,12 +128,14 @@ extension ArgumentDeclaration {
     static func makeStub(
         label: String? = "label",
         name: String = "name",
-        type: TypeDeclaration = .makeStub()
+        type: TypeDeclaration = .makeStub(),
+        defaultValue: String? = nil
     ) -> ArgumentDeclaration {
         return ArgumentDeclaration(
             label: label,
             name: name,
-            type: type
+            type: type,
+            defaultValue: defaultValue
         )
     }
 }

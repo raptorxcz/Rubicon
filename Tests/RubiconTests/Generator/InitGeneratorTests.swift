@@ -55,6 +55,7 @@ final class InitGeneratorTests: XCTestCase {
         ])
         XCTAssertEqual(argumentGeneratorSpy.makeCode.count, 2)
         XCTAssertEqual(argumentGeneratorSpy.makeCode.first?.declaration, .makeStub(label: nil, name: "identifier", type: .makeStub()))
+        XCTAssertEqual(argumentGeneratorSpy.makeCode.first?.declaration, .makeStub(label: nil, name: "identifier", type: .makeStub()))
     }
 
     func test_givenOptionalVariable_whenMakeCode_thenMakeInit() {
@@ -88,7 +89,7 @@ final class InitGeneratorTests: XCTestCase {
         )
 
         equal(result, rows: [
-            "accessLevel init(argument, argument = nil) {",
+            "accessLevel init(argument, argument) {",
             "-self.identifier = identifier",
             "-self.identifier = identifier",
             "}",

@@ -38,7 +38,11 @@ final class DummyGenerator {
         content.append(initGenerator.makeCode(with: [], isAddingDefaultValueToOptionalsEnabled: false))
 
         content += protocolType.functions.map {
-            return functionGenerator.makeCode(from: $0, content: ["fatalError()"])
+            return functionGenerator.makeCode(
+                from: $0,
+                content: ["fatalError()"],
+                isEachArgumentOnNewLineEnabled: false
+            )
         }
 
         let normalizedContent = content.filter({ !$0.isEmpty })

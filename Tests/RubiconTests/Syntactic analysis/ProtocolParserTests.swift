@@ -131,6 +131,7 @@ extension FunctionDeclaration {
         arguments: [ArgumentDeclaration] = [],
         isThrowing: Bool = false,
         isAsync: Bool = false,
+        isStatic: Bool = false,
         returnType: TypeDeclaration? = nil
     ) -> FunctionDeclaration {
         return FunctionDeclaration(
@@ -138,6 +139,7 @@ extension FunctionDeclaration {
             arguments: arguments,
             isThrowing: isThrowing,
             isAsync: isAsync,
+            isStatic: isStatic,
             returnType: returnType
         )
     }
