@@ -33,6 +33,28 @@ public struct StubConfiguration {
     }
 }
 
+public struct StructStubConfiguration {
+    public let accessLevel: AccessLevel
+    public let indentStep: String
+    public let functionName: String
+    public let defaultValue: String
+    public let customDefaultValues: [String: String]
+
+    public init(
+        accessLevel: AccessLevel,
+        indentStep: String,
+        functionName: String,
+        defaultValue: String,
+        customDefaultValues: [String : String]
+    ) {
+        self.accessLevel = accessLevel
+        self.indentStep = indentStep
+        self.functionName = functionName
+        self.defaultValue = defaultValue
+        self.customDefaultValues = customDefaultValues
+    }
+}
+
 public final class Rubicon {
     public init() {}
 
@@ -47,6 +69,7 @@ public final class Rubicon {
         let indentationGenerator: IndentationGenerator
         let initGenerator: InitGenerator
         let structGenerator: StructGenerator
+        let typeGenerator: TypeGenerator
     }
 
     public func makeDummy(code: String, accessLevel: AccessLevel, indentStep: String) -> [String] {
@@ -179,25 +202,23 @@ public final class Rubicon {
             functionNameGenerator: functionNameGenerator,
             indentationGenerator: indentationGenerator,
             initGenerator: initGenerator,
-            structGenerator: structGenerator
+            structGenerator: structGenerator,
+            typeGenerator: typeGenerator
         )
     }
 
     private func makeParser() -> ProtocolParser {
-        let typeDeclarationParser = TypeDeclarationParserImpl()
+
         let argumentDeclarationParser = ArgumentDeclarationParserImpl(
-            typeDeclarationParser: typeDeclarationParser
+            typeDeclarationParser: makeTypeParser()
         )
         let functionParser = FunctionDeclarationParserImpl(
-            typeDeclarationParser: typeDeclarationParser,
+            typeDeclarationParser: makeTypeParser(),
             argumentDeclarationParser: argumentDeclarationParser
-        )
-        let varParser = VarDeclarationParserImpl(
-            typeDeclarationParser: typeDeclarationParser
         )
         return ProtocolParserImpl(
             functionParser: functionParser,
-            varParser: varParser
+            varParser: makeVarParser()
         )
     }
 
@@ -205,5 +226,53 @@ public final class Rubicon {
         let parser = NilableVariablesParserImpl()
         let tearDownInteractor = TearDownInteractor(nilableVariablesParser: parser)
         return try tearDownInteractor.execute(text: text, spacing: spacing)
+    }
+
+    public func makeStructStub(code: String, configuration: StructStubConfiguration) -> [String] {
+        let parser = StructParserImpl(
+            varParser: makeVarParser()
+        )
+        let structStubGenerator = makeStructStubGenerator(for: configuration)
+
+        do {
+            let structDeclarations = try parser.parse(text: code)
+            return structDeclarations.map{ structStubGenerator.generate(from: $0, functionName: configuration.functionName) }
+        } catch {
+            return []
+        }
+    }
+
+    private func makeVarParser() -> VarDeclarationParser {
+        return VarDeclarationParserImpl(
+            typeDeclarationParser: makeTypeParser()
+        )
+    }
+
+    private func makeTypeParser() -> TypeDeclarationParser {
+        return TypeDeclarationParserImpl()
+    }
+
+    private func makeStructStubGenerator(for configuration: StructStubConfiguration) -> StructStubGenerator {
+        let dependencies = makeDependencies(
+            for: configuration.accessLevel,
+            indentStep: configuration.indentStep
+        )
+        return StructStubGeneratorImpl(
+            extensionGenerator: ExtensionGeneratorImpl(
+                accessLevelGenerator: dependencies.accessLevelGenerator,
+                indentationGenerator: dependencies.indentationGenerator
+            ),
+            functionGenerator: FunctionGeneratorImpl(
+                accessLevelGenerator: dependencies.accessLevelGenerator,
+                typeGenerator: dependencies.typeGenerator,
+                argumentGenerator: dependencies.argumentGenerator,
+                indentationGenerator: dependencies.indentationGenerator
+            ),
+            indentationGenerator: dependencies.indentationGenerator,
+            defaultValueGenerator: DefaultValueGeneratorImpl(
+                unknownDefaultType: configuration.defaultValue,
+                customDefaultTypes: configuration.customDefaultValues
+            )
+        )
     }
 }

@@ -29,4 +29,27 @@ final class ArgumentGeneratorTests: XCTestCase {
 
         XCTAssertEqual(code, "label name: Type")
     }
+
+    func test_givenTypeWithDefaultValue_whenMakeCode_thenReturnCode() {
+        let declaration = ArgumentDeclaration.makeStub(
+            label: nil,
+            defaultValue: "default"
+        )
+
+        let code = sut.makeCode(from: declaration)
+
+        XCTAssertEqual(code, "name: Type = default")
+
+    }
+
+    func test_givenTypeWithDefaultValueAndLabel_whenMakeCode_thenReturnCode() {
+        let declaration = ArgumentDeclaration.makeStub(
+            defaultValue: "default"
+        )
+
+        let code = sut.makeCode(from: declaration)
+
+        XCTAssertEqual(code, "label name: Type = default")
+
+    }
 }

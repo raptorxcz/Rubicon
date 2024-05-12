@@ -44,10 +44,10 @@ final class InitGeneratorImpl: InitGenerator {
     }
 
     private func makeInitArgument(from variable: VarDeclaration, isAddingDefaultValueToOptionalsEnabled: Bool) -> String {
-        let defaultValue = isAddingDefaultValueToOptionalsEnabled && variable.type.isOptional ? " = nil" : ""
+        let defaultValue = isAddingDefaultValueToOptionalsEnabled && variable.type.isOptional ? "nil" : nil
         let prefix = variable.type.isOptional ? [] : variable.type.prefix
         let type = TypeDeclaration(name: variable.type.name, isOptional: variable.type.isOptional, prefix: prefix)
-        let declaration = ArgumentDeclaration(name: variable.identifier, type: type)
-        return argumentGenerator.makeCode(from: declaration) + defaultValue
+        let declaration = ArgumentDeclaration(name: variable.identifier, type: type, defaultValue: defaultValue)
+        return argumentGenerator.makeCode(from: declaration)
     }
 }
