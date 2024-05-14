@@ -48,7 +48,7 @@ final class StructStubGeneratorTests: XCTestCase {
             .makeStub()
         ])
 
-        let code = sut.generate(from: declaration, functionName: "functionName")
+        _ = sut.generate(from: declaration, functionName: "functionName")
 
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.arguments.count, 2)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.arguments.first?.name, "identifier")
