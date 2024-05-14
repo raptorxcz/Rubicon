@@ -143,6 +143,10 @@ final class SpyGenerator {
             content.append("return \(name)Return")
         }
 
-        return functionGenerator.makeCode(from: declaration, content: content)
+        return functionGenerator.makeCode(
+            from: declaration,
+            content: content,
+            isEachArgumentOnNewLineEnabled: false
+        )
     }
 }

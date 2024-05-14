@@ -10,4 +10,5 @@ struct ArgumentDeclaration: Equatable {
     var label: String?
     var name: String
     var type: TypeDeclaration
+    var defaultValue: String?
 }

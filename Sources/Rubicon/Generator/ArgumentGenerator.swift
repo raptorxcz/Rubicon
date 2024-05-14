@@ -10,10 +10,24 @@ final class ArgumentGeneratorImpl: ArgumentGenerator {
     }
 
     func makeCode(from declaration: ArgumentDeclaration) -> String {
+        let label = makeLabel(from: declaration)
+        let defaultValue = makeDefaultValue(from: declaration)
+        return "\(label)\(declaration.name): \(typeGenerator.makeArgumentCode(from: declaration.type))\(defaultValue)"
+    }
+
+    private func makeLabel(from declaration: ArgumentDeclaration) -> String {
         if let label = declaration.label {
-            return "\(label) \(declaration.name): \(typeGenerator.makeArgumentCode(from: declaration.type))"
+            return "\(label) "
         } else {
-            return "\(declaration.name): \(typeGenerator.makeArgumentCode(from: declaration.type))"
+            return ""
+        }
+    }
+
+    private func makeDefaultValue(from declaration: ArgumentDeclaration) -> String {
+        if let defaultValue = declaration.defaultValue {
+            return " = \(defaultValue)"
+        } else {
+            return ""
         }
     }
 }

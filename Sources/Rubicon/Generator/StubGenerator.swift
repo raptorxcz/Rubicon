@@ -89,6 +89,10 @@ final class StubGenerator {
             content.append("return \(name)Return")
         }
 
-        return functionGenerator.makeCode(from: declaration, content: content)
+        return functionGenerator.makeCode(
+            from: declaration,
+            content: content,
+            isEachArgumentOnNewLineEnabled: false
+        )
     }
 }
