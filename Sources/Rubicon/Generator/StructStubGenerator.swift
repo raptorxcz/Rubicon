@@ -36,7 +36,7 @@ final class StructStubGeneratorImpl: StructStubGenerator {
             isThrowing: false,
             isAsync: false,
             isStatic: true,
-            returnType: TypeDeclaration(name: structType.name, isOptional: false, prefix: [])
+            returnType: TypeDeclaration(name: structType.name, prefix: [], composedType: .plain)
         )
         return functionGenerator.makeCode(
             from: functionDeclaration,

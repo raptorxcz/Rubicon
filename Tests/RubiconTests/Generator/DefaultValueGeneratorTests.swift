@@ -22,9 +22,27 @@ final class DefaultValueGeneratorTests: XCTestCase {
     }
 
     func test_givenOptionalType_whenMakeDefaultValue_thenReturnNil() {
-        let value = sut.makeDefaultValue(for: .makeStub(type: .makeStub(isOptional: true)))
+        let value = sut.makeDefaultValue(for: .makeStub(type: .makeStub(composedType: .optional)))
 
         XCTAssertEqual(value, "nil")
+    }
+
+    func test_givenArrayType_whenMakeDefaultValue_thenReturnNil() {
+        let value = sut.makeDefaultValue(for: .makeStub(type: .makeStub(composedType: .array)))
+
+        XCTAssertEqual(value, "[]")
+    }
+
+    func test_givenDictionaryType_whenMakeDefaultValue_thenReturnNil() {
+        let value = sut.makeDefaultValue(for: .makeStub(type: .makeStub(composedType: .dictionary)))
+
+        XCTAssertEqual(value, "[:]")
+    }
+
+    func test_givenSetType_whenMakeDefaultValue_thenReturnNil() {
+        let value = sut.makeDefaultValue(for: .makeStub(type: .makeStub(composedType: .set)))
+
+        XCTAssertEqual(value, "[]")
     }
 
     func test_givenIntType_whenMakeDefaultValue_thenReturnZero() {

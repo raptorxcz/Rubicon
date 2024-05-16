@@ -13,7 +13,15 @@ struct TypeDeclaration: Equatable {
         case autoclosure = "@autoclosure"
     }
 
+    enum ComposedType {
+        case plain
+        case array
+        case dictionary
+        case optional
+        case set
+    }
+
     var name: String
-    var isOptional: Bool
     let prefix: [Prefix]
+    let composedType: ComposedType
 }

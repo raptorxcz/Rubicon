@@ -35,7 +35,7 @@ final class StubGenerator {
 
         content.append(makeVariables(from: protocolType).map(variableGenerator.makeCode))
         let initVariables = makeVariables(from: protocolType)
-        let nonOptionalInitVariables = initVariables.filter { !$0.type.isOptional }
+        let nonOptionalInitVariables = initVariables.filter { $0.type.composedType != .optional }
         content.append(initGenerator.makeCode(
             with:  isInitWithOptionalsEnabled ? initVariables : nonOptionalInitVariables,
             isAddingDefaultValueToOptionalsEnabled: isInitWithOptionalsEnabled
@@ -66,7 +66,11 @@ final class StubGenerator {
         var variables = [VarDeclaration]()
 
         if declaration.isThrowing {
-            let throwBlockType = TypeDeclaration(name: "(() throws -> Void)?", isOptional: true, prefix: [.escaping])
+            let throwBlockType = TypeDeclaration(
+                name: "(() throws -> Void)?",
+                prefix: [.escaping],
+                composedType: .optional
+            )
             variables.append(VarDeclaration(isConstant: false, identifier: name + "ThrowBlock", type: throwBlockType))
         }
 

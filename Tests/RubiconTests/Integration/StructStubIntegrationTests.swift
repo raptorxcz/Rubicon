@@ -10,6 +10,7 @@ final class StructStubIntegrationTests: XCTestCase {
             let isRed: Bool
             let seats: [Seat]
             let driver: Driver
+            let trunk: Trunk
         """
         let sut = Rubicon()
 
@@ -22,15 +23,17 @@ final class StructStubIntegrationTests: XCTestCase {
             "--lenght: Int = 0,",
             "--name: String = \"name\",",
             "--isRed: Bool = false,",
-            "--seats: [Seat] = .makeStub(),",
-            "--driver: Driver = Carl",
+            "--seats: [Seat] = [],",
+            "--driver: Driver = Carl,",
+            "--trunk: Trunk = .makeStub()",
             "-) -> Car {",
             "--return Car(",
             "---lenght: lenght,",
             "---name: name,",
             "---isRed: isRed,",
             "---seats: seats,",
-            "---driver: driver",
+            "---driver: driver,",
+            "---trunk: trunk",
             "--)",
             "-}",
             "}",

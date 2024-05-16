@@ -18,10 +18,21 @@ final class DefaultValueGeneratorImpl: DefaultValueGenerator {
             return customValue
         }
 
-        guard !varDeclaration.type.isOptional else {
+        switch varDeclaration.type.composedType {
+        case .plain:
+            return makeDefaultValueByType(varDeclaration: varDeclaration)
+        case .array:
+            return "[]"
+        case .dictionary:
+            return "[:]"
+        case .optional:
             return "nil"
+        case .set:
+            return "[]"
         }
+    }
 
+    private func makeDefaultValueByType(varDeclaration: VarDeclaration) -> String {
         switch varDeclaration.type.name {
         case "String":
             return "\"\(varDeclaration.identifier)\""

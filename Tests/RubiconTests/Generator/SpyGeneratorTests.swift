@@ -10,7 +10,7 @@ final class SpyGeneratorTests: XCTestCase {
     private var structGeneratorSpy: StructGeneratorSpy!
     private var accessLevelGeneratorSpy: AccessLevelGeneratorSpy!
     private var sut: SpyGenerator!
-    private let type = TypeDeclaration.makeStub(name: "Color", isOptional: false)
+    private let type = TypeDeclaration.makeStub(name: "Color")
 
     override func setUp() {
         super.setUp()
@@ -127,7 +127,7 @@ final class SpyGeneratorTests: XCTestCase {
     }
 
     func test_givenProtocolWithFunctionWithtOptionalReturn_whenGenerate_thenGenerateSpy() {
-        let returnType = TypeDeclaration.makeStub(isOptional: true)
+        let returnType = TypeDeclaration.makeStub(composedType: .optional)
         let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [.makeStub(returnType: returnType)])
 
         _ = sut.generate(from: protocolDeclaration, isInitWithOptionalsEnabled: false)
@@ -153,7 +153,7 @@ final class SpyGeneratorTests: XCTestCase {
     }
 
     func test_givenProtocolWithThrowingFunction_whenGenerate_thenGenerateSpy() {
-        let returnType = TypeDeclaration.makeStub(isOptional: true)
+        let returnType = TypeDeclaration.makeStub(composedType: .optional)
         let functionDeclaration = FunctionDeclaration.makeStub(isThrowing: true, returnType: returnType)
         let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [functionDeclaration])
 
@@ -161,7 +161,7 @@ final class SpyGeneratorTests: XCTestCase {
 
         XCTAssertEqual(variableGeneratorSpy.makeCode.count, 2)
         XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.identifier, "functionNameThrowBlock")
-        XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.type, .makeStub(name: "(() throws -> Void)?", isOptional: true, prefix: [.escaping]))
+        XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.type, .makeStub(name: "(() throws -> Void)?", prefix: [.escaping], composedType: .optional))
         XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.isConstant, false)
         XCTAssertEqual(variableGeneratorSpy.makeCode.last?.declaration.identifier, "functionNameReturn")
         XCTAssertEqual(variableGeneratorSpy.makeCode.last?.declaration.type, returnType)
@@ -219,7 +219,7 @@ final class SpyGeneratorTests: XCTestCase {
         let protocolDeclaration = ProtocolDeclaration.makeStub(
             variables: [
                 .makeStub(),
-                .makeStub(type: .makeStub(isOptional: true))
+                .makeStub(type: .makeStub(composedType: .optional))
             ]
         )
 

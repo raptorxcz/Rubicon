@@ -26,7 +26,7 @@ final class TypGeneratorTests: XCTestCase {
     }
 
     func test_givenOptional_whenMakeVariable_thenGenerateCode() {
-        let typeDeclaration = TypeDeclaration.makeStub(name: "() -> Void?", isOptional: true)
+        let typeDeclaration = TypeDeclaration.makeStub(name: "() -> Void?", composedType: .optional)
 
         let code = sut.makeVariableCode(from: typeDeclaration)
 
@@ -50,7 +50,7 @@ final class TypGeneratorTests: XCTestCase {
     }
 
     func test_givenOptional_whenMakeArgument_thenGenerateCode() {
-        let typeDeclaration = TypeDeclaration.makeStub(name: "() -> Void?", isOptional: true)
+        let typeDeclaration = TypeDeclaration.makeStub(name: "() -> Void?", composedType: .optional)
 
         let code = sut.makeArgumentCode(from: typeDeclaration)
 

@@ -7,7 +7,7 @@ final class DummyGeneratorTests: XCTestCase {
     private var functionGeneratorSpy: FunctionGeneratorSpy!
     private var initGeneratorSpy: InitGeneratorSpy!
     private var sut: DummyGenerator!
-    private let type = TypeDeclaration.makeStub(name: "Color", isOptional: false)
+    private let type = TypeDeclaration.makeStub(name: "Color")
 
     override func setUp() {
         super.setUp()
@@ -84,13 +84,13 @@ final class DummyGeneratorTests: XCTestCase {
 extension TypeDeclaration {
     static func makeStub(
         name: String = "Int",
-        isOptional: Bool = false,
-        prefix: [Prefix] = []
+        prefix: [Prefix] = [],
+        composedType: ComposedType = .plain
     ) -> TypeDeclaration {
         return TypeDeclaration(
             name: name,
-            isOptional: isOptional,
-            prefix: prefix
+            prefix: prefix,
+            composedType: composedType
         )
     }
 }
