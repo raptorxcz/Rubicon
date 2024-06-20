@@ -1,4 +1,4 @@
-protocol StructStubGenerator {
+public protocol StructStubGenerator {
     func generate(from structType: StructDeclaration, functionName: String) -> String
 }
 

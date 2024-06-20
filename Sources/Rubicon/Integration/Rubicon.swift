@@ -229,9 +229,7 @@ public final class Rubicon {
     }
 
     public func makeStructStub(code: String, configuration: StructStubConfiguration) -> [String] {
-        let parser = StructParserImpl(
-            varParser: makeVarParser()
-        )
+        let parser = makeStuctParser()
         let structStubGenerator = makeStructStubGenerator(for: configuration)
 
         do {
@@ -240,6 +238,12 @@ public final class Rubicon {
         } catch {
             return []
         }
+    }
+
+    public func makeStuctParser() -> StructParser {
+        return StructParserImpl(
+            varParser: makeVarParser()
+        )
     }
 
     private func makeVarParser() -> VarDeclarationParser {
@@ -252,7 +256,7 @@ public final class Rubicon {
         return TypeDeclarationParserImpl()
     }
 
-    private func makeStructStubGenerator(for configuration: StructStubConfiguration) -> StructStubGenerator {
+    public func makeStructStubGenerator(for configuration: StructStubConfiguration) -> StructStubGenerator {
         let dependencies = makeDependencies(
             for: configuration.accessLevel,
             indentStep: configuration.indentStep
