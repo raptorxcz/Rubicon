@@ -49,6 +49,17 @@ final class ProtocolGeneratorTests: XCTestCase {
         ])
         XCTAssertEqual(accessLevelGeneratorSpy.makeClassAccessLevelCount, 1)
     }
+
+    func test_givenProtocolAnyObjectParent_whenGenerate_thenGenerateCode() {
+        let code = sut.makeProtocol(from: .makeStub(parents: ["AnyObject"]), stub: "Dummy", content: ["content"])
+
+        equal(code, rows: [
+            "accessLevel final class NameDummy: Name {",
+            "-content",
+            "}",
+        ])
+        XCTAssertEqual(accessLevelGeneratorSpy.makeClassAccessLevelCount, 1)
+    }
 }
 
 func equal(string: String?, rows: [String], line: UInt = #line, file: StaticString = #file) {

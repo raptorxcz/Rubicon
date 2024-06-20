@@ -26,7 +26,9 @@ final class ProtocolGeneratorImpl: ProtocolGenerator {
     }
 
     private func makeParentClause(from declaration: ProtocolDeclaration, stub: String) -> String {
-        if let parent = declaration.parents.first, declaration.parents.count == 1 {
+        let normalizedParents = declaration.parents.filter { $0 != "AnyObject" }
+        
+        if let parent = normalizedParents.first, normalizedParents.count == 1 {
             return ": \(parent)\(stub), "
         } else {
             return ": "

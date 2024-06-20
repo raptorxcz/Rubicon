@@ -119,7 +119,11 @@ final class SpyGenerator {
         let name = functionNameGenerator.makeStructUniqueName(for: declaration, in: protocolDeclaration.functions)
         let structDeclaration = StructDeclaration(
             name: name,
-            variables: declaration.arguments.map{ VarDeclaration(isConstant: true, identifier: $0.name, type: $0.type) }
+            variables: declaration.arguments.map{
+                VarDeclaration(isConstant: true, identifier: $0.name, type: $0.type)
+            },
+            notes: [],
+            accessLevel: .internal
         )
         return structGenerator.makeCode(from: structDeclaration)
     }

@@ -54,7 +54,12 @@ extension StructDeclaration {
     ) -> StructDeclaration {
         return StructDeclaration(
             name: "StructName",
-            variables: variables
+            variables: variables,
+            notes: [
+                "note1",
+                "note2"
+            ],
+            accessLevel: .internal
         )
     }
 }
