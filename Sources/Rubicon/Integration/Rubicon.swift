@@ -55,6 +55,22 @@ public struct StructStubConfiguration {
     }
 }
 
+public struct EnumStubConfiguration {
+    public let accessLevel: AccessLevel
+    public let indentStep: String
+    public let functionName: String
+
+    public init(
+        accessLevel: AccessLevel,
+        indentStep: String,
+        functionName: String
+    ) {
+        self.accessLevel = accessLevel
+        self.indentStep = indentStep
+        self.functionName = functionName
+    }
+}
+
 public final class Rubicon {
     public init() {}
 
@@ -284,7 +300,7 @@ public final class Rubicon {
         return EnumParserImpl()
     }
 
-    public func makeEnumGenerator(for configuration: StructStubConfiguration) -> EnumStubGenerator {
+    public func makeEnumGenerator(for configuration: EnumStubConfiguration) -> EnumStubGenerator {
         let dependencies = makeDependencies(
             for: configuration.accessLevel,
             indentStep: configuration.indentStep
@@ -300,11 +316,7 @@ public final class Rubicon {
                 argumentGenerator: dependencies.argumentGenerator,
                 indentationGenerator: dependencies.indentationGenerator
             ),
-            indentationGenerator: dependencies.indentationGenerator,
-            defaultValueGenerator: DefaultValueGeneratorImpl(
-                unknownDefaultType: configuration.defaultValue,
-                customDefaultTypes: configuration.customDefaultValues
-            )
+            indentationGenerator: dependencies.indentationGenerator
         )
     }
 }

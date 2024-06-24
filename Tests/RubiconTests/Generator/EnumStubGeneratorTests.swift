@@ -5,7 +5,6 @@ final class EnumStubGeneratorTests: XCTestCase {
     private var extensionGeneratorSpy: ExtensionGeneratorSpy!
     private var functionGeneratorSpy: FunctionGeneratorSpy!
     private var indentationGeneratorStub: IndentationGeneratorStub!
-    private var defaultValueGeneratorSpy: DefaultValueGeneratorSpy!
     private var sut: EnumStubGeneratorImpl!
 
     override func setUp() {
@@ -13,12 +12,10 @@ final class EnumStubGeneratorTests: XCTestCase {
         extensionGeneratorSpy = ExtensionGeneratorSpy(makeReturn: ["extension"])
         functionGeneratorSpy = FunctionGeneratorSpy(makeCodeReturn: ["function"])
         indentationGeneratorStub = IndentationGeneratorStub()
-        defaultValueGeneratorSpy = DefaultValueGeneratorSpy(makeDefaultValueReturn: "default")
         sut = EnumStubGeneratorImpl(
             extensionGenerator: extensionGeneratorSpy,
             functionGenerator: functionGeneratorSpy,
-            indentationGenerator: IndentationGeneratorStub(),
-            defaultValueGenerator: defaultValueGeneratorSpy
+            indentationGenerator: IndentationGeneratorStub()
         )
     }
 
