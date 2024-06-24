@@ -279,4 +279,32 @@ public final class Rubicon {
             )
         )
     }
+
+    public func makeEnumParser() -> EnumParser {
+        return EnumParserImpl()
+    }
+
+    public func makeEnumGenerator(for configuration: StructStubConfiguration) -> EnumStubGenerator {
+        let dependencies = makeDependencies(
+            for: configuration.accessLevel,
+            indentStep: configuration.indentStep
+        )
+        return EnumStubGeneratorImpl(
+            extensionGenerator: ExtensionGeneratorImpl(
+                accessLevelGenerator: dependencies.accessLevelGenerator,
+                indentationGenerator: dependencies.indentationGenerator
+            ),
+            functionGenerator: FunctionGeneratorImpl(
+                accessLevelGenerator: dependencies.accessLevelGenerator,
+                typeGenerator: dependencies.typeGenerator,
+                argumentGenerator: dependencies.argumentGenerator,
+                indentationGenerator: dependencies.indentationGenerator
+            ),
+            indentationGenerator: dependencies.indentationGenerator,
+            defaultValueGenerator: DefaultValueGeneratorImpl(
+                unknownDefaultType: configuration.defaultValue,
+                customDefaultTypes: configuration.customDefaultValues
+            )
+        )
+    }
 }
