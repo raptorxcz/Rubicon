@@ -6,18 +6,15 @@ final class EnumStubGeneratorImpl: EnumStubGenerator {
     private let extensionGenerator: ExtensionGenerator
     private let functionGenerator: FunctionGenerator
     private let indentationGenerator: IndentationGenerator
-    private let defaultValueGenerator: DefaultValueGenerator
 
     init(
         extensionGenerator: ExtensionGenerator,
         functionGenerator: FunctionGenerator,
-        indentationGenerator: IndentationGenerator,
-        defaultValueGenerator: DefaultValueGenerator
+        indentationGenerator: IndentationGenerator
     ) {
         self.extensionGenerator = extensionGenerator
         self.functionGenerator = functionGenerator
         self.indentationGenerator = indentationGenerator
-        self.defaultValueGenerator = defaultValueGenerator
     }
 
     func generate(from enumType: EnumDeclaration, functionName: String) -> String {
@@ -50,17 +47,5 @@ final class EnumStubGeneratorImpl: EnumStubGenerator {
         return [
             "return \(firstCase)"
         ]
-    }
-
-    private func makeAssigment(of variable: VarDeclaration, isLast: Bool) -> String {
-        return "\(variable.identifier): \(variable.identifier)\(isLast ? "" : ",")"
-    }
-
-    private func makeArgument(from varDeclaration: VarDeclaration) -> ArgumentDeclaration {
-        ArgumentDeclaration(
-            name: varDeclaration.identifier,
-            type: varDeclaration.type,
-            defaultValue: defaultValueGenerator.makeDefaultValue(for: varDeclaration)
-        )
     }
 }
