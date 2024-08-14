@@ -162,4 +162,66 @@ final class StructParserTests: XCTestCase {
 
         XCTAssertEqual(structs.first?.accessLevel, .private)
     }
+
+    func test_givenStructWithVariablesAndNestedStruct_whenParse_thenReturnStruct() throws {
+        let text = """
+        struct A {
+            struct B {
+                var c: Int
+                let d: Int
+            }
+
+            var a: Int
+            let b: Int
+        }
+        """
+
+        let structs = try sut.parse(text: text)
+
+        XCTAssertEqual(structs.count, 2)
+        XCTAssertEqual(structs.first?.name, "A")
+        XCTAssertEqual(structs.first?.variables.count, 2)
+        XCTAssertEqual(structs.first?.variables.first, .makeStub())
+    }
+
+    func test_givenStructWithVariablesAndNestedClass_whenParse_thenReturnStruct() throws {
+        let text = """
+        struct A {
+            class B {
+                var c: Int
+                let d: Int
+            }
+
+            var a: Int
+            let b: Int
+        }
+        """
+
+        let structs = try sut.parse(text: text)
+
+        XCTAssertEqual(structs.count, 1)
+        XCTAssertEqual(structs.first?.name, "A")
+        XCTAssertEqual(structs.first?.variables.count, 2)
+        XCTAssertEqual(structs.first?.variables.first, .makeStub())
+    }
+
+    func test_givenStructWithVariablesAndNestedEnum_whenParse_thenReturnStruct() throws {
+        let text = """
+        struct A {
+            enum B {
+                static var c: Int = 0
+            }
+
+            var a: Int
+            let b: Int
+        }
+        """
+
+        let structs = try sut.parse(text: text)
+
+        XCTAssertEqual(structs.count, 1)
+        XCTAssertEqual(structs.first?.name, "A")
+        XCTAssertEqual(structs.first?.variables.count, 2)
+        XCTAssertEqual(structs.first?.variables.first, .makeStub())
+    }
 }

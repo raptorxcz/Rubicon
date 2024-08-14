@@ -50,8 +50,8 @@ private class StructVisitor: SyntaxVisitor {
         result.append(
             StructDeclaration(
                 name: (nestedInItemsNames + [name]).joined(separator: "."),
-                variables: varsVisitor.execute(node: node),
-                notes: node.leadingTrivia.pieces.compactMap(makeLineComment), 
+                variables: varsVisitor.execute(node: node.memberBlock),
+                notes: node.leadingTrivia.pieces.compactMap(makeLineComment),
                 accessLevel: parseAccessLevel(from: node)
             )
         )
@@ -126,5 +126,17 @@ private class VariablesVisitor: SyntaxVisitor {
             result.append(declaration)
         } catch {}
         return .visitChildren
+    }
+
+    override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
+        .skipChildren
+    }
+
+    override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
+        return .skipChildren
+    }
+
+    override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
+        return .skipChildren
     }
 }
