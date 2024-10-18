@@ -36,9 +36,9 @@ final class StructStubGeneratorTests: XCTestCase {
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.isAsync, false)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.isStatic, true)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.arguments.count, 0)
-        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.returnType, .makeStub(name: "StructName"))
+        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.returnType, .makeStub(name: "Self"))
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.content, [
-            "return StructName()"
+            "return .init()"
         ])
     }
 
@@ -56,7 +56,7 @@ final class StructStubGeneratorTests: XCTestCase {
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.arguments.first?.type, .makeStub())
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.arguments.first?.defaultValue, "default")
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.content, [
-            "return StructName(",
+            "return .init(",
             "-identifier: identifier,",
             "-identifier: identifier",
             ")"

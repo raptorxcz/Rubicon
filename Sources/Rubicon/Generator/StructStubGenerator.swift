@@ -36,7 +36,7 @@ final class StructStubGeneratorImpl: StructStubGenerator {
             isThrowing: false,
             isAsync: false,
             isStatic: true,
-            returnType: TypeDeclaration(name: structType.name, prefix: [], composedType: .plain)
+            returnType: TypeDeclaration(name: "Self", prefix: [], composedType: .plain)
         )
         return functionGenerator.makeCode(
             from: functionDeclaration,
@@ -49,11 +49,11 @@ final class StructStubGeneratorImpl: StructStubGenerator {
         let variables = structType.variables.enumerated().map{ makeAssigment(of: $1, isLast: $0 == structType.variables.endIndex - 1) }
 
         guard !variables.isEmpty else {
-            return ["return \(structType.name)()"]
+            return ["return .init()"]
         }
 
         return [
-            "return \(structType.name)("
+            "return .init("
         ] + variables.map(indentationGenerator.indenting) + [
             ")"
         ]
