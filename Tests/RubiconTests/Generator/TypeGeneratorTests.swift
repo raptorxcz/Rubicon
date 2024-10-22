@@ -49,6 +49,14 @@ final class TypGeneratorTests: XCTestCase {
         XCTAssertEqual(code, "@escaping () -> Void")
     }
 
+    func test_givenSendableClosure_whenMakeArgument_thenGenerateCode() {
+        let typeDeclaration = TypeDeclaration.makeStub(name: "() -> Void", prefix: [.sendable, .mainActor, .escaping])
+
+        let code = sut.makeArgumentCode(from: typeDeclaration)
+
+        XCTAssertEqual(code, "@Sendable @MainActor @escaping () -> Void")
+    }
+
     func test_givenOptional_whenMakeArgument_thenGenerateCode() {
         let typeDeclaration = TypeDeclaration.makeStub(name: "() -> Void?", composedType: .optional)
 

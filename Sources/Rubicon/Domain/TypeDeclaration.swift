@@ -11,6 +11,8 @@ struct TypeDeclaration: Equatable {
     enum Prefix: String, Equatable {
         case escaping = "@escaping"
         case autoclosure = "@autoclosure"
+        case sendable = "@Sendable"
+        case mainActor = "@MainActor"
     }
 
     enum ComposedType {
