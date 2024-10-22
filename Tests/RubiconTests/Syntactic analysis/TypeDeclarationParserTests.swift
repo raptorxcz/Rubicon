@@ -144,6 +144,36 @@ final class TypeDeclarationParserTests: XCTestCase {
         XCTAssertEqual(declaration.prefix, [.escaping])
     }
 
+    func test_givenSendableClosure_whenParse_thenReturnDeclaration() throws {
+        let node = try parse(string: "@Sendable Block")
+
+        let declaration = sut.parse(node: node)
+
+        XCTAssertEqual(declaration.name, "Block")
+        XCTAssertEqual(declaration.composedType, .plain)
+        XCTAssertEqual(declaration.prefix, [.sendable])
+    }
+
+    func test_givenMainActorClosure_whenParse_thenReturnDeclaration() throws {
+        let node = try parse(string: "@MainActor Block")
+
+        let declaration = sut.parse(node: node)
+
+        XCTAssertEqual(declaration.name, "Block")
+        XCTAssertEqual(declaration.composedType, .plain)
+        XCTAssertEqual(declaration.prefix, [.mainActor])
+    }
+
+    func test_givenAllAttributesToClosure_whenParse_thenReturnDeclaration() throws {
+        let node = try parse(string: "@Sendable @MainActor @escaping Block")
+
+        let declaration = sut.parse(node: node)
+
+        XCTAssertEqual(declaration.name, "Block")
+        XCTAssertEqual(declaration.composedType, .plain)
+        XCTAssertEqual(declaration.prefix, [.sendable, .mainActor, .escaping])
+    }
+
     private func parse(string: String) throws -> TypeSyntax {
         let file = SwiftParser.Parser.parse(source: "let v: " + string)
 

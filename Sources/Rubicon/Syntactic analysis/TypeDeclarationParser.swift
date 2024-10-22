@@ -76,7 +76,16 @@ final class TypeDeclarationParserImpl: TypeDeclarationParser {
                 return nil
             }
 
-            return identifier.name.tokenKind == .identifier("escaping") ? .escaping : nil
+            switch identifier.name.tokenKind {
+            case .identifier("escaping"):
+                return .escaping
+            case .identifier("Sendable"):
+                return .sendable
+            case .identifier("MainActor"):
+                return .mainActor
+            default:
+                return nil
+            }
         case .ifConfigDecl:
             return nil
         }

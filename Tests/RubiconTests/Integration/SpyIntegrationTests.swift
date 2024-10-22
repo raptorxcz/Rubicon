@@ -11,7 +11,7 @@ final class SpyIntegrationTests: XCTestCase {
             @MainActor
             func go()
             func load(with stuff: Int, label: String) throws -> Int
-            func isFull(_ validate: @escaping () -> Void) -> Bool
+            func isFull(_ validate: @MainActor @escaping () -> Void) -> Bool
             func download() async throws -> [String]
             func `continue`(from screenId: String)
             func `continue`(from id: String)
@@ -76,7 +76,7 @@ final class SpyIntegrationTests: XCTestCase {
             "--return loadReturn",
             "-}",
             "",
-            "-func isFull(_ validate: @escaping () -> Void) -> Bool {",
+            "-func isFull(_ validate: @MainActor @escaping () -> Void) -> Bool {",
             "--let item = IsFull(validate: validate)",
             "--isFull.append(item)",
             "--return isFullReturn",
