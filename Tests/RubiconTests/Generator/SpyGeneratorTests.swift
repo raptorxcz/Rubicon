@@ -203,7 +203,7 @@ final class SpyGeneratorTests: XCTestCase {
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration, functionDeclaration)
         equal(functionGeneratorSpy.makeCode.first?.content, rows: [
             "let item = StructName(name: name)",
-            "functionName.append(item)",
+            "self.functionName.append(item)",
         ])
         XCTAssertEqual(functionNameGeneratorSpy.makeStructUniqueName.count, 3)
         XCTAssertEqual(functionNameGeneratorSpy.makeStructUniqueName.first?.function, functionDeclaration)

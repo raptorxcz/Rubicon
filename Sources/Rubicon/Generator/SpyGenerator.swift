@@ -139,7 +139,7 @@ final class SpyGenerator {
             let arguments = declaration.arguments.map { "\($0.name): \($0.name)" }.joined(separator: ", ")
             content += [
                 "let item = \(structName)(\(arguments))",
-                "\(name).append(item)",
+                "self.\(name).append(item)",
             ]
         }
 
