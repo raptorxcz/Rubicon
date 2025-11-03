@@ -64,7 +64,6 @@ final class EnumParserTests: XCTestCase {
 
         XCTAssertEqual(enums.count, 1)
         XCTAssertEqual(enums.first?.name, "B.A")
-        XCTAssertEqual(enums.first?.cases.count, 0)
     }
 
     func test_givenEnumNestedInStruct_whenParse_thenReturnEnum() throws {
@@ -86,7 +85,10 @@ final class EnumParserTests: XCTestCase {
         let text = """
         enum B {
             enum A {
+                case a 
             }
+        
+            case b
         }
         """
 
@@ -94,9 +96,9 @@ final class EnumParserTests: XCTestCase {
 
         XCTAssertEqual(enums.count, 2)
         XCTAssertEqual(enums.first?.name, "B")
-        XCTAssertEqual(enums.first?.cases.count, 0)
+        XCTAssertEqual(enums.first?.cases, ["b"])
         XCTAssertEqual(enums.last?.name, "B.A")
-        XCTAssertEqual(enums.last?.cases.count, 0)
+        XCTAssertEqual(enums.last?.cases, ["a"])
     }
 
     func test_givenEnumNestedIntoMultipleItems_whenParse_thenReturnEnum() throws {
