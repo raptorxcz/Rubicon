@@ -112,4 +112,8 @@ private class CasesVisitor: SyntaxVisitor {
         result += declaration
         return .visitChildren
     }
+
+    override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
+        return .skipChildren
+    }
 }
