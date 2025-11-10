@@ -5,7 +5,8 @@ protocol TypeGenerator {
 
 final class TypeGeneratorImpl: TypeGenerator {
     func makeVariableCode(from declaration: TypeDeclaration) -> String {
-        return declaration.name
+        let prefix = declaration.prefix.filter { $0 == .mainActor }.map(\.rawValue)
+        return (prefix + [declaration.name]).joined(separator: " ")
     }
 
     func makeArgumentCode(from declaration: TypeDeclaration) -> String {
