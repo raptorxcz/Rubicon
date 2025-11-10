@@ -18,11 +18,11 @@ final class TypGeneratorTests: XCTestCase {
     }
 
     func test_givenClosure_whenMakeVariable_thenGenerateCode() {
-        let typeDeclaration = TypeDeclaration.makeStub(name: "() -> Void", prefix: [.escaping])
+        let typeDeclaration = TypeDeclaration.makeStub(name: "() -> Void", prefix: [.escaping, .mainActor])
 
         let code = sut.makeVariableCode(from: typeDeclaration)
 
-        XCTAssertEqual(code, "() -> Void")
+        XCTAssertEqual(code, "@MainActor () -> Void")
     }
 
     func test_givenOptional_whenMakeVariable_thenGenerateCode() {

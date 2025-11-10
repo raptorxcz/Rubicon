@@ -29,7 +29,7 @@ final class SpyIntegrationTests: XCTestCase {
             "-}",
             "",
             "-struct IsFull {",
-            "--let validate: () -> Void",
+            "--let validate: @MainActor () -> Void",
             "-}",
             "",
             "-struct ContinueFromScreenId {",
