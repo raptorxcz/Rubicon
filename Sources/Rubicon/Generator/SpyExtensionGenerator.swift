@@ -23,7 +23,7 @@ final class SpyExtensionGenerator {
     func generate(from protocolType: ProtocolDeclaration, isInitWithOptionalsEnabled: Bool) -> String {
         self.isInitWithOptionalsEnabled = isInitWithOptionalsEnabled
         return extensionGenerator.make(
-            name: protocolType.name,
+            name: protocolType.name + "Spy",
             content: makeSpyFunction(from: protocolType)
         ).joined(separator: "\n") + "\n"
     }
