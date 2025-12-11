@@ -86,6 +86,7 @@ public final class Rubicon {
         let initGenerator: InitGenerator
         let structGenerator: StructGenerator
         let typeGenerator: TypeGenerator
+        let extensionGenerator: ExtensionGenerator
     }
 
     public func makeDummy(code: String, accessLevel: AccessLevel, indentStep: String) -> [String] {
@@ -172,6 +173,35 @@ public final class Rubicon {
         )
     }
 
+    public func makeExtensionSpy(code: String, configuration: SpyConfiguration) -> [String] {
+        let parser = makeParser()
+        let generator = makeSpyExtensionGenerator(
+            accessLevel: configuration.accessLevel,
+            indentStep: configuration.indentStep
+        )
+        do {
+            let protocols = try parser.parse(text: code)
+            return protocols.map{
+                generator.generate(
+                    from: $0,
+                    isInitWithOptionalsEnabled: configuration.isInitWithOptionalsEnabled
+                )
+            }
+        } catch {
+            return []
+        }
+    }
+
+    private func makeSpyExtensionGenerator(accessLevel: AccessLevel, indentStep: String) -> SpyExtensionGenerator {
+        let dependencies = makeDependencies(for: accessLevel, indentStep: indentStep)
+        return SpyExtensionGenerator(
+            extensionGenerator: dependencies.extensionGenerator,
+            functionGenerator: dependencies.functionGenerator,
+            indentationGenerator: dependencies.indentationGenerator,
+            functionNameGenerator: dependencies.functionNameGenerator,
+            accessLevelGenerator: dependencies.accessLevelGenerator
+        )
+    }
 
     private func makeDependencies(for accessLevel: AccessLevel, indentStep: String) -> Dependencies {
         let indentationGenerator = IndentationGeneratorImpl(indentStep: indentStep)
@@ -207,6 +237,10 @@ public final class Rubicon {
             variableGenerator: variableGenerator,
             indentationGenerator: indentationGenerator
         )
+        let extensionGenerator = ExtensionGeneratorImpl(
+            accessLevelGenerator: accessLevelGenerator,
+            indentationGenerator: indentationGenerator
+        )
 
         return Dependencies(
             protocolGenerator: protocolGenerator,
@@ -219,7 +253,8 @@ public final class Rubicon {
             indentationGenerator: indentationGenerator,
             initGenerator: initGenerator,
             structGenerator: structGenerator,
-            typeGenerator: typeGenerator
+            typeGenerator: typeGenerator,
+            extensionGenerator: extensionGenerator
         )
     }
 
@@ -278,10 +313,7 @@ public final class Rubicon {
             indentStep: configuration.indentStep
         )
         return StructStubGeneratorImpl(
-            extensionGenerator: ExtensionGeneratorImpl(
-                accessLevelGenerator: dependencies.accessLevelGenerator,
-                indentationGenerator: dependencies.indentationGenerator
-            ),
+            extensionGenerator: dependencies.extensionGenerator,
             functionGenerator: FunctionGeneratorImpl(
                 accessLevelGenerator: dependencies.accessLevelGenerator,
                 typeGenerator: dependencies.typeGenerator,
@@ -306,10 +338,7 @@ public final class Rubicon {
             indentStep: configuration.indentStep
         )
         return EnumStubGeneratorImpl(
-            extensionGenerator: ExtensionGeneratorImpl(
-                accessLevelGenerator: dependencies.accessLevelGenerator,
-                indentationGenerator: dependencies.indentationGenerator
-            ),
+            extensionGenerator: dependencies.extensionGenerator,
             functionGenerator: FunctionGeneratorImpl(
                 accessLevelGenerator: dependencies.accessLevelGenerator,
                 typeGenerator: dependencies.typeGenerator,
