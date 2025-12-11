@@ -22,7 +22,7 @@ final class SpyExtensionIntegrationTests: XCTestCase {
         let result = sut.makeExtensionSpy(code: code, configuration: .makeStub(isInitWithOptionalsEnabled: true))
 
         equal(string: result.first ?? "", rows: [
-            "extension Car {",
+            "extension CarSpy {",
             "-static func makeSpy(",
             "--name: String? = nil,",
             "--color: Int,",

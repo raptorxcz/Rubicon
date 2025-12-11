@@ -29,7 +29,7 @@ final class SpyExtensionGeneratorTests: XCTestCase {
 
         XCTAssertEqual(code, "extension\n")
         XCTAssertEqual(extensionGeneratorSpy.make.count, 1)
-        XCTAssertEqual(extensionGeneratorSpy.make.first?.name, "Name")
+        XCTAssertEqual(extensionGeneratorSpy.make.first?.name, "NameSpy")
         XCTAssertEqual(extensionGeneratorSpy.make.first?.content, ["function"])
         XCTAssertEqual(functionGeneratorSpy.makeCode.count, 1)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.name, "makeSpy")
