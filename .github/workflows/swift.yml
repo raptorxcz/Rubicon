@@ -9,6 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        xcode-version: '14.3'
+        xcode-version: '26.4'
     - name: Build
       run: swift test --enable-code-coverage
