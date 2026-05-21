@@ -25,10 +25,11 @@ final class StructStubGeneratorTests: XCTestCase {
     func test_givenEmptyStruct_whenMakeCode_thenReturnCode() {
         let declaration = StructDeclaration.makeStub(variables: [])
 
-        let code = sut.generate(from: declaration, functionName: "functionName")
+        let code = sut.generate(from: declaration, functionName: "functionName", module: nil)
 
         XCTAssertEqual(code, "extension\n")
         XCTAssertEqual(extensionGeneratorSpy.make.count, 1)
+        XCTAssertEqual(extensionGeneratorSpy.make.first?.name, "StructName")
         XCTAssertEqual(extensionGeneratorSpy.make.first?.content, ["function"])
         XCTAssertEqual(functionGeneratorSpy.makeCode.count, 1)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.name, "functionName")
@@ -48,8 +49,9 @@ final class StructStubGeneratorTests: XCTestCase {
             .makeStub()
         ])
 
-        _ = sut.generate(from: declaration, functionName: "functionName")
+        _ = sut.generate(from: declaration, functionName: "functionName", module: "Module")
 
+        XCTAssertEqual(extensionGeneratorSpy.make.first?.name, "Module::StructName")
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.arguments.count, 2)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.arguments.first?.name, "identifier")
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.arguments.first?.label, nil)
