@@ -174,6 +174,15 @@ final class TypeDeclarationParserTests: XCTestCase {
         XCTAssertEqual(declaration.prefix, [.sendable, .mainActor, .escaping])
     }
 
+    func test_givenNameSpace_whenParse_thenReturnDeclaration() throws {
+        let node = try parse(string: "Module::TypeName")
+
+        let declaration = sut.parse(node: node)
+
+        XCTAssertEqual(declaration.name, "Module::TypeName")
+        XCTAssertEqual(declaration.composedType, .plain)
+    }
+
     private func parse(string: String) throws -> TypeSyntax {
         let file = SwiftParser.Parser.parse(source: "let v: " + string)
 
