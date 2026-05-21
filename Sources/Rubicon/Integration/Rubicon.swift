@@ -39,19 +39,22 @@ public struct StructStubConfiguration {
     public let functionName: String
     public let defaultValue: String
     public let customDefaultValues: [String: String]
+    public let module: String?
 
     public init(
         accessLevel: AccessLevel,
         indentStep: String,
         functionName: String,
         defaultValue: String,
-        customDefaultValues: [String : String]
+        customDefaultValues: [String : String],
+        module: String?
     ) {
         self.accessLevel = accessLevel
         self.indentStep = indentStep
         self.functionName = functionName
         self.defaultValue = defaultValue
         self.customDefaultValues = customDefaultValues
+        self.module = module
     }
 }
 
@@ -285,7 +288,13 @@ public final class Rubicon {
 
         do {
             let structDeclarations = try parser.parse(text: code)
-            return structDeclarations.map{ structStubGenerator.generate(from: $0, functionName: configuration.functionName) }
+            return structDeclarations.map{
+                structStubGenerator.generate(
+                    from: $0,
+                    functionName: configuration.functionName,
+                    module: configuration.module
+                )
+            }
         } catch {
             return []
         }
