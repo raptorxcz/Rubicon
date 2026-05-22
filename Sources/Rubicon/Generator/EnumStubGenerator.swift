@@ -6,21 +6,24 @@ final class EnumStubGeneratorImpl: EnumStubGenerator {
     private let extensionGenerator: ExtensionGenerator
     private let functionGenerator: FunctionGenerator
     private let indentationGenerator: IndentationGenerator
+    private let target: String?
 
     init(
         extensionGenerator: ExtensionGenerator,
         functionGenerator: FunctionGenerator,
-        indentationGenerator: IndentationGenerator
+        indentationGenerator: IndentationGenerator,
+        target: String?
     ) {
         self.extensionGenerator = extensionGenerator
         self.functionGenerator = functionGenerator
         self.indentationGenerator = indentationGenerator
+        self.target = target
     }
 
     func generate(from enumType: EnumDeclaration, functionName: String) -> String {
         let content = generateBody(from: enumType, functionName: functionName)
         return extensionGenerator.make(
-            name: enumType.name,
+            name: (target.map {  "\($0)::" } ?? "") + enumType.name,
             content: content
         ).joined(separator: "\n") + "\n"
     }
