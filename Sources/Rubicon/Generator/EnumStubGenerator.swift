@@ -36,7 +36,7 @@ final class EnumStubGeneratorImpl: EnumStubGenerator {
             isThrowing: false,
             isAsync: false,
             isStatic: true,
-            returnType: TypeDeclaration(name: enumType.name, prefix: [], composedType: .plain)
+            returnType: TypeDeclaration(name: "Self", prefix: [], composedType: .plain)
         )
         return functionGenerator.makeCode(
             from: functionDeclaration,
