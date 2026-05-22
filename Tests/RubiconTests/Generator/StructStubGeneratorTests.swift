@@ -7,6 +7,7 @@ final class StructStubGeneratorTests: XCTestCase {
     private var indentationGeneratorStub: IndentationGeneratorStub!
     private var defaultValueGeneratorSpy: DefaultValueGeneratorSpy!
     private var sut: StructStubGeneratorImpl!
+    private var target: String?
 
     override func setUp() {
         super.setUp()
@@ -18,14 +19,17 @@ final class StructStubGeneratorTests: XCTestCase {
             extensionGenerator: extensionGeneratorSpy,
             functionGenerator: functionGeneratorSpy,
             indentationGenerator: IndentationGeneratorStub(),
-            defaultValueGenerator: defaultValueGeneratorSpy
+            defaultValueGenerator: defaultValueGeneratorSpy,
+            target: target
         )
     }
 
     func test_givenEmptyStruct_whenMakeCode_thenReturnCode() {
+        target = nil
+        setUp()
         let declaration = StructDeclaration.makeStub(variables: [])
 
-        let code = sut.generate(from: declaration, functionName: "functionName", module: nil)
+        let code = sut.generate(from: declaration, functionName: "functionName")
 
         XCTAssertEqual(code, "extension\n")
         XCTAssertEqual(extensionGeneratorSpy.make.count, 1)
@@ -44,14 +48,16 @@ final class StructStubGeneratorTests: XCTestCase {
     }
 
     func test_givenVariableStruct_whenMakeCode_thenReturnCode() {
+        target = "Target"
+        setUp()
         let declaration = StructDeclaration.makeStub(variables: [
             .makeStub(),
             .makeStub()
         ])
 
-        _ = sut.generate(from: declaration, functionName: "functionName", module: "Module")
+        _ = sut.generate(from: declaration, functionName: "functionName")
 
-        XCTAssertEqual(extensionGeneratorSpy.make.first?.name, "Module::StructName")
+        XCTAssertEqual(extensionGeneratorSpy.make.first?.name, "Target::StructName")
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.arguments.count, 2)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.arguments.first?.name, "identifier")
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.arguments.first?.label, nil)

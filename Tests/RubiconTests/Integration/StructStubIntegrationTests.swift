@@ -14,7 +14,7 @@ final class StructStubIntegrationTests: XCTestCase {
         """
         let sut = Rubicon()
 
-        let result = sut.makeStructStub(code: code, configuration: .makeStub(module: nil))
+        let result = sut.makeStructStub(code: code, configuration: .makeStub(target: nil))
 
         equal(string: result.first ?? "", rows: [
             "public extension Car {",
@@ -52,7 +52,7 @@ final class StructStubIntegrationTests: XCTestCase {
         """
         let sut = Rubicon()
 
-        let result = sut.makeStructStub(code: code, configuration: .makeStub(module: "Module"))
+        let result = sut.makeStructStub(code: code, configuration: .makeStub(target: "Module"))
 
         equal(string: result.first ?? "", rows: [
             "public extension Module::Car {",
@@ -81,14 +81,14 @@ final class StructStubIntegrationTests: XCTestCase {
 
 
 extension StructStubConfiguration {
-    static func makeStub(module: String?) -> StructStubConfiguration {
+    static func makeStub(target: String?) -> StructStubConfiguration {
         StructStubConfiguration(
             accessLevel: .public,
             indentStep: "-",
             functionName: "makeStub",
             defaultValue: ".makeStub()",
             customDefaultValues: ["Driver": "Carl"],
-            module: module
+            target: target
         )
     }
 }
