@@ -62,15 +62,18 @@ public struct EnumStubConfiguration {
     public let accessLevel: AccessLevel
     public let indentStep: String
     public let functionName: String
+    public let target: String?
 
     public init(
         accessLevel: AccessLevel,
         indentStep: String,
-        functionName: String
+        functionName: String,
+        target: String?
     ) {
         self.accessLevel = accessLevel
         self.indentStep = indentStep
         self.functionName = functionName
+        self.target = target
     }
 }
 
@@ -354,7 +357,8 @@ public final class Rubicon {
                 argumentGenerator: dependencies.argumentGenerator,
                 indentationGenerator: dependencies.indentationGenerator
             ),
-            indentationGenerator: dependencies.indentationGenerator
+            indentationGenerator: dependencies.indentationGenerator,
+            target: configuration.target
         )
     }
 }

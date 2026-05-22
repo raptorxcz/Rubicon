@@ -6,6 +6,7 @@ final class EnumStubGeneratorTests: XCTestCase {
     private var functionGeneratorSpy: FunctionGeneratorSpy!
     private var indentationGeneratorStub: IndentationGeneratorStub!
     private var sut: EnumStubGeneratorImpl!
+    private var target: String?
 
     override func setUp() {
         super.setUp()
@@ -15,17 +16,21 @@ final class EnumStubGeneratorTests: XCTestCase {
         sut = EnumStubGeneratorImpl(
             extensionGenerator: extensionGeneratorSpy,
             functionGenerator: functionGeneratorSpy,
-            indentationGenerator: IndentationGeneratorStub()
+            indentationGenerator: IndentationGeneratorStub(),
+            target: target
         )
     }
 
     func test_givenEmptyEnum_whenMakeCode_thenReturnCode() {
+        target = nil
+        setUp()
         let declaration = EnumDeclaration.makeStub(cases: [])
 
         let code = sut.generate(from: declaration, functionName: "functionName")
 
         XCTAssertEqual(code, "extension\n")
         XCTAssertEqual(extensionGeneratorSpy.make.count, 1)
+        XCTAssertEqual(extensionGeneratorSpy.make.first?.name, "EnumName")
         XCTAssertEqual(extensionGeneratorSpy.make.first?.content, ["function"])
         XCTAssertEqual(functionGeneratorSpy.makeCode.count, 1)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.name, "functionName")
@@ -38,6 +43,8 @@ final class EnumStubGeneratorTests: XCTestCase {
     }
 
     func test_givenVariableEnum_whenMakeCode_thenReturnCode() {
+        target = "Target"
+        setUp()
         let declaration = EnumDeclaration.makeStub(cases: [
             "a",
             "b"
@@ -45,6 +52,7 @@ final class EnumStubGeneratorTests: XCTestCase {
 
         _ = sut.generate(from: declaration, functionName: "functionName")
 
+        XCTAssertEqual(extensionGeneratorSpy.make.first?.name, "Target::EnumName")
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.content, ["return .a"])
     }
 }
