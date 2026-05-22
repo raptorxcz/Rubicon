@@ -38,7 +38,7 @@ final class EnumStubGeneratorTests: XCTestCase {
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.isAsync, false)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.isStatic, true)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.arguments.count, 0)
-        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.returnType, .makeStub(name: "EnumName"))
+        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.returnType, .makeStub(name: "Self"))
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.content, ["return "])
     }
 
