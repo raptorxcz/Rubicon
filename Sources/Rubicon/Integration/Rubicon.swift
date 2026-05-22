@@ -39,7 +39,7 @@ public struct StructStubConfiguration {
     public let functionName: String
     public let defaultValue: String
     public let customDefaultValues: [String: String]
-    public let module: String?
+    public let target: String?
 
     public init(
         accessLevel: AccessLevel,
@@ -47,14 +47,14 @@ public struct StructStubConfiguration {
         functionName: String,
         defaultValue: String,
         customDefaultValues: [String : String],
-        module: String?
+        target: String?
     ) {
         self.accessLevel = accessLevel
         self.indentStep = indentStep
         self.functionName = functionName
         self.defaultValue = defaultValue
         self.customDefaultValues = customDefaultValues
-        self.module = module
+        self.target = target
     }
 }
 
@@ -291,8 +291,7 @@ public final class Rubicon {
             return structDeclarations.map{
                 structStubGenerator.generate(
                     from: $0,
-                    functionName: configuration.functionName,
-                    module: configuration.module
+                    functionName: configuration.functionName
                 )
             }
         } catch {
@@ -333,7 +332,8 @@ public final class Rubicon {
             defaultValueGenerator: DefaultValueGeneratorImpl(
                 unknownDefaultType: configuration.defaultValue,
                 customDefaultTypes: configuration.customDefaultValues
-            )
+            ),
+            target: configuration.target
         )
     }
 

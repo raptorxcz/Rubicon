@@ -1,5 +1,5 @@
 public protocol StructStubGenerator {
-    func generate(from structType: StructDeclaration, functionName: String, module: String?) -> String
+    func generate(from structType: StructDeclaration, functionName: String) -> String
 }
 
 final class StructStubGeneratorImpl: StructStubGenerator {
@@ -7,23 +7,26 @@ final class StructStubGeneratorImpl: StructStubGenerator {
     private let functionGenerator: FunctionGenerator
     private let indentationGenerator: IndentationGenerator
     private let defaultValueGenerator: DefaultValueGenerator
+    private let target: String?
 
     init(
         extensionGenerator: ExtensionGenerator,
         functionGenerator: FunctionGenerator,
         indentationGenerator: IndentationGenerator,
-        defaultValueGenerator: DefaultValueGenerator
+        defaultValueGenerator: DefaultValueGenerator,
+        target: String?
     ) {
         self.extensionGenerator = extensionGenerator
         self.functionGenerator = functionGenerator
         self.indentationGenerator = indentationGenerator
         self.defaultValueGenerator = defaultValueGenerator
+        self.target = target
     }
 
-    func generate(from structType: StructDeclaration, functionName: String, module: String?) -> String {
+    func generate(from structType: StructDeclaration, functionName: String) -> String {
         let content = generateBody(from: structType, functionName: functionName)
         return extensionGenerator.make(
-            name: (module.map {  "\($0)::" } ?? "") + structType.name,
+            name: (target.map {  "\($0)::" } ?? "") + structType.name,
             content: content
         ).joined(separator: "\n") + "\n"
     }
