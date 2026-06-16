@@ -77,4 +77,20 @@ final class FunctionNameGeneratorTests: XCTestCase {
 
         XCTAssertEqual(name, "ContinueFromScreenId")
     }
+
+    func test_givenFunctionNameWithUnderScorePrefix_whenMakeStructUniqueName_thenReturnsName() {
+        let function = FunctionDeclaration.makeStub(name: "__convert", arguments: [.init(name: "fromScreenId", type: .makeStub())])
+
+        let name = sut.makeStructUniqueName(for: function, in: [function])
+
+        XCTAssertEqual(name, "__Convert")
+    }
+
+    func test_givenFunctionNameWithoutLetters_whenMakeStructUniqueName_thenReturnsSameName() {
+        let function = FunctionDeclaration.makeStub(name: "__123", arguments: [.init(name: "fromScreenId", type: .makeStub())])
+
+        let name = sut.makeStructUniqueName(for: function, in: [function])
+
+        XCTAssertEqual(name, "__123")
+    }
 }
