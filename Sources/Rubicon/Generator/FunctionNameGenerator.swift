@@ -30,9 +30,15 @@ final class FunctionNameGeneratorImpl: FunctionNameGenerator {
 
     private func makeFirstLetterCapitalized(in string: String) -> String {
         let functionNameWithoutEscapingCharacters = stringReplacingEscapingCharacters(in: string)
-        let first = String(functionNameWithoutEscapingCharacters.prefix(1)).capitalized
-        let other = String(functionNameWithoutEscapingCharacters.dropFirst())
-        return first + other
+
+        guard let index = functionNameWithoutEscapingCharacters.firstIndex(where: { $0.isLetter }) else {
+            return string
+        }
+
+        var result = functionNameWithoutEscapingCharacters
+        result.replaceSubrange(index...index, with: String(functionNameWithoutEscapingCharacters[index]).uppercased())
+        return result
+
     }
 
     private func stringReplacingEscapingCharacters(in string: String) -> String {
