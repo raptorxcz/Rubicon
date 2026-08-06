@@ -40,7 +40,7 @@ final class FunctionDeclarationParserTests: XCTestCase {
         XCTAssertEqual(declaration.name, "name")
         XCTAssertEqual(declaration.arguments.count, 0)
         XCTAssertEqual(declaration.isAsync, false)
-        XCTAssertEqual(declaration.isThrowing, false)
+        XCTAssertEqual(declaration.throwing, .none)
         XCTAssertNil(declaration.returnType)
     }
 
@@ -60,7 +60,17 @@ final class FunctionDeclarationParserTests: XCTestCase {
 
         let declaration = sut.parse(node: node)
 
-        XCTAssertEqual(declaration.isThrowing, true)
+        XCTAssertEqual(declaration.throwing, .generic)
+    }
+
+    func test_givenThrowingFunctionWithType_whenParse_thenReturnDeclaration() throws {
+        let node = try parse(string: "func name() throws(DownloadError)")
+
+        let declaration = sut.parse(node: node)
+
+        XCTAssertEqual(declaration.throwing, .specific(TypeDeclaration(name: "Int", prefix: [], composedType: .plain)))
+        XCTAssertEqual(typeDeclarationParserSpy.parse.count, 1)
+        XCTAssertEqual(typeDeclarationParserSpy.parse.first?.node.description, "DownloadError")
     }
 
     func test_givenAsyncFunction_whenParse_thenReturnDeclaration() throws {

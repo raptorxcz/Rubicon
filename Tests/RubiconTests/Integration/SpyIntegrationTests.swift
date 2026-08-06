@@ -12,7 +12,7 @@ final class SpyIntegrationTests: XCTestCase {
             func go()
             func load(with stuff: Int, label: String) throws -> Int
             func isFull(_ validate: @MainActor @escaping () -> Void) -> Bool
-            func download() async throws -> [String]
+            func download() async throws(DownloadError) -> [String]
             func `continue`(from screenId: String)
             func `continue`(from id: String)
         }
@@ -46,7 +46,7 @@ final class SpyIntegrationTests: XCTestCase {
             "-var loadThrowBlock: (() throws -> Void)?",
             "-var loadReturn: Int",
             "-var isFullReturn: Bool",
-            "-var downloadThrowBlock: (() throws -> Void)?",
+            "-var downloadThrowBlock: (() throws(DownloadError) -> Void)?",
             "-var downloadReturn: [String]",
             "-var goCount = 0",
             "-var load = [Load]()",
@@ -55,7 +55,7 @@ final class SpyIntegrationTests: XCTestCase {
             "-var continueFromScreenId = [ContinueFromScreenId]()",
             "-var continueFromId = [ContinueFromId]()",
             "",
-            "-init(name: String? = nil, color: Int, loadThrowBlock: (() throws -> Void)? = nil, loadReturn: Int, isFullReturn: Bool, downloadThrowBlock: (() throws -> Void)? = nil, downloadReturn: [String]) {",
+            "-init(name: String? = nil, color: Int, loadThrowBlock: (() throws -> Void)? = nil, loadReturn: Int, isFullReturn: Bool, downloadThrowBlock: (() throws(DownloadError) -> Void)? = nil, downloadReturn: [String]) {",
             "--self.name = name",
             "--self.color = color",
             "--self.loadThrowBlock = loadThrowBlock",
@@ -82,7 +82,7 @@ final class SpyIntegrationTests: XCTestCase {
             "--return isFullReturn",
             "-}",
             "",
-            "-func download() async throws -> [String] {",
+            "-func download() async throws(DownloadError) -> [String] {",
             "--downloadCount += 1",
             "--try downloadThrowBlock?()",
             "--return downloadReturn",

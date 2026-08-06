@@ -9,6 +9,7 @@ final class SpyGeneratorTests: XCTestCase {
     private var initGeneratorSpy: InitGeneratorSpy!
     private var structGeneratorSpy: StructGeneratorSpy!
     private var accessLevelGeneratorSpy: AccessLevelGeneratorSpy!
+    private var typeGeneratorSpy: TypeGeneratorSpy!
     private var sut: SpyGenerator!
     private let type = TypeDeclaration.makeStub(name: "Color")
 
@@ -21,6 +22,7 @@ final class SpyGeneratorTests: XCTestCase {
         initGeneratorSpy = InitGeneratorSpy(makeCodeReturn: ["init"])
         structGeneratorSpy = StructGeneratorSpy(makeCodeReturn: ["struct"])
         accessLevelGeneratorSpy = AccessLevelGeneratorSpy(makeClassAccessLevelReturn: "", makeContentAccessLevelReturn: "accessLevel ")
+        typeGeneratorSpy = TypeGeneratorSpy(makeVariableCodeReturn: "type", makeArgumentCodeReturn: "")
         sut = SpyGenerator(
             protocolGenerator: protocolGeneratorSpy,
             variableGenerator: variableGeneratorSpy,
@@ -28,7 +30,8 @@ final class SpyGeneratorTests: XCTestCase {
             functionNameGenerator: functionNameGeneratorSpy,
             initGenerator: initGeneratorSpy,
             structGenerator: structGeneratorSpy,
-            accessLevelGenerator: accessLevelGeneratorSpy
+            accessLevelGenerator: accessLevelGeneratorSpy,
+            typeGenerator: typeGeneratorSpy
         )
     }
 
@@ -154,7 +157,7 @@ final class SpyGeneratorTests: XCTestCase {
 
     func test_givenProtocolWithThrowingFunction_whenGenerate_thenGenerateSpy() {
         let returnType = TypeDeclaration.makeStub(composedType: .optional)
-        let functionDeclaration = FunctionDeclaration.makeStub(isThrowing: true, returnType: returnType)
+        let functionDeclaration = FunctionDeclaration.makeStub(throwing: .generic, returnType: returnType)
         let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [functionDeclaration])
 
         _ = sut.generate(from: protocolDeclaration, isInitWithOptionalsEnabled: false)
@@ -182,6 +185,40 @@ final class SpyGeneratorTests: XCTestCase {
             "",
             "function",
         ])
+    }
+
+    func test_givenProtocolWithThrowingSpecificErrorFunction_whenGenerate_thenGenerateSpy() {
+        let returnType = TypeDeclaration.makeStub(composedType: .optional)
+        let functionDeclaration = FunctionDeclaration.makeStub(throwing: .specific(.makeStub(name: "ErrorType")), returnType: returnType)
+        let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [functionDeclaration])
+
+        _ = sut.generate(from: protocolDeclaration, isInitWithOptionalsEnabled: false)
+
+        XCTAssertEqual(variableGeneratorSpy.makeCode.count, 2)
+        XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.identifier, "functionNameThrowBlock")
+        XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.type, .makeStub(name: "(() throws(type) -> Void)?", prefix: [.escaping], composedType: .optional))
+        XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.isConstant, false)
+        XCTAssertEqual(variableGeneratorSpy.makeCode.last?.declaration.identifier, "functionNameReturn")
+        XCTAssertEqual(variableGeneratorSpy.makeCode.last?.declaration.type, returnType)
+        XCTAssertEqual(variableGeneratorSpy.makeCode.last?.declaration.isConstant, false)
+        XCTAssertEqual(functionGeneratorSpy.makeCode.count, 1)
+        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration, functionDeclaration)
+        equal(functionGeneratorSpy.makeCode.first?.content, rows: [
+            "functionNameCount += 1",
+            "try functionNameThrowBlock?()",
+            "return functionNameReturn",
+        ])
+        equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
+            "variable",
+            "variable",
+            "accessLevel var functionNameCount = 0",
+            "",
+            "init",
+            "",
+            "function",
+        ])
+        XCTAssertEqual(typeGeneratorSpy.makeVariableCode.count, 2)
+        XCTAssertEqual(typeGeneratorSpy.makeVariableCode.first?.declaration.name, "ErrorType")
     }
 
     func test_givenProtocolWithFunctionWithArgument_whenGenerate_thenGenerateSpy() {

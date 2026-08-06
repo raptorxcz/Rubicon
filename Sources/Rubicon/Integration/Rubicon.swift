@@ -143,7 +143,8 @@ public final class Rubicon {
             variableGenerator: dependencies.variableGenerator,
             functionGenerator: dependencies.functionGenerator,
             functionNameGenerator: dependencies.functionNameGenerator,
-            initGenerator: dependencies.initGenerator
+            initGenerator: dependencies.initGenerator,
+            typeGenerator: dependencies.typeGenerator
         )
     }
 
@@ -175,7 +176,8 @@ public final class Rubicon {
             functionNameGenerator: dependencies.functionNameGenerator,
             initGenerator: dependencies.initGenerator,
             structGenerator: dependencies.structGenerator,
-            accessLevelGenerator: dependencies.accessLevelGenerator
+            accessLevelGenerator: dependencies.accessLevelGenerator,
+            typeGenerator: dependencies.typeGenerator
         )
     }
 
@@ -205,7 +207,8 @@ public final class Rubicon {
             functionGenerator: dependencies.functionGenerator,
             indentationGenerator: dependencies.indentationGenerator,
             functionNameGenerator: dependencies.functionNameGenerator,
-            accessLevelGenerator: dependencies.accessLevelGenerator
+            accessLevelGenerator: dependencies.accessLevelGenerator,
+            typeGenerator: dependencies.typeGenerator
         )
     }
 

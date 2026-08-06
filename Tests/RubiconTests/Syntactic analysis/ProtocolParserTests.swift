@@ -129,7 +129,7 @@ extension FunctionDeclaration {
     static func makeStub(
         name: String = "name",
         arguments: [ArgumentDeclaration] = [],
-        isThrowing: Bool = false,
+        throwing: ThrowsDeclaration = .none,
         isAsync: Bool = false,
         isStatic: Bool = false,
         returnType: TypeDeclaration? = nil
@@ -137,7 +137,7 @@ extension FunctionDeclaration {
         return FunctionDeclaration(
             name: name,
             arguments: arguments,
-            isThrowing: isThrowing,
+            throwing: throwing,
             isAsync: isAsync,
             isStatic: isStatic,
             returnType: returnType

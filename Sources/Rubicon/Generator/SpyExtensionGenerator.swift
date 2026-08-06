@@ -4,6 +4,7 @@ final class SpyExtensionGenerator {
     private let functionGenerator: FunctionGenerator
     private let functionNameGenerator: FunctionNameGenerator
     private let accessLevelGenerator: AccessLevelGenerator
+    private let typeGenerator: TypeGenerator
     private var isInitWithOptionalsEnabled: Bool = false
 
     init(
@@ -11,13 +12,15 @@ final class SpyExtensionGenerator {
         functionGenerator: FunctionGenerator,
         indentationGenerator: IndentationGenerator,
         functionNameGenerator: FunctionNameGenerator,
-        accessLevelGenerator: AccessLevelGenerator
+        accessLevelGenerator: AccessLevelGenerator,
+        typeGenerator: TypeGenerator
     ) {
         self.extensionGenerator = extensionGenerator
         self.indentationGenerator = indentationGenerator
         self.functionGenerator = functionGenerator
         self.functionNameGenerator = functionNameGenerator
         self.accessLevelGenerator = accessLevelGenerator
+        self.typeGenerator = typeGenerator
     }
 
     func generate(from protocolType: ProtocolDeclaration, isInitWithOptionalsEnabled: Bool) -> String {
@@ -46,7 +49,7 @@ final class SpyExtensionGenerator {
                 isAddingDefaultValueToOptionalsEnabled: isInitWithOptionalsEnabled
             ),
             // structType.variables.map(makeArgument),
-            isThrowing: false,
+            throwing: .none,
             isAsync: false,
             isStatic: true,
             returnType: TypeDeclaration(name: protocolType.name + "Spy", prefix: [], composedType: .plain)
@@ -86,13 +89,23 @@ final class SpyExtensionGenerator {
         let name = functionNameGenerator.makeUniqueName(for: declaration, in: protocolDeclaration.functions)
         var variables = [VarDeclaration]()
 
-        if declaration.isThrowing {
+        switch declaration.throwing {
+        case .generic:
             let throwBlockType = TypeDeclaration(
                 name: "(() throws -> Void)?",
                 prefix: [.escaping],
                 composedType: .optional
             )
             variables.append(VarDeclaration(isConstant: false, identifier: name + "ThrowBlock", type: throwBlockType))
+        case let .specific(specificType):
+            let throwBlockType = TypeDeclaration(
+                name: "(() throws(\(typeGenerator.makeVariableCode(from: specificType))) -> Void)?",
+                prefix: [.escaping],
+                composedType: .optional
+            )
+            variables.append(VarDeclaration(isConstant: false, identifier: name + "ThrowBlock", type: throwBlockType))
+        case .none:
+            break
         }
 
         if let returnType = declaration.returnType {

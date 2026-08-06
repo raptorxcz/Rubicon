@@ -7,6 +7,7 @@ final class StubGeneratorTests: XCTestCase {
     private var functionGeneratorSpy: FunctionGeneratorSpy!
     private var functionNameGeneratorSpy: FunctionNameGeneratorSpy!
     private var initGeneratorSpy: InitGeneratorSpy!
+    private var typeGeneratorSpy: TypeGeneratorSpy!
     private var sut: StubGenerator!
     private let type = TypeDeclaration.makeStub(name: "Color")
 
@@ -17,12 +18,14 @@ final class StubGeneratorTests: XCTestCase {
         functionGeneratorSpy = FunctionGeneratorSpy(makeCodeReturn: ["function"])
         functionNameGeneratorSpy = FunctionNameGeneratorSpy(makeUniqueNameReturn: "functionName", makeStructUniqueNameReturn: "")
         initGeneratorSpy = InitGeneratorSpy(makeCodeReturn: ["init"])
+        typeGeneratorSpy = TypeGeneratorSpy(makeVariableCodeReturn: "type", makeArgumentCodeReturn: "")
         sut = StubGenerator(
             protocolGenerator: protocolGeneratorSpy,
             variableGenerator: variableGeneratorSpy,
             functionGenerator: functionGeneratorSpy,
             functionNameGenerator: functionNameGeneratorSpy,
-            initGenerator: initGeneratorSpy
+            initGenerator: initGeneratorSpy,
+            typeGenerator: typeGeneratorSpy
         )
     }
 
@@ -139,7 +142,7 @@ final class StubGeneratorTests: XCTestCase {
 
     func test_givenProtocolWithThrowingFunction_whenGenerate_thenGenerateStub() {
         let returnType = TypeDeclaration.makeStub(composedType: .optional)
-        let functionDeclaration = FunctionDeclaration.makeStub(isThrowing: true, returnType: returnType)
+        let functionDeclaration = FunctionDeclaration.makeStub(throwing: .generic, returnType: returnType)
         let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [functionDeclaration])
 
         _ = sut.generate(from: protocolDeclaration, nameSuffix: "Stub", isInitWithOptionalsEnabled: false)
@@ -165,6 +168,38 @@ final class StubGeneratorTests: XCTestCase {
             "",
             "function",
         ])
+    }
+
+    func test_givenProtocolWithThrowingSpecificErrorFunction_whenGenerate_thenGenerateStub() {
+        let returnType = TypeDeclaration.makeStub(composedType: .optional)
+        let functionDeclaration = FunctionDeclaration.makeStub(throwing: .specific(.makeStub(name: "ErrorType")), returnType: returnType)
+        let protocolDeclaration = ProtocolDeclaration.makeStub(functions: [functionDeclaration])
+
+        _ = sut.generate(from: protocolDeclaration, nameSuffix: "Stub", isInitWithOptionalsEnabled: false)
+
+        XCTAssertEqual(variableGeneratorSpy.makeCode.count, 2)
+        XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.identifier, "functionNameThrowBlock")
+        XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.type, .makeStub(name: "(() throws(type) -> Void)?", prefix: [.escaping], composedType: .optional))
+        XCTAssertEqual(variableGeneratorSpy.makeCode.first?.declaration.isConstant, false)
+        XCTAssertEqual(variableGeneratorSpy.makeCode.last?.declaration.identifier, "functionNameReturn")
+        XCTAssertEqual(variableGeneratorSpy.makeCode.last?.declaration.type, returnType)
+        XCTAssertEqual(variableGeneratorSpy.makeCode.last?.declaration.isConstant, false)
+        XCTAssertEqual(functionGeneratorSpy.makeCode.count, 1)
+        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration, functionDeclaration)
+        equal(functionGeneratorSpy.makeCode.first?.content, rows: [
+            "try functionNameThrowBlock?()",
+            "return functionNameReturn",
+        ])
+        equal(protocolGeneratorSpy.makeProtocol.first?.content, rows: [
+            "variable",
+            "variable",
+            "",
+            "init",
+            "",
+            "function",
+        ])
+        XCTAssertEqual(typeGeneratorSpy.makeVariableCode.count, 2)
+        XCTAssertEqual(typeGeneratorSpy.makeVariableCode.first?.declaration.name, "ErrorType")
     }
 
     func test_givenProtocolWithOptionalVariablesAndIsInitWithOptionalsEnabled_whenGenerate_thenGenerateSpyWithMultipleInits() {

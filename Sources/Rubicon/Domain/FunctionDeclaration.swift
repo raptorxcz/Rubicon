@@ -9,7 +9,7 @@
 struct FunctionDeclaration: Equatable {
     let name: String
     let arguments: [ArgumentDeclaration]
-    let isThrowing: Bool
+    let throwing: ThrowsDeclaration
     let isAsync: Bool
     let isStatic: Bool
     let returnType: TypeDeclaration?
@@ -17,14 +17,14 @@ struct FunctionDeclaration: Equatable {
     init(
         name: String,
         arguments: [ArgumentDeclaration],
-        isThrowing: Bool,
+        throwing: ThrowsDeclaration,
         isAsync: Bool,
         isStatic: Bool = false,
         returnType: TypeDeclaration?
     ) {
         self.name = name
         self.arguments = arguments
-        self.isThrowing = isThrowing
+        self.throwing = throwing
         self.isAsync = isAsync
         self.isStatic = isStatic
         self.returnType = returnType
