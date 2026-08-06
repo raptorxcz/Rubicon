@@ -37,7 +37,7 @@ final class FunctionGeneratorTests: XCTestCase {
     }
 
     func test_givenThrow_whenGenerate_thenGenerateCode() {
-        let declaration = FunctionDeclaration.makeStub(isThrowing: true)
+        let declaration = FunctionDeclaration.makeStub(throwing: .generic)
 
         let code = sut.makeCode(from: declaration, content: ["content"], isEachArgumentOnNewLineEnabled: false)
 
@@ -61,19 +61,21 @@ final class FunctionGeneratorTests: XCTestCase {
     }
 
     func test_givenThrowAndAsync_whenGenerate_thenGenerateCode() {
-        let declaration = FunctionDeclaration.makeStub(isThrowing: true, isAsync: true)
+        let declaration = FunctionDeclaration.makeStub(throwing: .specific(.makeStub(name: "ErrorType")), isAsync: true)
 
         let code = sut.makeCode(from: declaration, content: ["content"], isEachArgumentOnNewLineEnabled: false)
 
         equal(code, rows: [
-            "accessLevel func name() async throws {",
+            "accessLevel func name() async throws(Type) {",
             "-content",
             "}",
         ])
+        XCTAssertEqual(typeGeneratorSpy.makeVariableCode.count, 1)
+        XCTAssertEqual(typeGeneratorSpy.makeVariableCode.first?.declaration.name, "ErrorType")
     }
 
     func test_givenThrowAndAsyncAndResult_whenGenerate_thenGenerateCode() {
-        let declaration = FunctionDeclaration.makeStub(isThrowing: true, isAsync: true, returnType: .makeStub())
+        let declaration = FunctionDeclaration.makeStub(throwing: .generic, isAsync: true, returnType: .makeStub())
 
         let code = sut.makeCode(from: declaration, content: ["content"], isEachArgumentOnNewLineEnabled: false)
 

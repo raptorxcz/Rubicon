@@ -29,9 +29,21 @@ final class FunctionDeclarationParserImpl: FunctionDeclarationParser {
         return FunctionDeclaration(
             name: node.name.text,
             arguments: node.signature.parameterClause.parameters.map(argumentDeclarationParser.parse(node:)),
-            isThrowing: node.signature.effectSpecifiers?.throwsSpecifier != nil,
+            throwing: parseThrowing(node: node),
             isAsync: node.signature.effectSpecifiers?.asyncSpecifier != nil,
             returnType: (node.signature.returnClause?.type).map(typeDeclarationParser.parse(node:))
         )
+    }
+
+    private func parseThrowing(node: FunctionDeclSyntax) -> ThrowsDeclaration {
+        guard let clause = node.signature.effectSpecifiers?.throwsClause else {
+            return .none
+        }
+
+        if let typeNode = clause.type {
+            return .specific(typeDeclarationParser.parse(node: typeNode))
+        } else {
+            return .generic
+        }
     }
 }

@@ -11,7 +11,7 @@ final class DummyIntegrationTests: XCTestCase {
             func go()
             func load(with stuff: Int, label: String) throws -> Int
             func isFull(validate: @Sendable @escaping () -> Void) -> Bool
-            func download() async throws -> [String]
+            func download() async throws(DownloadError) -> [String]
             func `continue`(from screenId: String)
         }
         """
@@ -50,7 +50,7 @@ final class DummyIntegrationTests: XCTestCase {
             "--fatalError()",
             "-}",
             "",
-            "-public func download() async throws -> [String] {",
+            "-public func download() async throws(DownloadError) -> [String] {",
             "--fatalError()",
             "-}",
             "",

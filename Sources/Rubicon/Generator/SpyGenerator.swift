@@ -6,6 +6,7 @@ final class SpyGenerator {
     private let initGenerator: InitGenerator
     private let structGenerator: StructGenerator
     private let accessLevelGenerator: AccessLevelGenerator
+    private let typeGenerator: TypeGenerator
     private var isInitWithOptionalsEnabled: Bool = false
 
     init(
@@ -15,7 +16,8 @@ final class SpyGenerator {
         functionNameGenerator: FunctionNameGenerator,
         initGenerator: InitGenerator,
         structGenerator: StructGenerator,
-        accessLevelGenerator: AccessLevelGenerator
+        accessLevelGenerator: AccessLevelGenerator,
+        typeGenerator: TypeGenerator
     ) {
         self.protocolGenerator = protocolGenerator
         self.variableGenerator = variableGenerator
@@ -24,6 +26,7 @@ final class SpyGenerator {
         self.initGenerator = initGenerator
         self.structGenerator = structGenerator
         self.accessLevelGenerator = accessLevelGenerator
+        self.typeGenerator = typeGenerator
     }
 
     func generate(from protocolType: ProtocolDeclaration, isInitWithOptionalsEnabled: Bool) -> String {
@@ -80,13 +83,23 @@ final class SpyGenerator {
         let name = functionNameGenerator.makeUniqueName(for: declaration, in: protocolDeclaration.functions)
         var variables = [VarDeclaration]()
 
-        if declaration.isThrowing {
+        switch declaration.throwing {
+        case .generic:
             let throwBlockType = TypeDeclaration(
                 name: "(() throws -> Void)?",
                 prefix: [.escaping],
                 composedType: .optional
             )
             variables.append(VarDeclaration(isConstant: false, identifier: name + "ThrowBlock", type: throwBlockType))
+        case let .specific(specificType):
+            let throwBlockType = TypeDeclaration(
+                name: "(() throws(\(typeGenerator.makeVariableCode(from: specificType))) -> Void)?",
+                prefix: [.escaping],
+                composedType: .optional
+            )
+            variables.append(VarDeclaration(isConstant: false, identifier: name + "ThrowBlock", type: throwBlockType))
+        case .none:
+            break
         }
 
         if let returnType = declaration.returnType {
@@ -143,7 +156,10 @@ final class SpyGenerator {
             ]
         }
 
-        if declaration.isThrowing {
+        switch declaration.throwing {
+        case .none:
+            break
+        case .generic, .specific:
             content.append("try \(name)ThrowBlock?()")
         }
 

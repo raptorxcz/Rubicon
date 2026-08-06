@@ -6,6 +6,7 @@ final class SpyExtensionGeneratorTests: XCTestCase {
     private var functionGeneratorSpy: FunctionGeneratorSpy!
     private var functionNameGeneratorSpy: FunctionNameGeneratorSpy!
     private var accessLevelGeneratorSpy: AccessLevelGeneratorSpy!
+    private var typeGeneratorSpy: TypeGeneratorSpy!
     private var sut: SpyExtensionGenerator!
     private let type = TypeDeclaration.makeStub(name: "Color")
 
@@ -15,12 +16,14 @@ final class SpyExtensionGeneratorTests: XCTestCase {
         functionGeneratorSpy = FunctionGeneratorSpy(makeCodeReturn: ["function"])
         functionNameGeneratorSpy = FunctionNameGeneratorSpy(makeUniqueNameReturn: "functionName", makeStructUniqueNameReturn: "StructName")
         accessLevelGeneratorSpy = AccessLevelGeneratorSpy(makeClassAccessLevelReturn: "", makeContentAccessLevelReturn: "accessLevel ")
+        typeGeneratorSpy = TypeGeneratorSpy(makeVariableCodeReturn: "type", makeArgumentCodeReturn: "")
         sut = SpyExtensionGenerator(
             extensionGenerator: extensionGeneratorSpy,
             functionGenerator: functionGeneratorSpy,
             indentationGenerator: IndentationGeneratorStub(),
             functionNameGenerator: functionNameGeneratorSpy,
-            accessLevelGenerator: accessLevelGeneratorSpy
+            accessLevelGenerator: accessLevelGeneratorSpy,
+            typeGenerator: typeGeneratorSpy
         )
     }
 
@@ -33,7 +36,7 @@ final class SpyExtensionGeneratorTests: XCTestCase {
         XCTAssertEqual(extensionGeneratorSpy.make.first?.content, ["function"])
         XCTAssertEqual(functionGeneratorSpy.makeCode.count, 1)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.name, "makeSpy")
-        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.isThrowing, false)
+        XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.throwing, ThrowsDeclaration.none)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.isAsync, false)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.isStatic, true)
         XCTAssertEqual(functionGeneratorSpy.makeCode.first?.declaration.arguments.count, 0)

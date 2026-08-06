@@ -4,6 +4,7 @@ final class StubGenerator {
     private let functionGenerator: FunctionGenerator
     private let functionNameGenerator: FunctionNameGenerator
     private let initGenerator: InitGenerator
+    private let typeGenerator: TypeGenerator
     private var isInitWithOptionalsEnabled: Bool = false
 
     init(
@@ -11,13 +12,15 @@ final class StubGenerator {
         variableGenerator: VariableGenerator,
         functionGenerator: FunctionGenerator,
         functionNameGenerator: FunctionNameGenerator,
-        initGenerator: InitGenerator
+        initGenerator: InitGenerator,
+        typeGenerator: TypeGenerator
     ) {
         self.protocolGenerator = protocolGenerator
         self.variableGenerator = variableGenerator
         self.functionGenerator = functionGenerator
         self.functionNameGenerator = functionNameGenerator
         self.initGenerator = initGenerator
+        self.typeGenerator = typeGenerator
     }
 
     func generate(from protocolType: ProtocolDeclaration, nameSuffix: String, isInitWithOptionalsEnabled: Bool) -> String {
@@ -65,13 +68,23 @@ final class StubGenerator {
         let name = functionNameGenerator.makeUniqueName(for: declaration, in: protocolDeclaration.functions)
         var variables = [VarDeclaration]()
 
-        if declaration.isThrowing {
+        switch declaration.throwing {
+        case .generic:
             let throwBlockType = TypeDeclaration(
                 name: "(() throws -> Void)?",
                 prefix: [.escaping],
                 composedType: .optional
             )
             variables.append(VarDeclaration(isConstant: false, identifier: name + "ThrowBlock", type: throwBlockType))
+        case let .specific(specificType):
+            let throwBlockType = TypeDeclaration(
+                name: "(() throws(\(typeGenerator.makeVariableCode(from: specificType))) -> Void)?",
+                prefix: [.escaping],
+                composedType: .optional
+            )
+            variables.append(VarDeclaration(isConstant: false, identifier: name + "ThrowBlock", type: throwBlockType))
+        case .none:
+            break
         }
 
         if let returnType = declaration.returnType {
@@ -85,7 +98,10 @@ final class StubGenerator {
         var content = [String]()
         let name = functionNameGenerator.makeUniqueName(for: declaration, in: protocolDeclaration.functions)
 
-        if declaration.isThrowing {
+        switch declaration.throwing {
+        case .none:
+            break
+        case .generic, .specific:
             content.append("try \(name)ThrowBlock?()")
         }
 

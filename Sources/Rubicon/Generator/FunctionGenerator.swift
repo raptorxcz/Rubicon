@@ -65,8 +65,13 @@ final class FunctionGeneratorImpl: FunctionGenerator {
             result += "async "
         }
 
-        if declaration.isThrowing {
+        switch declaration.throwing {
+        case .generic:
             result += "throws "
+        case let .specific(specificType):
+            result += "throws(\(typeGenerator.makeVariableCode(from: specificType))) "
+        case .none:
+            break
         }
 
         if let returnType = declaration.returnType {

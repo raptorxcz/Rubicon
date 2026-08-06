@@ -11,7 +11,7 @@ final class StubIntegrationTests: XCTestCase {
             func go()
             func load(with stuff: Int, label: String) throws -> Int
             func isFull(validate: @escaping () -> Void) -> Bool
-            func download() async throws -> [String]
+            func download() async throws(DownloadError) -> [String]
             func `continue`(from screenId: String)
         }
         """
@@ -26,10 +26,10 @@ final class StubIntegrationTests: XCTestCase {
             "-var loadThrowBlock: (() throws -> Void)?",
             "-var loadReturn: Int",
             "-var isFullReturn: Bool",
-            "-var downloadThrowBlock: (() throws -> Void)?",
+            "-var downloadThrowBlock: (() throws(DownloadError) -> Void)?",
             "-var downloadReturn: [String]",
             "",
-            "-init(name: String? = nil, color: Int, loadThrowBlock: (() throws -> Void)? = nil, loadReturn: Int, isFullReturn: Bool, downloadThrowBlock: (() throws -> Void)? = nil, downloadReturn: [String]) {",
+            "-init(name: String? = nil, color: Int, loadThrowBlock: (() throws -> Void)? = nil, loadReturn: Int, isFullReturn: Bool, downloadThrowBlock: (() throws(DownloadError) -> Void)? = nil, downloadReturn: [String]) {",
             "--self.name = name",
             "--self.color = color",
             "--self.loadThrowBlock = loadThrowBlock",
@@ -51,7 +51,7 @@ final class StubIntegrationTests: XCTestCase {
             "--return isFullReturn",
             "-}",
             "",
-            "-func download() async throws -> [String] {",
+            "-func download() async throws(DownloadError) -> [String] {",
             "--try downloadThrowBlock?()",
             "--return downloadReturn",
             "-}",

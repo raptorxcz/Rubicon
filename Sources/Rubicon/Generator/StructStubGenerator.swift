@@ -36,7 +36,7 @@ final class StructStubGeneratorImpl: StructStubGenerator {
         let functionDeclaration = FunctionDeclaration(
             name: functionName,
             arguments: structType.variables.map(makeArgument),
-            isThrowing: false,
+            throwing: .none,
             isAsync: false,
             isStatic: true,
             returnType: TypeDeclaration(name: "Self", prefix: [], composedType: .plain)

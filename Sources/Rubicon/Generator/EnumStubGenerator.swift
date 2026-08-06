@@ -33,7 +33,7 @@ final class EnumStubGeneratorImpl: EnumStubGenerator {
         let functionDeclaration = FunctionDeclaration(
             name: functionName,
             arguments: [],
-            isThrowing: false,
+            throwing: .none,
             isAsync: false,
             isStatic: true,
             returnType: TypeDeclaration(name: "Self", prefix: [], composedType: .plain)
